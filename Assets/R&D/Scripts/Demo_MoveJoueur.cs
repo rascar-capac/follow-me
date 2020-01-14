@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveJoueur : MonoBehaviour
+public class Demo_MoveJoueur : MonoBehaviour
 {
     // Joueur
     public float vitesse;
@@ -15,6 +15,8 @@ public class MoveJoueur : MonoBehaviour
     private void Start()
     {
         camJoueur = Camera.main;
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
     }
     private void Update()
     {

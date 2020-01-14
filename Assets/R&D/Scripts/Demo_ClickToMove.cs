@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 // Use physics raycast hit from mouse click to set agent destination
 [RequireComponent(typeof(NavMeshAgent))]
-public class ClickToMove : MonoBehaviour
+public class Demo_ClickToMove : MonoBehaviour
 {
     public NavMeshAgent m_Agent;
 	public Camera _mainCamera;
