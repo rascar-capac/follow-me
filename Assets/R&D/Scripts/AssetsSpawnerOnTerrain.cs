@@ -9,6 +9,7 @@ public class AssetsSpawnerOnTerrain : MonoBehaviour
 	public Color _boxColor = Color.green;
 	[Header("Assets Options")]
 	public List<GameObject> _prefabsList;
+	public int _spawnCount;
 	[Header("Terrain Options")]
 	public Terrain _terrain;
 	TerrainData _terrainData;
@@ -21,9 +22,16 @@ public class AssetsSpawnerOnTerrain : MonoBehaviour
 		_terrainHeights = _terrainData.GetHeights(0, 0, (int)_terrainData.size.x, (int)_terrainData.size.y);
 	}
 
+	
 	void SpawnPrefabsOnTerrain()
 	{
-		Instantiate(_prefabsList[Random.Range(0, _prefabsList.Count)]);
+		Instantiate(_prefabsList[Random.Range(0, _prefabsList.Count)], RandomPosition(), Quaternion.identity, transform);
+	}
+
+	Vector3 RandomPosition()
+	{
+
+		return new Vector3(_boxSize.x, 0 , _boxSize.z);
 	}
 	private void OnDrawGizmos()
 	{

@@ -14,6 +14,7 @@ public class TribeGoToPosition : BaseMonoBehaviour
 
 	private void Start()
 	{
+		_tribeAgent = GameObject.Find("Tribe").GetComponent<NavMeshAgent>();
 		_tribeAgent.destination = _tribeFollowTarget.transform.position;
 	}
 

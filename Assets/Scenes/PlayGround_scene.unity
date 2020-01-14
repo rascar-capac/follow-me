@@ -128,17 +128,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 563213061, guid: 9d2e5955ff205414fa1b839e1a3c84fc, type: 3}
-      propertyPath: _tribeAgent
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 563213061, guid: 9d2e5955ff205414fa1b839e1a3c84fc, type: 3}
       propertyPath: _tribeFollowTarget
       value: 
       objectReference: {fileID: 1724884832}
-    - target: {fileID: 1464140691, guid: 9d2e5955ff205414fa1b839e1a3c84fc, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2596798676241447250, guid: 9d2e5955ff205414fa1b839e1a3c84fc,
         type: 3}
       propertyPath: m_Name
@@ -201,11 +193,41 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d2e5955ff205414fa1b839e1a3c84fc, type: 3}
+--- !u!1 &1659104013 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4608159046990564783, guid: 5f284dbcf8d2e074b920eb0b9adcd34e,
+    type: 3}
+  m_PrefabInstance: {fileID: 4962431336242930049}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1659104014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1659104013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4fb2ec0c743a7c4eb16b6b6397ce1a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _boxSize: {x: 10, y: 10, z: 10}
+  _boxColor: {r: 0, g: 1, b: 0, a: 1}
+  _prefabsList:
+  - {fileID: 6833170852971058350, guid: 2ce5e7868c19abc4799f1f66bb8d428f, type: 3}
+  _spawnCount: 0
+  _terrain: {fileID: 1740973513}
 --- !u!1 &1724884832 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9170117837075810188, guid: 7ccd67ea4a9bf9144a37a9304ac1caf1,
     type: 3}
   m_PrefabInstance: {fileID: 9170117835503902956}
+  m_PrefabAsset: {fileID: 0}
+--- !u!218 &1740973513 stripped
+Terrain:
+  m_CorrespondingSourceObject: {fileID: 4991385581879972765, guid: 4f88e38f1dde8854fb73d3cb7250b3b8,
+    type: 3}
+  m_PrefabInstance: {fileID: 4991385582734737219}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4962431336242930049
 PrefabInstance:
@@ -225,6 +247,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000,
         type: 0}
+    - target: {fileID: 4608159046990564783, guid: 5f284dbcf8d2e074b920eb0b9adcd34e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7704712715249398884, guid: 5f284dbcf8d2e074b920eb0b9adcd34e,
         type: 3}
       propertyPath: m_LocalPosition.x
