@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : BaseMonoBehaviour
 {
     public CharacterController _controller;
     public float _speed = 12f;
@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
     public float _jumpHeight = 3f;
     Vector3 _velocity;
 
-    public Transform weapon;
     public Transform _groundCheck;
     public float _groundDistance = 0.4f;
     public LayerMask _groundMask;
@@ -51,6 +50,6 @@ public class PlayerMovement : MonoBehaviour
 
         _controller.Move(_velocity * Time.deltaTime);
 
-        Debug.DrawLine(weapon.position, Camera.main.ScreenToWorldPoint(new Vector3(0f, 0f, 0f)), Color.black);
+        //Debug.DrawLine(weapon.position, Camera.main.ScreenToWorldPoint(new Vector3(0f, 0f, 0f)), Color.black);
     }
 }
