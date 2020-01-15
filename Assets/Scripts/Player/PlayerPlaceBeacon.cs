@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class TribeGoToPosition : BaseMonoBehaviour
+public class PlayerPlaceBeacon : BaseMonoBehaviour
 {
 	public NavMeshAgent _tribeAgent;
 	public Camera _mainCamera;
@@ -15,8 +15,6 @@ public class TribeGoToPosition : BaseMonoBehaviour
 	private void Start()
 	{
         _tribeAgent = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<NavMeshAgent>();
-        //GameObject.Find("Tribe").GetComponent<NavMeshAgent>();
-
         _tribeAgent.destination = _tribeFollowTarget.transform.position;
 	}
 
@@ -28,8 +26,6 @@ public class TribeGoToPosition : BaseMonoBehaviour
 			{
 				_tribeFollowTarget.transform.position = _hitInfo.point;
 				_tribeAgent.destination = _tribeFollowTarget.transform.position;
-
-				Debug.Log(_hitInfo.transform.gameObject.layer);
 			}
 		}
 	}
