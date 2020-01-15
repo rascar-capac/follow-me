@@ -7,7 +7,7 @@ public class PlayerLook : MonoBehaviour
     public float mouseSensitivity = 100f;
     [HideInInspector]
     public Transform playerBody;
-    Transform PromisedLand;
+    Transform Optimum;
     Renderer NeedleRenderer;
     public Material GoodDirection;
     public Material BadDirection;
@@ -19,7 +19,7 @@ public class PlayerLook : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         playerBody = ((GameObject)ObjectsManager.I["Player"]).transform;
-        PromisedLand = ((GameObject)ObjectsManager.I["PromisedLand"]).transform;
+        Optimum = ((GameObject)ObjectsManager.I["Optimum"]).transform;
         NeedleRenderer = GameObject.Find("Needle").GetComponent<MeshRenderer>();
         NeedleRenderer.material = GoodDirection;
         transform.SetParent(playerBody);
@@ -46,7 +46,7 @@ public class PlayerLook : MonoBehaviour
 
     void VerifyCompass()
     {
-        Vector3 ray = new Vector3(PromisedLand.position.x, transform.position.y, PromisedLand.position.z) - transform.position;
+        Vector3 ray = new Vector3(Optimum.position.x, transform.position.y, Optimum.position.z) - transform.position;
         Vector3 rayProjected = Vector3.ProjectOnPlane(ray, Vector3.up);
         Vector3 forwardProjected = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
 
