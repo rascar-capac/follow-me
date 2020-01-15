@@ -28,6 +28,12 @@ public class PlayerLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        RotateCamera();
+        VerifyCompass();
+    }
+
+    void RotateCamera()
+    {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
@@ -36,9 +42,15 @@ public class PlayerLook : MonoBehaviour
 
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         playerBody.Rotate(Vector3.up * mouseX);
+    }
 
-        Vector3 ray = PromisedLand.position - transform.position;
-        float angle = Vector3.SignedAngle(ray, transform.forward, Vector3.up);
+    void VerifyCompass()
+    {
+        Vector3 ray = new Vector3(PromisedLand.position.x, transform.position.y, PromisedLand.position.z) - transform.position;
+        Vector3 rayProjected = Vector3.ProjectOnPlane(ray, Vector3.up);
+        Vector3 forwardProjected = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
+
+        float angle = Vector3.Angle(rayProjected, forwardProjected);
         if (angle > CompassThresshold || angle < -CompassThresshold)
             NeedleRenderer.material = BadDirection;
         else
