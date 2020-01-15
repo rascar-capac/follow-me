@@ -5,13 +5,11 @@ using UnityEngine.AI;
 
 public class PlayerPlaceBeacon : BaseMonoBehaviour
 {
-	public NavMeshAgent _tribeAgent;
-	public Camera _mainCamera;
-	public KeyCode _inputAction;
-	public GameObject _tribeFollowTargetPrefab;
+	NavMeshAgent _tribeAgent;
+    Camera _mainCamera;
+    public GameObject _tribeFollowTargetPrefab;
 
     GameObject _tribeFollowTarget;
-
     RaycastHit _hitInfo = new RaycastHit();
 
 	private void Start()
@@ -27,7 +25,6 @@ public class PlayerPlaceBeacon : BaseMonoBehaviour
     protected void Update()
     {
         Debug.DrawRay(_mainCamera.transform.position + _mainCamera.transform.forward, Vector3.down * 100.0f, Color.black);
-
     }
 
     void PlaceBeacon()
