@@ -17,11 +17,11 @@ public class ScenesManager : Singleton<ScenesManager>
     // Start is called before the first frame update
     void Start()
     {
+        LoadScene("PlayGround_scene");
         LoadScene("Tribe_scene");
         LoadScene("Player_scene");
         LoadScene("Camera_scene");
         LoadScene("Lights_scene");
-        LoadScene("PlayGround_scene");
         LoadScene("Target_scene");
 
     }
