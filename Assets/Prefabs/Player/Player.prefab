@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9114344467595506058}
   - component: {fileID: 4600635904779581839}
   - component: {fileID: 8533459889659383848}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 3888259315700407448}
   - component: {fileID: 1836268511793626608}
   - component: {fileID: 1459762723063845718}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4854245285453710744}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
