@@ -19,6 +19,8 @@ public class ScenesManager : Singleton<ScenesManager>
     {
         LoadScene("Tribe_scene");
         LoadScene("Player_scene");
+        LoadScene("Camera_scene");
+        LoadScene("Lights_scene");
         LoadScene("PlayGround_scene");
 
         //    SceneManager.LoadScene("Player_scene", LoadSceneMode.Additive);
