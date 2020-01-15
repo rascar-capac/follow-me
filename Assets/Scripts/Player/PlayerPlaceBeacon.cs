@@ -8,25 +8,28 @@ public class PlayerPlaceBeacon : BaseMonoBehaviour
 	public NavMeshAgent _tribeAgent;
 	public Camera _mainCamera;
 	public KeyCode _inputAction;
-	public GameObject _tribeFollowTarget;
+	public GameObject _tribeFollowTargetPrefab;
 
-	RaycastHit _hitInfo = new RaycastHit();
+    GameObject _tribeFollowTarget;
+
+    RaycastHit _hitInfo = new RaycastHit();
 
 	private void Start()
 	{
         _tribeAgent = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<NavMeshAgent>();
-        _tribeAgent.destination = _tribeFollowTarget.transform.position;
+        _mainCamera = CameraManager.I._MainCamera;
+        _tribeFollowTarget = Instantiate(_tribeFollowTargetPrefab);
+        _tribeFollowTarget.transform.position = _tribeAgent.transform.position;
+        //_tribeAgent.destination = _tribeFollowTarget.transform.position;
+        InputManager.I.onGKeyPressed.AddListener(PlaceBeacon);
 	}
 
-	void Update()
-	{
-		if (Input.GetKeyDown(_inputAction))
-		{
-			if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out _hitInfo, 100.0f))
-			{
-				_tribeFollowTarget.transform.position = _hitInfo.point;
-				_tribeAgent.destination = _tribeFollowTarget.transform.position;
-			}
-		}
-	}
+    void PlaceBeacon()
+    {
+        if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out _hitInfo, 100.0f))
+        {
+            _tribeFollowTarget.transform.position = _hitInfo.point;
+            _tribeAgent.destination = _tribeFollowTarget.transform.position;
+        }
+    }
 }

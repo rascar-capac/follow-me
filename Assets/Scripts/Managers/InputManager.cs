@@ -5,7 +5,8 @@ using UnityEngine.Events;
 
 public class InputManager : Singleton<InputManager>
 {
-    public InputAxisUnityEvent InputAxisEvent = new InputAxisUnityEvent();
+    public InputAxisUnityEvent onInputAxisEvent = new InputAxisUnityEvent();
+    public UnityEvent onGKeyPressed = new UnityEvent();
 
     // Start is called before the first frame update
     void Start()
@@ -20,12 +21,17 @@ public class InputManager : Singleton<InputManager>
         float verticalAxis = Input.GetAxis("Vertical");
 
         if (Input.GetAxis("Horizontal") != 0) {
-            InputAxisEvent?.Invoke(new InputAxisUnityEventArg() { Direction = "Horizontal", Value = horizontalAxis });
+            onInputAxisEvent?.Invoke(new InputAxisUnityEventArg() { Direction = "Horizontal", Value = horizontalAxis });
         }
 
         if (Input.GetAxis("Vertical") != 0)
         {
-            InputAxisEvent?.Invoke(new InputAxisUnityEventArg() { Direction = "Vertical", Value = verticalAxis });
+            onInputAxisEvent?.Invoke(new InputAxisUnityEventArg() { Direction = "Vertical", Value = verticalAxis });
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            onGKeyPressed?.Invoke();
         }
     }
 }
