@@ -11,7 +11,7 @@ public class SpawnerAssetsOnTerrain : MonoBehaviour
 	[Header("Assets Options")]
 	public List<GameObject> _prefabsList;
 	public int _spawnCount;
-	public List<GameObject> _spawnList;
+	List<GameObject> _spawnList;
 	[Header("Terrain Options")]
 	public Terrain _terrain;
 	public float _groundOffsetY = 0;
