@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MouseLook : MonoBehaviour
+public class PlayerLook : MonoBehaviour
 {
     public float mouseSensitivity = 100f;
+    [HideInInspector]
     public Transform playerBody;
 
     float xRotation = 0f;
@@ -12,6 +13,8 @@ public class MouseLook : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        playerBody = ((GameObject)ObjectsManager.I["Player"]).transform;
+        transform.SetParent(playerBody);
     }
 
     // Update is called once per frame
