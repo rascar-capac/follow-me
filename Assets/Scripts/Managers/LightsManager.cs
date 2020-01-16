@@ -8,11 +8,19 @@ public class LightsManager : Singleton<LightsManager>
     DayStatesProperties CurrentDayState;
     DayStatesProperties NextDayState;
 
+	GameObject _sunGO;
+	public float _speedSunRotation = 1;
+
+
     protected override void Awake()
     {
+		_sunGO = GameObject.Find("Sun");
+
         base.Awake();
-        GlobalLight = FindObjectOfType<Light>();
+		//GlobalLight = FindObjectOfType<Light>();
+		GlobalLight = _sunGO.GetComponent<Light>();
         GameManager.I.onDayStateChanged.AddListener(DayChanged);
+
     }
     // Start is called before the first frame update
     //protected override void Start()
@@ -28,12 +36,23 @@ public class LightsManager : Singleton<LightsManager>
 
     protected void Update()
     {
-        InterpolateLightColor();
-    }
+		//InterpolateLightColor();
+		SunRotation();
+	}
 
     void InterpolateLightColor()
     {
         float t = (Time.time - CurrentDayState.TimeStateChanged) / CurrentDayState.DayStateDurationInSecond;
         GlobalLight.color = Color.Lerp(CurrentDayState.StateColor, NextDayState.StateColor, t);
     }
+
+	void SunRotation()
+	{
+		_sunGO.transform.Rotate(new Vector3(_speedSunRotation * Time.deltaTime, 0, 0));
+
+		if (_sunGO.transform.eulerAngles.x < 180)
+			Debug.Log("Jour");
+		if (_sunGO.transform.eulerAngles.x > 180)
+			Debug.Log("Nuit");
+	}
 }

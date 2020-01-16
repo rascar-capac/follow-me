@@ -17,6 +17,12 @@ public class SpawnerAssetsOnTerrain : MonoBehaviour
 	public float _groundOffsetY = 0;
 	TerrainData _terrainData;
 
+
+	private void Awake()
+	{
+		_spawnList = new List<GameObject>();
+	}
+
 	private void OnEnable()
 	{
 		_terrainData = _terrain.terrainData;	
