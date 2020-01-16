@@ -10,5 +10,6 @@ public class ObjectsManager : Singleton<ObjectsManager>
         this["Tribe"] = GameObject.Find("Tribe");
         this["Player"] = GameObject.Find("Player");
         this["Optimum"] = GameObject.Find("Optimum");
+        this["Fog"] = GameObject.Find("Fog");
     }
 }
