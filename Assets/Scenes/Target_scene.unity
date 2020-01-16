@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9055834699d8f2748a8e2c793ce576b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitBySecond: 100
+  UnitBySecond: 20
   path: {fileID: 2137771366}
   DistanceThreshold: 0.001
 --- !u!1 &2137771366 stripped

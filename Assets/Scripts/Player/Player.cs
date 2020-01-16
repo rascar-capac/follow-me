@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : BaseMonoBehaviour
 {
     public float PlayerLifeStart = 100.0f;
     public float PlayerLife = 100.0f;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         PlayerLife = PlayerLifeStart;
     }
 
