@@ -14,9 +14,4 @@ public class Player : BaseMonoBehaviour
         PlayerLife = PlayerLifeStart;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
