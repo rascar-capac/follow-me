@@ -22,7 +22,6 @@ public class PlayerMovement : BaseMonoBehaviour
     {
         base.Start();
         _controller = GetComponent<CharacterController>();
-        GameManager.I.onDayStateChanged.AddListener((DayStatesProperties state) => { Debug.Log($"Day state is {state.State}"); });
     }
 
     // Update is called once per frame

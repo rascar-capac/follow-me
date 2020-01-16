@@ -8,7 +8,7 @@ using UnityEngine.Events;
 public class BaseMonoBehaviour : MonoBehaviour
 {
     #region Pausing the game
-    public bool GamePaused = false;
+    protected bool GamePaused = false;
     public virtual void GamePausedHandler(bool Paused)
     {
         GamePaused = Paused;

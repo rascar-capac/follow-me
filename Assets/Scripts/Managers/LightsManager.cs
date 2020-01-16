@@ -5,21 +5,35 @@ using UnityEngine;
 public class LightsManager : Singleton<LightsManager>
 {
     Light GlobalLight;
-    public Color DayColor;
-    public Color NightColor;
+    DayStatesProperties CurrentDayState;
+    DayStatesProperties NextDayState;
 
-    // Start is called before the first frame update
-    protected override void Start()
+    protected override void Awake()
     {
+        base.Awake();
         GlobalLight = FindObjectOfType<Light>();
         GameManager.I.onDayStateChanged.AddListener(DayChanged);
     }
+    // Start is called before the first frame update
+    //protected override void Start()
+    //{
+      
+    //}
 
-    void DayChanged(DayStatesProperties CurrentState)
+    void DayChanged(DayStatesProperties CurrentState, DayStatesProperties NextState)
     {
-        if (CurrentState.State == DayState.Day)
-            GlobalLight.color = DayColor;
-        else if (CurrentState.State == DayState.Night)
-            GlobalLight.color = NightColor;
+        CurrentDayState = CurrentState;
+        NextDayState = NextState;
+    }
+
+    protected void Update()
+    {
+        InterpolateLightColor();
+    }
+
+    void InterpolateLightColor()
+    {
+        float t = (Time.time - CurrentDayState.TimeStateChanged) / CurrentDayState.DayStateDurationInSecond;
+        GlobalLight.color = Color.Lerp(CurrentDayState.StateColor, NextDayState.StateColor, t);
     }
 }
