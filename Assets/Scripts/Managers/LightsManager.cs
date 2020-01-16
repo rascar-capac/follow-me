@@ -12,7 +12,7 @@ public class LightsManager : Singleton<LightsManager>
     {
         base.Awake();
         GlobalLight = FindObjectOfType<Light>();
-        GameManager.I.onDayStateChanged.AddListener(DayChanged);
+        AmbiantManager.I.onDayStateChanged.AddListener(DayChanged);
     }
     // Start is called before the first frame update
     //protected override void Start()
