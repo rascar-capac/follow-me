@@ -8,7 +8,7 @@ public class InventoryItemData : ScriptableObject
 	public string _itemName;
 	public string _itemDescription;
 	public GameObject _itemPrefab;
-	public bool _itemObtained;
 
+	//public bool _itemObtained;
 	//public int _itemCount;
 }

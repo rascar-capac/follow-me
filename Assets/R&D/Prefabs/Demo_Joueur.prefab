@@ -14,8 +14,7 @@ GameObject:
   - component: {fileID: 2596798676241447259}
   - component: {fileID: 2596798676241447249}
   - component: {fileID: 2596798676241447253}
-  - component: {fileID: 563213061}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Demo_Joueur
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,22 +129,6 @@ MonoBehaviour:
   vitesseRotation: 300
   camJoueur: {fileID: 2596798675537935648}
   maxRotaVertiCam: 75
---- !u!114 &563213061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2596798676241447250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b23d400240eef8643aee2a348ce0dd3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _tribeAgent: {fileID: 0}
-  _mainCamera: {fileID: 2596798675537935648}
-  _inputAction: 103
-  _tribeFollowTarget: {fileID: 0}
 --- !u!1001 &371511960009929066
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -157,6 +140,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Demo_Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 2390934814688005192, guid: 7535e02807b2778469983b82c166a8aa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2390934814688005197, guid: 7535e02807b2778469983b82c166a8aa,
         type: 3}
@@ -293,6 +281,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Demo_HeadPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 471683131349947343, guid: e48c5fe9d4c949e4bbb15775f772172b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e48c5fe9d4c949e4bbb15775f772172b, type: 3}

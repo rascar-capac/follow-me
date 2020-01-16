@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd87958864f503d478f5c177edbbd4c3, type: 3}
-  m_Name: Item 3
+  m_Name: Demo_Pierre
   m_EditorClassIdentifier: 
-  _itemName: Item 3
-  _itemDescription: Mon item 3
-  _itemPrefab: {fileID: 471683131349947343, guid: e48c5fe9d4c949e4bbb15775f772172b,
+  _itemName: Pierre
+  _itemDescription: De la pierre
+  _itemPrefab: {fileID: 467959756313569114, guid: 85c025d051936044ea8c00683707334b,
     type: 3}
-  _itemObtained: 0

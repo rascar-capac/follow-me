@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd87958864f503d478f5c177edbbd4c3, type: 3}
-  m_Name: Item 1
+  m_Name: Demo_Bois
   m_EditorClassIdentifier: 
-  _itemName: Item 1
-  _itemDescription: Mon item 1
-  _itemPrefab: {fileID: 6833170852971058350, guid: 2ce5e7868c19abc4799f1f66bb8d428f,
+  _itemName: Bois
+  _itemDescription: Du bois
+  _itemPrefab: {fileID: 6534661404718491348, guid: 2e7643cbb49f8074aa988e2ac1d78616,
     type: 3}
-  _itemObtained: 0
