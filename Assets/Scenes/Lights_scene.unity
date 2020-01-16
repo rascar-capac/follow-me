@@ -164,6 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speedSunRotation: 1
+  CurrentTimeRatio: 0
 --- !u!1001 &3960572383100694506
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -189,7 +190,7 @@ PrefabInstance:
     - target: {fileID: 3960572382894581656, guid: b714880a8661eb141bbbee6478f8eb7e,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 3960572382894581656, guid: b714880a8661eb141bbbee6478f8eb7e,
         type: 3}
@@ -204,7 +205,7 @@ PrefabInstance:
     - target: {fileID: 3960572382894581656, guid: b714880a8661eb141bbbee6478f8eb7e,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 3960572382894581656, guid: b714880a8661eb141bbbee6478f8eb7e,
         type: 3}
@@ -214,7 +215,7 @@ PrefabInstance:
     - target: {fileID: 3960572382894581656, guid: b714880a8661eb141bbbee6478f8eb7e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 3960572382894581656, guid: b714880a8661eb141bbbee6478f8eb7e,
         type: 3}

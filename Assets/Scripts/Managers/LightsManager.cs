@@ -8,25 +8,19 @@ public class LightsManager : Singleton<LightsManager>
     DayStatesProperties CurrentDayState;
     DayStatesProperties NextDayState;
 
-	GameObject _sunGO;
+	GameObject Sun;
 	public float _speedSunRotation = 1;
-
+    public float CurrentTimeRatio;
 
     protected override void Awake()
     {
-		_sunGO = GameObject.Find("Sun");
+		Sun = GameObject.Find("Sun");
 
         base.Awake();
-		//GlobalLight = FindObjectOfType<Light>();
-		GlobalLight = _sunGO.GetComponent<Light>();
-        GameManager.I.onDayStateChanged.AddListener(DayChanged);
+		GlobalLight = Sun.GetComponent<Light>();
+        AmbiantManager.I.onDayStateChanged.AddListener(DayChanged);
 
     }
-    // Start is called before the first frame update
-    //protected override void Start()
-    //{
-      
-    //}
 
     void DayChanged(DayStatesProperties CurrentState, DayStatesProperties NextState)
     {
@@ -36,23 +30,20 @@ public class LightsManager : Singleton<LightsManager>
 
     protected void Update()
     {
-		//InterpolateLightColor();
+        CurrentTimeRatio = (Time.time - CurrentDayState.TimeStateChanged) / CurrentDayState.DayStateDurationInSecond;
+
+        InterpolateLightColor();
 		SunRotation();
 	}
 
     void InterpolateLightColor()
     {
-        float t = (Time.time - CurrentDayState.TimeStateChanged) / CurrentDayState.DayStateDurationInSecond;
-        GlobalLight.color = Color.Lerp(CurrentDayState.StateColor, NextDayState.StateColor, t);
+        GlobalLight.color = Color.Lerp(CurrentDayState.StateColor, NextDayState.StateColor, CurrentTimeRatio);
     }
 
 	void SunRotation()
 	{
-		_sunGO.transform.Rotate(new Vector3(_speedSunRotation * Time.deltaTime, 0, 0));
-
-		if (_sunGO.transform.eulerAngles.x < 180)
-			Debug.Log("Jour");
-		if (_sunGO.transform.eulerAngles.x > 180)
-			Debug.Log("Nuit");
+		Sun.transform.eulerAngles = Vector3.Lerp(CurrentDayState.SunRotation, NextDayState.SunRotation, CurrentTimeRatio);
+        //Sun.transform.Rotate(new Vector3(_speedSunRotation * Time.deltaTime, 0, 0));
 	}
 }
