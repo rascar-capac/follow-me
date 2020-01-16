@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ObjectsManager : Singleton<ObjectsManager>
 {
-    protected void Start()
+    protected override void Start()
     {
+        base.Start();
         this["Tribe"] = GameObject.Find("Tribe");
         this["Player"] = GameObject.Find("Player");
         this["Optimum"] = GameObject.Find("Optimum");

@@ -5,14 +5,14 @@ using UnityEngine.Events;
 
 public class InputManager : Singleton<InputManager>
 {
-    public InputAxisUnityEvent onInputAxisEvent = new InputAxisUnityEvent();
-    public UnityEvent onGKeyPressed = new UnityEvent();
+    [Header("Key for pausing the game")]
+    public KeyCode PauseKey = KeyCode.Escape;
+    [Header("Key for placing Beacon")]
+    public KeyCode BeaconKey = KeyCode.G;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public InputAxisUnityEvent onInputAxisEvent = new InputAxisUnityEvent();
+    public UnityEvent onBeaconKeyPressed = new UnityEvent();
+    public UnityEvent onPauseKeyPressed = new UnityEvent();
 
     // Update is called once per frame
     void Update()
@@ -29,9 +29,14 @@ public class InputManager : Singleton<InputManager>
             onInputAxisEvent?.Invoke(new InputAxisUnityEventArg() { Direction = "Vertical", Value = verticalAxis });
         }
 
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(BeaconKey))
         {
-            onGKeyPressed?.Invoke();
+            onBeaconKeyPressed?.Invoke();
+        }
+
+        if (Input.GetKeyDown(PauseKey))
+        {
+            onPauseKeyPressed?.Invoke();
         }
     }
 }

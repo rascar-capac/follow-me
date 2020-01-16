@@ -18,14 +18,20 @@ public class PlayerMovement : BaseMonoBehaviour
     bool _isGrounded;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         _controller = GetComponent<CharacterController>();
-        
+        GameManager.I.onDayStateChanged.AddListener((DayStatesProperties state) => { Debug.Log($"Day state is {state.State}"); });
     }
 
     // Update is called once per frame
     void Update()
+    {
+        Move();
+    }
+
+    public void Move()
     {
         _isGrounded = Physics.CheckSphere(_groundCheck.position, _groundDistance, _groundMask);
 
@@ -50,6 +56,5 @@ public class PlayerMovement : BaseMonoBehaviour
 
         _controller.Move(_velocity * Time.deltaTime);
 
-        //Debug.DrawLine(weapon.position, Camera.main.ScreenToWorldPoint(new Vector3(0f, 0f, 0f)), Color.black);
     }
 }

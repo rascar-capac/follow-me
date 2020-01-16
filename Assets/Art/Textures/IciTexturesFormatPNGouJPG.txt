@@ -1,0 +1,11 @@
+NOMENCLATURE
+
+Normal Map (relief)
+F_TreeSmall_nm
+C_TreeSmall_nm
+
+Albedo (color) 
+F_TreeSmall_al1 (variation1)
+
+EMISSIVE (brille)
+F_TreeSmall_em

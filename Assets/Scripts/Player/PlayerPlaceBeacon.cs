@@ -5,22 +5,27 @@ using UnityEngine.AI;
 
 public class PlayerPlaceBeacon : BaseMonoBehaviour
 {
+    [Header("The prefabs to instantiate for the Beacon")]
     public GameObject _tribeFollowTargetPrefab;
+    [Header("The distance from the player for dropping Beacon")]
     public float DropDistance = 1.0f;
+    [Header("The layers on which the beacon can be placed.")]
+    public LayerMask DropableLayers;
 
     GameObject _tribeFollowTarget;
     RaycastHit _hitInfo = new RaycastHit();
     NavMeshAgent _tribeAgent;
     Camera _mainCamera;
 
-    private void Start()
+    protected override void Start()
 	{
+        base.Start();
         _tribeAgent = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<NavMeshAgent>();
         _mainCamera = CameraManager.I._MainCamera;
         _tribeFollowTarget = Instantiate(_tribeFollowTargetPrefab);
         _tribeFollowTarget.transform.position = new Vector3(_tribeAgent.transform.position.x, 0, _tribeAgent.transform.position.z);
         //_tribeAgent.destination = _tribeFollowTarget.transform.position;
-        InputManager.I.onGKeyPressed.AddListener(PlaceBeacon);
+        InputManager.I.onBeaconKeyPressed.AddListener(PlaceBeacon);
 	}
 
     protected void Update()
@@ -30,7 +35,7 @@ public class PlayerPlaceBeacon : BaseMonoBehaviour
 
     void PlaceBeacon()
     {
-        if (Physics.Raycast(_mainCamera.transform.position + _mainCamera.transform.forward * DropDistance, Vector3.down, out _hitInfo, 100.0f))
+        if (Physics.Raycast(_mainCamera.transform.position + Vector3.ProjectOnPlane(_mainCamera.transform.forward, Vector3.up).normalized * DropDistance, Vector3.down, out _hitInfo, 100.0f, DropableLayers))
         {
             _tribeFollowTarget.transform.position = _hitInfo.point;
             _tribeAgent.destination = _tribeFollowTarget.transform.position;

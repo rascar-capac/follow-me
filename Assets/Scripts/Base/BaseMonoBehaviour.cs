@@ -7,6 +7,20 @@ using UnityEngine.Events;
 
 public class BaseMonoBehaviour : MonoBehaviour
 {
+    #region Pausing the game
+    public bool GamePaused = false;
+    public virtual void GamePausedHandler(bool Paused)
+    {
+        GamePaused = Paused;
+        Debug.Log($"Paused: {GamePaused}");
+    }
+    public GamePausedEvent onGamePaused;
+    public void PauseGame(bool Pause)
+    {
+        onGamePaused.Invoke(Pause);
+    }
+    #endregion
+
     #region Indexer
     Dictionary<string, object> _properties = new Dictionary<string, object>();
     public object this[string name]
@@ -48,10 +62,12 @@ public class BaseMonoBehaviour : MonoBehaviour
     {
         while (true)
         {
-            _lastTime += Time.deltaTime;
-            if (_lastTime >= seconds)
-                break;
-
+            if (!GamePaused)
+            {
+                _lastTime += Time.deltaTime;
+                if (_lastTime >= seconds)
+                    break;
+            }
             yield return null;
         }
         if (callback != null)
@@ -59,8 +75,18 @@ public class BaseMonoBehaviour : MonoBehaviour
     }
     #endregion
 
+    #region Unity Standard events
     protected virtual void Awake()
-    { }
+    {
+
+    }
+    protected virtual void Start()
+    {
+        GameManager.I.onGamePaused.AddListener(GamePausedHandler);
+    }
+    #endregion Unity Standard events
+
 }
 
 public class AnimationCallbackEvent : UnityEvent<string> { }
+public class GamePausedEvent : UnityEvent<bool> { }

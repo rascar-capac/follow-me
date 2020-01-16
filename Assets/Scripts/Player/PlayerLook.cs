@@ -49,7 +49,7 @@ public class PlayerLook : MonoBehaviour
         Vector3 ray = new Vector3(Optimum.position.x, transform.position.y, Optimum.position.z) - transform.position;
         Vector3 rayProjected = Vector3.ProjectOnPlane(ray, Vector3.up);
         Vector3 forwardProjected = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
-
+        Debug.DrawLine(transform.position, Optimum.position);
         float angle = Vector3.Angle(rayProjected, forwardProjected);
         if (angle > CompassThresshold || angle < -CompassThresshold)
             NeedleRenderer.material = BadDirection;
