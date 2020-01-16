@@ -16,7 +16,8 @@ public struct DayStatesProperties
     public float DayStateDurationInSecond;
     public Color StateColor;
     public float TimeStateChanged;
-    public Vector3 SunRotation;
+    public Vector3 EnterSunRotation;
+    public Vector3 ExitSunRotation;
 }
 
 public class AmbiantManager : Singleton<AmbiantManager>
@@ -69,12 +70,14 @@ public class AmbiantManager : Singleton<AmbiantManager>
         States[0].State = DayState.Day;
         States[0].DayStateDurationInSecond = 20f;
         States[0].StateColor = new Color((float)255 / (float)255, (float)240 / (float)255, (float)210 / (float)255);
-        States[0].SunRotation = new Vector3(90, 0, 0);
+        States[0].EnterSunRotation = new Vector3(0, 0, 0);
+        States[0].ExitSunRotation = new Vector3(180, 0, 0);
 
         States[1].State = DayState.Night;
         States[1].DayStateDurationInSecond = 20f;
         States[1].StateColor = new Color((float)108 / (float)255, (float)91 / (float)255, (float)68 / (float)255);
-        States[1].SunRotation = new Vector3(0, 0, 0);
+        States[1].EnterSunRotation = new Vector3(180, 0, 0);
+        States[1].EnterSunRotation = new Vector3(360, 0, 0);
 
         CurrentDayStateIndex = 1;
     }

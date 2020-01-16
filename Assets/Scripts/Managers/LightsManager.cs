@@ -43,7 +43,7 @@ public class LightsManager : Singleton<LightsManager>
 
 	void SunRotation()
 	{
-		Sun.transform.eulerAngles = Vector3.Lerp(CurrentDayState.SunRotation, NextDayState.SunRotation, CurrentTimeRatio);
+		Sun.transform.eulerAngles = Vector3.Lerp(CurrentDayState.EnterSunRotation, CurrentDayState.ExitSunRotation, CurrentTimeRatio);
         //Sun.transform.Rotate(new Vector3(_speedSunRotation * Time.deltaTime, 0, 0));
 	}
 }
