@@ -6,28 +6,39 @@ using UnityEngine;
 public class PlayerMovement : BaseMonoBehaviour
 {
     public CharacterController _controller;
+    [Header("Speed in m/s of the player")]
     public float _speed = 12f;
+    [Header("The gravity force")]
     public float _gravity = -9.81f;
+    [Header("The maximum height of jump")]
     public float _jumpHeight = 3f;
-    Vector3 _velocity;
-
+    [Header("The game object bottom of the player to check he is grounded.")]
     public Transform _groundCheck;
     public float _groundDistance = 0.4f;
+    [Header("The Layer of the ground or element on which we can walk.")]
     public LayerMask _groundMask;
+    [Header("The distance of tribe beyond which we are too far.")]
+    public float MaximumDistanceOfTribe = 300f;
 
+
+    Vector3 _velocity;
     bool _isGrounded;
+    public bool IsTooFar = false;
+    public float TribeDistance = 0.0f;
+    GameObject Tribe;
 
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
         _controller = GetComponent<CharacterController>();
+        Tribe = (GameObject)ObjectsManager.I["Tribe"];
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-			Move();
+        Move();
+        ComputeTribeDistance();
     }
 
     public void Move()
@@ -54,6 +65,13 @@ public class PlayerMovement : BaseMonoBehaviour
         _velocity.y += _gravity * Time.deltaTime;
 
         _controller.Move(_velocity * Time.deltaTime);
+    }
 
+    void ComputeTribeDistance()
+    {
+        Vector3 TribePositionProjected = Vector3.ProjectOnPlane(Tribe.transform.position, Vector3.up);
+        Vector3 PlayerPositionProjected = Vector3.ProjectOnPlane(transform.position, Vector3.up);
+        TribeDistance = Vector3.Distance(TribePositionProjected, PlayerPositionProjected);
+        IsTooFar = TribeDistance > MaximumDistanceOfTribe;
     }
 }

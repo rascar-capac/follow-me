@@ -120,6 +120,30 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &565575881 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1785835181547677869, guid: 41b016115e9d7464e96dc233994afa42,
+    type: 3}
+  m_PrefabInstance: {fileID: 1347006966}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &914546482 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3689825421110630093, guid: 41b016115e9d7464e96dc233994afa42,
+    type: 3}
+  m_PrefabInstance: {fileID: 1347006966}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1347006966
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -275,7 +299,7 @@ PrefabInstance:
     - target: {fileID: 4587518546245439180, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 229.69998
+      value: 156.19997
       objectReference: {fileID: 0}
     - target: {fileID: 4587518546245439180, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
@@ -289,3 +313,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41b016115e9d7464e96dc233994afa42, type: 3}
+--- !u!114 &1347006967 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4376115063348206331, guid: 41b016115e9d7464e96dc233994afa42,
+    type: 3}
+  m_PrefabInstance: {fileID: 1347006966}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &2103666909 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4587518545162013134, guid: 41b016115e9d7464e96dc233994afa42,
+    type: 3}
+  m_PrefabInstance: {fileID: 1347006966}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2103666910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103666909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ce5fb452f10c2043afe2fc82346e894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Menus: []
+  DistanceText: {fileID: 565575881}
+  TimeText: {fileID: 1347006967}
+  AlertText: {fileID: 914546482}
+  _inventoryCellPrefab: {fileID: 691856892596360814, guid: a50f97d5ee56430468fce36ad6530546,
+    type: 3}
+  _inventoryCellHeight: 0

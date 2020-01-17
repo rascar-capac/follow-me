@@ -326,5 +326,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sun
       objectReference: {fileID: 0}
+    - target: {fileID: 3960572382894581659, guid: b714880a8661eb141bbbee6478f8eb7e,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3960572382894581659, guid: b714880a8661eb141bbbee6478f8eb7e,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.9474394
+      objectReference: {fileID: 0}
+    - target: {fileID: 3960572382894581659, guid: b714880a8661eb141bbbee6478f8eb7e,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.8160377
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b714880a8661eb141bbbee6478f8eb7e, type: 3}

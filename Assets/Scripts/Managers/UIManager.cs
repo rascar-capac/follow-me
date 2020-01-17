@@ -5,6 +5,12 @@ using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
+    public List<GameObject> Menus;
+    public Text DistanceText;
+    public Text TimeText;
+    public Text AlertText;
+    PlayerMovement player;
+
 	GameObject _backgroundImage;
 	GameObject _inventoryPanel;
 	RectTransform _inventoryContent;
@@ -16,6 +22,7 @@ public class UIManager : Singleton<UIManager>
 	protected override void Start()
 	{
 		base.Start();
+        player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerMovement>();
 		InputManager.I.onOpenInventoryKeyPressed.AddListener(OpenInventory);
 
 		_refPlayerInventory = GameObject.FindObjectOfType<PlayerInventory>();
@@ -27,6 +34,8 @@ public class UIManager : Singleton<UIManager>
 
 		_backgroundImage.SetActive(false);
 		_inventoryPanel.SetActive(false);
+
+        OpenMenu("HudPanel");
 	}
 
 	void OpenInventory()
@@ -71,4 +80,46 @@ public class UIManager : Singleton<UIManager>
 			_inventoryUiItemList.Clear();
 		}
 	}
+
+    void OpenMenu(string MenuName, bool CloseOthers = true)
+    {
+        if (Menus == null)
+            return;
+
+        for (int i = 0; i < Menus.Count; i++)
+        {
+            if (CloseOthers && MenuName != Menus[i].name)
+                Menus[i].SetActive(false);
+            if (Menus[i].name == MenuName)
+                Menus[i].SetActive(true);
+        }
+    }
+
+    public void SetTribeDistance()
+    {
+        DistanceText.text = $"Tribe distance " + player.TribeDistance + " m";
+        if (player.IsTooFar)
+            DistanceText.text += " - Too far.";
+    }
+    public void SetTimeOfDay()
+    {
+        TimeText.text = $"Current time " + (int)AmbiantManager.I.CurrentTimeOfDay + " h (" + AmbiantManager.I.CurrentDayState.State.ToString() + ")";
+    }
+
+    private void Update()
+    {
+        SetTribeDistance();
+        SetTimeOfDay();
+    }
+
+    public void AlertMessage(string message)
+    {
+        AlertText.text = message;
+        AlertText.gameObject.SetActive(true);
+        StartChrono(3, DisableMessage);
+    }
+    void DisableMessage()
+    {
+        AlertText.gameObject.SetActive(false);
+    }
 }

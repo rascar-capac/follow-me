@@ -52,11 +52,11 @@ public class BaseMonoBehaviour : MonoBehaviour
     #endregion
 
     #region Chronometer
-    public void StartChrono(float seconds, Action callback = null) //Fonction sans return (void) - fonction avec return => Func<in, in, in, in, out>
+    public void StartChrono(float seconds, Action callback = null, Action<float, float> FrameCallback = null) //Fonction sans return (void) - fonction avec return => Func<in, in, in, in, out>
     {
-        StartCoroutine(Chronoing(seconds, callback));
+        StartCoroutine(Chronoing(seconds, callback, FrameCallback));
     }
-    IEnumerator Chronoing(float seconds, Action callback)
+    IEnumerator Chronoing(float seconds, Action callback, Action<float, float> FrameCallback = null)
     {
         float lasttime = 0.0f; 
         while (true)
@@ -64,6 +64,8 @@ public class BaseMonoBehaviour : MonoBehaviour
             if (!GamePaused)
             {
                 lasttime += Time.deltaTime;
+                if (FrameCallback != null)
+                    FrameCallback(lasttime, lasttime/seconds) ;
                 if (lasttime >= seconds)
                     break;
             }

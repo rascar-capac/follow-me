@@ -26,7 +26,10 @@ public class AmbiantManager : Singleton<AmbiantManager>
     GameObject Fog;
     GameObject Player;
     ParticleSystem FogParticles;
+    [Header("Seconds between 2 fogs apparition")]
     public float MinimumTimeBetweenFog = 0;
+
+
     void StartFog()
     {
         if (MinimumTimeBetweenFog == 0)
@@ -65,6 +68,9 @@ public class AmbiantManager : Singleton<AmbiantManager>
     public int CurrentDayStateIndex = 0;
     public DayStatesProperties[] States;
     public DayStatesProperties CurrentDayState => States[CurrentDayStateIndex];
+    public bool IsDay => CurrentDayState.State == DayState.Day;
+    public float CurrentTimeOfDay;
+
     void InitDaysStates()
     {
         States = new DayStatesProperties[((int)DayState._count)];
@@ -77,7 +83,7 @@ public class AmbiantManager : Singleton<AmbiantManager>
 
         States[1].State = DayState.Night;
         States[1].DayStateDurationInSecond = 20f;
-        States[1].StateColor = new Color((float)108 / (float)255, (float)91 / (float)255, (float)68 / (float)255);
+        States[1].StateColor = new Color((float)41 / (float)255, (float)34 / (float)255, (float)13 / (float)255);
         States[1].EnterSunRotation = new Vector3(180, -30, 0);
         States[1].EnterSunRotation = new Vector3(0, -30, 0);
 
@@ -90,7 +96,12 @@ public class AmbiantManager : Singleton<AmbiantManager>
         States[CurrentDayStateIndex].TimeStateChanged = Time.time;
         DayStatesProperties NextState = States[(int)Mathf.Repeat(CurrentDayStateIndex + 1, States.Length)];
         onDayStateChanged?.Invoke(States[CurrentDayStateIndex], NextState);
-        StartChrono(States[CurrentDayStateIndex].DayStateDurationInSecond, ChangeDayState);
+
+        StartChrono(States[CurrentDayStateIndex].DayStateDurationInSecond, ChangeDayState, DayTimeCallback);
+    }
+    void DayTimeCallback(float timeElapsed, float timeRatio)
+    {
+        CurrentTimeOfDay = Mathf.Lerp(0, 12, timeRatio);
     }
     #endregion
 }
