@@ -11,9 +11,11 @@ public class UIManager : Singleton<UIManager>
     public Text AlertText;
     PlayerMovement player;
 
-	GameObject _backgroundImage;
-	GameObject _inventoryPanel;
-	RectTransform _inventoryContent;
+	public GameObject _backgroundImage;
+	public GameObject _inventoryPanel;
+    public GameObject _content;
+
+    RectTransform _inventoryContent;
 	public GameObject _inventoryCellPrefab;
 	public float _inventoryCellHeight;
 	List<GameObject> _inventoryUiItemList = new List<GameObject>();
@@ -27,9 +29,9 @@ public class UIManager : Singleton<UIManager>
 
 		_refPlayerInventory = GameObject.FindObjectOfType<PlayerInventory>();
 
-		_backgroundImage = GameObject.Find("BackgroundImage");
-		_inventoryPanel = GameObject.Find("InventoryPanel");
-		_inventoryContent = GameObject.Find("InventoryPanel/Scroll View/Viewport/Content").GetComponent<RectTransform>();
+        //_backgroundImage = GameObject.Find("BackgroundImage");
+        //_inventoryPanel = GameObject.Find("InventoryPanel");
+        _inventoryContent = _content.GetComponent<RectTransform>();// GameObject.Find("InventoryPanel/Scroll View/Viewport/Content").GetComponent<RectTransform>();
 		_inventoryCellHeight = _inventoryCellPrefab.GetComponent<RectTransform>().sizeDelta.y;
 
 		_backgroundImage.SetActive(false);
@@ -95,6 +97,7 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
+    #region Show messages
     public void SetTribeDistance()
     {
         DistanceText.text = $"Tribe distance " + player.TribeDistance + " m";
@@ -122,4 +125,5 @@ public class UIManager : Singleton<UIManager>
     {
         AlertText.gameObject.SetActive(false);
     }
+    #endregion
 }
