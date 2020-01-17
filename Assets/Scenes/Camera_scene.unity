@@ -220,4 +220,7 @@ MonoBehaviour:
   playerBody: {fileID: 0}
   GoodDirection: {fileID: 2100000, guid: 0201abf2d8dbe7344adfe8cac9215a64, type: 2}
   BadDirection: {fileID: 2100000, guid: 04e9f490e3b88a942892502e3cf1519d, type: 2}
+  UnavailableCompass: {fileID: 2100000, guid: 991a22c7883f08547b94393d72b8b4c4, type: 2}
   CompassThresshold: 15
+  CompassActive: 1
+  CompassUsable: 00000000
