@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1191085062419650382}
   - component: {fileID: 4376115063348206331}
   m_Layer: 5
-  m_Name: CurrentTimeOfDayText
+  m_Name: HudCurrentTimeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,7 +110,7 @@ RectTransform:
   - {fileID: 8910109255524243046}
   - {fileID: 869559789475343353}
   m_Father: {fileID: 4587518545162013130}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -289,6 +289,7 @@ GameObject:
   - component: {fileID: 4587518545162013133}
   - component: {fileID: 4587518545162013132}
   - component: {fileID: 4587518545162013135}
+  - component: {fileID: 2103666910}
   m_Layer: 5
   m_Name: UI_Canvas
   m_TagString: Untagged
@@ -309,8 +310,8 @@ RectTransform:
   m_Children:
   - {fileID: 4587518545829523653}
   - {fileID: 4587518545469329319}
-  - {fileID: 4587518546079506846}
   - {fileID: 4412631317828290988}
+  - {fileID: 4587518546079506846}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -352,10 +353,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -379,6 +380,28 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 823
+--- !u!114 &2103666910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4587518545162013134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ce5fb452f10c2043afe2fc82346e894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inventoryPanel: {fileID: 4587518545469329318}
+  _inventoryContent: {fileID: 4587518546245439183}
+  _hudPanel: {fileID: 4019699957452964088}
+  _HudTribeDistanceText: {fileID: 1785835181547677869}
+  _HudAlertMessageText: {fileID: 3689825421110630093}
+  _HudCurrentTimeText: {fileID: 4376115063348206331}
+  _backgroundImage: {fileID: 4587518545829523652}
+  Menus: []
+  _inventoryCellPrefab: {fileID: 691856892596360814, guid: a50f97d5ee56430468fce36ad6530546,
+    type: 3}
 --- !u!1 &4587518545469329318
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,7 +419,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4587518545469329319
 RectTransform:
   m_ObjectHideFlags: 0
@@ -470,7 +493,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4587518545829523653
 RectTransform:
   m_ObjectHideFlags: 0
@@ -556,7 +579,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4587518545162013130}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4587518546079506913
 MonoBehaviour:
@@ -624,8 +647,8 @@ RectTransform:
   m_Father: {fileID: 4587518545036315604}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.68810004}
+  m_AnchorMax: {x: 1, y: 0.99950004}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -782,8 +805,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4587518546177297063}
   m_HandleRect: {fileID: 4587518546177297062}
   m_Direction: 2
-  m_Value: 1.0000001
-  m_Size: 0.3123716
+  m_Value: -0.0000032175876
+  m_Size: 0.7533959
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -799,7 +822,7 @@ GameObject:
   - component: {fileID: 4587518546245439180}
   - component: {fileID: 4587518546245439181}
   m_Layer: 5
-  m_Name: Content
+  m_Name: InventoryContent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -821,7 +844,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -0.000085718915, y: 156.19992}
+  m_AnchoredPosition: {x: 0.000011072936, y: 156.1875}
   m_SizeDelta: {x: 0, y: 1000}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &4587518546245439181
@@ -967,7 +990,7 @@ GameObject:
   - component: {fileID: 7464694271612388825}
   - component: {fileID: 3689825421110630093}
   m_Layer: 5
-  m_Name: AlertMessageText
+  m_Name: HudAlertMessageText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1044,7 +1067,7 @@ GameObject:
   - component: {fileID: 267878951371858150}
   - component: {fileID: 1785835181547677869}
   m_Layer: 5
-  m_Name: TribeDistanceText
+  m_Name: HudTribeDistanceText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
