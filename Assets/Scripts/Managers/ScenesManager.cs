@@ -17,40 +17,60 @@ public class ScenesManager : Singleton<ScenesManager>
     protected override void Start()
     {
         base.Start();
+        Debug.Log("LOGGGG >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<");
         currentScene = SceneManager.GetActiveScene();
+        //Debug.Log("Current scene : " + currentScene.name);
+        //Debug.Log($"Scenes count : {SceneManager.sceneCountInBuildSettings}");
 
-        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
-        {
-            Debug.Log("Loading scene: " + SceneManager.GetSceneByBuildIndex(i).name);
-            // skip if is current scene since we don't want it twice
-            if (currentScene.buildIndex == i) continue;
+        //for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+        //{
+        //    Scene scene = SceneManager.GetSceneByBuildIndex(i);
+        //    if (scene == null)
+        //        Debug.Log("scene is null" );
 
-            // Skip if scene is already loaded
-            if (SceneManager.GetSceneByBuildIndex(i).IsValid()) continue;
+        //    Debug.Log($"Loading scene index {i}: {scene.name}" );
 
-            SceneManager.LoadScene(i, LoadSceneMode.Additive);
-            Debug.Log("Loaded");
-            // or depending on your usecase
-            //SceneManager.LoadSceneAsync(i, LoadSceneMode.Additive);
-        }
+        //    // skip if is current scene since we don't want it twice
+        //    if (currentScene.buildIndex == i)
+        //    {
+        //        Debug.Log($"Is the current scene...not loaded.");
+        //        continue;
+        //    }
+        //    // Skip if scene is already loaded
+        //    if (scene.IsValid() && scene.isLoaded)
+        //    {
+        //        Debug.Log($"already loaded...skipped.");
+        //        continue;
+        //    }
+        //    else
+        //    {
+        //        Debug.Log($"Loading....");
+        //        SceneManager.LoadScene(i, new LoadSceneParameters( LoadSceneMode.Additive));
+        //    }
+        // or depending on your usecase
+        //SceneManager.LoadSceneAsync(i, LoadSceneMode.Additive);
+        //}
 
-        //      LoadScene("PlayGround_scene");
-        //      LoadScene("Tribe_scene");
-        //      LoadScene("Player_scene");
-        //      LoadScene("Camera_scene");
-        //      LoadScene("Lights_scene");
-        //      LoadScene("Target_scene");
-        //      LoadScene("Items_scene");
-        //LoadScene("UI_scene");
-    }
+        LoadScene("PlayGround_scene");
+        LoadScene("Tribe_scene");
+        LoadScene("Player_scene");
+        LoadScene("Camera_scene");
+        LoadScene("Lights_scene");
+        LoadScene("Target_scene");
+        LoadScene("Items_scene");
+        LoadScene("UI_scene");
+        Debug.Log("END LOGGGG >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<");
+}
 
-	public void LoadScene(string SceneName)
+public void LoadScene(string SceneName)
     {
         Scene scene = SceneManager.GetSceneByName(SceneName);
+
         //this[SceneName] = scene;
         if (!scene.isLoaded)
         {
-            SceneManager.LoadScene(SceneName, LoadSceneMode.Additive);
+            Debug.Log("Loading scene async " + scene.name);
+            SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Additive);
         }
 
         

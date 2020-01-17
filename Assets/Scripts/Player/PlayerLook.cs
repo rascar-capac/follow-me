@@ -28,7 +28,7 @@ public class PlayerLook : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
         playerBody = ((GameObject)ObjectsManager.I["Player"]).transform;
         Optimum = ((GameObject)ObjectsManager.I["Optimum"]).transform;
         Compass = GameObject.Find("Compass");
