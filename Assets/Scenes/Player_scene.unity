@@ -158,6 +158,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerInventory: []
   _pickUpRange: 5
+--- !u!114 &1102385124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1102385121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 778713dd545b13b4db091782bcf8b7f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerLifeStart: 100
+  PlayerLife: 100
 --- !u!1001 &7354173736692978563
 PrefabInstance:
   m_ObjectHideFlags: 0
