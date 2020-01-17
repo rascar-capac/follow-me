@@ -27,7 +27,7 @@ public class PlayerMovement : BaseMonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
+			Move();
     }
 
     public void Move()

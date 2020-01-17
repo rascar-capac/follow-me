@@ -25,9 +25,10 @@ public class ScenesManager : Singleton<ScenesManager>
         LoadScene("Lights_scene");
         LoadScene("Target_scene");
         LoadScene("Items_scene");
-    }
+		LoadScene("UI_scene");
+	}
 
-    public void LoadScene(string SceneName)
+	public void LoadScene(string SceneName)
     {
         Scene scene = SceneManager.GetSceneByName(SceneName);
         this[SceneName] = scene;

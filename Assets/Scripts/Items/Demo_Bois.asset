@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemName: Bois
   _itemDescription: Du bois
+  _itemIcon: {fileID: 21300000, guid: 80fb0771254d67e43b61e6998d4d808e, type: 3}
   _itemPrefab: {fileID: 6534661404718491348, guid: 2e7643cbb49f8074aa988e2ac1d78616,
     type: 3}

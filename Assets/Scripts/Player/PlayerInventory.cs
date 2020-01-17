@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInventory : Singleton<PlayerInventory>
 {
 	[Header("Player Inventory")]
-	public List<ScriptableObject> _playerInventory;
+	public List<InventoryItemData> _playerInventory;
 
 	[Header("Pick-up Range")]
 	public float _pickUpRange = 5;

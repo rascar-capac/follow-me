@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 2075882572}
   - component: {fileID: 2075882573}
   - component: {fileID: 2075882574}
+  - component: {fileID: 2075882575}
   m_Layer: 0
   m_Name: Zero
   m_TagString: Untagged
@@ -183,10 +184,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PauseKey: 27
   BeaconKey: 103
+  PickUpKey: 101
+  OpenInventoryKey: 105
   onBeaconKeyPressed:
     m_PersistentCalls:
       m_Calls: []
   onPauseKeyPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  onPickUpKeyPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  onOpenInventoryKeyPressed:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &2075882571
@@ -231,7 +240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0312a9c587def5e408520c89f48b1b06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentDayStateIndex: 0
 --- !u!114 &2075882574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,3 +252,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d1ed11eb901fea4bac46943dc1ef7ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FogState: 0
+  MinimumTimeBetweenFog: 3
+  CurrentDayStateIndex: 0
+--- !u!114 &2075882575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075882567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ce5fb452f10c2043afe2fc82346e894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inventoryCellPrefab: {fileID: 691856892596360814, guid: a50f97d5ee56430468fce36ad6530546,
+    type: 3}
+  _inventoryCellHeight: 0

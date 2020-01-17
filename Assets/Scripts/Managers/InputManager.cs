@@ -11,11 +11,14 @@ public class InputManager : Singleton<InputManager>
     public KeyCode BeaconKey = KeyCode.G;
 	[Header("Key for pick-up item")]
 	public KeyCode PickUpKey = KeyCode.E;
+	[Header("Key for open inventory")]
+	public KeyCode OpenInventoryKey = KeyCode.I;
 
 	public InputAxisUnityEvent onInputAxisEvent = new InputAxisUnityEvent();
     public UnityEvent onBeaconKeyPressed = new UnityEvent();
     public UnityEvent onPauseKeyPressed = new UnityEvent();
 	public UnityEvent onPickUpKeyPressed = new UnityEvent();
+	public UnityEvent onOpenInventoryKeyPressed = new UnityEvent();
 
 	// Update is called once per frame
 	void Update()
@@ -45,6 +48,11 @@ public class InputManager : Singleton<InputManager>
 		if (Input.GetKeyDown(PickUpKey))
 		{
 			onPickUpKeyPressed?.Invoke();
+		}
+
+		if (Input.GetKeyDown(OpenInventoryKey))
+		{
+			onOpenInventoryKeyPressed?.Invoke();
 		}
 	}
 }
