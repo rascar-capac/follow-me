@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -120,7 +120,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &5591328776868088358
+--- !u!1001 &426029156
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -132,20 +132,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: TribeGroundPosition
       objectReference: {fileID: 0}
+    - target: {fileID: 2648109937416602427, guid: fea45556a9385704f8c41f5ef148143b,
+        type: 3}
+      propertyPath: m_Height
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2648109937416602427, guid: fea45556a9385704f8c41f5ef148143b,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4819814216446465464, guid: fea45556a9385704f8c41f5ef148143b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1055.7
+      value: 1047.9
       objectReference: {fileID: 0}
     - target: {fileID: 4819814216446465464, guid: fea45556a9385704f8c41f5ef148143b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 18.57
+      value: 10.34
       objectReference: {fileID: 0}
     - target: {fileID: 4819814216446465464, guid: fea45556a9385704f8c41f5ef148143b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 970
+      value: 1143.7
       objectReference: {fileID: 0}
     - target: {fileID: 4819814216446465464, guid: fea45556a9385704f8c41f5ef148143b,
         type: 3}
@@ -186,16 +196,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5591328775514889221, guid: fea45556a9385704f8c41f5ef148143b,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -39.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5591328775514889221, guid: fea45556a9385704f8c41f5ef148143b,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -54.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fea45556a9385704f8c41f5ef148143b, type: 3}

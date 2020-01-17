@@ -10,7 +10,7 @@ public class LightsManager : Singleton<LightsManager>
     DayStatesProperties CurrentDayState;
     DayStatesProperties NextDayState;
 
-	GameObject Sun;
+	public GameObject Sun;
     GameObject Moon;
     public float _speedSunRotation = 1;
     public float CurrentTimeRatio;
@@ -18,7 +18,7 @@ public class LightsManager : Singleton<LightsManager>
     protected override void Awake()
     {
         base.Awake();
-        Sun = GameObject.Find("Sun");
+        //Sun = GameObject.Find("Sun");
         //Moon = GameObject.Find("Moon");
 
 		SunLight = Sun.GetComponent<Light>();
@@ -37,8 +37,8 @@ public class LightsManager : Singleton<LightsManager>
     {
         CurrentTimeRatio = (Time.time - CurrentDayState.TimeStateChanged) / CurrentDayState.DayStateDurationInSecond;
 
-        InterpolateLightColor();
-		//SunRotation();
+		//InterpolateLightColor();
+		SunRotation();
 	}
 
     void InterpolateLightColor()
@@ -49,9 +49,9 @@ public class LightsManager : Singleton<LightsManager>
 	void SunRotation()
 	{
 		//Sun.transform.eulerAngles = Vector3.Lerp(CurrentDayState.EnterSunRotation, CurrentDayState.ExitSunRotation, CurrentTimeRatio);
-        Sun.transform.localRotation = Quaternion.Euler(Vector3.Lerp(CurrentDayState.EnterSunRotation, CurrentDayState.ExitSunRotation, CurrentTimeRatio));
-        //Moon.transform.localRotation = Quaternion.Euler(Vector3.Lerp(NextDayState.EnterSunRotation, NextDayState.ExitSunRotation, CurrentTimeRatio));
+		//Sun.transform.localRotation = Quaternion.Euler(Vector3.Lerp(CurrentDayState.EnterSunRotation, CurrentDayState.ExitSunRotation, CurrentTimeRatio));
+		//Moon.transform.localRotation = Quaternion.Euler(Vector3.Lerp(NextDayState.EnterSunRotation, NextDayState.ExitSunRotation, CurrentTimeRatio));
 
-        //Sun.transform.Rotate(new Vector3(_speedSunRotation * Time.deltaTime, 0, 0));
-    }
+		Sun.transform.Rotate(new Vector3(_speedSunRotation * Time.deltaTime, 0, 0));
+	}
 }
