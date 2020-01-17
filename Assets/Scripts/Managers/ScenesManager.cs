@@ -65,7 +65,7 @@ public class ScenesManager : Singleton<ScenesManager>
 public void LoadScene(string SceneName)
     {
         Scene scene = SceneManager.GetSceneByName(SceneName);
-
+        Debug.Log("verify scene async " + scene.name);
         //this[SceneName] = scene;
         if (!scene.isLoaded)
         {

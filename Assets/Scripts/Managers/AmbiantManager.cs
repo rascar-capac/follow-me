@@ -14,6 +14,7 @@ public struct DayStatesProperties
 {
     public DayState State;
     public float DayStateDurationInSecond;
+    public float StateHoursCount;
     public Color StateColor;
     public float TimeStateChanged;
     public Vector3 EnterSunRotation;
@@ -68,9 +69,10 @@ public class AmbiantManager : Singleton<AmbiantManager>
     public int CurrentDayStateIndex = 0;
     public DayStatesProperties[] States;
     public DayStatesProperties CurrentDayState => States[CurrentDayStateIndex];
+    public DayStatesProperties NextDayState => States[(int)Mathf.Repeat(CurrentDayStateIndex + 1, States.Length)];
     public bool IsDay => CurrentDayState.State == DayState.Day;
     public float CurrentTimeOfDay;
-
+    public float TotalDayTime;
     void InitDaysStates()
     {
         States = new DayStatesProperties[((int)DayState._count)];
@@ -78,20 +80,28 @@ public class AmbiantManager : Singleton<AmbiantManager>
         States[0].State = DayState.Day;
         States[0].DayStateDurationInSecond = 20f;
         States[0].StateColor = new Color((float)255 / (float)255, (float)240 / (float)255, (float)210 / (float)255);
-        States[0].EnterSunRotation = new Vector3(0, -30, 0);
-        States[0].ExitSunRotation = new Vector3(180, -30, 0);
+        States[0].EnterSunRotation = new Vector3(90, -30, 0);
+        States[0].ExitSunRotation = new Vector3(270, -30, 0);
+        States[0].StateHoursCount = 16;
 
         States[1].State = DayState.Night;
         States[1].DayStateDurationInSecond = 20f;
         States[1].StateColor = new Color((float)41 / (float)255, (float)34 / (float)255, (float)13 / (float)255);
-        States[1].EnterSunRotation = new Vector3(180, -30, 0);
-        States[1].EnterSunRotation = new Vector3(0, -30, 0);
+        States[1].EnterSunRotation = new Vector3(270, -30, 0);
+        States[1].EnterSunRotation = new Vector3(90, -30, 0);
+        States[1].StateHoursCount = 8;
+
+        TotalDayTime = States[0].StateHoursCount + States[1].StateHoursCount;
 
         CurrentDayStateIndex = 1;
     }
     void ChangeDayState()
     {
         CurrentDayStateIndex++;
+        if (CurrentDayStateIndex == States.Length)
+        { 
+
+        }
         CurrentDayStateIndex = (int)Mathf.Repeat(CurrentDayStateIndex, States.Length);
         States[CurrentDayStateIndex].TimeStateChanged = Time.time;
         DayStatesProperties NextState = States[(int)Mathf.Repeat(CurrentDayStateIndex + 1, States.Length)];
@@ -101,7 +111,7 @@ public class AmbiantManager : Singleton<AmbiantManager>
     }
     void DayTimeCallback(float timeElapsed, float timeRatio)
     {
-        CurrentTimeOfDay = Mathf.Lerp(0, 12, timeRatio);
+        CurrentTimeOfDay = Mathf.Lerp(0, CurrentDayState.StateHoursCount, timeRatio);
     }
     #endregion
 }

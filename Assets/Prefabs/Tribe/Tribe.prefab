@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3511495278542200907}
   - component: {fileID: 3511495278542200904}
   - component: {fileID: 3511495278542200905}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Tribe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
