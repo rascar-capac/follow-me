@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
-	#region References Player
+    #region References Player
+    Player _refPlayer;
     PlayerMovement _refPlayerMovement;
 	PlayerInventory _refPlayerInventory;
 	#endregion
@@ -18,7 +19,8 @@ public class UIManager : Singleton<UIManager>
     public Text _HudTribeDistanceText;
     public Text _HudAlertMessageText;
     public Text _HudCurrentTimeText;
-	public GameObject _backgroundImage;
+    public Text _HudPlayerLifeText;
+    public GameObject _backgroundImage;
 	#endregion
 
 	#region Prefabs UI Elements
@@ -41,8 +43,9 @@ public class UIManager : Singleton<UIManager>
 
         _refPlayerMovement = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerMovement>();
 		_refPlayerInventory = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerInventory>();
+        _refPlayer = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
 
-		InputManager.I.onOpenInventoryKeyPressed.AddListener(InventoryOpenClose);
+        InputManager.I.onOpenInventoryKeyPressed.AddListener(InventoryOpenClose);
 
 		_backgroundImage.SetActive(false);
 		_inventoryPanel.SetActive(false);
@@ -54,6 +57,7 @@ public class UIManager : Singleton<UIManager>
     {
         SetTribeDistance();
         SetTimeOfDay();
+        SetPlayerLife();
     }
 
     void OpenMenu(string MenuName, bool CloseOthers = true)
@@ -180,6 +184,10 @@ public class UIManager : Singleton<UIManager>
         _HudCurrentTimeText.text = $"Current time " + (int)AmbiantManager.I.CurrentTimeOfDay + " h (" + AmbiantManager.I.CurrentDayState.State.ToString() + ")";
     }
 
+    public void SetPlayerLife()
+    {
+        _HudPlayerLifeText.text = $"Player life " + _refPlayer.PlayerLife;
+    }
     public void AlertMessage(string message)
     {
         _HudAlertMessageText.text = message;

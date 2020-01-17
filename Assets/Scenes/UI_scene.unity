@@ -127,6 +127,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2103666910, guid: 41b016115e9d7464e96dc233994afa42, type: 3}
+      propertyPath: _HudPlayerLifeText
+      value: 
+      objectReference: {fileID: 1347006967}
     - target: {fileID: 1620306415995268395, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -309,3 +313,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41b016115e9d7464e96dc233994afa42, type: 3}
+--- !u!114 &1347006967 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6260736797695402734, guid: 41b016115e9d7464e96dc233994afa42,
+    type: 3}
+  m_PrefabInstance: {fileID: 1347006966}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
