@@ -22,7 +22,7 @@ public class PlayerPlaceBeacon : BaseMonoBehaviour
 	{
         base.Start();
         player = GetComponent<PlayerMovement>();
-        _tribeAgent = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<NavMeshAgent>();
+        _tribeAgent = ((GameObject)ObjectsManager.I["TribeGroundPosition"]).GetComponent<NavMeshAgent>();
         _mainCamera = CameraManager.I._MainCamera;
         _tribeFollowTarget = Instantiate(_tribeFollowTargetPrefab);
         _tribeFollowTarget.transform.position = new Vector3(_tribeAgent.transform.position.x, 0, _tribeAgent.transform.position.z);

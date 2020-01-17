@@ -32,7 +32,7 @@ public class PlayerMovement : BaseMonoBehaviour
     {
         base.Start();
         _controller = GetComponent<CharacterController>();
-        Tribe = (GameObject)ObjectsManager.I["Tribe"];
+        Tribe = (GameObject)ObjectsManager.I["TribeGroundPosition"];
     }
 
     private void Update()

@@ -7,7 +7,7 @@ public class ObjectsManager : Singleton<ObjectsManager>
     protected override void Start()
     {
         base.Start();
-        this["Tribe"] = GameObject.Find("Tribe");
+        this["TribeGroundPosition"] = GameObject.Find("TribeGroundPosition");
         this["Player"] = GameObject.Find("Player");
         this["Optimum"] = GameObject.Find("Optimum");
         this["Fog"] = GameObject.Find("Fog");
