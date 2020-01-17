@@ -253,3 +253,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinimumTimeBetweenFog: 0
   CurrentDayStateIndex: 0
+  CurrentTimeOfDay: 0

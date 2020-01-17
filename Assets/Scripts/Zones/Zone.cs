@@ -8,4 +8,10 @@ public class Zone : BaseMonoBehaviour
     public float Radius = 5f;
     [Header("Zone radius")]
     public bool AllowCompass = false;
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, Radius);
+    }
 }
