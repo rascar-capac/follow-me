@@ -51,7 +51,7 @@ ParticleSystem:
   playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
-  useRigidbodyForVelocity: 1
+  useRigidbodyForVelocity: 0
   startDelay:
     serializedVersion: 2
     minMaxState: 0
@@ -744,9 +744,9 @@ ParticleSystem:
     m_TextureBilinearFiltering: 0
     randomDirectionAmount: 1
     sphericalDirectionAmount: 1
-    randomPositionAmount: 2.72
+    randomPositionAmount: 55.2
     radius:
-      value: 50
+      value: 10
       mode: 0
       spread: 0
       speed:

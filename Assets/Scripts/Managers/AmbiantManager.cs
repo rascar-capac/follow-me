@@ -26,11 +26,11 @@ public class AmbiantManager : Singleton<AmbiantManager>
     GameObject Fog;
     GameObject Player;
     ParticleSystem FogParticles;
-
-    public bool FogState = false;
-    public float MinimumTimeBetweenFog = 3;
+    public float MinimumTimeBetweenFog = 0;
     void StartFog()
     {
+        if (MinimumTimeBetweenFog == 0)
+            return;
         Fog.SetActive(true);
         Fog.transform.position = new Vector3(CameraManager.I._MainCamera.transform.position.x, CameraManager.I._MainCamera.transform.position.y, CameraManager.I._MainCamera.transform.position.z);// + Vector3.ProjectOnPlane(Player.transform.forward, Vector3.up);
         FogParticles.Play();
@@ -39,6 +39,8 @@ public class AmbiantManager : Singleton<AmbiantManager>
     }
     void EndFog()
     {
+        if (MinimumTimeBetweenFog == 0)
+            return;
         FogParticles.Stop();
         Fog.SetActive(false) ;
         StartChrono(MinimumTimeBetweenFog, StartFog);
@@ -70,14 +72,14 @@ public class AmbiantManager : Singleton<AmbiantManager>
         States[0].State = DayState.Day;
         States[0].DayStateDurationInSecond = 20f;
         States[0].StateColor = new Color((float)255 / (float)255, (float)240 / (float)255, (float)210 / (float)255);
-        States[0].EnterSunRotation = new Vector3(0, 0, 0);
-        States[0].ExitSunRotation = new Vector3(180, 0, 0);
+        States[0].EnterSunRotation = new Vector3(0, -30, 0);
+        States[0].ExitSunRotation = new Vector3(180, -30, 0);
 
         States[1].State = DayState.Night;
         States[1].DayStateDurationInSecond = 20f;
         States[1].StateColor = new Color((float)108 / (float)255, (float)91 / (float)255, (float)68 / (float)255);
-        States[1].EnterSunRotation = new Vector3(180, 0, 0);
-        States[1].EnterSunRotation = new Vector3(360, 0, 0);
+        States[1].EnterSunRotation = new Vector3(180, -30, 0);
+        States[1].EnterSunRotation = new Vector3(0, -30, 0);
 
         CurrentDayStateIndex = 1;
     }

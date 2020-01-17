@@ -252,8 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d1ed11eb901fea4bac46943dc1ef7ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FogState: 0
-  MinimumTimeBetweenFog: 3
+  MinimumTimeBetweenFog: 0
   CurrentDayStateIndex: 0
 --- !u!114 &2075882575
 MonoBehaviour:

@@ -4,20 +4,25 @@ using UnityEngine;
 
 public class LightsManager : Singleton<LightsManager>
 {
-    Light GlobalLight;
+    Light SunLight;
+    Light MoonLight;
+
     DayStatesProperties CurrentDayState;
     DayStatesProperties NextDayState;
 
 	GameObject Sun;
-	public float _speedSunRotation = 1;
+    GameObject Moon;
+    public float _speedSunRotation = 1;
     public float CurrentTimeRatio;
 
     protected override void Awake()
     {
-		Sun = GameObject.Find("Sun");
-
         base.Awake();
-		GlobalLight = Sun.GetComponent<Light>();
+        Sun = GameObject.Find("Sun");
+        //Moon = GameObject.Find("Moon");
+
+		SunLight = Sun.GetComponent<Light>();
+        //MoonLight = Moon.GetComponent<Light>();
         AmbiantManager.I.onDayStateChanged.AddListener(DayChanged);
 
     }
@@ -33,17 +38,20 @@ public class LightsManager : Singleton<LightsManager>
         CurrentTimeRatio = (Time.time - CurrentDayState.TimeStateChanged) / CurrentDayState.DayStateDurationInSecond;
 
         InterpolateLightColor();
-		SunRotation();
+		//SunRotation();
 	}
 
     void InterpolateLightColor()
     {
-        GlobalLight.color = Color.Lerp(CurrentDayState.StateColor, NextDayState.StateColor, CurrentTimeRatio);
+        SunLight.color = Color.Lerp(CurrentDayState.StateColor, NextDayState.StateColor, CurrentTimeRatio);
     }
 
 	void SunRotation()
 	{
-		Sun.transform.eulerAngles = Vector3.Lerp(CurrentDayState.EnterSunRotation, CurrentDayState.ExitSunRotation, CurrentTimeRatio);
+		//Sun.transform.eulerAngles = Vector3.Lerp(CurrentDayState.EnterSunRotation, CurrentDayState.ExitSunRotation, CurrentTimeRatio);
+        Sun.transform.localRotation = Quaternion.Euler(Vector3.Lerp(CurrentDayState.EnterSunRotation, CurrentDayState.ExitSunRotation, CurrentTimeRatio));
+        //Moon.transform.localRotation = Quaternion.Euler(Vector3.Lerp(NextDayState.EnterSunRotation, NextDayState.ExitSunRotation, CurrentTimeRatio));
+
         //Sun.transform.Rotate(new Vector3(_speedSunRotation * Time.deltaTime, 0, 0));
-	}
+    }
 }
