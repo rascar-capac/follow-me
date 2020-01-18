@@ -70,8 +70,6 @@ public class LightsManager : Singleton<LightsManager>
 
 	IEnumerator DayCycle()
 	{
-		Debug.Log("Début jour");
-
 		ResetSunRotation();
 
 		RenderSettings.skybox = _skyboxMaterialDay;
@@ -84,15 +82,12 @@ public class LightsManager : Singleton<LightsManager>
 			break;
 		}
 
-		Debug.Log("Fin jour");
 		_DayCoroutine = null;
 		yield return null;
 	}
 
 	IEnumerator NightCycle()
 	{
-		Debug.Log("Début Nuit");
-
 		ResetSunRotation();
 
 		RenderSettings.skybox = _skyboxMaterialNight;
@@ -104,7 +99,6 @@ public class LightsManager : Singleton<LightsManager>
 			break;
 		}
 
-		Debug.Log("Fin Nuit");
 		_NightCoroutine = null;
 		yield return null;
 	}

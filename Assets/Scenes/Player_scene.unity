@@ -126,7 +126,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7354173736692978563}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1102385122
+--- !u!114 &1102385128
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,16 +135,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1102385121}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b23d400240eef8643aee2a348ce0dd3d, type: 3}
+  m_Script: {fileID: 11500000, guid: b60e78215937caf418cc6b4c398e924f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tribeFollowTargetPrefab: {fileID: 4623627212519899461, guid: 02d81e148cd4dbf449b5931b393705aa,
-    type: 3}
-  DropDistance: 5
-  DropableLayers:
-    serializedVersion: 2
-    m_Bits: 256
---- !u!114 &1102385123
+  _questsPlayer:
+  - {fileID: 11400000, guid: 2cf1e80192789354ab3fa495fdc943cb, type: 2}
+--- !u!114 &1102385129
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -153,25 +149,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1102385121}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd8835a5a44b5894ea72ae5167b345b7, type: 3}
+  m_Script: {fileID: 11500000, guid: c7ff5489efed6ed4c97d0a9670917737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerInventory: []
-  _pickUpRange: 5
---- !u!114 &1102385124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1102385121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 778713dd545b13b4db091782bcf8b7f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerLifeStart: 100
-  PlayerLife: 100
 --- !u!1001 &7354173736692978563
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -183,11 +163,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1459762723063845718, guid: 5d3cba6ec4ec1f54a9e83a1243fb67b7,
-        type: 3}
-      propertyPath: MaximumDistanceOfTribe
-      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 3888259315700407448, guid: 5d3cba6ec4ec1f54a9e83a1243fb67b7,
         type: 3}
