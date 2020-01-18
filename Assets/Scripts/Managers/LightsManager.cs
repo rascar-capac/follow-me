@@ -24,9 +24,11 @@ public class LightsManager : Singleton<LightsManager>
 	Coroutine _NightCoroutine;
 
 	// IN PROGRESS
-	// Attention Oliv, je me suis raccrocher à tes events et CurrentTimeRatio, j'en ai besoin
-	//
-	//
+	// Attention Oliv, je me suis raccrocher à tes events et CurrentTimeRatio, on en a besoin ici.
+	//Il reste des Lerps à faire lors des transitions jour/nuit entre:
+	//  - les 2 materials (jour et Nuit)
+	//  - les 2 colors _ambientColor....
+	//  - l'intensité de la Light _.....LightIntensity
 	//
 	// ENJOYYYYYYYY
 
