@@ -254,3 +254,4 @@ MonoBehaviour:
   MinimumTimeBetweenFog: 0
   CurrentDayStateIndex: 0
   CurrentTimeOfDay: 0
+  TotalDayTime: 0

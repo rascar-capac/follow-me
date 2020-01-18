@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerInventory : Singleton<PlayerInventory>
 {
@@ -10,10 +9,6 @@ public class PlayerInventory : Singleton<PlayerInventory>
 
 	[Header("Pick-up Range")]
 	public float _pickUpRange = 5;
-
-	//[Header("Debug Mode")]
-	//public bool _debugMode = false;
-	//public Color _debugColor = Color.yellow;
 
 	Camera _mainCamera;
 	RaycastHit _hitInfo = new RaycastHit();
@@ -34,6 +29,10 @@ public class PlayerInventory : Singleton<PlayerInventory>
 				Destroy(_hitInfo.transform.gameObject);
 			}
 	}
+
+	//[Header("Debug Mode")]
+	//public bool _debugMode = false;
+	//public Color _debugColor = Color.yellow;
 
 	//private void OnDrawGizmos()
 	//{
