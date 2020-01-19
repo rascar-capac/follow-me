@@ -15,8 +15,9 @@ MonoBehaviour:
   _questTitle: "\xCAtre centriste..."
   _questDescription: Retourner au centre
   _questAccess: 1
-  _questFinish: 1
+  _questFinish: 0
   _questType: 0
-  _goalGoToPosition: {fileID: 0}
+  _goalGoToPosition: {fileID: 1627492792764519422, guid: b6eb82af83c5861479bc7d3dba5a75f0,
+    type: 3}
   _questRewards:
   - {fileID: 11400000, guid: bc133bea85090f040a6aeb60033568c9, type: 2}

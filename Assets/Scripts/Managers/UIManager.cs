@@ -15,7 +15,6 @@ public class UIManager : Singleton<UIManager>
 	[Header("UI Réferences")]
 	public GameObject _inventoryPanel;
     public GameObject _inventoryContent;
-	public GameObject _hudPanel;
     public Text _HudTribeDistanceText;
     public Text _HudAlertMessageText;
     public Text _HudCurrentTimeText;
@@ -27,10 +26,12 @@ public class UIManager : Singleton<UIManager>
 	[Header("Assets Réferences")]
 	public GameObject _inventoryCellPrefab;
 	#endregion
-
-	#region UI HUD Variables
-	public List<GameObject> Menus;
-	#endregion
+	[Header("HUD Panel")]
+	public GameObject _hudPanel;
+	[Header("Main Menu")]
+	public GameObject _mainMenu;
+	[Header("Tout les Panels du Menu")]
+	public List<GameObject> MenuPanels;
 
 	#region Inventory Variables
 	List<GameObject> _inventoryUiItemList = new List<GameObject>();
@@ -45,12 +46,14 @@ public class UIManager : Singleton<UIManager>
 		_refPlayerInventory = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerInventory>();
         _refPlayer = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
 
-        InputManager.I.onOpenInventoryKeyPressed.AddListener(InventoryOpenClose);
+		InputManager.I.onUIPlayerKeyPressed.AddListener(OpenPlayerPanel);
+		InputManager.I.onUITribeKeyPressed.AddListener(OpenTribePanel);
+		InputManager.I.onUIInventoryKeyPressed.AddListener(OpenInventoryPanel);
+		InputManager.I.onUIQuestKeyPressed.AddListener(OpenQuestPanel);
+		InputManager.I.onUIMapKeyPressed.AddListener(OpenMapPanel);
+		InputManager.I.onUIOptionsKeyPressed.AddListener(OpenOptionsPanel);
 
-		_backgroundImage.SetActive(false);
-		_inventoryPanel.SetActive(false);
-
-        OpenMenu("HudPanel");
+		CloseMenu();
 	}
 
     private void Update()
@@ -62,17 +65,61 @@ public class UIManager : Singleton<UIManager>
 
     void OpenMenu(string MenuName, bool CloseOthers = true)
     {
-        if (Menus == null)
+        if (_mainMenu == null || MenuPanels == null)
             return;
 
-        for (int i = 0; i < Menus.Count; i++)
+		_mainMenu.SetActive(true);
+		_hudPanel.SetActive(false);
+
+        for (int i = 0; i < MenuPanels.Count; i++)
         {
-            if (CloseOthers && MenuName != Menus[i].name)
-                Menus[i].SetActive(false);
-            if (Menus[i].name == MenuName)
-                Menus[i].SetActive(true);
+            if (CloseOthers && MenuName != MenuPanels[i].name)
+                MenuPanels[i].SetActive(false);
+            if (MenuPanels[i].name == MenuName)
+                MenuPanels[i].SetActive(true);
         }
-    }
+
+		Cursor.visible = true;
+		Cursor.lockState = CursorLockMode.None;
+	}
+	public void CloseMenu()
+	{
+		if (_mainMenu == null || MenuPanels == null)
+			return;
+
+		_mainMenu.SetActive(false);
+		_hudPanel.SetActive(true);
+
+		for (int i = 0; i < MenuPanels.Count; i++)
+			MenuPanels[i].SetActive(false);
+
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
+	}
+	public void OpenPlayerPanel()
+	{
+		OpenMenu("PlayerPanel");
+	}
+	public void OpenTribePanel()
+	{
+		OpenMenu("TribePanel");
+	}
+	public void OpenInventoryPanel()
+	{
+		OpenMenu("InventoryPanel");
+	}
+	public void OpenQuestPanel()
+	{
+		OpenMenu("QuestPanel");
+	}
+	public void OpenMapPanel()
+	{
+		OpenMenu("MapPanel");
+	}
+	public void OpenOptionsPanel()
+	{
+		OpenMenu("OptionsPanel");
+	}
 
 	#region Inventory Functions
 	void InventoryOpenClose()
@@ -87,13 +134,6 @@ public class UIManager : Singleton<UIManager>
 			RectTransform invContentRectT = _inventoryContent.GetComponent<RectTransform>();
 			float invCellHeight = _inventoryCellPrefab.GetComponent<RectTransform>().sizeDelta.y;
 
-			//PauseGame(true);
-			_backgroundImage.SetActive(true);
-			_inventoryPanel.SetActive(true);
-
-			Cursor.visible = true;
-			Cursor.lockState = CursorLockMode.None;
-
 			// Set height of InventoryPanel/Scroll View/Viewport/Content
 			invContentRectT.sizeDelta = new Vector2(invContentRectT.sizeDelta.x, invCellHeight * _refPlayerInventory._playerInventory.Count);
 
@@ -106,61 +146,9 @@ public class UIManager : Singleton<UIManager>
 				_inventoryUiItemList[i].transform.GetChild(1).GetComponent<Text>().text = _refPlayerInventory._playerInventory[i]._itemName;
 				//_inventoryUiItemList[i].transform.GetChild(2).GetComponent<Image>().sprite = _refPlayerInventory._playerInventory[i]._itemIcon;
 			}
-		
-
-		//// Inventory Open
-		//if (!_inventoryPanel.activeSelf)
-		//{
-		//	RectTransform invContentRectT = _inventoryContent.GetComponent<RectTransform>();
-		//	float invCellHeight = _inventoryCellPrefab.GetComponent<RectTransform>().sizeDelta.y;
-
-		//	//PauseGame(true);
-		//	_backgroundImage.SetActive(true);
-		//	_inventoryPanel.SetActive(true);
-
-		//	Cursor.visible = true;
-		//	Cursor.lockState = CursorLockMode.None;
-
-		//	// Set height of InventoryPanel/Scroll View/Viewport/Content
-		//	invContentRectT.sizeDelta = new Vector2(invContentRectT.sizeDelta.x, invCellHeight * _refPlayerInventory._playerInventory.Count);
-
-		//	// Instantiate all cells for each items in inventory and set-up cell
-		//	for (int i = 0; i < _refPlayerInventory._playerInventory.Count; i++)
-		//	{
-		//		_inventoryUiItemList.Add(Instantiate(_inventoryCellPrefab, invContentRectT));
-
-		//		_inventoryUiItemList[i].transform.GetChild(0).GetComponent<Image>().sprite = _refPlayerInventory._playerInventory[i]._itemIcon;
-		//		_inventoryUiItemList[i].transform.GetChild(1).GetComponent<Text>().text = _refPlayerInventory._playerInventory[i]._itemName;
-		//		//_inventoryUiItemList[i].transform.GetChild(2).GetComponent<Image>().sprite = _refPlayerInventory._playerInventory[i]._itemIcon;
-		//	}
-		//}
-		//// Inventory Closed
-		//else
-		//{
-		//	//PauseGame(false);
-		//	_backgroundImage.SetActive(false);
-		//	_inventoryPanel.SetActive(false);
-
-		//	Cursor.visible = false;
-		//	Cursor.lockState = CursorLockMode.Locked;
-
-		//	foreach (GameObject cell in _inventoryUiItemList)
-		//	{
-		//		Destroy(cell);
-		//	}
-		//	_inventoryUiItemList.Clear();
-		//}
 	}
 	void CloseInventory()
 	{
-		// Inventory Closed
-		//PauseGame(false);
-		_backgroundImage.SetActive(false);
-		_inventoryPanel.SetActive(false);
-
-		Cursor.visible = false;
-		Cursor.lockState = CursorLockMode.Locked;
-
 		foreach (GameObject cell in _inventoryUiItemList)
 		{
 			Destroy(cell);
@@ -168,7 +156,6 @@ public class UIManager : Singleton<UIManager>
 		_inventoryUiItemList.Clear();
 	}
 	#endregion
-
 
 	#region Hud Functions
 

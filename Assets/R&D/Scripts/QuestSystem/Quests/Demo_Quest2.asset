@@ -17,6 +17,7 @@ MonoBehaviour:
   _questAccess: 1
   _questFinish: 0
   _questType: 0
-  _goalGoToPosition: {fileID: 0}
+  _goalGoToPosition: {fileID: 6775335692506810413, guid: b393fbdcb629bb947ad2c756fd242818,
+    type: 3}
   _questRewards:
   - {fileID: 11400000, guid: 7e437ac7001182244a1af77e9de3f835, type: 2}
