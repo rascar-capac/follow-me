@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Sirenix.OdinInspector;
 
 public enum RewardType
 {
@@ -14,5 +14,8 @@ public enum RewardType
 public class QuestRewardData : ScriptableObject
 {
 	public RewardType _rewardType;
-	public InventoryItemData _rewardItem;
+	[ShowIf("_rewardType", RewardType.Item)]
+	public List<ItemData> _rewardsItem;
+	[ShowIf("_rewardType", RewardType.Quest)]
+	public List<QuestData> _rewardsQuest;
 }

@@ -140,6 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _questsPlayer:
   - {fileID: 11400000, guid: 2cf1e80192789354ab3fa495fdc943cb, type: 2}
+  - {fileID: 11400000, guid: c1133389ade4fcb46bf29ac1fefd81e9, type: 2}
 --- !u!114 &1102385129
 MonoBehaviour:
   m_ObjectHideFlags: 0

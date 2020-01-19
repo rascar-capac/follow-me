@@ -5,5 +5,5 @@ using UnityEngine;
 public class InventoryItem : BaseMonoBehaviour
 {
 	[Header("Place Item Data")]
-	public InventoryItemData _itemData;
+	public ItemData _itemData;
 }

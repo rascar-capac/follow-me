@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Sirenix.OdinInspector;
 
 public enum QuestType
 {
@@ -14,8 +14,10 @@ public class QuestData : ScriptableObject
 	public string _questTitle;
 	public string _questDescription;
 	public bool _questAccess;
-	public QuestType _questType;
-	public Transform _goalGoToPosition;
 	public bool _questFinish = false;
+	public QuestType _questType;
+	[ShowIf("_questType", QuestType.GotoPosition)]
+	public Transform _goalGoToPosition; // Transformer en List et Changer logique sQuestValidator/CheckQuestFinish()
+	// Ajouter un float distanceMinimum
 	public List<QuestRewardData> _questRewards;
 }

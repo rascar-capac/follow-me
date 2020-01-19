@@ -39,10 +39,13 @@ public class PlayerQuest : Singleton<PlayerQuest>
 					switch (reward._rewardType)
 					{
 						case RewardType.Item:
-							_playerInventory._playerInventory.Add(reward._rewardItem);
+							foreach (ItemData item in reward._rewardsItem)
+								_playerInventory._playerInventory.Add(item);
 							break;
 
 						case RewardType.Quest:
+							foreach (QuestData newQuest in reward._rewardsQuest)
+								_questsPlayer.Add(newQuest);
 							break;
 
 						case RewardType.BoostStats:

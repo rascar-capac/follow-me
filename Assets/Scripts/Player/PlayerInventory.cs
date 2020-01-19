@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerInventory : Singleton<PlayerInventory>
 {
 	[Header("Player Inventory")]
-	public List<InventoryItemData> _playerInventory;
+	public List<ItemData> _playerInventory;
 
 	[Header("Pick-up Range")]
 	public float _pickUpRange = 5;

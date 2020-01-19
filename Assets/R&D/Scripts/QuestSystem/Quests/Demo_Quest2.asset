@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 198af5eba7916214c901a32cac5b24ef, type: 3}
+  m_Name: Demo_Quest2
+  m_EditorClassIdentifier: 
+  _questTitle: Plus de bois!
+  _questDescription: Peux-tu nous trouver une zone avec du bois?
+  _questAccess: 1
+  _questFinish: 0
+  _questType: 0
+  _goalGoToPosition: {fileID: 0}
+  _questRewards:
+  - {fileID: 11400000, guid: 7e437ac7001182244a1af77e9de3f835, type: 2}
