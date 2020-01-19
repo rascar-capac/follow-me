@@ -9,32 +9,37 @@ public class UIManager : Singleton<UIManager>
     Player _refPlayer;
     PlayerMovement _refPlayerMovement;
 	PlayerInventory _refPlayerInventory;
+	PlayerQuest _refPlayerQuest;
 	#endregion
 
-	#region References UI Elements
-	[Header("UI Réferences")]
-	public GameObject _inventoryPanel;
-    public GameObject _inventoryContent;
-    public Text _HudTribeDistanceText;
-    public Text _HudAlertMessageText;
-    public Text _HudCurrentTimeText;
-    public Text _HudPlayerLifeText;
-    public GameObject _backgroundImage;
-	#endregion
-
-	#region Prefabs UI Elements
-	[Header("Assets Réferences")]
-	public GameObject _inventoryCellPrefab;
-	#endregion
+	#region References UI Prefabs
 	[Header("HUD Panel")]
 	public GameObject _hudPanel;
 	[Header("Main Menu")]
 	public GameObject _mainMenu;
-	[Header("Tout les Panels du Menu")]
+	[Header("Tout les Panels du Menu (sauf MainMenu)")]
 	public List<GameObject> MenuPanels;
 
+	[Header("HUD Components")]
+    public Text _HudTribeDistanceText;
+    public Text _HudAlertMessageText;
+    public Text _HudCurrentTimeText;
+    public Text _HudPlayerLifeText;
+
+	[Header("Inventory Prefabs")]
+	public Transform _inventoryContent;
+	public GameObject _inventoryCellAsset;
+
+	[Header("Quest Prefabs")]
+	public Transform _questContent;
+	public GameObject _questCellAsset;
+	#endregion
+
 	#region Inventory Variables
-	List<GameObject> _inventoryUiItemList = new List<GameObject>();
+	List<GameObject> _inventoryCellList = new List<GameObject>();
+	#endregion
+	#region Quest Variables
+	List<GameObject> _questCellList = new List<GameObject>();
 	#endregion
 
 
@@ -42,9 +47,10 @@ public class UIManager : Singleton<UIManager>
 	{
 		base.Start();
 
+        _refPlayer = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
         _refPlayerMovement = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerMovement>();
 		_refPlayerInventory = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerInventory>();
-        _refPlayer = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
+		_refPlayerQuest = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerQuest>();
 
 		InputManager.I.onUIPlayerKeyPressed.AddListener(OpenPlayerPanel);
 		InputManager.I.onUITribeKeyPressed.AddListener(OpenTribePanel);
@@ -92,6 +98,8 @@ public class UIManager : Singleton<UIManager>
 
 		for (int i = 0; i < MenuPanels.Count; i++)
 			MenuPanels[i].SetActive(false);
+		CleanCellsInventory();
+		CleanCellsQuest();
 
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
@@ -107,10 +115,12 @@ public class UIManager : Singleton<UIManager>
 	public void OpenInventoryPanel()
 	{
 		OpenMenu("InventoryPanel");
+		GenerateCellsInventory();
 	}
 	public void OpenQuestPanel()
 	{
 		OpenMenu("QuestPanel");
+		GenerateCellsQuest();
 	}
 	public void OpenMapPanel()
 	{
@@ -121,44 +131,7 @@ public class UIManager : Singleton<UIManager>
 		OpenMenu("OptionsPanel");
 	}
 
-	#region Inventory Functions
-	void InventoryOpenClose()
-	{
-		if (_inventoryPanel.activeSelf == false)
-			OpenInventory();
-		else
-			CloseInventory();
-	}
-	void OpenInventory()
-	{
-			RectTransform invContentRectT = _inventoryContent.GetComponent<RectTransform>();
-			float invCellHeight = _inventoryCellPrefab.GetComponent<RectTransform>().sizeDelta.y;
-
-			// Set height of InventoryPanel/Scroll View/Viewport/Content
-			invContentRectT.sizeDelta = new Vector2(invContentRectT.sizeDelta.x, invCellHeight * _refPlayerInventory._playerInventory.Count);
-
-			// Instantiate all cells for each items in inventory and set-up cell
-			for (int i = 0; i < _refPlayerInventory._playerInventory.Count; i++)
-			{
-				_inventoryUiItemList.Add(Instantiate(_inventoryCellPrefab, invContentRectT));
-
-				_inventoryUiItemList[i].transform.GetChild(0).GetComponent<Image>().sprite = _refPlayerInventory._playerInventory[i]._itemIcon;
-				_inventoryUiItemList[i].transform.GetChild(1).GetComponent<Text>().text = _refPlayerInventory._playerInventory[i]._itemName;
-				//_inventoryUiItemList[i].transform.GetChild(2).GetComponent<Image>().sprite = _refPlayerInventory._playerInventory[i]._itemIcon;
-			}
-	}
-	void CloseInventory()
-	{
-		foreach (GameObject cell in _inventoryUiItemList)
-		{
-			Destroy(cell);
-		}
-		_inventoryUiItemList.Clear();
-	}
-	#endregion
-
 	#region Hud Functions
-
 	public void SetTribeDistance()
     {
         _HudTribeDistanceText.text = $"Tribe distance " + _refPlayerMovement.TribeDistance + " m";
@@ -185,6 +158,58 @@ public class UIManager : Singleton<UIManager>
     {
         _HudAlertMessageText.gameObject.SetActive(false);
     }
-
     #endregion
+
+
+	#region Inventory Functions
+	void GenerateCellsInventory()
+	{
+		if (_inventoryCellList.Count > 0)
+			CleanCellsInventory();
+
+		// Instantiate all cells for each items in inventory and set-up cell
+		for (int i = 0; i < _refPlayerInventory._playerInventory.Count; i++)
+		{
+			_inventoryCellList.Add(Instantiate(_inventoryCellAsset, _inventoryContent));
+
+			_inventoryCellList[i].transform.GetChild(0).GetComponent<Image>().sprite = _refPlayerInventory._playerInventory[i]._itemIcon;
+			_inventoryCellList[i].transform.GetChild(1).GetComponent<Text>().text = _refPlayerInventory._playerInventory[i]._itemName;
+			//_inventoryUiItemList[i].transform.GetChild(2).GetComponent<Image>().sprite = _refPlayerInventory._playerInventory[i]._itemIcon;
+		}
+	}
+	void CleanCellsInventory()
+	{
+		foreach (GameObject cell in _inventoryCellList)
+		{
+			Destroy(cell);
+		}
+		_inventoryCellList.Clear();
+	}
+	#endregion
+
+
+	#region Quest Functions
+	void GenerateCellsQuest()
+	{
+		if (_questCellList.Count > 0)
+			CleanCellsQuest();
+
+		// Instantiate all cells for each items in inventory and set-up cell
+		for (int i = 0; i < _refPlayerQuest._questsPlayer.Count; i++)
+		{
+			_questCellList.Add(Instantiate(_questCellAsset, _questContent));
+
+			_questCellList[i].transform.GetChild(0).GetComponent<Text>().text = _refPlayerQuest._questsPlayer[i]._questTitle;
+		}
+	}
+	void CleanCellsQuest()
+	{
+		foreach (GameObject cell in _questCellList)
+		{
+			Destroy(cell);
+		}
+		_questCellList.Clear();
+	}
+	#endregion
+
 }
