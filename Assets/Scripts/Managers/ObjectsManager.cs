@@ -6,18 +6,12 @@ public class ObjectsManager : Singleton<ObjectsManager>
 {
     protected override void Start()
     {
-        Debug.Log("Loading objects");
         base.Start();
         this["TribeGroundPosition"] = GameObject.Find("TribeGroundPosition");
         this["Player"] = GameObject.Find("Player");
         this["Optimum"] = GameObject.Find("Optimum");
+        this["Tribe"] = GameObject.Find("Tribe");
         this["Fog"] = GameObject.Find("Fog");
-
-        if (this["TribeGroundPosition"] == null)
-        {
-            Debug.Log("TribeGroundPosition not found !");
-        }
-        Debug.Log("Loaded");
 
     }
 }

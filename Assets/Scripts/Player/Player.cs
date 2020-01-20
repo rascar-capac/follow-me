@@ -8,8 +8,7 @@ public class Player : ZoneInteractable
     public float PlayerLife = 100.0f;
 
     PlayerLook playerLook;
-    float HurtingSpeed = 0.0f;
-    float GainSpeed = 0.0f;
+
 
     // Start is called before the first frame update
     protected override void Start()
@@ -19,32 +18,27 @@ public class Player : ZoneInteractable
         playerLook = CameraManager.I._MainCamera.GetComponent<PlayerLook>();
     }
 
-    protected void Update()
+
+    public void LooseLife(Zone zone)
     {
-        LooseLife();
-        GainLife();
+        PlayerLife -= zone.HurtSpeed * Time.deltaTime;
     }
 
-    public void LooseLife()
+    public void GainLife(Zone zone)
     {
-        PlayerLife -= HurtingSpeed * Time.deltaTime;
+        PlayerLife += zone.GainSpeed * Time.deltaTime;
     }
 
-    public void GainLife()
-    {
-        PlayerLife += GainSpeed * Time.deltaTime;
-    }
-
-    public override void EnterZone(Zone zone)
+    public void ActivateCompass(Zone zone)
     {
         playerLook.CompassActive = zone.AllowCompass;
-        HurtingSpeed += zone.HurtSpeed;
-        GainSpeed += zone.GainSpeed;
     }
-    public override void ExitZone(Zone zone)
+
+    public override void ApplyZoneEffect(Zone zone)
     {
-        playerLook.CompassActive = !zone.AllowCompass;
-        HurtingSpeed -= zone.HurtSpeed;
-        GainSpeed -= zone.GainSpeed;
+        base.ApplyZoneEffect(zone);
+        ActivateCompass(zone);
+        LooseLife(zone);
+        GainLife(zone);
     }
 }

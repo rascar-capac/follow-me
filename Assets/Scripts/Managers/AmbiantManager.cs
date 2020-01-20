@@ -25,7 +25,8 @@ public class AmbiantManager : Singleton<AmbiantManager>
 {
     #region Fog
     GameObject Fog;
-    GameObject Player;
+    Zone FogZone;
+    Player Player;
     ParticleSystem FogParticles;
     [Header("Seconds between 2 fogs apparition")]
     public float MinimumTimeBetweenFog = 0;
@@ -47,6 +48,7 @@ public class AmbiantManager : Singleton<AmbiantManager>
             return;
         FogParticles.Stop();
         Fog.SetActive(false) ;
+        Player.ExitZone(FogZone);
         StartChrono(MinimumTimeBetweenFog, StartFog);
         Debug.Log("Fog off");
     }
@@ -58,7 +60,8 @@ public class AmbiantManager : Singleton<AmbiantManager>
         Fog = (GameObject)ObjectsManager.I["Fog"];
         FogParticles = Fog.GetComponentInChildren<ParticleSystem>();
         Fog.SetActive(false);
-        Player = (GameObject)ObjectsManager.I["Player"];
+        FogZone = Fog.GetComponentInChildren<Zone>();
+        Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
         InitDaysStates();
         ChangeDayState();
         StartChrono(MinimumTimeBetweenFog, StartFog);
