@@ -17,7 +17,7 @@ public class ScenesManager : Singleton<ScenesManager>
     protected override void Start()
     {
         base.Start();
-        Debug.Log("LOGGGG >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<");
+        //Debug.Log("LOGGGG >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<");
         currentScene = SceneManager.GetActiveScene();
         //Debug.Log("Current scene : " + currentScene.name);
         //Debug.Log($"Scenes count : {SceneManager.sceneCountInBuildSettings}");
@@ -59,17 +59,17 @@ public class ScenesManager : Singleton<ScenesManager>
         LoadScene("Target_scene");
         LoadScene("Items_scene");
         LoadScene("UI_scene");
-        Debug.Log("END LOGGGG >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<");
+        //Debug.Log("END LOGGGG >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<");
 }
 
 public void LoadScene(string SceneName)
     {
         Scene scene = SceneManager.GetSceneByName(SceneName);
-        Debug.Log("verify scene async " + scene.name);
+        //Debug.Log("verify scene async " + scene.name);
         //this[SceneName] = scene;
         if (!scene.isLoaded)
         {
-            Debug.Log("Loading scene async " + scene.name);
+            //Debug.Log("Loading scene async " + scene.name);
             SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Additive);
         }
 
