@@ -16,10 +16,8 @@ public class Zone : BaseMonoBehaviour
     public bool AllowCompass = false;
     [Header("Ressources")]
     public RessourcesType[] Ressources;
-    [Header("Player layer")]
-    public LayerMask PlayerLayer;
-    [Header("Tribe layer")]
-    public LayerMask TribeLayer;
+    [Header("Authorized layer")]
+    public LayerMask Layers;
 
     private void OnDrawGizmos()
     {
@@ -29,25 +27,18 @@ public class Zone : BaseMonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (PlayerLayer == (PlayerLayer | (1 << other.gameObject.layer)))
+        Debug.Log("Collide");
+        if (Layers == (Layers | (1 << other.gameObject.layer)))
         {
-            Debug.Log("Player Entered zone !");
-        }
-        else if (TribeLayer == (TribeLayer | (1 << other.gameObject.layer)))
-        {
-            Debug.Log("Tribe Entered zone !");
+            other.gameObject.GetComponent<ZoneInteractable>().EnterZone(this);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (PlayerLayer == (PlayerLayer | (1 << other.gameObject.layer)))
+        if (Layers == (Layers | (1 << other.gameObject.layer)))
         {
-            Debug.Log("Player Exited zone !");
-        }
-        else if (TribeLayer == (TribeLayer | (1 << other.gameObject.layer)))
-        {
-            Debug.Log("Tribe Exited zone !");
+            other.gameObject.GetComponent<ZoneInteractable>().ExitZone(this);
         }
     }
 }

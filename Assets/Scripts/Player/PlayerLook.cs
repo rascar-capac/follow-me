@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerLook : MonoBehaviour
+public class PlayerLook : BaseMonoBehaviour
 {
     [Header("Mouse sensitivity")]
     public float mouseSensitivity = 100f;
@@ -26,7 +26,7 @@ public class PlayerLook : MonoBehaviour
 
     float xRotation = 0f;
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
         //Cursor.lockState = CursorLockMode.Locked;
         playerBody = ((GameObject)ObjectsManager.I["Player"]).transform;
@@ -59,10 +59,13 @@ public class PlayerLook : MonoBehaviour
 
     void VerifyCompass()
     {
-        if (!CompassActive)
+        if (!CompassActive || CompassUsable == null)
+        {
+            NeedleRenderer.material = UnavailableCompass;
             return;
-        if (CompassUsable == null)
-            return;
+        }
+
+
         int i = 0;
         for (i = 0; i < CompassUsable.Count; i++)
         {
@@ -86,4 +89,6 @@ public class PlayerLook : MonoBehaviour
         else
             NeedleRenderer.material = GoodDirection;
     }
+
+
 }

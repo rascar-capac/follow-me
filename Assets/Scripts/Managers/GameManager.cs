@@ -14,7 +14,7 @@ public class GameManager : Singleton<GameManager>
     protected override void Start()
     {
         base.Start();
-        InputManager.I.onPauseKeyPressed.AddListener(() => { PauseGame(!GamePaused); });
+        //InputManager.I.onPauseKeyPressed.AddListener(() => { PauseGame(!GamePaused); });
     }
 }
 
