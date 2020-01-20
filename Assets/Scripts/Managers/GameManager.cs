@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class GameManager : Singleton<GameManager>
 {
+    public GameData _data;
+
     protected override void Awake()
     {
         base.Awake();

@@ -5,12 +5,8 @@ using UnityEngine.Events;
 
 public class Tribe : ZoneInteractable
 {
-    [Header("Initial Tribe life when starting game.")]
-    public float InitialLife = 100.0f;
     [Header("Current Tribe life.")]
     public float Life = 100.0f;
-    [Header("Alert player when life is under threshold in ratio (between 0 and 1).")]
-    public float CriticalLife = 0.1f;
 
     public UnityEvent onTribeLifeEnterCritical = new UnityEvent();
     public UnityEvent onTribeLifeExitCritical = new UnityEvent();
@@ -20,7 +16,7 @@ public class Tribe : ZoneInteractable
     protected override void Start()
     {
         base.Start();
-        Life = InitialLife;
+        Life = GameManager.I._data.InitialTribeLife;
     }
 
 
@@ -28,14 +24,14 @@ public class Tribe : ZoneInteractable
     {
         base.Update();
 
-        float TribeLifeRatio = Life / InitialLife;
+        float TribeLifeRatio = Life / GameManager.I._data.InitialTribeLife;
 
-        if (TribeLifeRatio <= CriticalLife && !TribeLifeCritical)
+        if (TribeLifeRatio <= GameManager.I._data.TribeLifeThresshold && !TribeLifeCritical)
         {
             TribeLifeCritical = true;
             onTribeLifeEnterCritical.Invoke();
         }
-        else if (TribeLifeRatio > CriticalLife && TribeLifeCritical)
+        else if (TribeLifeRatio > GameManager.I._data.TribeLifeThresshold && TribeLifeCritical)
         {
             TribeLifeCritical = false;
             onTribeLifeExitCritical.Invoke();

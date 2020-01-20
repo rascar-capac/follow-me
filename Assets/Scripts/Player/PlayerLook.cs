@@ -4,25 +4,18 @@ using UnityEngine;
 
 public class PlayerLook : BaseMonoBehaviour
 {
-    [Header("Mouse sensitivity")]
-    public float mouseSensitivity = 100f;
     [HideInInspector]
     public Transform playerBody;
     Transform Optimum;
     Renderer NeedleRenderer;
     GameObject Compass;
+
     [Header("The color of the compass when direction is correct")]
     public Material GoodDirection;
     [Header("The color of the compass when direction is NOT correct")]
     public Material BadDirection;
     [Header("The color of the compass when unavailable")]
     public Material UnavailableCompass;
-    [Header("The Angle tresshold of the compass")]
-    public float CompassThresshold = 15f;
-    [Header("Activate/deactivate compass feature")]
-    public bool CompassActive = true;
-    [Header("when compass is usable")]
-    public List<DayState> CompassUsable;
 
     float xRotation = 0f;
     // Start is called before the first frame update
@@ -35,7 +28,7 @@ public class PlayerLook : BaseMonoBehaviour
         NeedleRenderer = GameObject.Find("Needle").GetComponent<MeshRenderer>();
         NeedleRenderer.material = GoodDirection;
         transform.SetParent(playerBody);
-        Compass.SetActive(CompassActive);
+        Compass.SetActive(GameManager.I._data.CompassActive);
     }
 
     // Update is called once per frame
@@ -47,8 +40,8 @@ public class PlayerLook : BaseMonoBehaviour
 
     void RotateCamera()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * GameManager.I._data.mouseSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * GameManager.I._data.mouseSensitivity * Time.deltaTime;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
@@ -59,7 +52,7 @@ public class PlayerLook : BaseMonoBehaviour
 
     void VerifyCompass()
     {
-        if (!CompassActive || CompassUsable == null)
+        if (!GameManager.I._data.CompassActive || GameManager.I._data.CompassUsable == null)
         {
             NeedleRenderer.material = UnavailableCompass;
             return;
@@ -67,13 +60,13 @@ public class PlayerLook : BaseMonoBehaviour
 
 
         int i = 0;
-        for (i = 0; i < CompassUsable.Count; i++)
+        for (i = 0; i < GameManager.I._data.CompassUsable.Count; i++)
         {
-            if (CompassUsable[i] == AmbiantManager.I.CurrentDayState.State)
+            if (GameManager.I._data.CompassUsable[i] == AmbiantManager.I.CurrentDayState.State)
                 break;
         }
 
-        if (i >= CompassUsable.Count)
+        if (i >= GameManager.I._data.CompassUsable.Count)
         {
             NeedleRenderer.material = UnavailableCompass;
             return;
@@ -84,7 +77,7 @@ public class PlayerLook : BaseMonoBehaviour
         Vector3 forwardProjected = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
         Debug.DrawLine(transform.position, Optimum.position);
         float angle = Vector3.Angle(rayProjected, forwardProjected);
-        if (angle > CompassThresshold || angle < -CompassThresshold)
+        if (angle > GameManager.I._data.CompassThresshold || angle < -GameManager.I._data.CompassThresshold)
             NeedleRenderer.material = BadDirection;
         else
             NeedleRenderer.material = GoodDirection;
