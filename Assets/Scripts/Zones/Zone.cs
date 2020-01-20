@@ -16,6 +16,10 @@ public class Zone : BaseMonoBehaviour
     public bool AllowCompass = false;
     [Header("Ressources")]
     public RessourcesType[] Ressources;
+    [Header("Player toxicity speed by second")]
+    public float HurtSpeed = 0.0f;
+    [Header("Player gain life speed by second")]
+    public float GainSpeed = 0.0f;
     [Header("Authorized layer")]
     public LayerMask Layers;
 
