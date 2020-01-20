@@ -10,10 +10,14 @@ public class UIManager : Singleton<UIManager>
     PlayerMovement _refPlayerMovement;
 	PlayerInventory _refPlayerInventory;
 	PlayerQuest _refPlayerQuest;
-	#endregion
+    #endregion
 
-	#region References UI Prefabs
-	[Header("HUD Panel")]
+    #region References Tribe
+    Tribe _refTribe;
+    #endregion
+
+    #region References UI Prefabs
+    [Header("HUD Panel")]
 	public GameObject _hudPanel;
 	[Header("Main Menu")]
 	public GameObject _mainMenu;
@@ -22,6 +26,7 @@ public class UIManager : Singleton<UIManager>
 
 	[Header("HUD Components")]
     public Text _HudTribeDistanceText;
+    public Text _HudTribeLifeText;
     public Text _HudAlertMessageText;
     public Text _HudCurrentTimeText;
     public Text _HudPlayerLifeText;
@@ -51,8 +56,10 @@ public class UIManager : Singleton<UIManager>
         _refPlayerMovement = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerMovement>();
 		_refPlayerInventory = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerInventory>();
 		_refPlayerQuest = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerQuest>();
+        _refTribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
+        _refTribe.onTribeLifeEnterCritical.AddListener(AlertTribeLifeCritical);
 
-		InputManager.I.onUIPlayerKeyPressed.AddListener(OpenPlayerPanel);
+        InputManager.I.onUIPlayerKeyPressed.AddListener(OpenPlayerPanel);
 		InputManager.I.onUITribeKeyPressed.AddListener(OpenTribePanel);
 		InputManager.I.onUIInventoryKeyPressed.AddListener(OpenInventoryPanel);
 		InputManager.I.onUIQuestKeyPressed.AddListener(OpenQuestPanel);
@@ -67,6 +74,7 @@ public class UIManager : Singleton<UIManager>
         SetTribeDistance();
         SetTimeOfDay();
         SetPlayerLife();
+        SetTribeLife();
     }
 
     void OpenMenu(string MenuName, bool CloseOthers = true)
@@ -148,11 +156,19 @@ public class UIManager : Singleton<UIManager>
     {
         _HudPlayerLifeText.text = $"Player life " + _refPlayer.PlayerLife;
     }
-    public void AlertMessage(string message)
+    public void SetTribeLife()
+    {
+        _HudTribeLifeText.text = $"Tribe life " + _refTribe.Life;
+    }
+    public void AlertTribeLifeCritical()
+    {
+        AlertMessage("Danger : Tribe life is critical.", 10f);
+    }
+    public void AlertMessage(string message, float duration = 3f)
     {
         _HudAlertMessageText.text = message;
         _HudAlertMessageText.gameObject.SetActive(true);
-        StartChrono(3, DisableMessage);
+        StartChrono(duration, DisableMessage);
     }
     void DisableMessage()
     {

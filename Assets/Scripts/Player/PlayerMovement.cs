@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerMovement : BaseMonoBehaviour
 {
     public CharacterController _controller;
-    [Header("Speed in m/s of the player")]
+    [Header("Current Speed in m/s of the player")]
     public float _speed = 12f;
     [Header("The gravity force")]
     public float _gravity = -9.81f;
@@ -17,15 +17,13 @@ public class PlayerMovement : BaseMonoBehaviour
     public float _groundDistance = 0.4f;
     [Header("The Layer of the ground or element on which we can walk.")]
     public LayerMask _groundMask;
-    [Header("The distance of tribe beyond which we are too far.")]
-    public float MaximumDistanceOfTribe = 300f;
-
 
     Vector3 _velocity;
     bool _isGrounded;
     public bool IsTooFar = false;
     public float TribeDistance = 0.0f;
     GameObject Tribe;
+    Player _player;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -33,6 +31,10 @@ public class PlayerMovement : BaseMonoBehaviour
         base.Start();
         _controller = GetComponent<CharacterController>();
         Tribe = (GameObject)ObjectsManager.I["TribeGroundPosition"];
+        _speed = GameManager.I._data.InitialPlayerSpeed;
+        _player = GetComponent<Player>();
+        _player.onPlayerLifeEnterCritical.AddListener(DecreaseSpeed);
+        _player.onPlayerLifeExitCritical.AddListener(IncreaseSpeed);
     }
 
     private void Update()
@@ -72,6 +74,16 @@ public class PlayerMovement : BaseMonoBehaviour
         Vector3 TribePositionProjected = Vector3.ProjectOnPlane(Tribe.transform.position, Vector3.up);
         Vector3 PlayerPositionProjected = Vector3.ProjectOnPlane(transform.position, Vector3.up);
         TribeDistance = Vector3.Distance(TribePositionProjected, PlayerPositionProjected);
-        IsTooFar = TribeDistance > MaximumDistanceOfTribe;
+        IsTooFar = TribeDistance > GameManager.I._data.MaximumDistanceOfTribe;
+    }
+
+    void DecreaseSpeed()
+    {
+        _speed -= _speed * GameManager.I._data.PlayerSpeedDecreasePercentage / 100;
+    }
+
+    void IncreaseSpeed()
+    {
+        _speed = GameManager.I._data.InitialPlayerSpeed;
     }
 }

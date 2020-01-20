@@ -1,50 +1,68 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Player : ZoneInteractable
 {
-    public float PlayerLifeStart = 100.0f;
+    [Header("Current player life")]
     public float PlayerLife = 100.0f;
 
+    bool CriticalLife = false;
     PlayerLook playerLook;
-    float HurtingSpeed = 0.0f;
-    float GainSpeed = 0.0f;
+    public UnityEvent onPlayerLifeEnterCritical = new UnityEvent();
+    public UnityEvent onPlayerLifeExitCritical = new UnityEvent();
 
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        PlayerLife = PlayerLifeStart;
+        PlayerLife = GameManager.I._data.InitialPlayerLife;
         playerLook = CameraManager.I._MainCamera.GetComponent<PlayerLook>();
     }
 
-    protected void Update()
+
+    public void LooseLife(Zone zone)
     {
-        LooseLife();
-        GainLife();
+        PlayerLife -= zone.HurtSpeed * Time.deltaTime;
     }
 
-    public void LooseLife()
+    public void GainLife(Zone zone)
     {
-        PlayerLife -= HurtingSpeed * Time.deltaTime;
+        PlayerLife += zone.GainSpeed * Time.deltaTime;
     }
 
-    public void GainLife()
+    public void ActivateCompass(Zone zone)
     {
-        PlayerLife += GainSpeed * Time.deltaTime;
+        GameManager.I._data.CompassActive = zone.AllowCompass;
     }
 
-    public override void EnterZone(Zone zone)
+    public override void ApplyZoneEffect(Zone zone)
     {
-        playerLook.CompassActive = zone.AllowCompass;
-        HurtingSpeed += zone.HurtSpeed;
-        GainSpeed += zone.GainSpeed;
+        base.ApplyZoneEffect(zone);
+        ActivateCompass(zone);
+        LooseLife(zone);
+        GainLife(zone);
     }
-    public override void ExitZone(Zone zone)
+
+    protected override void Update()
     {
-        playerLook.CompassActive = !zone.AllowCompass;
-        HurtingSpeed -= zone.HurtSpeed;
-        GainSpeed -= zone.GainSpeed;
+        base.Update();
+        LifeCritical();
+    }
+
+    public void LifeCritical()
+    {
+        float lifeRatio = PlayerLife / GameManager.I._data.InitialPlayerLife;
+        if (lifeRatio <= GameManager.I._data.PlayerLifeThresshold && !CriticalLife)
+        {
+            CriticalLife = true;
+            onPlayerLifeEnterCritical.Invoke();
+        }
+        else if (lifeRatio > GameManager.I._data.PlayerLifeThresshold && CriticalLife)
+        {
+            CriticalLife = false;
+            onPlayerLifeExitCritical.Invoke();
+        }
     }
 }
