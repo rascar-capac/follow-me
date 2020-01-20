@@ -120,7 +120,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: baf843615f01be14180a23061d7007c5, type: 2}
 --- !u!1001 &234495766
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -136,17 +136,17 @@ PrefabInstance:
     - target: {fileID: 7055700096461130071, guid: 82d4d4bba39fefb46881c500e241d33e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1091.2
+      value: 202.7
       objectReference: {fileID: 0}
     - target: {fileID: 7055700096461130071, guid: 82d4d4bba39fefb46881c500e241d33e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 23.2
+      value: -2.56
       objectReference: {fileID: 0}
     - target: {fileID: 7055700096461130071, guid: 82d4d4bba39fefb46881c500e241d33e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1324.9
+      value: 204.8
       objectReference: {fileID: 0}
     - target: {fileID: 7055700096461130071, guid: 82d4d4bba39fefb46881c500e241d33e,
         type: 3}
@@ -200,17 +200,17 @@ PrefabInstance:
     - target: {fileID: 6534661404718491343, guid: 2e7643cbb49f8074aa988e2ac1d78616,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1124.1
+      value: 187.9
       objectReference: {fileID: 0}
     - target: {fileID: 6534661404718491343, guid: 2e7643cbb49f8074aa988e2ac1d78616,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 24.9
+      value: -1.59
       objectReference: {fileID: 0}
     - target: {fileID: 6534661404718491343, guid: 2e7643cbb49f8074aa988e2ac1d78616,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1301.9
+      value: 217.2
       objectReference: {fileID: 0}
     - target: {fileID: 6534661404718491343, guid: 2e7643cbb49f8074aa988e2ac1d78616,
         type: 3}
@@ -269,17 +269,17 @@ PrefabInstance:
     - target: {fileID: 467959756313569089, guid: 85c025d051936044ea8c00683707334b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1096.5
+      value: 205.4
       objectReference: {fileID: 0}
     - target: {fileID: 467959756313569089, guid: 85c025d051936044ea8c00683707334b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 19.7
+      value: -1.89
       objectReference: {fileID: 0}
     - target: {fileID: 467959756313569089, guid: 85c025d051936044ea8c00683707334b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1230.5
+      value: 216.3
       objectReference: {fileID: 0}
     - target: {fileID: 467959756313569089, guid: 85c025d051936044ea8c00683707334b,
         type: 3}

@@ -120,7 +120,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: baf843615f01be14180a23061d7007c5, type: 2}
 --- !u!1001 &983889122
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -131,17 +131,17 @@ PrefabInstance:
     - target: {fileID: 761874580120975357, guid: ec7384ee67dab194196a9aca6817867c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1002.1
+      value: 182.9
       objectReference: {fileID: 0}
     - target: {fileID: 761874580120975357, guid: ec7384ee67dab194196a9aca6817867c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 17.94
+      value: 24.5
       objectReference: {fileID: 0}
     - target: {fileID: 761874580120975357, guid: ec7384ee67dab194196a9aca6817867c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1227.4271
+      value: 422
       objectReference: {fileID: 0}
     - target: {fileID: 761874580120975357, guid: ec7384ee67dab194196a9aca6817867c,
         type: 3}
@@ -367,7 +367,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d1ed11eb901fea4bac46943dc1ef7ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MinimumTimeBetweenFog: 0
   CurrentDayStateIndex: 0
   CurrentTimeOfDay: 0
   TotalDayTime: 0
@@ -416,17 +415,17 @@ PrefabInstance:
     - target: {fileID: 7888772042430806854, guid: 9ca38628b74597d41a27658761ef06f8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 974.3
+      value: 295
       objectReference: {fileID: 0}
     - target: {fileID: 7888772042430806854, guid: 9ca38628b74597d41a27658761ef06f8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 19
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7888772042430806854, guid: 9ca38628b74597d41a27658761ef06f8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1280.3
+      value: 215.7
       objectReference: {fileID: 0}
     - target: {fileID: 7888772042430806854, guid: 9ca38628b74597d41a27658761ef06f8,
         type: 3}

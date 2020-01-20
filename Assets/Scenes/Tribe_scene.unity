@@ -120,7 +120,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: baf843615f01be14180a23061d7007c5, type: 2}
 --- !u!1001 &426029156
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -156,17 +156,17 @@ PrefabInstance:
     - target: {fileID: 4819814216446465464, guid: fea45556a9385704f8c41f5ef148143b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 890
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4819814216446465464, guid: fea45556a9385704f8c41f5ef148143b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 22.8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4819814216446465464, guid: fea45556a9385704f8c41f5ef148143b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1240.8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4819814216446465464, guid: fea45556a9385704f8c41f5ef148143b,
         type: 3}
@@ -228,9 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c30a991b8b2079c4885aed331bf9f1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialLife: 100
   Life: 0
-  CriticalLife: 0.1
   onTribeLifeEnterCritical:
     m_PersistentCalls:
       m_Calls: []
