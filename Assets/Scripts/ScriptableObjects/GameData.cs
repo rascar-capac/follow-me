@@ -34,4 +34,7 @@ public class GameData : ScriptableObject
     [Range(0, 1)]
     public float TribeLifeThresshold = 0.1f;
 
+    [Header("Fog")]
+    [Tooltip("Seconds between 2 fogs apparition (0 = no fog)")]
+    public float MinimumTimeBetweenFog = 0;
 }

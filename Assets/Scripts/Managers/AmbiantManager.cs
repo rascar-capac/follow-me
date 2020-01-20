@@ -28,28 +28,26 @@ public class AmbiantManager : Singleton<AmbiantManager>
     Zone FogZone;
     Player Player;
     ParticleSystem FogParticles;
-    [Header("Seconds between 2 fogs apparition")]
-    public float MinimumTimeBetweenFog = 0;
 
 
     void StartFog()
     {
-        if (MinimumTimeBetweenFog == 0)
+        if (GameManager.I._data.MinimumTimeBetweenFog == 0)
             return;
         Fog.SetActive(true);
         Fog.transform.position = new Vector3(CameraManager.I._MainCamera.transform.position.x, CameraManager.I._MainCamera.transform.position.y, CameraManager.I._MainCamera.transform.position.z);// + Vector3.ProjectOnPlane(Player.transform.forward, Vector3.up);
         FogParticles.Play();
-        StartChrono(MinimumTimeBetweenFog, EndFog);
+        StartChrono(GameManager.I._data.MinimumTimeBetweenFog, EndFog);
         Debug.Log("Fog on");
     }
     void EndFog()
     {
-        if (MinimumTimeBetweenFog == 0)
+        if (GameManager.I._data.MinimumTimeBetweenFog == 0)
             return;
         FogParticles.Stop();
         Fog.SetActive(false) ;
         Player.ExitZone(FogZone);
-        StartChrono(MinimumTimeBetweenFog, StartFog);
+        StartChrono(GameManager.I._data.MinimumTimeBetweenFog, StartFog);
         Debug.Log("Fog off");
     }
     #endregion
@@ -64,7 +62,7 @@ public class AmbiantManager : Singleton<AmbiantManager>
         Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
         InitDaysStates();
         ChangeDayState();
-        StartChrono(MinimumTimeBetweenFog, StartFog);
+        StartChrono(GameManager.I._data.MinimumTimeBetweenFog, StartFog);
     }
 
     #region Day States Management
