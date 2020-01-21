@@ -67,6 +67,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ZoneFuel
       objectReference: {fileID: 0}
+    - target: {fileID: 6895221029622023281, guid: ec7384ee67dab194196a9aca6817867c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3923a373cf6e3cc449a37c2773fd172e, type: 2}
     - target: {fileID: 8640311679168677487, guid: ec7384ee67dab194196a9aca6817867c,
         type: 3}
       propertyPath: AllowCompass
@@ -86,6 +91,11 @@ PrefabInstance:
         type: 3}
       propertyPath: Layers.m_Bits
       value: 4096
+      objectReference: {fileID: 0}
+    - target: {fileID: 8640311679168677487, guid: ec7384ee67dab194196a9aca6817867c,
+        type: 3}
+      propertyPath: Radius
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec7384ee67dab194196a9aca6817867c, type: 3}
