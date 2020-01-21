@@ -27,6 +27,7 @@ public class UIManager : Singleton<UIManager>
 	[Header("HUD Components")]
     public Text _HudTribeDistanceText;
     public Text _HudTribeLifeText;
+    public Text _HudTribeFuelText;
     public Text _HudAlertMessageText;
     public Text _HudCurrentTimeText;
     public Text _HudPlayerLifeText;
@@ -77,6 +78,7 @@ public class UIManager : Singleton<UIManager>
         SetPlayerLife();
         SetTribeLife();
         SetPlayerOxygen();
+        SetTribeFuel();
     }
 
     void OpenMenu(string MenuName, bool CloseOthers = true)
@@ -148,12 +150,10 @@ public class UIManager : Singleton<UIManager>
         if (_refPlayerMovement.IsTooFar)
             _HudTribeDistanceText.text += " - Too far.";
     }
-
     public void SetTimeOfDay()
     {
         _HudCurrentTimeText.text = $"Current time " + (int)AmbiantManager.I.CurrentTimeOfDay + " h (" + AmbiantManager.I.CurrentDayState.State.ToString() + ")";
     }
-
     public void SetPlayerLife()
     {
         _HudPlayerLifeText.text = $"Player life " + _refPlayer.PlayerLife;
@@ -165,6 +165,10 @@ public class UIManager : Singleton<UIManager>
     public void SetPlayerOxygen()
     {
         _HudPlayerOxygenText.text = $"Player Oxygen " + _refPlayer.PlayerOxygen;
+    }
+    public void SetTribeFuel()
+    {
+        _HudTribeFuelText.text = $"Tribe Fuel " + _refTribe.Fuel;
     }
     public void AlertTribeLifeCritical()
     {

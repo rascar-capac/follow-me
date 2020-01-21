@@ -24,13 +24,19 @@ public class Zone : BaseMonoBehaviour
     public float LooseOxygenSpeed = 0.0f;
     [Header("Player gain oxygen speed by second")]
     public float GainOxygenSpeed = 0.0f;
+    [Header("Tribe loose fuel speed by second")]
+    public float LooseFuelSpeed = 0.0f;
+    [Header("Tribe gain fuel speed by second")]
+    public float GainFuelSpeed = 0.0f;
     [Header("Authorized layer")]
     public LayerMask Layers;
 
     private void OnDrawGizmos()
     {
+
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, Radius);
+        GetComponent<CapsuleCollider>().radius = Radius;
     }
 
     private void OnTriggerEnter(Collider other)

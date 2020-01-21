@@ -38,6 +38,10 @@ public class GameData : ScriptableObject
     [Header("Tribe parameters")]
     [Tooltip("Initial Tribe life when the game starts.")]
     public float InitialTribeLife = 100.0f;
+    [Tooltip("Initial Tribe fuel when the game starts.")]
+    public float InitialTribeFuel = 100.0f;
+    [Tooltip("Fuel loss by second walking.")]
+    public float FuelLossSpeed = 0.2f;
     [Tooltip("Alert player when life is under threshold in ratio (between 0 and 1).")]
     [Range(0, 1)]
     public float TribeLifeThresshold = 0.1f;
