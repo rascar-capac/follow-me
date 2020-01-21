@@ -54,7 +54,6 @@ public class ScenesManager : Singleton<ScenesManager>
         LoadScene("PlayGround_scene");
         LoadScene("Tribe_scene");
         LoadScene("Player_scene");
-        LoadScene("Camera_scene");
         LoadScene("Lights_scene");
         LoadScene("Target_scene");
         LoadScene("Items_scene");
@@ -73,7 +72,7 @@ public void LoadScene(string SceneName)
             SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Additive);
         }
 
-        
+
         //SceneManager.MergeScenes(scene, currentScene);
     }
 
