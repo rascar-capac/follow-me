@@ -49,4 +49,43 @@ public class GameData : ScriptableObject
     [Header("Fog")]
     [Tooltip("Seconds between 2 fogs apparition (0 = no fog)")]
     public float MinimumTimeBetweenFog = 0;
+
+    [Header("Ambiance parameters")]
+    [Tooltip("Day states (night and day)")]
+    public DayStatesProperties[] States;
+
+    //States = new DayStatesProperties[((int)DayState._count)];
+
+    //    States[0].State = DayState.Day;
+    //    States[0].DayStateDurationInSecond = 20f;
+    //    States[0].StateColor = new Color((float)255 / (float)255, (float)240 / (float)255, (float)210 / (float)255);
+    //States[0].EnterSunRotation = new Vector3(90, -30, 0);
+    //States[0].ExitSunRotation = new Vector3(270, -30, 0);
+    //States[0].StateHoursCount = 16;
+
+    //    States[1].State = DayState.Night;
+    //    States[1].DayStateDurationInSecond = 20f;
+    //    States[1].StateColor = new Color((float)41 / (float)255, (float)34 / (float)255, (float)13 / (float)255);
+    //States[1].EnterSunRotation = new Vector3(270, -30, 0);
+    //States[1].EnterSunRotation = new Vector3(90, -30, 0);
+    //States[1].StateHoursCount = 8;
+}
+
+public enum DayState
+{
+    Day,
+    Night,
+    _count
+}
+
+[System.Serializable]
+public struct DayStatesProperties
+{
+    public DayState State;
+    public float DayStateDurationInSecond;
+    public float StateHoursCount;
+    public Color StateColor;
+    public float TimeStateChanged;
+    public Vector3 EnterSunRotation;
+    public Vector3 ExitSunRotation;
 }

@@ -59,7 +59,9 @@ public class ScenesManager : Singleton<ScenesManager>
         LoadScene("Items_scene");
         LoadScene("UI_scene");
         //Debug.Log("END LOGGGG >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<");
-}
+
+        //Application.targetFrameRate = 300;
+    }
 
 public void LoadScene(string SceneName)
     {
