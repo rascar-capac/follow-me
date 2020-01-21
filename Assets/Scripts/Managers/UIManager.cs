@@ -40,6 +40,9 @@ public class UIManager : Singleton<UIManager>
 	[Header("Quest Prefabs")]
 	public Transform _questContent;
 	public GameObject _questCellAsset;
+
+    [Header("Tools Inventory gameobject")]
+    public GameObject ToolsInventory;
 	#endregion
 
 	#region Inventory Variables
@@ -67,8 +70,9 @@ public class UIManager : Singleton<UIManager>
 		InputManager.I.onUIQuestKeyPressed.AddListener(OpenQuestPanel);
 		InputManager.I.onUIMapKeyPressed.AddListener(OpenMapPanel);
 		InputManager.I.onUIOptionsKeyPressed.AddListener(OpenOptionsPanel);
-
-		CloseMenu();
+        InputManager.I.onToolInventoryButtonPressed.AddListener(OpenToolsInventory);
+        InputManager.I.onToolInventoryButtonReleased.AddListener(CloseToolsInventory);
+        CloseMenu();
 	}
 
     private void Update()
@@ -143,8 +147,19 @@ public class UIManager : Singleton<UIManager>
 		OpenMenu("OptionsPanel");
 	}
 
-	#region Hud Functions
-	public void SetTribeDistance()
+    public void OpenToolsInventory()
+    {
+        ToolsInventory.gameObject.SetActive(true);
+        ToolsInventory.transform.position = CameraManager.I._MainCamera.transform.position; //+ CameraManager.I._MainCamera.transform.forward * 3;
+    }
+
+    public void CloseToolsInventory()
+    {
+        ToolsInventory.gameObject.SetActive(false);
+    }
+
+    #region Hud Functions
+    public void SetTribeDistance()
     {
         _HudTribeDistanceText.text = $"Tribe distance " + _refPlayerMovement.TribeDistance + " m";
         if (_refPlayerMovement.IsTooFar)

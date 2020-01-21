@@ -32,7 +32,8 @@ public class InputManager : Singleton<InputManager>
 	// Player Events
 	public InputAxisUnityEvent onMoveInputAxisEvent = new InputAxisUnityEvent();
     public InputAxisUnityEvent onLookInputAxisEvent = new InputAxisUnityEvent();
-
+    public UnityEvent onToolInventoryButtonPressed = new UnityEvent();
+    public UnityEvent onToolInventoryButtonReleased = new UnityEvent();
     public UnityEvent onBeaconKeyPressed = new UnityEvent();
 	public UnityEvent onPickUpKeyPressed = new UnityEvent();
     public UnityEvent onActivateItemKeyPressed = new UnityEvent();
@@ -47,6 +48,7 @@ public class InputManager : Singleton<InputManager>
 	public UnityEvent onUIMapKeyPressed = new UnityEvent();
 	public UnityEvent onUIOptionsKeyPressed = new UnityEvent();
 
+    float lastLTRT = 0;
 	// Update is called once per frame
 	void Update()
     {
@@ -71,6 +73,19 @@ public class InputManager : Singleton<InputManager>
         if (MouseX != 0 || MouseY != 0)
             onLookInputAxisEvent?.Invoke(new InputAxisUnityEventArg() { XDirection = "Mouse X", XValue = MouseX, YDirection = "MouseY", YValue = MouseY });
 
+        float LTRTAxis = Input.GetAxis("XBoxLTRT");
+        if (LTRTAxis != 0 && lastLTRT == 0)
+        {
+            Debug.Log("2: " + LTRTAxis);
+            lastLTRT = LTRTAxis;
+            onToolInventoryButtonPressed?.Invoke();
+        }
+        else if (LTRTAxis == 0 && lastLTRT != 0)
+        {
+            Debug.Log("1: " + LTRTAxis);
+            lastLTRT = LTRTAxis;
+            onToolInventoryButtonReleased?.Invoke();
+        }
 
         if (Input.GetButtonDown("XBoxA"))
             onBeaconKeyPressed?.Invoke();
