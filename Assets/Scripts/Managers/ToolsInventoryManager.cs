@@ -31,8 +31,8 @@ public class ToolsInventoryManager : Singleton<ToolsInventoryManager>
 
     private void Update()
     {
-        transform.localEulerAngles.Set(transform.localEulerAngles.x, transform.localEulerAngles.y + 10f * Time.deltaTime, transform.localEulerAngles.z);
-        transform.Rotate(0, (float)50/360 * Time.deltaTime, 0, Space.Self);
+        //transform.eulerAngles.Set(transform.eulerAngles.x, transform.eulerAngles.y + 60f * Time.deltaTime, transform.eulerAngles.z);
+        transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y + 60f * Time.deltaTime, transform.eulerAngles.z);
         Debug.Log(transform.name);
     }
 }
