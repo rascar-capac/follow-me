@@ -83,7 +83,8 @@ public class BaseMonoBehaviour : MonoBehaviour
     }
     protected virtual void Start()
     {
-        GameManager.I.onGamePaused.AddListener(GamePausedHandler);
+        if (GameManager.I)
+            GameManager.I.onGamePaused.AddListener(GamePausedHandler);
     }
     #endregion Unity Standard events
 

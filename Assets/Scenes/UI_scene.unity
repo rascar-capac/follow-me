@@ -121,6 +121,67 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: baf843615f01be14180a23061d7007c5, type: 2}
+--- !u!1 &365360246
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 365360248}
+  - component: {fileID: 365360247}
+  m_Layer: 0
+  m_Name: ToolsInventoryContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &365360247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 365360246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1e52637ed2a4254383d1919168dfff6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ToolInventoryParent: {fileID: 365360246}
+  ToolItems:
+  - Owned: 1
+    Prefab: {fileID: 8076180525058120035, guid: 7f58ee1ae6264384fbeb6fd10cfbbdcc,
+      type: 3}
+  - Owned: 1
+    Prefab: {fileID: 6145686480152410796, guid: 8d8d1ba8d5c87974785a448449a22403,
+      type: 3}
+  - Owned: 1
+    Prefab: {fileID: 7642297270107902926, guid: 7968921bfe742004993f1b9db248a9e9,
+      type: 3}
+  - Owned: 1
+    Prefab: {fileID: 8076180525058120035, guid: 7f58ee1ae6264384fbeb6fd10cfbbdcc,
+      type: 3}
+  - Owned: 1
+    Prefab: {fileID: 6145686480152410796, guid: 8d8d1ba8d5c87974785a448449a22403,
+      type: 3}
+  AngleInterval: 0
+--- !u!4 &365360248
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 365360246}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1112927564
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -128,6 +189,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2103666910, guid: 41b016115e9d7464e96dc233994afa42, type: 3}
+      propertyPath: ToolsInventory
+      value: 
+      objectReference: {fileID: 365360246}
     - target: {fileID: 4587518545162013130, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
       propertyPath: m_LocalPosition.x
