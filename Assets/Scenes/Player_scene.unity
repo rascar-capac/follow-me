@@ -128,6 +128,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1102385123, guid: 5d3cba6ec4ec1f54a9e83a1243fb67b7, type: 3}
+      propertyPath: ItemLayer.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
     - target: {fileID: 1855172508, guid: 5d3cba6ec4ec1f54a9e83a1243fb67b7, type: 3}
       propertyPath: m_Enabled
       value: 1

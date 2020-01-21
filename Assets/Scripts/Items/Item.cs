@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryItem : BaseMonoBehaviour
+public class Item : BaseMonoBehaviour
 {
 	[Header("Place Item Data")]
 	public ItemData _itemData;
+
+    public bool ItemIsActivated = false;
 }
