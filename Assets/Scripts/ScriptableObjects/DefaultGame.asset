@@ -27,7 +27,7 @@ MonoBehaviour:
   CompassUsable: 00000000
   InitialTribeLife: 100
   InitialTribeFuel: 100
-  FuelLossSpeed: 0.2
+  FuelLossSpeed: 1
   TribeLifeThresshold: 0.1
   MinimumTimeBetweenFog: 0
   States:
