@@ -67,6 +67,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Demo_Item_Cristal
       objectReference: {fileID: 0}
+    - target: {fileID: 5653032936331489212, guid: 81f0907f0932c6b4397b24c3e4ad4972,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4c6c4d1438973ad4598e9863b496f2c4, type: 2}
     - target: {fileID: 5653032936331489214, guid: 81f0907f0932c6b4397b24c3e4ad4972,
         type: 3}
       propertyPath: _itemData

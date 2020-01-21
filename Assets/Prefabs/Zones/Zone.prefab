@@ -123,11 +123,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10c9055d667c59045b0ffea434196609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Radius: 5
+  Radius: 13
   AllowCompass: 1
   Ressources: 
   HurtSpeed: 0
   GainSpeed: 0
+  LooseOxygenSpeed: 0
+  GainOxygenSpeed: 0
   Layers:
     serializedVersion: 2
     m_Bits: 0
