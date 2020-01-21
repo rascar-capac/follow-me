@@ -30,8 +30,9 @@ public class UIManager : Singleton<UIManager>
     public Text _HudAlertMessageText;
     public Text _HudCurrentTimeText;
     public Text _HudPlayerLifeText;
+    public Text _HudPlayerOxygenText;
 
-	[Header("Inventory Prefabs")]
+    [Header("Inventory Prefabs")]
 	public Transform _inventoryContent;
 	public GameObject _inventoryCellAsset;
 
@@ -159,6 +160,10 @@ public class UIManager : Singleton<UIManager>
     public void SetTribeLife()
     {
         _HudTribeLifeText.text = $"Tribe life " + _refTribe.Life;
+    }
+    public void SetPlayerOxygen()
+    {
+        _HudTribeLifeText.text = $"Player Oxygen " + _refPlayer.PlayerOxygen;
     }
     public void AlertTribeLifeCritical()
     {

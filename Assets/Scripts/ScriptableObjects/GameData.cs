@@ -10,8 +10,16 @@ public class GameData : ScriptableObject
     public float mouseSensitivity = 100f;
     [Tooltip("The life of the player when the game starts.")]
     public float InitialPlayerLife = 100.0f;
+    [Tooltip("The oxygen of the player when the game starts.")]
+    public float InitialPlayerOxygen = 100.0f;
+    [Tooltip("Oxygen loss by second walking.")]
+    public float OxygenLossWalk = 0.2f;
+    [Tooltip("Oxygen loss by second running.")]
+    public float OxygenLossRun = 0.4f;
     [Tooltip("The speed of the player when the game starts.")]
     public float InitialPlayerSpeed = 12.0f;
+    [Tooltip("speed multiplicator value when running.")]
+    public float SpeedMultiplicator = 2f;
     [Tooltip("The percentage of speed decrease when life is under thresshold.")]
     [Range(0, 100)]
     public float PlayerSpeedDecreasePercentage = 50f;

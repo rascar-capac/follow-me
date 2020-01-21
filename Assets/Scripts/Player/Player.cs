@@ -7,9 +7,12 @@ public class Player : ZoneInteractable
 {
     [Header("Current player life")]
     public float PlayerLife = 100.0f;
+    [Header("Current player oxygen")]
+    public float PlayerOxygen = 100.0f;
 
     bool CriticalLife = false;
     PlayerLook playerLook;
+    PlayerMovement playerMove;
     public UnityEvent onPlayerLifeEnterCritical = new UnityEvent();
     public UnityEvent onPlayerLifeExitCritical = new UnityEvent();
 
@@ -18,7 +21,9 @@ public class Player : ZoneInteractable
     {
         base.Start();
         PlayerLife = GameManager.I._data.InitialPlayerLife;
+        PlayerOxygen = GameManager.I._data.InitialPlayerOxygen;
         playerLook = CameraManager.I._MainCamera.GetComponent<PlayerLook>();
+        playerMove = GetComponent<PlayerMovement>();
     }
 
 
@@ -49,6 +54,16 @@ public class Player : ZoneInteractable
     {
         base.Update();
         LifeCritical();
+        UpdateOxygen();
+    }
+
+    public void UpdateOxygen()
+    {
+        if (playerMove.IsRunning)
+            PlayerOxygen -= GameManager.I._data.OxygenLossRun * Time.deltaTime;
+        else
+            PlayerOxygen -= GameManager.I._data.OxygenLossWalk * Time.deltaTime;
+
     }
 
     public void LifeCritical()

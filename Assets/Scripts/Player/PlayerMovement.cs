@@ -18,6 +18,9 @@ public class PlayerMovement : BaseMonoBehaviour
     [Header("The Layer of the ground or element on which we can walk.")]
     public LayerMask _groundMask;
 
+    [Header("Player is running")]
+    public bool IsRunning = false;
+
     Vector3 _velocity;
     bool _isGrounded;
     public bool IsTooFar = false;
@@ -35,15 +38,29 @@ public class PlayerMovement : BaseMonoBehaviour
         _player = GetComponent<Player>();
         _player.onPlayerLifeEnterCritical.AddListener(DecreaseSpeed);
         _player.onPlayerLifeExitCritical.AddListener(IncreaseSpeed);
+        InputManager.I.onRunButtonPressed.AddListener(EnableRun);
+        InputManager.I.onRunButtonReleased.AddListener(DisableRun);
+        InputManager.I.onMoveInputAxisEvent.AddListener(Move);
+    }
+
+    void EnableRun()
+    {
+        IsRunning = true;
+        Debug.Log("running");
+    }
+    void DisableRun()
+    {
+        IsRunning = false;
+        Debug.Log("walking");
     }
 
     private void Update()
     {
-        Move();
+        //Move();
         ComputeTribeDistance();
     }
 
-    public void Move()
+    public void Move(InputAxisUnityEventArg axis)
     {
         _isGrounded = Physics.CheckSphere(_groundCheck.position, _groundDistance, _groundMask);
 
@@ -52,12 +69,12 @@ public class PlayerMovement : BaseMonoBehaviour
             _velocity.y = -2f;
         }
 
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        float x = axis.XValue;
+        float z = axis.YValue;
 
         Vector3 move = transform.right * x + transform.forward * z;
 
-        _controller.Move(move * _speed * Time.deltaTime);
+        _controller.Move(move * _speed * (IsRunning?GameManager.I._data.SpeedMultiplicator:1) * Time.deltaTime);
 
         if (Input.GetButtonDown("Jump") && _isGrounded)
         {
