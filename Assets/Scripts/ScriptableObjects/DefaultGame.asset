@@ -23,3 +23,4 @@ MonoBehaviour:
   CompassUsable: 00000000
   InitialTribeLife: 100
   TribeLifeThresshold: 0.1
+  MinimumTimeBetweenFog: 0

@@ -29,19 +29,19 @@ public class PlayerLook : BaseMonoBehaviour
         NeedleRenderer.material = GoodDirection;
         transform.SetParent(playerBody);
         Compass.SetActive(GameManager.I._data.CompassActive);
+        InputManager.I.onLookInputAxisEvent.AddListener(RotateCamera);
     }
 
     // Update is called once per frame
     void Update()
     {
-        RotateCamera();
         VerifyCompass();
     }
 
-    void RotateCamera()
+    void RotateCamera(InputAxisUnityEventArg axis)
     {
-        float mouseX = Input.GetAxis("Mouse X") * GameManager.I._data.mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * GameManager.I._data.mouseSensitivity * Time.deltaTime;
+        float mouseX = axis.XValue * GameManager.I._data.mouseSensitivity * Time.deltaTime;
+        float mouseY = axis.YValue * GameManager.I._data.mouseSensitivity * Time.deltaTime;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
