@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 100
   InitialPlayerLife: 100
+  InitialPlayerOxygen: 100
+  OxygenLossWalk: 1
+  OxygenLossRun: 3
   InitialPlayerSpeed: 6
+  SpeedMultiplicator: 2
   PlayerSpeedDecreasePercentage: 50
   PlayerLifeThresshold: 0.1
   MaximumDistanceOfTribe: 10000
@@ -22,5 +26,7 @@ MonoBehaviour:
   CompassActive: 1
   CompassUsable: 00000000
   InitialTribeLife: 100
+  InitialTribeFuel: 100
+  FuelLossSpeed: 1
   TribeLifeThresshold: 0.1
   MinimumTimeBetweenFog: 0

@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 501109524132022653}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 25, y: 25, z: 25}
   m_Children: []
   m_Father: {fileID: 761874580120975357}
   m_RootOrder: 0
@@ -105,7 +105,7 @@ Transform:
   m_GameObject: {fileID: 5115865157762039468}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7196231014647180810}
   m_Father: {fileID: 0}
@@ -123,13 +123,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10c9055d667c59045b0ffea434196609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Radius: 13
+  Radius: 12.5
   AllowCompass: 1
   Ressources: 
   HurtSpeed: 0
   GainSpeed: 0
   LooseOxygenSpeed: 0
   GainOxygenSpeed: 0
+  LooseFuelSpeed: 0
+  GainFuelSpeed: 0
   Layers:
     serializedVersion: 2
     m_Bits: 0
@@ -143,7 +145,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 5
+  m_Radius: 12.5
   m_Height: 135.60582
   m_Direction: 1
   m_Center: {x: 0, y: 63.021797, z: 0}
