@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 198af5eba7916214c901a32cac5b24ef, type: 3}
-  m_Name: Demo_Quest3
+  m_Name: Quest FollowMe 2
   m_EditorClassIdentifier: 
-  _questTitle: "\xCAtre centriste..."
-  _questDescription: Retourner au centre
+  _questTitle: Quest FollowMe 2
+  _questDescription: ????????????????
   _questAccess: 1
   _questFinish: 0
+  _questRewards: []
   _questType: 0
-  _goalGoToPosition: {fileID: 1627492792764519422, guid: b6eb82af83c5861479bc7d3dba5a75f0,
-    type: 3}
-  _questRewards:
-  - {fileID: 11400000, guid: bc133bea85090f040a6aeb60033568c9, type: 2}
+  _goalGoToPosition: {fileID: 0}
+  _itemsToActivate: []

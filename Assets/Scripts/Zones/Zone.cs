@@ -31,13 +31,6 @@ public class Zone : BaseMonoBehaviour
     [Header("Authorized layer")]
     public LayerMask Layers;
 
-    private void OnDrawGizmos()
-    {
-
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, Radius);
-        GetComponent<CapsuleCollider>().radius = Radius;
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -54,5 +47,13 @@ public class Zone : BaseMonoBehaviour
         {
             other.gameObject.GetComponent<ZoneInteractable>().ExitZone(this);
         }
+    }
+
+	// Enlever car ne représente pas la zone de Trigger.
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, Radius);
+        GetComponent<CapsuleCollider>().radius = Radius;
     }
 }

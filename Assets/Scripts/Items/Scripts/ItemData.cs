@@ -11,12 +11,14 @@ public class ItemData : ScriptableObject
     public string _itemDescription;
     [Tooltip("Icon of the item")]
     public Sprite _itemIcon;
-    [Tooltip("Prefab of the item")]
-    public GameObject _itemPrefab;
+    [Tooltip("Base prefab of the item")]
+    public GameObject _itemBasePrefab;
+    [Tooltip("Activated prefab of the item")]
+    public GameObject _itemActivatedPrefab;
     [Tooltip("Item is catchable")]
     public bool IsCatchable = false;
     [Tooltip("Item is Activable")]
     public bool IsActivable = false;
-    [Tooltip("Activated prefab of the item")]
-    public GameObject ActivatedPrefab;
+	//[HideInInspector]
+	public bool IsActivated = false;
 }

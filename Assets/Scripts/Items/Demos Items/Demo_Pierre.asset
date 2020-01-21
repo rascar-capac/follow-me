@@ -15,8 +15,8 @@ MonoBehaviour:
   _itemName: Pierre
   _itemDescription: De la pierre
   _itemIcon: {fileID: 21300000, guid: 1ab9416f1ebdb2f4eb4d80b536814cc1, type: 3}
-  _itemPrefab: {fileID: 467959756313569114, guid: 85c025d051936044ea8c00683707334b,
-    type: 3}
+  _itemBasePrefab: {fileID: 0}
+  _itemActivatedPrefab: {fileID: 0}
   IsCatchable: 1
   IsActivable: 0
-  DeactivatedMaterial: {fileID: 0}
+  IsActivated: 0

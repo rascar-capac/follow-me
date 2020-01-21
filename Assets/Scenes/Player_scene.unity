@@ -132,6 +132,15 @@ PrefabInstance:
       propertyPath: ItemLayer.m_Bits
       value: 1024
       objectReference: {fileID: 0}
+    - target: {fileID: 1102385128, guid: 5d3cba6ec4ec1f54a9e83a1243fb67b7, type: 3}
+      propertyPath: _questsPlayer.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1102385128, guid: 5d3cba6ec4ec1f54a9e83a1243fb67b7, type: 3}
+      propertyPath: _questsPlayer.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6907e37d6c2aec543a45c12d1970fecf,
+        type: 2}
     - target: {fileID: 1855172508, guid: 5d3cba6ec4ec1f54a9e83a1243fb67b7, type: 3}
       propertyPath: m_Enabled
       value: 1
