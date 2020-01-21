@@ -6,20 +6,20 @@ using UnityEngine.Events;
 public class InputManager : Singleton<InputManager>
 {
 	// Main Keys
-    [Header("Key for pausing the game")]
-    public KeyCode PauseKey = KeyCode.Escape;
+    //[Header("Key for pausing the game")]
+    //public KeyCode PauseKey = KeyCode.Escape;
 	// Player Keys
-    [Header("Key for placing Beacon")]
-    public KeyCode BeaconKey = KeyCode.G;
-	[Header("Key for pick-up item")]
-	public KeyCode PickUpKey = KeyCode.E;
+    //[Header("Key for placing Beacon")]
+    //public KeyCode BeaconKey = KeyCode.G;
+	//[Header("Key for pick-up item")]
+	//public KeyCode PickUpKey = KeyCode.E;
 	// UI Keys
-	[Header("Key for open Player Menu")]
-	public KeyCode UIPlayerKey = KeyCode.P;
+	//[Header("Key for open Player Menu")]
+	//public KeyCode UIPlayerKey = KeyCode.P;
 	[Header("Key for open Tribe Menu")]
 	public KeyCode UITribeKey = KeyCode.T;
-	[Header("Key for open Inventory Menu")]
-	public KeyCode UIInventoryKey = KeyCode.I;
+	//[Header("Key for open Inventory Menu")]
+	//public KeyCode UIInventoryKey = KeyCode.I;
 	[Header("Key for open Quest Menu")]
 	public KeyCode UIQuestKey = KeyCode.O;
 	[Header("Key for open Map Menu")]
@@ -30,7 +30,9 @@ public class InputManager : Singleton<InputManager>
 	// Main Events
     public UnityEvent onPauseKeyPressed = new UnityEvent();
 	// Player Events
-	public InputAxisUnityEvent onInputAxisEvent = new InputAxisUnityEvent();
+	public InputAxisUnityEvent onMoveInputAxisEvent = new InputAxisUnityEvent();
+    public InputAxisUnityEvent onLookInputAxisEvent = new InputAxisUnityEvent();
+
     public UnityEvent onBeaconKeyPressed = new UnityEvent();
 	public UnityEvent onPickUpKeyPressed = new UnityEvent();
 	// UI Events
@@ -47,26 +49,36 @@ public class InputManager : Singleton<InputManager>
         float horizontalAxis = Input.GetAxis("Horizontal");
         float verticalAxis = Input.GetAxis("Vertical");
 
-		// Main
-		if (Input.GetKeyDown(PauseKey))
+        float CameraLookX = Input.GetAxis("XBoxHorizontal4Axis");
+        float CameraLookY = Input.GetAxis("XBoxVertical5Axis");
+
+        float MouseX = Input.GetAxis("Mouse X");
+        float MouseY = Input.GetAxis("Mouse Y");
+
+        // Main
+        if (Input.GetButtonDown("Cancel"))
 			onPauseKeyPressed?.Invoke();
 
 		// Player
-		if (Input.GetAxis("Horizontal") != 0)
-            onInputAxisEvent?.Invoke(new InputAxisUnityEventArg() { Direction = "Horizontal", Value = horizontalAxis });
-        if (Input.GetAxis("Vertical") != 0)
-            onInputAxisEvent?.Invoke(new InputAxisUnityEventArg() { Direction = "Vertical", Value = verticalAxis });
-        if (Input.GetKeyDown(BeaconKey))
+		if (horizontalAxis != 0 || verticalAxis != 0)
+            onMoveInputAxisEvent?.Invoke(new InputAxisUnityEventArg() { XDirection = "Horizontal", XValue = horizontalAxis, YDirection = "Vertical", YValue = verticalAxis });
+        if (CameraLookX != 0 || CameraLookY != 0)
+            onLookInputAxisEvent?.Invoke(new InputAxisUnityEventArg() { XDirection = "XBoxHorizontal4Axis", XValue = CameraLookX, YDirection = "XBoxVertical5Axis", YValue = CameraLookY * -1});
+        if (MouseX != 0 || MouseY != 0)
+            onLookInputAxisEvent?.Invoke(new InputAxisUnityEventArg() { XDirection = "Mouse X", XValue = MouseX, YDirection = "MouseY", YValue = MouseY });
+
+
+        if (Input.GetButtonDown("XBoxA"))
             onBeaconKeyPressed?.Invoke();
-		if (Input.GetKeyDown(PickUpKey))
+		if (Input.GetButtonDown("XBoxX"))
 			onPickUpKeyPressed?.Invoke();
 
 		// UI 
-		if (Input.GetKeyDown(UIPlayerKey))
+		if (Input.GetButtonDown("XBoxStartButton"))
 			onUIPlayerKeyPressed?.Invoke();
 		if (Input.GetKeyDown(UITribeKey))
 			onUITribeKeyPressed?.Invoke();
-		if (Input.GetKeyDown(UIInventoryKey))
+		if (Input.GetButtonDown("XBoxB"))
 			onUIInventoryKeyPressed?.Invoke();
 		if (Input.GetKeyDown(UIQuestKey))
 			onUIQuestKeyPressed?.Invoke();
@@ -79,7 +91,9 @@ public class InputManager : Singleton<InputManager>
 
 public class InputAxisUnityEventArg 
 {
-    public string Direction;
-    public float Value;
+    public string XDirection;
+    public float XValue;
+    public string YDirection;
+    public float YValue;
 }
 public class InputAxisUnityEvent : UnityEvent<InputAxisUnityEventArg> { }
