@@ -20,6 +20,10 @@ public class Zone : BaseMonoBehaviour
     public float HurtSpeed = 0.0f;
     [Header("Player gain life speed by second")]
     public float GainSpeed = 0.0f;
+    [Header("Player loose oxygen speed by second")]
+    public float LooseOxygenSpeed = 0.0f;
+    [Header("Player gain oxygen speed by second")]
+    public float GainOxygenSpeed = 0.0f;
     [Header("Authorized layer")]
     public LayerMask Layers;
 

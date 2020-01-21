@@ -9,7 +9,6 @@ public class Player : ZoneInteractable
     public float PlayerLife = 100.0f;
     [Header("Current player oxygen")]
     public float PlayerOxygen = 100.0f;
-
     bool CriticalLife = false;
     PlayerLook playerLook;
     PlayerMovement playerMove;
@@ -48,6 +47,7 @@ public class Player : ZoneInteractable
         ActivateCompass(zone);
         LooseLife(zone);
         GainLife(zone);
+        ApplyZoneOxygen(zone);
     }
 
     protected override void Update()
@@ -55,6 +55,12 @@ public class Player : ZoneInteractable
         base.Update();
         LifeCritical();
         UpdateOxygen();
+    }
+
+    public void ApplyZoneOxygen(Zone zone)
+    {
+        PlayerOxygen -= zone.LooseOxygenSpeed * Time.deltaTime;
+        PlayerOxygen += zone.GainOxygenSpeed * Time.deltaTime;
     }
 
     public void UpdateOxygen()
