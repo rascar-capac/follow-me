@@ -25,14 +25,15 @@ public class ToolsInventoryManager : Singleton<ToolsInventoryManager>
         for (int i = 0; i < ToolItems.Length; i++)
         { 
             CurrentPosition = Quaternion.AngleAxis((i+1) * AngleInterval, transform.up) * transform.forward * 3f;
-            Instantiate(ToolItems[i].Prefab, CurrentPosition, Quaternion.identity, transform);
-        }
+			Instantiate(ToolItems[i].Prefab, CurrentPosition, Quaternion.identity, transform);
+		}
     }
 
     private void Update()
     {
-        //transform.eulerAngles.Set(transform.eulerAngles.x, transform.eulerAngles.y + 60f * Time.deltaTime, transform.eulerAngles.z);
-        transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y + 60f * Time.deltaTime, transform.eulerAngles.z);
+		//transform.localEulerAngles.Set(transform.localEulerAngles.x, transform.localEulerAngles.y + 10f * Time.deltaTime, transform.localEulerAngles.z);
+		//transform.Rotate(0, (float)50/360 * Time.deltaTime, 0, Space.Self);
+		transform.Rotate(Vector3.up, 3);
         Debug.Log(transform.name);
     }
 }
