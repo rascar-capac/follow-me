@@ -239,6 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Life: 0
+  Fuel: 100
   onTribeLifeEnterCritical:
     m_PersistentCalls:
       m_Calls: []
