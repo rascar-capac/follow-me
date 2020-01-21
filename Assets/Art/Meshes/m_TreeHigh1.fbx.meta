@@ -3,7 +3,17 @@ guid: d28b0af16760e1f4f95c94c5a8f322f9
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_Foliage
+    second: {fileID: 2100000, guid: c9e02396d6757d44ca38e9ae60008b18, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_Tree
+    second: {fileID: 2100000, guid: 2793ac90a71bb5c43baf97dadbe15e75, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -68,7 +78,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     serializedVersion: 3
