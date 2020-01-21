@@ -150,7 +150,7 @@ public class UIManager : Singleton<UIManager>
     public void OpenToolsInventory()
     {
         ToolsInventory.gameObject.SetActive(true);
-        ToolsInventory.transform.position = CameraManager.I._MainCamera.transform.position; //+ CameraManager.I._MainCamera.transform.forward * 3;
+        //ToolsInventory.transform.position = CameraManager.I._MainCamera.transform.position; //+ CameraManager.I._MainCamera.transform.forward * 3;
     }
 
     public void CloseToolsInventory()

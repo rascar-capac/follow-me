@@ -15,7 +15,10 @@ MonoBehaviour:
   _itemName: 
   _itemDescription: 
   _itemIcon: {fileID: 0}
-  _itemPrefab: {fileID: 0}
+  _itemBasePrefab: {fileID: 1924643204380423103, guid: 60b0b9767a10b6845a9786d6968cf800,
+    type: 3}
+  _itemActivatedPrefab: {fileID: 9016348144095232340, guid: 58e5c345ecc138d46b18d74611e710db,
+    type: 3}
   IsCatchable: 0
   IsActivable: 0
-  ActivatedPrefab: {fileID: 0}
+  IsActivated: 0

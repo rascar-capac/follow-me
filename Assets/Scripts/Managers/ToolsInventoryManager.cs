@@ -33,7 +33,9 @@ public class ToolsInventoryManager : Singleton<ToolsInventoryManager>
     {
 		//transform.localEulerAngles.Set(transform.localEulerAngles.x, transform.localEulerAngles.y + 10f * Time.deltaTime, transform.localEulerAngles.z);
 		//transform.Rotate(0, (float)50/360 * Time.deltaTime, 0, Space.Self);
-		transform.Rotate(Vector3.up, 3);
+
+		transform.Rotate(Vector3.up, 3); // Remplacer le 3
+
         Debug.Log(transform.name);
     }
 }
