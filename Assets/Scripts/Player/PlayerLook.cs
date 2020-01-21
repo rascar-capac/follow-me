@@ -6,7 +6,7 @@ public class PlayerLook : BaseMonoBehaviour
 {
     [HideInInspector]
     public Transform playerBody;
-    Transform Optimum;
+    GameObject Optimum;
     Renderer NeedleRenderer;
     GameObject Compass;
 
@@ -23,7 +23,7 @@ public class PlayerLook : BaseMonoBehaviour
     {
         //Cursor.lockState = CursorLockMode.Locked;
         playerBody = ((GameObject)ObjectsManager.I["Player"]).transform;
-        Optimum = ((GameObject)ObjectsManager.I["Optimum"]).transform;
+        Optimum = ((GameObject)ObjectsManager.I["Optimum"]);
         Compass = GameObject.Find("Compass");
         NeedleRenderer = GameObject.Find("Needle").GetComponent<MeshRenderer>();
         NeedleRenderer.material = GoodDirection;
@@ -72,15 +72,18 @@ public class PlayerLook : BaseMonoBehaviour
             return;
         }
 
-        Vector3 ray = new Vector3(Optimum.position.x, transform.position.y, Optimum.position.z) - transform.position;
-        Vector3 rayProjected = Vector3.ProjectOnPlane(ray, Vector3.up);
-        Vector3 forwardProjected = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
-        Debug.DrawLine(transform.position, Optimum.position);
-        float angle = Vector3.Angle(rayProjected, forwardProjected);
-        if (angle > GameManager.I._data.CompassThresshold || angle < -GameManager.I._data.CompassThresshold)
-            NeedleRenderer.material = BadDirection;
-        else
-            NeedleRenderer.material = GoodDirection;
+        if (Optimum)
+        {
+            Vector3 ray = new Vector3(Optimum.transform.position.x, transform.position.y, Optimum.transform.position.z) - transform.position;
+            Vector3 rayProjected = Vector3.ProjectOnPlane(ray, Vector3.up);
+            Vector3 forwardProjected = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
+            Debug.DrawLine(transform.position, Optimum.transform.position);
+            float angle = Vector3.Angle(rayProjected, forwardProjected);
+            if (angle > GameManager.I._data.CompassThresshold || angle < -GameManager.I._data.CompassThresshold)
+                NeedleRenderer.material = BadDirection;
+            else
+                NeedleRenderer.material = GoodDirection;
+        }
     }
 
 

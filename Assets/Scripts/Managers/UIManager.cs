@@ -76,6 +76,7 @@ public class UIManager : Singleton<UIManager>
         SetTimeOfDay();
         SetPlayerLife();
         SetTribeLife();
+        SetPlayerOxygen();
     }
 
     void OpenMenu(string MenuName, bool CloseOthers = true)
@@ -163,7 +164,7 @@ public class UIManager : Singleton<UIManager>
     }
     public void SetPlayerOxygen()
     {
-        _HudTribeLifeText.text = $"Player Oxygen " + _refPlayer.PlayerOxygen;
+        _HudPlayerOxygenText.text = $"Player Oxygen " + _refPlayer.PlayerOxygen;
     }
     public void AlertTribeLifeCritical()
     {
