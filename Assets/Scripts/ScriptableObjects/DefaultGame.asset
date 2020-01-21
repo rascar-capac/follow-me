@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 100
   InitialPlayerLife: 100
-  InitialPlayerSpeed: 12
+  InitialPlayerSpeed: 6
   PlayerSpeedDecreasePercentage: 50
   PlayerLifeThresshold: 0.1
-  MaximumDistanceOfTribe: 300
+  MaximumDistanceOfTribe: 10000
   CompassThresshold: 15
   CompassActive: 1
   CompassUsable: 00000000
   InitialTribeLife: 100
   TribeLifeThresshold: 0.1
+  MinimumTimeBetweenFog: 0
