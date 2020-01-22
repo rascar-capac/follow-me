@@ -20,7 +20,7 @@ public class PlayerQuest : Singleton<PlayerQuest>
 		_playerQuestValidator = GetComponent<QuestValidator>();
 		_playerInventory = GetComponent<PlayerInventory>();
 
-		_refUIManager = FindObjectOfType<UIManager>();
+        _refUIManager = UIManager.I;// FindObjectOfType<UIManager>();
 	}
 
 	private void Update()

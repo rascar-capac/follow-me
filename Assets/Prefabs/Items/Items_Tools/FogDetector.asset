@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd87958864f503d478f5c177edbbd4c3, type: 3}
-  m_Name: Compass
+  m_Name: FogDetector
   m_EditorClassIdentifier: 
-  _itemName: Compass
-  _itemDescription: The compass shows you the way
+  _itemName: Fog Detector
+  _itemDescription: Detect the proximity of toxic fog
   _itemIcon: {fileID: 0}
-  _itemBasePrefab: {fileID: 8076180525058120035, guid: 7f58ee1ae6264384fbeb6fd10cfbbdcc,
+  _itemBasePrefab: {fileID: 7642297270107902926, guid: ad16fc07ee9c19d4e919541dc6ff7f82,
     type: 3}
   _itemActivatedPrefab: {fileID: 0}
   IsCatchable: 0

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd87958864f503d478f5c177edbbd4c3, type: 3}
-  m_Name: Compass
+  m_Name: TribeFuelMeter
   m_EditorClassIdentifier: 
-  _itemName: Compass
-  _itemDescription: The compass shows you the way
+  _itemName: Tribe fuel meter
+  _itemDescription: Indicate the tribe fuel level
   _itemIcon: {fileID: 0}
-  _itemBasePrefab: {fileID: 8076180525058120035, guid: 7f58ee1ae6264384fbeb6fd10cfbbdcc,
+  _itemBasePrefab: {fileID: 7642297270107902926, guid: 7968921bfe742004993f1b9db248a9e9,
     type: 3}
   _itemActivatedPrefab: {fileID: 0}
   IsCatchable: 0

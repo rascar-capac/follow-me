@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd87958864f503d478f5c177edbbd4c3, type: 3}
-  m_Name: Compass
+  m_Name: Cristal
   m_EditorClassIdentifier: 
-  _itemName: Compass
-  _itemDescription: The compass shows you the way
-  _itemIcon: {fileID: 0}
-  _itemBasePrefab: {fileID: 8076180525058120035, guid: 7f58ee1ae6264384fbeb6fd10cfbbdcc,
+  _itemName: Cristal
+  _itemDescription: "Un rare cristal emplis d'\xE9nergie"
+  _itemIcon: {fileID: 21300000, guid: 7bbf661826a5dbf4daff9987e9fea1fe, type: 3}
+  _itemBasePrefab: {fileID: 7055700096461130060, guid: 82d4d4bba39fefb46881c500e241d33e,
     type: 3}
   _itemActivatedPrefab: {fileID: 0}
-  IsCatchable: 0
+  IsCatchable: 1
   IsActivable: 0
   IsActivated: 0

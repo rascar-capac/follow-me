@@ -28,7 +28,7 @@ public class PlayerInventory : BaseMonoBehaviour
 
     void PickUpItem()
 	{
-		RaycastHit hitInfo = new RaycastHit();
+		RaycastHit hitInfo;
 		if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hitInfo, _pickUpRange, ItemLayer))
         {
             Item it = hitInfo.transform.GetComponent<Item>();
@@ -42,7 +42,7 @@ public class PlayerInventory : BaseMonoBehaviour
 
     void InteractItem()
     {
-		RaycastHit hitInfo = new RaycastHit();
+		RaycastHit hitInfo;
 		if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hitInfo, _pickUpRange, ItemLayer))
         {
             Item it = hitInfo.transform.GetComponentInParent<Item>();

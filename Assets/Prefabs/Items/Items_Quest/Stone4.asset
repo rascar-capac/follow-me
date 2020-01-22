@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd87958864f503d478f5c177edbbd4c3, type: 3}
-  m_Name: Compass
+  m_Name: Stone4
   m_EditorClassIdentifier: 
-  _itemName: Compass
-  _itemDescription: The compass shows you the way
+  _itemName: Fog stone
+  _itemDescription: A stone to activate
   _itemIcon: {fileID: 0}
-  _itemBasePrefab: {fileID: 8076180525058120035, guid: 7f58ee1ae6264384fbeb6fd10cfbbdcc,
+  _itemBasePrefab: {fileID: 3856021470283854715, guid: fc7400d8969650f4b94ab6baa4434732,
     type: 3}
-  _itemActivatedPrefab: {fileID: 0}
+  _itemActivatedPrefab: {fileID: 3856021470283854715, guid: 24d59716f418c114eb8a08c5877a4e98,
+    type: 3}
   IsCatchable: 0
-  IsActivable: 0
+  IsActivable: 1
   IsActivated: 0

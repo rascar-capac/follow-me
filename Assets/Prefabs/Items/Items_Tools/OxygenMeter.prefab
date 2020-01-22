@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &4496774841719551706
+--- !u!1001 &1961958429525841173
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -11,7 +11,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _itemData
       value: 
-      objectReference: {fileID: 11400000, guid: 291c361eb5508fe4db23dbcaf779e4d2,
+      objectReference: {fileID: 11400000, guid: 79d764eddea53974f8e699734be53659,
         type: 2}
     - target: {fileID: 5653032936331489186, guid: 81f0907f0932c6b4397b24c3e4ad4972,
         type: 3}
@@ -71,93 +71,93 @@ PrefabInstance:
     - target: {fileID: 5653032936331489209, guid: 81f0907f0932c6b4397b24c3e4ad4972,
         type: 3}
       propertyPath: m_Name
-      value: Compass
+      value: OxygenMeter
       objectReference: {fileID: 0}
     - target: {fileID: 5653032936331489212, guid: 81f0907f0932c6b4397b24c3e4ad4972,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 86c790f43ac739d4b94f2e95925dc898, type: 2}
+      objectReference: {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 5653032936331489214, guid: 81f0907f0932c6b4397b24c3e4ad4972,
         type: 3}
       propertyPath: _itemData
       value: 
-      objectReference: {fileID: 11400000, guid: 291c361eb5508fe4db23dbcaf779e4d2,
+      objectReference: {fileID: 11400000, guid: 79d764eddea53974f8e699734be53659,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81f0907f0932c6b4397b24c3e4ad4972, type: 3}
---- !u!4 &8076180525058120056 stripped
+--- !u!4 &6145686480152410807 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5653032936331489186, guid: 81f0907f0932c6b4397b24c3e4ad4972,
     type: 3}
-  m_PrefabInstance: {fileID: 4496774841719551706}
+  m_PrefabInstance: {fileID: 1961958429525841173}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &6491326978310980458
+--- !u!1001 &2362192352379831504
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 8076180525058120056}
+    m_TransformParent: {fileID: 6145686480152410807}
     m_Modifications:
-    - target: {fileID: -4216859302048453862, guid: 17ee7b9a13c2da6448fe7d05c5c21244,
+    - target: {fileID: -4216859302048453862, guid: 8b9fe7fc253e37942ad3dc94a1b3f03d,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 17ee7b9a13c2da6448fe7d05c5c21244,
+    - target: {fileID: -4216859302048453862, guid: 8b9fe7fc253e37942ad3dc94a1b3f03d,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 17ee7b9a13c2da6448fe7d05c5c21244,
+    - target: {fileID: -4216859302048453862, guid: 8b9fe7fc253e37942ad3dc94a1b3f03d,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 17ee7b9a13c2da6448fe7d05c5c21244,
+    - target: {fileID: -4216859302048453862, guid: 8b9fe7fc253e37942ad3dc94a1b3f03d,
         type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 17ee7b9a13c2da6448fe7d05c5c21244,
+    - target: {fileID: -4216859302048453862, guid: 8b9fe7fc253e37942ad3dc94a1b3f03d,
         type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 17ee7b9a13c2da6448fe7d05c5c21244,
+    - target: {fileID: -4216859302048453862, guid: 8b9fe7fc253e37942ad3dc94a1b3f03d,
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 17ee7b9a13c2da6448fe7d05c5c21244,
+    - target: {fileID: -4216859302048453862, guid: 8b9fe7fc253e37942ad3dc94a1b3f03d,
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 17ee7b9a13c2da6448fe7d05c5c21244,
+    - target: {fileID: -4216859302048453862, guid: 8b9fe7fc253e37942ad3dc94a1b3f03d,
         type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 17ee7b9a13c2da6448fe7d05c5c21244,
+    - target: {fileID: -4216859302048453862, guid: 8b9fe7fc253e37942ad3dc94a1b3f03d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 17ee7b9a13c2da6448fe7d05c5c21244,
+    - target: {fileID: -4216859302048453862, guid: 8b9fe7fc253e37942ad3dc94a1b3f03d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 17ee7b9a13c2da6448fe7d05c5c21244,
+    - target: {fileID: -4216859302048453862, guid: 8b9fe7fc253e37942ad3dc94a1b3f03d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 17ee7b9a13c2da6448fe7d05c5c21244,
+    - target: {fileID: -927199367670048503, guid: 8b9fe7fc253e37942ad3dc94a1b3f03d,
         type: 3}
       propertyPath: m_Name
-      value: m_Compass
+      value: m_OxygenMeter
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 17ee7b9a13c2da6448fe7d05c5c21244, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 8b9fe7fc253e37942ad3dc94a1b3f03d, type: 3}

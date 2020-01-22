@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd87958864f503d478f5c177edbbd4c3, type: 3}
-  m_Name: Compass
+  m_Name: Stone1
   m_EditorClassIdentifier: 
-  _itemName: Compass
-  _itemDescription: The compass shows you the way
+  _itemName: Lunar Stone
+  _itemDescription: A stone to activate
   _itemIcon: {fileID: 0}
-  _itemBasePrefab: {fileID: 8076180525058120035, guid: 7f58ee1ae6264384fbeb6fd10cfbbdcc,
+  _itemBasePrefab: {fileID: 6347550121490034333, guid: 403b730778fda7949b51d87672956ba8,
     type: 3}
-  _itemActivatedPrefab: {fileID: 0}
+  _itemActivatedPrefab: {fileID: 6347550121490034333, guid: 3821555024045084caa4d8abc76c9d2a,
+    type: 3}
   IsCatchable: 0
-  IsActivable: 0
+  IsActivable: 1
   IsActivated: 0
