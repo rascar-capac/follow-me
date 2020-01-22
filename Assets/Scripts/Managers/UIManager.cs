@@ -57,7 +57,6 @@ public class UIManager : Singleton<UIManager>
     public UnityEvent onToolsInventoryClosedEvent = new UnityEvent();
     public bool ToolsInvetoryOpened = false;
     bool AllowOpenInventory = true;
-    bool AllowSelectToolInventory = false;
 
     protected override void Start()
 	{
