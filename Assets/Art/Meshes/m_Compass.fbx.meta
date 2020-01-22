@@ -3,7 +3,17 @@ guid: 17ee7b9a13c2da6448fe7d05c5c21244
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_Compas
+    second: {fileID: 2100000, guid: 7cd19ca67db394641a3743366c2f6cd4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_Glass
+    second: {fileID: 2100000, guid: 3fbb04c3a0a94494c95aecfc5b8ea164, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -68,7 +78,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     serializedVersion: 3

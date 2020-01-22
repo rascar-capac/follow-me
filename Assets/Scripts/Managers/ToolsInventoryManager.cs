@@ -27,6 +27,7 @@ public class ToolsInventoryManager : Singleton<ToolsInventoryManager>
             CurrentPosition = transform.position + Quaternion.AngleAxis((i+1) * AngleInterval, transform.up) * transform.forward * 4f;
 			Instantiate(ToolItems[i].Prefab, CurrentPosition, Quaternion.identity, transform);
 		}
+        InputManager.I.onLookInputAxisEvent.AddListener(test);
     }
 
     private void Update()
@@ -34,5 +35,10 @@ public class ToolsInventoryManager : Singleton<ToolsInventoryManager>
 		transform.Rotate(Vector3.up, 3, Space.Self); // Remplacer le 3
 
         Debug.Log(transform.name);
+    }
+
+    public void test(InputAxisUnityEventArg axis)
+    {
+        //Debug.Log();
     }
 }

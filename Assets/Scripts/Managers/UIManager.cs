@@ -151,7 +151,8 @@ public class UIManager : Singleton<UIManager>
     {
         ToolsInventory.gameObject.SetActive(true);
         ToolsInventory.transform.position = CameraManager.I._MainCamera.transform.position + CameraManager.I._MainCamera.transform.forward * 5;
-        ToolsInventory.transform.rotation = CameraManager.I._MainCamera.transform.rotation;
+        //ToolsInventory.transform.rotation = CameraManager.I._MainCamera.transform.rotation;
+        ToolsInventory.transform.rotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, -CameraManager.I._MainCamera.transform.forward);
     }
 
     public void CloseToolsInventory()
