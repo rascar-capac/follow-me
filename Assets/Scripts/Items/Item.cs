@@ -14,14 +14,14 @@ public class Item : BaseMonoBehaviour
 	{
 		base.Start();
 
-		// Set-up IsActivated + Instantiate base item.
-		if (_itemData != null)
-		{
-			_itemData.IsActivated = false;
-			_currentItemPrefabDisplay = Instantiate(_itemData._itemBasePrefab, transform.position, Quaternion.identity, transform);
-		}
-		else
-			Debug.LogError("Place an ItemData on Item component");
+		//// Set-up IsActivated + Instantiate base item.
+		//if (_itemData != null)
+		//{
+		//	_itemData.IsActivated = false;
+		//	_currentItemPrefabDisplay = Instantiate(_itemData._itemBasePrefab, transform.position, Quaternion.identity, transform);
+		//}
+		//else
+		//	Debug.LogError("Place an ItemData on Item component");
 	}
 
 	// If an item is activated...
