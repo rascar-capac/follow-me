@@ -189,6 +189,12 @@ MonoBehaviour:
   onPauseKeyPressed:
     m_PersistentCalls:
       m_Calls: []
+  onToolInventoryButtonPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  onToolInventoryButtonReleased:
+    m_PersistentCalls:
+      m_Calls: []
   onBeaconKeyPressed:
     m_PersistentCalls:
       m_Calls: []

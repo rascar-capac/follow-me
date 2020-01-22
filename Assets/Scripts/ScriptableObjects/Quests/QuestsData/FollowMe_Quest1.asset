@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 198af5eba7916214c901a32cac5b24ef, type: 3}
+  m_Name: FollowMe_Quest1
+  m_EditorClassIdentifier: 
+  _questTitle: "\xE0 d\xE9terminer"
+  _questDescription: "\xE0 d\xE9terminer"
+  _questAccess: 1
+  _questFinish: 1
+  _questRewards:
+  - {fileID: 11400000, guid: 952828aafe8ec3241b78e44b87d68c1b, type: 2}
+  _questType: 1
+  _goalGoToPosition: {fileID: 0}
+  _itemsToActivate:
+  - {fileID: 9138148660923441277, guid: 403b730778fda7949b51d87672956ba8, type: 3}
+  - {fileID: 8684423839905822035, guid: ebd181a5d64d98f489d002c1f99f784c, type: 3}
+  - {fileID: 7747382392317585210, guid: e715f48f86f96fe4db96d938ff2093f6, type: 3}
+  - {fileID: 1388632497497537947, guid: fc7400d8969650f4b94ab6baa4434732, type: 3}

@@ -31,6 +31,9 @@ public class Zone : BaseMonoBehaviour
     [Header("Authorized layer")]
     public LayerMask Layers;
 
+	[Header("Position To spawn an item")]
+	public Transform _positionToSpawnItem;
+
 
     private void OnTriggerEnter(Collider other)
     {
