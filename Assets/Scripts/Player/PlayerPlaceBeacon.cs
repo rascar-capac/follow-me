@@ -17,6 +17,7 @@ public class PlayerPlaceBeacon : BaseMonoBehaviour
     RaycastHit _hitInfo = new RaycastHit();
     NavMeshAgent _tribeAgent;
     Camera _mainCamera;
+    bool AllowPlaceBeacon = true;
 
     protected override void Start()
 	{
@@ -27,15 +28,15 @@ public class PlayerPlaceBeacon : BaseMonoBehaviour
         _tribeFollowTarget = Instantiate(_tribeFollowTargetPrefab);
         _tribeFollowTarget.transform.position = new Vector3(_tribeAgent.transform.position.x, 0, _tribeAgent.transform.position.z);
         InputManager.I.onBeaconKeyPressed.AddListener(PlaceBeacon);
-	}
-
-    protected void Update()
-    {
-        Debug.DrawRay(_mainCamera.transform.position + _mainCamera.transform.forward * DropDistance, Vector3.down * 100.0f, Color.black);
+        UIManager.I.onToolsInventoryClosedEvent.AddListener(() => { AllowPlaceBeacon = true; });
+        UIManager.I.onToolsInventoryOpenedEvent.AddListener(() => { AllowPlaceBeacon = false; });
     }
 
     void PlaceBeacon()
     {
+        if (!AllowPlaceBeacon)
+            return;
+
         if (!player.IsTooFar && AmbiantManager.I.IsDay)
         {
             if (Physics.Raycast(_mainCamera.transform.position + Vector3.ProjectOnPlane(_mainCamera.transform.forward, Vector3.up).normalized * DropDistance, Vector3.down, out _hitInfo, 100.0f, DropableLayers))

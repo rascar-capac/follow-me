@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [System.Serializable]
 public struct ToolItem
@@ -12,12 +13,13 @@ public struct ToolItem
     public Color InitialColor;
 }
 
+public class ToolSelectedEvent : UnityEvent<GameObject, Hand> { }
 public class ToolsInventoryManager : Singleton<ToolsInventoryManager>
 {
     public ToolItem[] ToolItems;
     public float AngleInterval;
     public int CurrentIndex = 0;
-    
+    public ToolSelectedEvent onToolSelected = new ToolSelectedEvent();
     protected override void Start()
     {
         base.Start();
@@ -55,14 +57,13 @@ public class ToolsInventoryManager : Singleton<ToolsInventoryManager>
         if (!UIManager.I.ToolsInvetoryOpened)
             return;
 
-        Debug.Log($"{axis.XDirection}: " + axis.XValue + $" {axis.YDirection}: " + axis.YValue);
+        Vector3 vAxis = new Vector3(axis.XValue, axis.YValue, 0);
+        if (vAxis.magnitude < 1)
+            return;
 
         Vector3 forwardProjected = Vector3.ProjectOnPlane(transform.forward, transform.up);
         Vector3 axisProjected;
-        if (axis.XDirection == "Mouse X")
-            axisProjected = Vector3.ProjectOnPlane(new Vector3(-axis.XValue, -axis.YValue, 0), transform.up).normalized;
-        else
-            axisProjected = Vector3.ProjectOnPlane(new Vector3(axis.XValue, axis.YValue, 0), transform.up);
+        axisProjected = Vector3.ProjectOnPlane(vAxis, transform.up);
 
         float angle = Vector3.SignedAngle(forwardProjected, axisProjected, transform.up);
         angle = Mathf.Repeat(angle, 360);
@@ -78,17 +79,14 @@ public class ToolsInventoryManager : Singleton<ToolsInventoryManager>
 
     public void SelectObjectLeft()
     {
-        SelectObject();
+        if (!UIManager.I.ToolsInvetoryOpened)
+            return;
+        onToolSelected?.Invoke(ToolItems[CurrentIndex].Prefab, Hand.Left);
     }
     public void SelectObjectRight()
     {
-        SelectObject();
-    }
-    public void SelectObject()
-    {
         if (!UIManager.I.ToolsInvetoryOpened)
             return;
-
-
+        onToolSelected?.Invoke(ToolItems[CurrentIndex].Prefab, Hand.Right);
     }
 }
