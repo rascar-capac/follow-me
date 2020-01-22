@@ -32,6 +32,7 @@ public class InputManager : Singleton<InputManager>
 	// Player Events
 	public InputAxisUnityEvent onMoveInputAxisEvent = new InputAxisUnityEvent();
     public InputAxisUnityEvent onLookInputAxisEvent = new InputAxisUnityEvent();
+
     public UnityEvent onToolInventoryButtonPressed = new UnityEvent();
     public UnityEvent onToolInventoryButtonReleased = new UnityEvent();
     public UnityEvent onBeaconKeyPressed = new UnityEvent();

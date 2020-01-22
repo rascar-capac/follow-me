@@ -99,6 +99,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8076180525058120056}
     m_Modifications:
+    - target: {fileID: -5194769119172835801, guid: 17ee7b9a13c2da6448fe7d05c5c21244,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 17ee7b9a13c2da6448fe7d05c5c21244,
         type: 3}
       propertyPath: m_LocalPosition.x

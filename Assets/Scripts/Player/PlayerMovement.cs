@@ -27,6 +27,7 @@ public class PlayerMovement : BaseMonoBehaviour
     public float TribeDistance = 0.0f;
     GameObject Tribe;
     Player _player;
+    bool AllowMove = true;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -41,6 +42,8 @@ public class PlayerMovement : BaseMonoBehaviour
         InputManager.I.onRunButtonPressed.AddListener(EnableRun);
         InputManager.I.onRunButtonReleased.AddListener(DisableRun);
         InputManager.I.onMoveInputAxisEvent.AddListener(Move);
+        UIManager.I.onToolsInventoryClosedEvent.AddListener(() => { AllowMove = true; });
+        UIManager.I.onToolsInventoryOpenedEvent.AddListener(() => { AllowMove = false; });
     }
 
     void EnableRun()
@@ -62,6 +65,9 @@ public class PlayerMovement : BaseMonoBehaviour
 
     public void Move(InputAxisUnityEventArg axis)
     {
+        if (!AllowMove)
+            return;
+
         _isGrounded = Physics.CheckSphere(_groundCheck.position, _groundDistance, _groundMask);
 
         if (_isGrounded && _velocity.y < 0)

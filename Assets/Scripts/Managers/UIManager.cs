@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -50,10 +51,12 @@ public class UIManager : Singleton<UIManager>
 	#endregion
 	#region Quest Variables
 	List<GameObject> _questCellList = new List<GameObject>();
-	#endregion
+    #endregion
 
+    public UnityEvent onToolsInventoryOpenedEvent = new UnityEvent();
+    public UnityEvent onToolsInventoryClosedEvent = new UnityEvent();
 
-	protected override void Start()
+    protected override void Start()
 	{
 		base.Start();
 
@@ -150,14 +153,17 @@ public class UIManager : Singleton<UIManager>
     public void OpenToolsInventory()
     {
         ToolsInventory.gameObject.SetActive(true);
-        ToolsInventory.transform.position = CameraManager.I._MainCamera.transform.position + CameraManager.I._MainCamera.transform.forward * 5;
+        ToolsInventory.transform.position = CameraManager.I._MainCamera.transform.position + CameraManager.I._MainCamera.transform.forward * 7f;
         //ToolsInventory.transform.rotation = CameraManager.I._MainCamera.transform.rotation;
         ToolsInventory.transform.rotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, -CameraManager.I._MainCamera.transform.forward);
+        ToolsInventory.transform.Rotate(ToolsInventory.transform.right, 45, Space.Self);
+        onToolsInventoryOpenedEvent?.Invoke();
     }
 
     public void CloseToolsInventory()
     {
         ToolsInventory.gameObject.SetActive(false);
+        onToolsInventoryClosedEvent?.Invoke();
     }
 
     #region Hud Functions

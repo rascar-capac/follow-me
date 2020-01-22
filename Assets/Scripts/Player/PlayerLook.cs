@@ -9,6 +9,7 @@ public class PlayerLook : BaseMonoBehaviour
     GameObject Optimum;
     Renderer NeedleRenderer;
     GameObject Compass;
+    bool AllowLook = true;
 
     [Header("The color of the compass when direction is correct")]
     public Material GoodDirection;
@@ -30,6 +31,8 @@ public class PlayerLook : BaseMonoBehaviour
         transform.SetParent(playerBody);
         Compass.SetActive(GameManager.I._data.CompassActive);
         InputManager.I.onLookInputAxisEvent.AddListener(RotateCamera);
+        UIManager.I.onToolsInventoryOpenedEvent.AddListener(() => { AllowLook = false; });
+        UIManager.I.onToolsInventoryClosedEvent.AddListener(() => { AllowLook = true; });
     }
 
     // Update is called once per frame
@@ -40,6 +43,9 @@ public class PlayerLook : BaseMonoBehaviour
 
     void RotateCamera(InputAxisUnityEventArg axis)
     {
+        if (!AllowLook)
+            return;
+
         float mouseX = axis.XValue * GameManager.I._data.mouseSensitivity * Time.deltaTime;
         float mouseY = axis.YValue * GameManager.I._data.mouseSensitivity * Time.deltaTime;
 
