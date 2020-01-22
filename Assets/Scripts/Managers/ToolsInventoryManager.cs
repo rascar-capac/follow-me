@@ -42,7 +42,7 @@ public class ToolsInventoryManager : Singleton<ToolsInventoryManager>
 
     public void test(InputAxisUnityEventArg axis)
     {
-        Debug.DrawRay(transform.position, (transform.right  * axis.XValue) + (transform.forward * axis.YValue) + (transform.up * transform.position.y)), Color.red);
+        Debug.DrawRay(transform.position, (transform.right  * axis.XValue) + (transform.forward * axis.YValue) + (transform.up * transform.position.y), Color.red);
         //if (axis.XValue < 0)
         //    transform.Rotate(Vector3.up, -2, Space.Self);
         //else if (axis.XValue > 0)
