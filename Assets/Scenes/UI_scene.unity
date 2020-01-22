@@ -257,6 +257,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2530629707964596745, guid: f734d39bcc193b14594daa5285973c9a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a087db6f4957f78499651cbb3932bed8, type: 2}
     - target: {fileID: 3985127017416990422, guid: f734d39bcc193b14594daa5285973c9a,
         type: 3}
       propertyPath: ToolItems.Array.size

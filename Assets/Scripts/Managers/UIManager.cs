@@ -55,6 +55,7 @@ public class UIManager : Singleton<UIManager>
 
     public UnityEvent onToolsInventoryOpenedEvent = new UnityEvent();
     public UnityEvent onToolsInventoryClosedEvent = new UnityEvent();
+    public bool ToolsInvetoryOpened = false;
 
     protected override void Start()
 	{
@@ -157,12 +158,14 @@ public class UIManager : Singleton<UIManager>
         //ToolsInventory.transform.rotation = CameraManager.I._MainCamera.transform.rotation;
         ToolsInventory.transform.rotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, -CameraManager.I._MainCamera.transform.forward);
         //ToolsInventory.transform.Rotate(ToolsInventory.transform.right, 45, Space.Self);
+        ToolsInvetoryOpened = true;
         onToolsInventoryOpenedEvent?.Invoke();
     }
 
     public void CloseToolsInventory()
     {
         ToolsInventory.gameObject.SetActive(false);
+        ToolsInvetoryOpened = false;
         onToolsInventoryClosedEvent?.Invoke();
     }
 
