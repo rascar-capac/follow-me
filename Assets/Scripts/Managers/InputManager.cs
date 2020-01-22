@@ -77,13 +77,11 @@ public class InputManager : Singleton<InputManager>
         float LTRTAxis = Input.GetAxis("XBoxLTRT");
         if (LTRTAxis != 0 && lastLTRT == 0)
         {
-            Debug.Log("2: " + LTRTAxis);
             lastLTRT = LTRTAxis;
             onToolInventoryButtonPressed?.Invoke();
         }
         else if (LTRTAxis == 0 && lastLTRT != 0)
         {
-            Debug.Log("1: " + LTRTAxis);
             lastLTRT = LTRTAxis;
             onToolInventoryButtonReleased?.Invoke();
         }
