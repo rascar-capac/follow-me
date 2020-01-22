@@ -16,7 +16,8 @@ public class ToolsInventoryManager : Singleton<ToolsInventoryManager>
 {
     public ToolItem[] ToolItems;
     public float AngleInterval;
-
+    public int CurrentIndex = 0;
+    
     protected override void Start()
     {
         base.Start();
@@ -32,8 +33,9 @@ public class ToolsInventoryManager : Singleton<ToolsInventoryManager>
             ToolItems[i].renderer = ToolItems[i].CreatedObject.GetComponentInChildren<MeshRenderer>();
             ToolItems[i].InitialColor = ToolItems[i].renderer.material.color;
         }
-        InputManager.I.onLookInputAxisEvent.AddListener(test);
-
+        InputManager.I.onLookInputAxisEvent.AddListener(PointObject);
+        InputManager.I.onPickUpKeyPressed.AddListener(SelectObjectLeft);
+        InputManager.I.onUIInventoryKeyPressed.AddListener(SelectObjectRight);
     }
 
     private void Update()
@@ -48,23 +50,45 @@ public class ToolsInventoryManager : Singleton<ToolsInventoryManager>
     }
 
 
-    public void test(InputAxisUnityEventArg axis)
+    public void PointObject(InputAxisUnityEventArg axis)
     {
         if (!UIManager.I.ToolsInvetoryOpened)
             return;
-        Debug.Log($"x: " + axis.XValue + " y: " + axis.YValue);
+
+        Debug.Log($"{axis.XDirection}: " + axis.XValue + $" {axis.YDirection}: " + axis.YValue);
 
         Vector3 forwardProjected = Vector3.ProjectOnPlane(transform.forward, transform.up);
-        Vector3 axisProjected = Vector3.ProjectOnPlane(new Vector3(axis.XValue, axis.YValue, 0), transform.up);
+        Vector3 axisProjected;
+        if (axis.XDirection == "Mouse X")
+            axisProjected = Vector3.ProjectOnPlane(new Vector3(-axis.XValue, -axis.YValue, 0), transform.up).normalized;
+        else
+            axisProjected = Vector3.ProjectOnPlane(new Vector3(axis.XValue, axis.YValue, 0), transform.up);
+
         float angle = Vector3.SignedAngle(forwardProjected, axisProjected, transform.up);
         angle = Mathf.Repeat(angle, 360);
-        int index = (int)(angle / AngleInterval);
+        CurrentIndex = (int)(angle / AngleInterval);
         for (int i = 0; i < ToolItems.Length; i++)
         {
-            if (i == index)
+            if (i == CurrentIndex)
                 ToolItems[i].CreatedObject.transform.GetChild(0).transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             else
                 ToolItems[i].CreatedObject.transform.GetChild(0).transform.localScale = new Vector3(1, 1, 1);
         }
+    }
+
+    public void SelectObjectLeft()
+    {
+        SelectObject();
+    }
+    public void SelectObjectRight()
+    {
+        SelectObject();
+    }
+    public void SelectObject()
+    {
+        if (!UIManager.I.ToolsInvetoryOpened)
+            return;
+
+
     }
 }

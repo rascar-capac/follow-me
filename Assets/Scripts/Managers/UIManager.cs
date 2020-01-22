@@ -56,6 +56,8 @@ public class UIManager : Singleton<UIManager>
     public UnityEvent onToolsInventoryOpenedEvent = new UnityEvent();
     public UnityEvent onToolsInventoryClosedEvent = new UnityEvent();
     public bool ToolsInvetoryOpened = false;
+    bool AllowOpenInventory = true;
+    bool AllowSelectToolInventory = false;
 
     protected override void Start()
 	{
@@ -76,6 +78,8 @@ public class UIManager : Singleton<UIManager>
 		InputManager.I.onUIOptionsKeyPressed.AddListener(OpenOptionsPanel);
         InputManager.I.onToolInventoryButtonPressed.AddListener(OpenToolsInventory);
         InputManager.I.onToolInventoryButtonReleased.AddListener(CloseToolsInventory);
+        onToolsInventoryOpenedEvent.AddListener(() => { AllowOpenInventory = false;  });
+        onToolsInventoryClosedEvent.AddListener(() => { AllowOpenInventory = true; });
         CloseMenu();
 	}
 
@@ -134,6 +138,9 @@ public class UIManager : Singleton<UIManager>
 	}
 	public void OpenInventoryPanel()
 	{
+        if (!AllowOpenInventory)
+            return;
+
 		OpenMenu("InventoryPanel");
 		GenerateCellsInventory();
 	}

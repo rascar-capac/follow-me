@@ -14,6 +14,9 @@ public class PlayerInventory : BaseMonoBehaviour
     [Header("Pick-up item layer")]
     public LayerMask ItemLayer;
 
+    bool AllowPickup = true;
+    bool AllowActivate = true;
+
 	Camera _mainCamera;
 
     public ItemActivatedEvent onItemActivated = new ItemActivatedEvent();
@@ -24,10 +27,15 @@ public class PlayerInventory : BaseMonoBehaviour
 		_mainCamera = CameraManager.I._MainCamera;
 		InputManager.I.onPickUpKeyPressed.AddListener(PickUpItem);
         InputManager.I.onActivateItemKeyPressed.AddListener(InteractItem);
+        UIManager.I.onToolsInventoryClosedEvent.AddListener(() => { AllowPickup = true; AllowActivate = true; });
+        UIManager.I.onToolsInventoryOpenedEvent.AddListener(() => { AllowPickup = false; AllowActivate = false; });
     }
 
     void PickUpItem()
 	{
+        if (!AllowPickup)
+            return;
+
 		RaycastHit hitInfo;
 		if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hitInfo, _pickUpRange, ItemLayer))
         {
@@ -42,6 +50,9 @@ public class PlayerInventory : BaseMonoBehaviour
 
     void InteractItem()
     {
+        if (!AllowActivate)
+            return;
+
 		RaycastHit hitInfo;
 		if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hitInfo, _pickUpRange, ItemLayer))
         {
