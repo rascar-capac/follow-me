@@ -166,6 +166,7 @@ public class UIManager : Singleton<UIManager>
         //ToolsInventory.transform.Rotate(ToolsInventory.transform.right, 45, Space.Self);
         ToolsInvetoryOpened = true;
         onToolsInventoryOpenedEvent?.Invoke();
+        GameManager.I.PauseGame(true);
     }
 
     public void CloseToolsInventory()
@@ -173,6 +174,7 @@ public class UIManager : Singleton<UIManager>
         ToolsInventory.gameObject.SetActive(false);
         ToolsInvetoryOpened = false;
         onToolsInventoryClosedEvent?.Invoke();
+        GameManager.I.PauseGame(false);
     }
 
     #region Hud Functions
