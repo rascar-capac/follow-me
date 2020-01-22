@@ -17,8 +17,8 @@ MonoBehaviour:
   InitialPlayerOxygen: 100
   OxygenLossWalk: 1
   OxygenLossRun: 3
-  InitialPlayerSpeed: 6
-  SpeedMultiplicator: 2
+  InitialPlayerSpeed: 3
+  SpeedMultiplicator: 4
   PlayerSpeedDecreasePercentage: 50
   PlayerLifeThresshold: 0.1
   MaximumDistanceOfTribe: 10000
@@ -35,13 +35,13 @@ MonoBehaviour:
     DayStateDurationInSecond: 20
     StateHoursCount: 16
     StateColor: {r: 1, g: 0.9411765, b: 0.8235294, a: 0}
-    TimeStateChanged: 26.488173
+    TimeStateChanged: 211.84537
     EnterSunRotation: {x: 90, y: -30, z: 0}
     ExitSunRotation: {x: 270, y: -30, z: 0}
   - State: 1
     DayStateDurationInSecond: 6.5
     StateHoursCount: 8
     StateColor: {r: 0.16078432, g: 0.13333334, b: 0.050980393, a: 0}
-    TimeStateChanged: 19.996693
+    TimeStateChanged: 205.36188
     EnterSunRotation: {x: 270, y: -30, z: 0}
     ExitSunRotation: {x: 90, y: -30, z: 0}
