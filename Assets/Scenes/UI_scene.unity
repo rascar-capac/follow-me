@@ -138,6 +138,16 @@ PrefabInstance:
       propertyPath: ToolsInventory
       value: 
       objectReference: {fileID: 365360246}
+    - target: {fileID: 869559789475343353, guid: 41b016115e9d7464e96dc233994afa42,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 23.04663
+      objectReference: {fileID: 0}
+    - target: {fileID: 869559789475343353, guid: 41b016115e9d7464e96dc233994afa42,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 26.999756
+      objectReference: {fileID: 0}
     - target: {fileID: 1983081102144506237, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
       propertyPath: m_AnchoredPosition.x

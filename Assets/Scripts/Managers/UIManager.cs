@@ -84,6 +84,7 @@ public class UIManager : Singleton<UIManager>
         ShowTribeDistance(false);
         ShowTribeFuel(false);
         ShowPlayerOxygen(false);
+        ShowTime(false);
     }
 
     private void Update()
@@ -195,7 +196,11 @@ public class UIManager : Singleton<UIManager>
         if (_HudPlayerOxygenText)
             _HudPlayerOxygenText.gameObject.SetActive(Show);
     }
-
+    public void ShowTime(bool Show)
+    {
+        if (_HudCurrentTimeText)
+            _HudCurrentTimeText.gameObject.SetActive(Show);
+    }
     public void SetTribeDistance()
     {
         _HudTribeDistanceText.text = $"Tribe distance " + Mathf.FloorToInt(_refPlayerMovement.TribeDistance) + " m";
