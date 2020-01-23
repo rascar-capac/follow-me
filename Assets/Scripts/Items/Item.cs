@@ -6,6 +6,7 @@ public class Item : BaseMonoBehaviour
 {
 	[Header("Place Item Data")]
 	public ItemData _itemData;
+    public bool IsEnabled = false;
 
 	GameObject _currentItemPrefabDisplay;
 	//public bool ItemIsActivated = false; // Déplacer dans _ItemData

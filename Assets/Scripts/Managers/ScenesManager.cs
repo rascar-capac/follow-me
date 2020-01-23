@@ -53,10 +53,10 @@ public class ScenesManager : Singleton<ScenesManager>
 
         LoadScene("PlayGround_scene");
         LoadScene("Tribe_scene");
-        LoadScene("Player_scene");
+       // LoadScene("Player_scene");
         LoadScene("Lights_scene");
         LoadScene("Target_scene");
-        LoadScene("Items_scene");
+        //LoadScene("Items_scene");
         LoadScene("UI_scene");
         //Debug.Log("END LOGGGG >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<");
 
