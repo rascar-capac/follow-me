@@ -81,7 +81,10 @@ public class UIManager : Singleton<UIManager>
         onToolsInventoryClosedEvent.AddListener(() => { AllowOpenInventory = true; });
 
         CloseMenu();
-	}
+        ShowTribeDistance(false);
+        ShowTribeFuel(false);
+        ShowPlayerOxygen(false);
+    }
 
     private void Update()
     {
@@ -177,9 +180,25 @@ public class UIManager : Singleton<UIManager>
     }
 
     #region Hud Functions
+    public void ShowTribeDistance(bool Show)
+    {
+        if (_HudTribeDistanceText)
+            _HudTribeDistanceText.gameObject.SetActive(Show);
+    }
+    public void ShowTribeFuel(bool Show)
+    {
+        if (_HudTribeFuelText)
+            _HudTribeFuelText.gameObject.SetActive(Show);
+    }
+    public void ShowPlayerOxygen(bool Show)
+    {
+        if (_HudPlayerOxygenText)
+            _HudPlayerOxygenText.gameObject.SetActive(Show);
+    }
+
     public void SetTribeDistance()
     {
-        _HudTribeDistanceText.text = $"Tribe distance " + _refPlayerMovement.TribeDistance + " m";
+        _HudTribeDistanceText.text = $"Tribe distance " + Mathf.FloorToInt(_refPlayerMovement.TribeDistance) + " m";
         if (_refPlayerMovement.IsTooFar)
             _HudTribeDistanceText.text += " - Too far.";
     }
@@ -189,19 +208,19 @@ public class UIManager : Singleton<UIManager>
     }
     public void SetPlayerLife()
     {
-        _HudPlayerLifeText.text = $"Player life " + _refPlayer.PlayerLife;
+        _HudPlayerLifeText.text = $"Player life " + Mathf.FloorToInt(_refPlayer.PlayerLife);
     }
     public void SetTribeLife()
     {
-        _HudTribeLifeText.text = $"Tribe life " + _refTribe.Life;
+        _HudTribeLifeText.text = $"Tribe life " + Mathf.FloorToInt(_refTribe.Life);
     }
     public void SetPlayerOxygen()
     {
-        _HudPlayerOxygenText.text = $"Player Oxygen " + _refPlayer.PlayerOxygen;
+        _HudPlayerOxygenText.text = $"Player Oxygen " + Mathf.FloorToInt(_refPlayer.PlayerOxygen);
     }
     public void SetTribeFuel()
     {
-        _HudTribeFuelText.text = $"Tribe Fuel " + _refTribe.Fuel;
+        _HudTribeFuelText.text = $"Tribe Fuel " + Mathf.FloorToInt(_refTribe.Fuel);
     }
     public void AlertTribeLifeCritical()
     {
