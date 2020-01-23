@@ -14,6 +14,16 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: mat_Glass
     second: {fileID: 2100000, guid: 3fbb04c3a0a94494c95aecfc5b8ea164, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_Gold
+    second: {fileID: 2100000, guid: 957ec513c496da143a9fa8d55e7ea3d3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_Wood
+    second: {fileID: 2100000, guid: d37f06d8395c94a40af8be85799d44b8, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
