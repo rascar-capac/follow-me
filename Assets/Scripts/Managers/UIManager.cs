@@ -88,6 +88,8 @@ public class UIManager : Singleton<UIManager>
         ShowPlayerOxygen(false);
         ShowTribeDistance(false);
         ShowTribeFuel(false);
+        ShowPlayerLife(false);
+        ShowTribeLife(false);
     }
 
     private void Update()
@@ -183,6 +185,15 @@ public class UIManager : Singleton<UIManager>
     #endregion
 
     #region Hud Functions
+    public void ShowTribeLife(bool show)
+    {
+        _HudTribeLifeText.gameObject.SetActive(show);
+    }
+    public void ShowPlayerLife(bool show)
+    {
+        _HudPlayerLifeText.gameObject.SetActive(show);
+    }
+
     public void ShowTime(bool show)
     {
         _HudCurrentTimeText.gameObject.SetActive(show);

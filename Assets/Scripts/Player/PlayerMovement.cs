@@ -60,7 +60,6 @@ public class PlayerMovement : BaseMonoBehaviour
 
     private void Update()
     {
-        //Move();
         ComputeTribeDistance();
     }
 
@@ -106,7 +105,7 @@ public class PlayerMovement : BaseMonoBehaviour
         _speed -= _speed * GameManager.I._data.PlayerSpeedDecreasePercentage / 100;
     }
 
-    void IncreaseSpeed()
+    void ResetSpeed()
     {
         _speed = GameManager.I._data.InitialPlayerSpeed;
     }
