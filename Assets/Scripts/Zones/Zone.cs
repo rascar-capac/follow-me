@@ -48,12 +48,12 @@ public class Zone : BaseMonoBehaviour
 	// Attention ne pas changer l'ordre des enfants dans les prefabs zones pour cette fonction.
 	private void OnValidate()
 	{
-		CapsuleCollider capsuleCollider = GetComponent<CapsuleCollider>();
-		capsuleCollider.radius = Radius / 2;
-		capsuleCollider.height = Height * 2;
-		Transform cylinder = transform.GetChild(1);
-		cylinder.localScale = new Vector3(Radius, Height, Radius);
-	}
+        CapsuleCollider capsuleCollider = GetComponent<CapsuleCollider>();
+        capsuleCollider.radius = Radius / 2;
+        capsuleCollider.height = Height * 2;
+        Transform cylinder = transform.GetChild(1);
+        cylinder.localScale = new Vector3(Radius, Height, Radius);
+    }
 
 	private void OnTriggerEnter(Collider other)
     {

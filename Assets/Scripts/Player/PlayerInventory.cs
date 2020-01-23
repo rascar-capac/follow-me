@@ -34,6 +34,7 @@ public class PlayerInventory : BaseMonoBehaviour
     Item RightHandItem;
 
     public ItemActivatedEvent onItemActivated = new ItemActivatedEvent();
+    public UnityEvent onQuestStoneFinished = new UnityEvent();
     float xPixels = 300;
     float yPixels = 300;
     protected override void Start()
@@ -112,7 +113,10 @@ public class PlayerInventory : BaseMonoBehaviour
 				it.ActivateItem();
                 dynamicItems.Remove(it);
                 if (dynamicItems.Count <= 0)
+                {
                     UIManager.I.AlertMessage("All stones has been activated !");
+                    onQuestStoneFinished.Invoke();
+                }
 			}
 		}
     }
