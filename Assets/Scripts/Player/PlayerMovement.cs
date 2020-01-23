@@ -37,9 +37,11 @@ public class PlayerMovement : BaseMonoBehaviour
         Tribe = (GameObject)ObjectsManager.I["TribeGroundPosition"];
         _speed = GameManager.I._data.InitialPlayerSpeed;
         _player = GetComponent<Player>();
-        _player.onPlayerLifeEnterCritical.AddListener(DecreaseSpeed);
-        _player.onPlayerLifeExitCritical.AddListener(IncreaseSpeed);
-        InputManager.I.onRunButtonPressed.AddListener(EnableRun);
+		//_player.onPlayerEnergyEnterCritical.AddListener(DecreaseSpeed);
+		//_player.onPlayerEnergyExitCritical.AddListener(IncreaseSpeed);
+		//_player.onPlayerLifeEnterCritical.AddListener(DecreaseSpeed);
+		//_player.onPlayerLifeExitCritical.AddListener(IncreaseSpeed);
+		InputManager.I.onRunButtonPressed.AddListener(EnableRun);
         InputManager.I.onRunButtonReleased.AddListener(DisableRun);
         InputManager.I.onMoveInputAxisEvent.AddListener(Move);
         UIManager.I.onToolsInventoryClosedEvent.AddListener(() => { AllowMove = true; });

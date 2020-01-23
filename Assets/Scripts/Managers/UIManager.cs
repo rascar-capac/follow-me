@@ -87,9 +87,9 @@ public class UIManager : Singleton<UIManager>
     {
         SetTribeDistance();
         SetTimeOfDay();
-        SetPlayerLife();
+        //SetPlayerLife();
         SetTribeLife();
-        SetPlayerOxygen();
+        //SetPlayerOxygen();
         SetTribeFuel();
     }
 
@@ -187,18 +187,18 @@ public class UIManager : Singleton<UIManager>
     {
         _HudCurrentTimeText.text = $"Current time " + (int)AmbiantManager.I.CurrentTimeOfDay + " h (" + AmbiantManager.I.CurrentDayState.State.ToString() + ")";
     }
-    public void SetPlayerLife()
-    {
-        _HudPlayerLifeText.text = $"Player life " + _refPlayer.PlayerLife;
-    }
+    //public void SetPlayerLife()
+    //{
+    //    _HudPlayerLifeText.text = $"Player life " + _refPlayer.PlayerLife;
+    //}
     public void SetTribeLife()
     {
         _HudTribeLifeText.text = $"Tribe life " + _refTribe.Life;
     }
-    public void SetPlayerOxygen()
-    {
-        _HudPlayerOxygenText.text = $"Player Oxygen " + _refPlayer.PlayerOxygen;
-    }
+    //public void SetPlayerOxygen()
+    //{
+    //    _HudPlayerOxygenText.text = $"Player Oxygen " + _refPlayer.PlayerOxygen;
+    //}
     public void SetTribeFuel()
     {
         _HudTribeFuelText.text = $"Tribe Fuel " + _refTribe.Fuel;

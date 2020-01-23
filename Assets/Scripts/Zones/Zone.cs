@@ -30,7 +30,9 @@ public class Zone : BaseMonoBehaviour
     public float LooseFuelSpeed = 0.0f;
     [Header("Tribe gain fuel speed by second")]
     public float GainFuelSpeed = 0.0f;
-    [Header("Authorized layer")]
+	[Header("Player gain energy speed by second")]
+	public float GainEnergySpeed = 0.0f;
+	[Header("Authorized layer")]
     public LayerMask Layers;
 
 	[Header("Placer Coaster")]
