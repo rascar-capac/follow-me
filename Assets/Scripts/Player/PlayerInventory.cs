@@ -92,7 +92,11 @@ public class PlayerInventory : BaseMonoBehaviour
 		if (!AllowActivate)
             return;
 
-
+        if (!AmbiantManager.I.IsDay)
+        {
+            UIManager.I.AlertMessage("Unable to activate item during the night.");
+            return;
+        }
 
 		RaycastHit hitInfo;
 		if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hitInfo, _pickUpRange, ItemLayer))
