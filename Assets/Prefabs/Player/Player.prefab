@@ -104,7 +104,6 @@ GameObject:
   - component: {fileID: 3888259315700407448}
   - component: {fileID: 1836268511793626608}
   - component: {fileID: 1459762723063845718}
-  - component: {fileID: 1102385122}
   - component: {fileID: 1102385123}
   - component: {fileID: 1102385124}
   m_Layer: 9
@@ -173,24 +172,6 @@ MonoBehaviour:
   IsRunning: 0
   IsTooFar: 0
   TribeDistance: 0
---- !u!114 &1102385122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1325847800704952443}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b23d400240eef8643aee2a348ce0dd3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _tribeFollowTargetPrefab: {fileID: 4623627212519899461, guid: 02d81e148cd4dbf449b5931b393705aa,
-    type: 3}
-  DropDistance: 5
-  DropableLayers:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!114 &1102385123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,6 +189,8 @@ MonoBehaviour:
   ItemLayer:
     serializedVersion: 2
     m_Bits: 0
+  ItemsToActivate: []
+  dynamicItems: []
 --- !u!114 &1102385124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,6 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 778713dd545b13b4db091782bcf8b7f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InZones: []
   PlayerLife: 100
   PlayerOxygen: 100
   onPlayerLifeEnterCritical:
