@@ -241,15 +241,30 @@ public class UIManager : Singleton<UIManager>
     {
         AlertMessage("Danger : Tribe life is critical.", 10f);
     }
+
+    public List<Message> Messages = new List<Message>();
     public void AlertMessage(string message, float duration = 3f)
     {
-        _HudAlertMessageText.text = message;
-        _HudAlertMessageText.gameObject.SetActive(true);
-        StartChrono(duration, DisableMessage);
+        Message m = new Message() { Text = message, Duration = duration };
+        Messages.Add(m);
+        if (_HudAlertMessageText.gameObject.activeSelf)
+            return;
+        AlertMessageShow();
     }
+    void AlertMessageShow()
+    {
+        Message m = Messages[0];
+        Messages.RemoveAt(0);
+        _HudAlertMessageText.text = m.Text;
+        _HudAlertMessageText.gameObject.SetActive(true);
+        StartChrono(m.Duration, DisableMessage);
+    }
+
     void DisableMessage()
     {
         _HudAlertMessageText.gameObject.SetActive(false);
+        if (Messages.Count > 0)
+            AlertMessageShow();
     }
     #endregion
 
@@ -305,4 +320,9 @@ public class UIManager : Singleton<UIManager>
 	}
 	#endregion
 
+}
+public struct Message
+{
+    public string Text;
+    public float Duration;
 }
