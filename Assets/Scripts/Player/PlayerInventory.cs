@@ -145,7 +145,7 @@ public class PlayerInventory : BaseMonoBehaviour
             RightHandItem.IsEnabled = true;
         }
 
-        Quaternion rotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, position-CameraManager.I._MainCamera.transform.position);
+        Quaternion rotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, position+CameraManager.I._MainCamera.transform.position);
 
         newone.transform.position = position;
         newone.transform.rotation = rotation;
