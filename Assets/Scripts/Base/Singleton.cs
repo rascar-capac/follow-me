@@ -8,8 +8,8 @@ public class Singleton<T> : BaseMonoBehaviour where T : BaseMonoBehaviour
     {
         get
         {
-            if (_I == null)
-                Debug.Assert(false, "No Instance of " + typeof(T));
+            //if (_I == null)
+            //    Debug.Assert(false, "No Instance of " + typeof(T));
 
             return _I;
         }

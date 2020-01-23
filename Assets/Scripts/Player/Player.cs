@@ -78,19 +78,12 @@ public class Player : ZoneInteractable
 		}
 	}
 
-	public void ActivateCompass(Zone zone)
-    {
-        GameManager.I._data.CompassActive = zone.AllowCompass;
-    }
-
     public override void ApplyZoneEffect(Zone zone)
     {
         base.ApplyZoneEffect(zone);
-        ActivateCompass(zone);
 		//LooseLife(zone);
 		//GainLife(zone);
 		//ApplyZoneOxygen(zone);
-
 		GainEnergy(zone);
     }
 

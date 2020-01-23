@@ -34,8 +34,8 @@ public class PlayerInventory : BaseMonoBehaviour
     Item RightHandItem;
 
     public ItemActivatedEvent onItemActivated = new ItemActivatedEvent();
-    float xPixels = 200;
-    float yPixels = 200;
+    float xPixels = 300;
+    float yPixels = 300;
     protected override void Start()
 	{
 		base.Start();
@@ -49,7 +49,6 @@ public class PlayerInventory : BaseMonoBehaviour
         UIManager.I.onToolsInventoryOpenedEvent.AddListener(() => { AllowPickup = false; AllowActivate = false; });
 
         ToolsInventoryManager.I.onToolSelected.AddListener(PutItemInHand);
-        Debug.Log(CameraManager.I._MainCamera.nearClipPlane);
 
         dynamicItems = new List<Item>();
         dynamicItems.AddRange(ItemsToActivate);
@@ -88,7 +87,7 @@ public class PlayerInventory : BaseMonoBehaviour
 
     void InteractItem()
     {
-		Debug.Log("Dans InteractItem()");
+
 		if (!AllowActivate)
             return;
 
@@ -106,13 +105,10 @@ public class PlayerInventory : BaseMonoBehaviour
                 return;
             }
 
-			//if (data.IsActivable && !it.ItemIsActivated && data._itemActivatedPrefab != null) // Modification car déplacement du bool "Is Activated" directement dans ItemData
 			if (data.IsActivable && !data.IsActivated && data._itemActivatedPrefab != null)
 			{
 				onItemActivated?.Invoke(it);
                 
-				// Impossible d'utiliser ActivateItem() sans le Set-Up de _currentItemPrefabDisplay dans Item.cs
-				// C'est ennuyant, je n'ai pas trouver la solution.
 				it.ActivateItem();
                 dynamicItems.Remove(it);
                 if (dynamicItems.Count <= 0)
@@ -145,7 +141,7 @@ public class PlayerInventory : BaseMonoBehaviour
             RightHandItem.IsEnabled = true;
         }
 
-        Quaternion rotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, position+CameraManager.I._MainCamera.transform.position);
+        Quaternion rotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, CameraManager.I._MainCamera.transform.position - position);
 
         newone.transform.position = position;
         newone.transform.rotation = rotation;

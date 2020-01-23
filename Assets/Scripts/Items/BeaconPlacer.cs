@@ -32,7 +32,7 @@ public class BeaconPlacer : Item
 
 	void PlaceBeacon()
 	{
-		Debug.Log("Dans PlaceBeacon");
+
 		if (!IsEnabled)
 			return;
 

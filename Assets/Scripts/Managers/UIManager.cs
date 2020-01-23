@@ -48,16 +48,18 @@ public class UIManager : Singleton<UIManager>
 
 	#region Inventory Variables
 	List<GameObject> _inventoryCellList = new List<GameObject>();
-	#endregion
-	#region Quest Variables
-	List<GameObject> _questCellList = new List<GameObject>();
-    #endregion
-
     public UnityEvent onToolsInventoryOpenedEvent = new UnityEvent();
     public UnityEvent onToolsInventoryClosedEvent = new UnityEvent();
     public bool ToolsInvetoryOpened = false;
     bool AllowOpenInventory = true;
+    #endregion
+    #region Quest Variables
+    List<GameObject> _questCellList = new List<GameObject>();
+    #endregion
 
+    
+
+    #region start, update, awake...
     protected override void Start()
 	{
 		base.Start();
@@ -81,7 +83,12 @@ public class UIManager : Singleton<UIManager>
         onToolsInventoryClosedEvent.AddListener(() => { AllowOpenInventory = true; });
 
         CloseMenu();
-	}
+
+        ShowTime(false);
+        ShowPlayerOxygen(false);
+        ShowTribeDistance(false);
+        ShowTribeFuel(false);
+    }
 
     private void Update()
     {
@@ -92,7 +99,9 @@ public class UIManager : Singleton<UIManager>
         //SetPlayerOxygen();
         SetTribeFuel();
     }
+    #endregion
 
+    #region Menu Functions
     void OpenMenu(string MenuName, bool CloseOthers = true)
     {
         if (_mainMenu == null || MenuPanels == null)
@@ -157,26 +166,40 @@ public class UIManager : Singleton<UIManager>
 	{
 		OpenMenu("OptionsPanel");
 	}
-
     public void OpenToolsInventory()
     {
         ToolsInventory.gameObject.SetActive(true);
         ToolsInventory.transform.position = CameraManager.I._MainCamera.transform.position + CameraManager.I._MainCamera.transform.forward * 7f;
-        //ToolsInventory.transform.rotation = CameraManager.I._MainCamera.transform.rotation;
         ToolsInventory.transform.rotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, -CameraManager.I._MainCamera.transform.forward);
-        //ToolsInventory.transform.Rotate(ToolsInventory.transform.right, 45, Space.Self);
         ToolsInvetoryOpened = true;
         onToolsInventoryOpenedEvent?.Invoke();
     }
-
     public void CloseToolsInventory()
     {
         ToolsInventory.gameObject.SetActive(false);
         ToolsInvetoryOpened = false;
         onToolsInventoryClosedEvent?.Invoke();
     }
+    #endregion
 
     #region Hud Functions
+    public void ShowTime(bool show)
+    {
+        _HudCurrentTimeText.gameObject.SetActive(show);
+    }
+    public void ShowPlayerOxygen(bool show)
+    {
+        _HudPlayerOxygenText.gameObject.SetActive(show);
+    }
+    public void ShowTribeFuel(bool show)
+    {
+        _HudTribeFuelText.gameObject.SetActive(show);
+    }
+    public void ShowTribeDistance(bool show)
+    {
+        _HudTribeDistanceText.gameObject.SetActive(show);
+    }
+
     public void SetTribeDistance()
     {
         _HudTribeDistanceText.text = $"Tribe distance " + _refPlayerMovement.TribeDistance + " m";

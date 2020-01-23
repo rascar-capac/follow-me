@@ -14,9 +14,6 @@ public class CameraManager : Singleton<CameraManager>
         base.Start();
         if (_MainCamera == null)
             _MainCamera = Camera.main;
-        Debug.Log(Height);
-        Debug.Log(Width);
-        Debug.Log(_MainCamera.orthographicSize);
     }
 
 }

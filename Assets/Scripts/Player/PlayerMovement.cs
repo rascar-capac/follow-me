@@ -51,12 +51,11 @@ public class PlayerMovement : BaseMonoBehaviour
     void EnableRun()
     {
         IsRunning = true;
-        Debug.Log("running");
     }
     void DisableRun()
     {
         IsRunning = false;
-        Debug.Log("walking");
+
     }
 
     private void Update()
