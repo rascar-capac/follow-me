@@ -131,17 +131,17 @@ PrefabInstance:
     - target: {fileID: 3407597893577246806, guid: af2738f9f9937e6499a6f5bbf47adea8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 439.3
+      value: 437.09
       objectReference: {fileID: 0}
     - target: {fileID: 3407597893577246806, guid: af2738f9f9937e6499a6f5bbf47adea8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 46.03
+      value: 48.88
       objectReference: {fileID: 0}
     - target: {fileID: 3407597893577246806, guid: af2738f9f9937e6499a6f5bbf47adea8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 378.1
+      value: 377.19
       objectReference: {fileID: 0}
     - target: {fileID: 3407597893577246806, guid: af2738f9f9937e6499a6f5bbf47adea8,
         type: 3}
@@ -186,7 +186,12 @@ PrefabInstance:
     - target: {fileID: 3407597893577247146, guid: af2738f9f9937e6499a6f5bbf47adea8,
         type: 3}
       propertyPath: m_Name
-      value: PromisedLand
+      value: TurtleRock
+      objectReference: {fileID: 0}
+    - target: {fileID: 5673832578861066830, guid: af2738f9f9937e6499a6f5bbf47adea8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af2738f9f9937e6499a6f5bbf47adea8, type: 3}
