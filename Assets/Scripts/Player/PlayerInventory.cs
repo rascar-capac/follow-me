@@ -24,6 +24,7 @@ public class PlayerInventory : BaseMonoBehaviour
     //public GameObject RightArm;
     //public GameObject RightHand;
 
+    Tribe tribe;
 
     bool AllowPickup = true;
     bool AllowActivate = true;
@@ -39,6 +40,8 @@ public class PlayerInventory : BaseMonoBehaviour
 	{
 		base.Start();
 		_mainCamera = CameraManager.I._MainCamera;
+        tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
+
 		InputManager.I.onPickUpKeyPressed.AddListener(PickUpItem);
         InputManager.I.onActivateItemKeyPressed.AddListener(InteractItem);
 
@@ -89,11 +92,19 @@ public class PlayerInventory : BaseMonoBehaviour
 		if (!AllowActivate)
             return;
 
+
+
 		RaycastHit hitInfo;
 		if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hitInfo, _pickUpRange, ItemLayer))
         {
             Item it = hitInfo.transform.GetComponentInParent<Item>();
             ItemData data = it._itemData;
+
+            if (!(it.InZone && tribe.InZones.Exists(z => z == it.InZone)))
+            {
+                UIManager.I.AlertMessage("Your tribe must be here to activate this Item.");
+                return;
+            }
 
 			//if (data.IsActivable && !it.ItemIsActivated && data._itemActivatedPrefab != null) // Modification car déplacement du bool "Is Activated" directement dans ItemData
 			if (data.IsActivable && !data.IsActivated && data._itemActivatedPrefab != null)

@@ -79,6 +79,7 @@ public class UIManager : Singleton<UIManager>
         InputManager.I.onToolInventoryButtonReleased.AddListener(CloseToolsInventory);
         onToolsInventoryOpenedEvent.AddListener(() => { AllowOpenInventory = false;  });
         onToolsInventoryClosedEvent.AddListener(() => { AllowOpenInventory = true; });
+
         CloseMenu();
 	}
 

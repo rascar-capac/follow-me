@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ZoneInteractable : BaseMonoBehaviour
 {
-    List<Zone> InZones;
+    [HideInInspector]
+    public List<Zone> InZones;
 
     protected override void Start()
     {
