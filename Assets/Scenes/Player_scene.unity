@@ -569,6 +569,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1102385123, guid: 5d3cba6ec4ec1f54a9e83a1243fb67b7, type: 3}
+      propertyPath: ItemsToActivate.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1102385123, guid: 5d3cba6ec4ec1f54a9e83a1243fb67b7, type: 3}
       propertyPath: ItemLayer.m_Bits
       value: 1024
       objectReference: {fileID: 0}
@@ -592,6 +596,31 @@ PrefabInstance:
       propertyPath: RightArm
       value: 
       objectReference: {fileID: 1194295827}
+    - target: {fileID: 1102385123, guid: 5d3cba6ec4ec1f54a9e83a1243fb67b7, type: 3}
+      propertyPath: ItemsToActivate.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 27d69a89d0e4e714db910f1bbd890e63,
+        type: 2}
+    - target: {fileID: 1102385123, guid: 5d3cba6ec4ec1f54a9e83a1243fb67b7, type: 3}
+      propertyPath: ItemsToActivate.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 41a445afc30e84949b4c226c1bd09aa8,
+        type: 2}
+    - target: {fileID: 1102385123, guid: 5d3cba6ec4ec1f54a9e83a1243fb67b7, type: 3}
+      propertyPath: ItemsToActivate.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: f45e86e05754a9842a188a296ad4f19c,
+        type: 2}
+    - target: {fileID: 1102385123, guid: 5d3cba6ec4ec1f54a9e83a1243fb67b7, type: 3}
+      propertyPath: ItemsToActivate.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 134e2c73002e06d4c979d14a59879496,
+        type: 2}
+    - target: {fileID: 1102385123, guid: 5d3cba6ec4ec1f54a9e83a1243fb67b7, type: 3}
+      propertyPath: ItemsToActivate.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: f45e86e05754a9842a188a296ad4f19c,
+        type: 2}
     - target: {fileID: 1102385128, guid: 5d3cba6ec4ec1f54a9e83a1243fb67b7, type: 3}
       propertyPath: _questsPlayer.Array.size
       value: 1

@@ -73,6 +73,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stone1Activated
       objectReference: {fileID: 0}
+    - target: {fileID: 5653032936331489209, guid: 81f0907f0932c6b4397b24c3e4ad4972,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81f0907f0932c6b4397b24c3e4ad4972, type: 3}
 --- !u!4 &6347550121490034310 stripped

@@ -14,6 +14,7 @@ public class PlayerInventory : BaseMonoBehaviour
     [Header("Pick-up item layer")]
     public LayerMask ItemLayer;
 
+    public List<ItemData> ItemsToActivate;
     //public GameObject LeftArm;
     //public GameObject LeftHand;
     //public GameObject RightArm;
@@ -42,6 +43,11 @@ public class PlayerInventory : BaseMonoBehaviour
 
         ToolsInventoryManager.I.onToolSelected.AddListener(PutItemInHand);
         Debug.Log(CameraManager.I._MainCamera.nearClipPlane);
+
+        foreach (ItemData iData in ItemsToActivate)
+        {
+            iData.IsActivated = false;
+        }
 
         //Vector3 pos = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(xpixels, ypixels, CameraManager.I._MainCamera.nearClipPlane * 1.5f));
         //pos.z -= LeftArm.transform.GetChild(0).localScale.y / 1.5f ;
@@ -87,11 +93,20 @@ public class PlayerInventory : BaseMonoBehaviour
 			if (data.IsActivable && !data.IsActivated && data._itemActivatedPrefab != null)
 			{
 				onItemActivated?.Invoke(it);
-
+                
 				// Impossible d'utiliser ActivateItem() sans le Set-Up de _currentItemPrefabDisplay dans Item.cs
 				// C'est ennuyant, je n'ai pas trouver la solution.
-				//it.ActivateItem(); 
-
+				it.ActivateItem();
+                int i = 0;
+                foreach (ItemData itemData in ItemsToActivate)
+                {
+                    if (itemData.IsActivated)
+                        i++;
+                }
+                if (i >= ItemsToActivate.Count)
+                {
+                    UIManager.I.AlertMessage("All stones has been activated !");
+                }
 			}
 		}
     }

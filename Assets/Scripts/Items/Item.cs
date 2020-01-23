@@ -31,5 +31,6 @@ public class Item : BaseMonoBehaviour
         //_currentItemPrefabDisplay.GetComponent<MeshFilter>().mesh = _itemData._itemActivatedMesh;
         Destroy(_currentItemPrefabDisplay);
         _currentItemPrefabDisplay = Instantiate(_itemData._itemActivatedPrefab, transform.position, Quaternion.identity, transform);
+        UIManager.I.AlertMessage($"{_itemData._itemName} has been activated...");
     }
 }
