@@ -26,10 +26,10 @@ public class PlayerLook : BaseMonoBehaviour
         playerBody = ((GameObject)ObjectsManager.I["Player"]).transform;
         Optimum = ((GameObject)ObjectsManager.I["Optimum"]);
         Compass = GameObject.Find("Compass");
-        NeedleRenderer = GameObject.Find("Needle").GetComponent<MeshRenderer>();
-        NeedleRenderer.material = GoodDirection;
+        //NeedleRenderer = GameObject.Find("Needle").GetComponent<MeshRenderer>();
+        //NeedleRenderer.material = GoodDirection;
         transform.SetParent(playerBody);
-        Compass.SetActive(GameManager.I._data.CompassActive);
+        //Compass.SetActive(GameManager.I._data.CompassActive);
         InputManager.I.onLookInputAxisEvent.AddListener(RotateCamera);
         UIManager.I.onToolsInventoryOpenedEvent.AddListener(() => { AllowLook = false; });
         UIManager.I.onToolsInventoryClosedEvent.AddListener(() => { AllowLook = true; });
@@ -74,7 +74,7 @@ public class PlayerLook : BaseMonoBehaviour
 
         if (i >= GameManager.I._data.CompassUsable.Count)
         {
-            NeedleRenderer.material = UnavailableCompass;
+            //NeedleRenderer.material = UnavailableCompass;
             return;
         }
 

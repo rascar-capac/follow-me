@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4e0003290734ab748b3e8c9507f8d03c
+guid: 4af2dce4a1701814e9bd653e2f0a05a9
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_Rock
-    second: {fileID: 2100000, guid: a526436ec0d01ff46b76abd57c58c9c3, type: 2}
+      name: mat_Cliff
+    second: {fileID: 2100000, guid: d3549922865dd13479b3aff880c43719, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

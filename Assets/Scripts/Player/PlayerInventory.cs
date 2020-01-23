@@ -14,10 +14,11 @@ public class PlayerInventory : BaseMonoBehaviour
     [Header("Pick-up item layer")]
     public LayerMask ItemLayer;
 
-    public GameObject LeftHand;
-    public GameObject RightHand;
+    //public GameObject LeftArm;
+    //public GameObject LeftHand;
+    //public GameObject RightArm;
+    //public GameObject RightHand;
 
-    [Header("Mutlply camera near plane position by this for hands z position")]
 
     bool AllowPickup = true;
     bool AllowActivate = true;
@@ -27,8 +28,8 @@ public class PlayerInventory : BaseMonoBehaviour
     Item RightHandItem;
 
     public ItemActivatedEvent onItemActivated = new ItemActivatedEvent();
-    float xpixels = 10;
-    float ypixels = 10;
+    float xPixels = 200;
+    float yPixels = 200;
     protected override void Start()
 	{
 		base.Start();
@@ -42,12 +43,15 @@ public class PlayerInventory : BaseMonoBehaviour
         ToolsInventoryManager.I.onToolSelected.AddListener(PutItemInHand);
         Debug.Log(CameraManager.I._MainCamera.nearClipPlane);
 
-        Vector3 pos = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(xpixels, ypixels, CameraManager.I._MainCamera.nearClipPlane * 1.5f));
-        pos.z -= LeftHand.transform.GetChild(0).localScale.y / 1.5f ;
-        LeftHand.transform.position = pos;
-        pos = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(Screen.width - xpixels, ypixels, CameraManager.I._MainCamera.nearClipPlane * 1.5f));
-        pos.z -= RightHand.transform.GetChild(0).localScale.y / 1.5f;
-        RightHand.transform.position = pos;
+        //Vector3 pos = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(xpixels, ypixels, CameraManager.I._MainCamera.nearClipPlane * 1.5f));
+        //pos.z -= LeftArm.transform.GetChild(0).localScale.y / 1.5f ;
+        //LeftArm.transform.position = pos;
+        //pos = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(Screen.width - xpixels, ypixels, CameraManager.I._MainCamera.nearClipPlane * 1.5f));
+        //pos.z -= RightArm.transform.GetChild(0).localScale.y / 1.5f;
+        //RightArm.transform.position = pos;
+
+        //LeftHand = LeftArm.transform.Find("Arm").transform.Find("Hand").gameObject;
+        //RightHand = RightArm.transform.Find("Arm").transform.Find("Hand").gameObject;
     }
 
     void PickUpItem()
@@ -82,7 +86,7 @@ public class PlayerInventory : BaseMonoBehaviour
 			//if (data.IsActivable && !it.ItemIsActivated && data._itemActivatedPrefab != null) // Modification car déplacement du bool "Is Activated" directement dans ItemData
 			if (data.IsActivable && !data.IsActivated && data._itemActivatedPrefab != null)
 			{
-				//onItemActivated?.Invoke(it);
+				onItemActivated?.Invoke(it);
 
 				// Impossible d'utiliser ActivateItem() sans le Set-Up de _currentItemPrefabDisplay dans Item.cs
 				// C'est ennuyant, je n'ai pas trouver la solution.
@@ -98,16 +102,20 @@ public class PlayerInventory : BaseMonoBehaviour
         
         if (hand == Hand.Left)
         {
+            Vector3 position = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * 3));
+            //position = LeftHand.transform.position + new Vector3(0, 0.1f, 0);
             if (LeftHandItem)
-                Destroy(LeftHandItem);
-            GameObject newone = Instantiate(o, LeftHand.transform.position + new Vector3(0, 0.5f, 0), rotation, LeftHand.transform);
+                Destroy(LeftHandItem.gameObject);
+            GameObject newone = Instantiate(o, position, rotation, CameraManager.I._MainCamera.transform);
             LeftHandItem = newone.GetComponent<Item>();
         }
         else
         {
-            if (LeftHandItem)
-                Destroy(LeftHandItem);
-            GameObject newone = Instantiate(o, RightHand.transform.position + new Vector3(0, 0.5f, 0), rotation, RightHand.transform);
+            Vector3 position = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(Screen.width - xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * 3));
+            //position = LeftHand.transform.position + new Vector3(0, 0.1f, 0);
+            if (RightHandItem)
+                Destroy(RightHandItem.gameObject);
+            GameObject newone = Instantiate(o, position, rotation, CameraManager.I._MainCamera.transform);
             RightHandItem = newone.GetComponent<Item>();
         }
     }
