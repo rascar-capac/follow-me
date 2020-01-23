@@ -24,21 +24,15 @@ public class Item : BaseMonoBehaviour
         }
     }
 
+    public Zone InZone;
+
 	GameObject _currentItemPrefabDisplay;
 	//public bool ItemIsActivated = false; // Déplacer dans _ItemData
 
 	protected override void Start()
 	{
 		base.Start();
-
-		//// Set-up IsActivated + Instantiate base item.
-		//if (_itemData != null)
-		//{
-		//	_itemData.IsActivated = false;
-		//	_currentItemPrefabDisplay = Instantiate(_itemData._itemBasePrefab, transform.position, Quaternion.identity, transform);
-		//}
-		//else
-		//	Debug.LogError("Place an ItemData on Item component");
+        InZone = transform.GetComponentInParent<Zone>();
 	}
 
 	// If an item is activated...
