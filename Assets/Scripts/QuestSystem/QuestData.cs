@@ -20,8 +20,8 @@ public class QuestData : ScriptableObject
 	public QuestType _questType;
 
 	[ShowIf("_questType", QuestType.GotoPosition)]
-	public Transform _goalGoToPosition; // Transformer en List et Changer logique QuestValidator/CheckQuestFinish()
-	// Ajouter un float distanceMinimum
+	public Transform _goalGoToPosition; // à faire: Transformer en List et Changer logique QuestValidator/CheckQuestFinish()
+	// à faire: Ajouter un float distanceMinimum
 
 	[ShowIf("_questType", QuestType.ActivatesItems)]
 	public List<Item> _itemsToActivate;

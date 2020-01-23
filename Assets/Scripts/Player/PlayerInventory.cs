@@ -50,7 +50,8 @@ public class PlayerInventory : BaseMonoBehaviour
 
     void InteractItem()
     {
-        if (!AllowActivate)
+		Debug.Log("Dans InteractItem()");
+		if (!AllowActivate)
             return;
 
 		RaycastHit hitInfo;
@@ -63,9 +64,13 @@ public class PlayerInventory : BaseMonoBehaviour
 			if (data.IsActivable && !data.IsActivated && data._itemActivatedPrefab != null)
 			{
 				//onItemActivated?.Invoke(it);
-				it.ActivateItem();
-            }
-        }
+
+				// Impossible d'utiliser ActivateItem() sans le Set-Up de _currentItemPrefabDisplay dans Item.cs
+				// C'est ennuyant, je n'ai pas trouver la solution.
+				//it.ActivateItem(); 
+
+			}
+		}
     }
 }
 public class ItemActivatedEvent : UnityEvent<Item> { }

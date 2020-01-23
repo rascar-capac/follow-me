@@ -323,6 +323,16 @@ PrefabInstance:
       propertyPath: AllowCompass
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7320724221647239165, guid: 9ca38628b74597d41a27658761ef06f8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9e69ab58efdeb9e4fa92a29521ba2bd2, type: 2}
+    - target: {fileID: 7518712409316084197, guid: 9ca38628b74597d41a27658761ef06f8,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 164.6
+      objectReference: {fileID: 0}
     - target: {fileID: 7888772042430806853, guid: 9ca38628b74597d41a27658761ef06f8,
         type: 3}
       propertyPath: m_Name

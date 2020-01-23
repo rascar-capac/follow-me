@@ -188,6 +188,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FollowMe_Quest1_Item4
       objectReference: {fileID: 0}
+    - target: {fileID: 3856021470283854715, guid: fc7400d8969650f4b94ab6baa4434732,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc7400d8969650f4b94ab6baa4434732, type: 3}
 --- !u!1001 &803804118
@@ -256,6 +261,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FollowMe_Quest1_Item1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6347550121490034333, guid: 403b730778fda7949b51d87672956ba8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 403b730778fda7949b51d87672956ba8, type: 3}
@@ -326,6 +336,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FollowMe_Quest1_Item2
       objectReference: {fileID: 0}
+    - target: {fileID: 6792408480724433843, guid: ebd181a5d64d98f489d002c1f99f784c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebd181a5d64d98f489d002c1f99f784c, type: 3}
 --- !u!1001 &1996157335
@@ -394,6 +409,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FollowMe_Quest1_Item3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567018428341922266, guid: e715f48f86f96fe4db96d938ff2093f6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e715f48f86f96fe4db96d938ff2093f6, type: 3}

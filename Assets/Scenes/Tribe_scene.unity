@@ -163,6 +163,11 @@ PrefabInstance:
       propertyPath: m_AngularSpeed
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 2648109937416602427, guid: fea45556a9385704f8c41f5ef148143b,
+        type: 3}
+      propertyPath: m_StoppingDistance
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4819814216446465464, guid: fea45556a9385704f8c41f5ef148143b,
         type: 3}
       propertyPath: m_LocalPosition.x
