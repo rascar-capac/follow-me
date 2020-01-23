@@ -120,7 +120,6 @@ public class PlayerInventory : BaseMonoBehaviour
         if (hand == Hand.Left)
         {
             position = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * 3));
-            //position = LeftHand.transform.position + new Vector3(0, 0.1f, 0);
             if (LeftHandItem)
                 Destroy(LeftHandItem.gameObject);
             LeftHandItem = newone.GetComponent<Item>();
@@ -129,7 +128,6 @@ public class PlayerInventory : BaseMonoBehaviour
         else
         {
             position = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(Screen.width - xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * 3));
-            //position = LeftHand.transform.position + new Vector3(0, 0.1f, 0);
             if (RightHandItem)
                 Destroy(RightHandItem.gameObject);
             RightHandItem = newone.GetComponent<Item>();

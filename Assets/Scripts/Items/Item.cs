@@ -1,12 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
+public class ObjectEnabledEvent : UnityEvent<Item, bool> { }
 public class Item : BaseMonoBehaviour
 {
 	[Header("Place Item Data")]
 	public ItemData _itemData;
-    public bool IsEnabled = false;
+
+    public ObjectEnabledEvent onObjectEnableChange = new ObjectEnabledEvent();
+    private bool _IsEnabled = false;
+    public bool IsEnabled
+    {
+        get
+        {
+            return _IsEnabled;
+        }
+        set
+        {
+            _IsEnabled = value;
+            onObjectEnableChange.Invoke(this, _IsEnabled);
+        }
+    }
 
 	GameObject _currentItemPrefabDisplay;
 	//public bool ItemIsActivated = false; // Déplacer dans _ItemData
@@ -34,4 +50,7 @@ public class Item : BaseMonoBehaviour
         _currentItemPrefabDisplay = Instantiate(_itemData._itemActivatedPrefab, transform.position, Quaternion.identity, transform);
         UIManager.I.AlertMessage($"{_itemData._itemName} has been activated...");
     }
+
+    public virtual void Init()
+    { }
 }

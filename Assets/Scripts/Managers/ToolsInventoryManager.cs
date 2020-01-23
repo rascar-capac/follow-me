@@ -25,7 +25,6 @@ public class ToolsInventoryManager : Singleton<ToolsInventoryManager>
         base.Start();
         AngleInterval = 360 / ToolItems.Length;
 
-
         Vector3 CurrentPosition = -transform.forward;
 
         for (int i = 0; i < ToolItems.Length; i++)
