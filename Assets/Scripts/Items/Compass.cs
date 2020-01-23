@@ -19,6 +19,9 @@ public class Compass : Item
         if (!IsEnabled)
             return;
 
+        if (!AmbiantManager.I.IsDay)
+            return;
+
         float min = float.PositiveInfinity;
         float dist = 0.0f;
         int minIndex = int.MaxValue;
