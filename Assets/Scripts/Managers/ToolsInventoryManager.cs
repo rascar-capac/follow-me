@@ -24,6 +24,7 @@ public class ToolsInventoryManager : Singleton<ToolsInventoryManager>
     {
         base.Start();
         AngleInterval = 360 / ToolItems.Length;
+        Debug.Log(AngleInterval);
 
         Vector3 CurrentPosition = -transform.forward;
 
@@ -58,16 +59,12 @@ public class ToolsInventoryManager : Singleton<ToolsInventoryManager>
             return;
 
         Vector3 vAxis = new Vector3(axis.XValue, axis.YValue, 0);
-        if (vAxis.magnitude < 1)
+        if (vAxis.sqrMagnitude < 0.81f)
             return;
 
-        Vector3 forwardProjected = Vector3.ProjectOnPlane(transform.forward, transform.up);
-        Vector3 axisProjected;
-        axisProjected = Vector3.ProjectOnPlane(vAxis, transform.up);
+        float angle = Vector3.SignedAngle(Vector3.up, vAxis, -Vector3.forward);
+        CurrentIndex = (int)(Mathf.Repeat(angle-(AngleInterval*0.5f), 360) / AngleInterval);
 
-        float angle = Vector3.SignedAngle(forwardProjected, axisProjected, transform.up);
-        angle = Mathf.Repeat(angle, 360);
-        CurrentIndex = (int)(angle / AngleInterval);
         for (int i = 0; i < ToolItems.Length; i++)
         {
             if (i == CurrentIndex)

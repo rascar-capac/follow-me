@@ -98,26 +98,32 @@ public class PlayerInventory : BaseMonoBehaviour
 
     public void PutItemInHand(GameObject o, Hand hand)
     {
-        Quaternion rotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, -CameraManager.I._MainCamera.transform.forward);
-        
+        GameObject newone = Instantiate(o);
+        newone.transform.SetParent(CameraManager.I._MainCamera.transform);
+
+        Vector3 position = Vector3.zero;
+
         if (hand == Hand.Left)
         {
-            Vector3 position = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * 3));
+            position = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * 3));
             //position = LeftHand.transform.position + new Vector3(0, 0.1f, 0);
             if (LeftHandItem)
                 Destroy(LeftHandItem.gameObject);
-            GameObject newone = Instantiate(o, position, rotation, CameraManager.I._MainCamera.transform);
             LeftHandItem = newone.GetComponent<Item>();
         }
         else
         {
-            Vector3 position = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(Screen.width - xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * 3));
+            position = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(Screen.width - xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * 3));
             //position = LeftHand.transform.position + new Vector3(0, 0.1f, 0);
             if (RightHandItem)
                 Destroy(RightHandItem.gameObject);
-            GameObject newone = Instantiate(o, position, rotation, CameraManager.I._MainCamera.transform);
             RightHandItem = newone.GetComponent<Item>();
         }
+
+        Quaternion rotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, position-CameraManager.I._MainCamera.transform.position);
+
+        newone.transform.position = position;
+        newone.transform.rotation = rotation;
     }
 }
 public class ItemActivatedEvent : UnityEvent<Item> { }
