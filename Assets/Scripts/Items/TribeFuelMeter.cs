@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TribeDistanceMeter : Item
+public class TribeFuelMeter : Item
 {
     public override void Init()
     {
         base.Init();
-        UIManager.I.ShowTribeDistance(true);
+        UIManager.I.ShowTribeFuel(true);
     }
 
     private void OnDestroy()
     {
         if (UIManager.I)
-            UIManager.I.ShowTribeDistance(false);
+            UIManager.I.ShowTribeFuel(false);
     }
 }

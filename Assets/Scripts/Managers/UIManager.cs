@@ -81,7 +81,10 @@ public class UIManager : Singleton<UIManager>
         onToolsInventoryClosedEvent.AddListener(() => { AllowOpenInventory = true; });
 
         CloseMenu();
-	}
+        ShowTribeDistance(false);
+        ShowTribeFuel(false);
+        ShowPlayerOxygen(false);
+    }
 
     private void Update()
     {
@@ -177,6 +180,22 @@ public class UIManager : Singleton<UIManager>
     }
 
     #region Hud Functions
+    public void ShowTribeDistance(bool Show)
+    {
+        if (_HudTribeDistanceText)
+            _HudTribeDistanceText.gameObject.SetActive(Show);
+    }
+    public void ShowTribeFuel(bool Show)
+    {
+        if (_HudTribeFuelText)
+            _HudTribeFuelText.gameObject.SetActive(Show);
+    }
+    public void ShowPlayerOxygen(bool Show)
+    {
+        if (_HudPlayerOxygenText)
+            _HudPlayerOxygenText.gameObject.SetActive(Show);
+    }
+
     public void SetTribeDistance()
     {
         _HudTribeDistanceText.text = $"Tribe distance " + _refPlayerMovement.TribeDistance + " m";

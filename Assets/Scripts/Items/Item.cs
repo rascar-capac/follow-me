@@ -20,6 +20,8 @@ public class Item : BaseMonoBehaviour
         set
         {
             _IsEnabled = value;
+            if (_IsEnabled)
+                Init();
             onObjectEnableChange.Invoke(this, _IsEnabled);
         }
     }
