@@ -13,26 +13,26 @@ public class AmbiantManager : Singleton<AmbiantManager>
     ParticleSystem FogParticles;
 
 
-    void StartFog()
-    {
-        if (GameManager.I._data.MinimumTimeBetweenFog == 0)
-            return;
-        Fog.SetActive(true);
-        Fog.transform.position = new Vector3(CameraManager.I._MainCamera.transform.position.x, CameraManager.I._MainCamera.transform.position.y, CameraManager.I._MainCamera.transform.position.z);// + Vector3.ProjectOnPlane(Player.transform.forward, Vector3.up);
-        FogParticles.Play();
-        StartChrono(GameManager.I._data.MinimumTimeBetweenFog, EndFog);
-        Debug.Log("Fog on");
-    }
-    void EndFog()
-    {
-        if (GameManager.I._data.MinimumTimeBetweenFog == 0)
-            return;
-        FogParticles.Stop();
-        Fog.SetActive(false) ;
-        Player.ExitZone(FogZone);
-        StartChrono(GameManager.I._data.MinimumTimeBetweenFog, StartFog);
-        Debug.Log("Fog off");
-    }
+    //void StartFog()
+    //{
+    //    if (GameManager.I._data.MinimumTimeBetweenFog == 0)
+    //        return;
+    //    Fog.SetActive(true);
+    //    Fog.transform.position = new Vector3(CameraManager.I._MainCamera.transform.position.x, CameraManager.I._MainCamera.transform.position.y, CameraManager.I._MainCamera.transform.position.z);// + Vector3.ProjectOnPlane(Player.transform.forward, Vector3.up);
+    //    FogParticles.Play();
+    //    StartChrono(GameManager.I._data.MinimumTimeBetweenFog, EndFog);
+    //    Debug.Log("Fog on");
+    //}
+    //void EndFog()
+    //{
+    //    if (GameManager.I._data.MinimumTimeBetweenFog == 0)
+    //        return;
+    //    FogParticles.Stop();
+    //    Fog.SetActive(false) ;
+    //    Player.ExitZone(FogZone);
+    //    StartChrono(GameManager.I._data.MinimumTimeBetweenFog, StartFog);
+    //    Debug.Log("Fog off");
+    //}
     #endregion
 
     protected override void Start()
@@ -45,7 +45,21 @@ public class AmbiantManager : Singleton<AmbiantManager>
         Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
         InitDaysStates();
         ChangeDayState();
-        StartChrono(GameManager.I._data.MinimumTimeBetweenFog, StartFog);
+        //StartChrono(GameManager.I._data.MinimumTimeBetweenFog, StartFog);
+    }
+
+    public bool IsUsableNow(List<DayState> states)
+    {
+        if (states != null)
+        {
+            int i = 0;
+            for (i = 0; i < states.Count; i++)
+                if (states[i] == AmbiantManager.I.CurrentDayState.State)
+                    break;
+            if (i >= states.Count)
+                return false;
+        }
+        return true;
     }
 
     #region Day States Management
@@ -54,6 +68,7 @@ public class AmbiantManager : Singleton<AmbiantManager>
     public DayStatesProperties CurrentDayState => GameManager.I._data.States[CurrentDayStateIndex];
     public DayStatesProperties NextDayState => GameManager.I._data.States[(int)Mathf.Repeat(CurrentDayStateIndex + 1, GameManager.I._data.States.Length)];
     public bool IsDay => CurrentDayState.State == DayState.Day;
+    public bool IsNight => CurrentDayState.State == DayState.Night;
     public float CurrentTimeOfDay;
     public float TotalDayTime;
     void InitDaysStates()

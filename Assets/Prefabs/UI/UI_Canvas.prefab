@@ -1,82 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &291717549843979157
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4911146487505532149}
-  - component: {fileID: 2655821906124773070}
-  - component: {fileID: 3329791379119851953}
-  m_Layer: 5
-  m_Name: HudTribeLifeText
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &4911146487505532149
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 291717549843979157}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4412631317828290988}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 23.046753, y: 145}
-  m_SizeDelta: {x: 400, y: 30}
-  m_Pivot: {x: 0, y: 0}
---- !u!222 &2655821906124773070
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 291717549843979157}
-  m_CullTransparentMesh: 0
---- !u!114 &3329791379119851953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 291717549843979157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 24
-    m_FontStyle: 1
-    m_BestFit: 1
-    m_MinSize: 0
-    m_MaxSize: 40
-    m_Alignment: 3
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: xxxxxxx
 --- !u!1 &308816051010739076
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,7 +330,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 23.046753, y: 67.99994}
+  m_AnchoredPosition: {x: 23.046875, y: 68}
   m_SizeDelta: {x: 400, y: 30}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &1191085062419650382
@@ -1198,8 +1121,6 @@ RectTransform:
   - {fileID: 8910109255524243046}
   - {fileID: 869559789475343353}
   - {fileID: 7386491910394441093}
-  - {fileID: 4911146487505532149}
-  - {fileID: 1983081102144506237}
   - {fileID: 7764453787208081178}
   m_Father: {fileID: 4587518545162013130}
   m_RootOrder: 0
@@ -1497,18 +1418,24 @@ MonoBehaviour:
   - {fileID: 6921167310368643753}
   - {fileID: 1101338264660833975}
   _HudTribeDistanceText: {fileID: 1785835181547677869}
-  _HudTribeLifeText: {fileID: 3329791379119851953}
-  _HudTribeFuelText: {fileID: 5896544219647618838}
+  _HudTribeEnergyText: {fileID: 0}
   _HudAlertMessageText: {fileID: 3689825421110630093}
   _HudCurrentTimeText: {fileID: 4376115063348206331}
-  _HudPlayerLifeText: {fileID: 6260736797695402734}
-  _HudPlayerOxygenText: {fileID: 4060246032947627222}
+  _HudPlayerEnergyText: {fileID: 0}
   _inventoryContent: {fileID: 387432912529575339}
   _inventoryCellAsset: {fileID: 5407111214802441743, guid: 3c0375453a612e34a9348ed88b37dcb6,
     type: 3}
   _questContent: {fileID: 5867597663052751309}
   _questCellAsset: {fileID: 5407111214802441743, guid: adef09521f8aa484d9d0d34c96baaba8,
     type: 3}
+  ToolsInventory: {fileID: 0}
+  onToolsInventoryOpenedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onToolsInventoryClosedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  ToolsInvetoryOpened: 0
 --- !u!1 &4587518545469329318
 GameObject:
   m_ObjectHideFlags: 0
@@ -1937,7 +1864,7 @@ GameObject:
   - component: {fileID: 5751306920399780281}
   - component: {fileID: 6260736797695402734}
   m_Layer: 5
-  m_Name: HudPlayerLifeText
+  m_Name: HudPlayerEnergyText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1959,7 +1886,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 23.046753, y: 107.00006}
+  m_AnchoredPosition: {x: 23.046875, y: 107}
   m_SizeDelta: {x: 400, y: 30}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &5751306920399780281
@@ -2759,7 +2686,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 23.04663, y: 26.999756}
+  m_AnchoredPosition: {x: 23.046875, y: 26.999756}
   m_SizeDelta: {x: 400, y: 30}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &267878951371858150
@@ -2814,7 +2741,7 @@ GameObject:
   - component: {fileID: 9047175497111581138}
   - component: {fileID: 5896544219647618838}
   m_Layer: 5
-  m_Name: HudTribeFuelText
+  m_Name: HudTribeEnergyText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2832,11 +2759,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4412631317828290988}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 23.04663, y: 223.8}
+  m_AnchoredPosition: {x: 23.046875, y: 223.80005}
   m_SizeDelta: {x: 400, y: 30}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &9047175497111581138
@@ -2870,83 +2797,6 @@ MonoBehaviour:
     m_FontSize: 24
     m_FontStyle: 1
     m_BestFit: 1
-    m_MinSize: 0
-    m_MaxSize: 40
-    m_Alignment: 3
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: xxxxxxx
---- !u!1 &7724123728480283610
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1983081102144506237}
-  - component: {fileID: 650691410980419557}
-  - component: {fileID: 4060246032947627222}
-  m_Layer: 5
-  m_Name: HudPlayerOxygenText
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1983081102144506237
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7724123728480283610}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4412631317828290988}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 23.046753, y: 185.00012}
-  m_SizeDelta: {x: 400, y: 30}
-  m_Pivot: {x: 0, y: 0}
---- !u!222 &650691410980419557
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7724123728480283610}
-  m_CullTransparentMesh: 0
---- !u!114 &4060246032947627222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7724123728480283610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 24
-    m_FontStyle: 1
-    m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 3
@@ -3490,15 +3340,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df5ebbed5c60b9d468341ab4f602e589, type: 3}
---- !u!224 &8356712226863413008 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4424068118622121409, guid: df5ebbed5c60b9d468341ab4f602e589,
-    type: 3}
-  m_PrefabInstance: {fileID: 5664529962808466129}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5867597663052751309 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2301786917998082844, guid: df5ebbed5c60b9d468341ab4f602e589,
+    type: 3}
+  m_PrefabInstance: {fileID: 5664529962808466129}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &8356712226863413008 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4424068118622121409, guid: df5ebbed5c60b9d468341ab4f602e589,
     type: 3}
   m_PrefabInstance: {fileID: 5664529962808466129}
   m_PrefabAsset: {fileID: 0}

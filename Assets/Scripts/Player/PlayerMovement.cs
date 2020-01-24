@@ -20,6 +20,7 @@ public class PlayerMovement : BaseMonoBehaviour
 
     [Header("Player is running")]
     public bool IsRunning = false;
+    bool PlayerMayRun = true;
 
     Vector3 _velocity;
     bool _isGrounded;
@@ -37,11 +38,11 @@ public class PlayerMovement : BaseMonoBehaviour
         Tribe = (GameObject)ObjectsManager.I["TribeGroundPosition"];
         _speed = GameManager.I._data.InitialPlayerSpeed;
         _player = GetComponent<Player>();
-		//_player.onPlayerEnergyEnterCritical.AddListener(DecreaseSpeed);
-		//_player.onPlayerEnergyExitCritical.AddListener(IncreaseSpeed);
-		//_player.onPlayerLifeEnterCritical.AddListener(DecreaseSpeed);
-		//_player.onPlayerLifeExitCritical.AddListener(IncreaseSpeed);
-		InputManager.I.onRunButtonPressed.AddListener(EnableRun);
+
+        _player.onPlayerEnergyNullEnter.AddListener(() => { if (GameManager.I._data.PlayerRunEnergyLowUnusable) PlayerMayRun = false; });
+        _player.onPlayerEnergyNullExit.AddListener(() => { if (GameManager.I._data.PlayerRunEnergyLowUnusable) PlayerMayRun = true; });
+
+        InputManager.I.onRunButtonPressed.AddListener(EnableRun);
         InputManager.I.onRunButtonReleased.AddListener(DisableRun);
         InputManager.I.onMoveInputAxisEvent.AddListener(Move);
         UIManager.I.onToolsInventoryClosedEvent.AddListener(() => { AllowMove = true; });
@@ -50,12 +51,12 @@ public class PlayerMovement : BaseMonoBehaviour
 
     void EnableRun()
     {
-        IsRunning = true;
+        if (PlayerMayRun)
+            IsRunning = true;
     }
     void DisableRun()
     {
         IsRunning = false;
-
     }
 
     private void Update()
@@ -80,7 +81,11 @@ public class PlayerMovement : BaseMonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
 
-        _controller.Move(move * _speed * (IsRunning?GameManager.I._data.SpeedMultiplicator:1) * Time.deltaTime);
+        float runMultiply = 1;
+        if (IsRunning && AmbiantManager.I.IsUsableNow(GameManager.I._data.PlayerRunUsable))
+            runMultiply = GameManager.I._data.SpeedMultiplicator;
+
+        _controller.Move(move * _speed * runMultiply * Time.deltaTime);
 
         if (Input.GetButtonDown("Jump") && _isGrounded)
         {
@@ -98,11 +103,6 @@ public class PlayerMovement : BaseMonoBehaviour
         Vector3 PlayerPositionProjected = Vector3.ProjectOnPlane(transform.position, Vector3.up);
         TribeDistance = Vector3.Distance(TribePositionProjected, PlayerPositionProjected);
         IsTooFar = TribeDistance > GameManager.I._data.MaximumDistanceOfTribe;
-    }
-
-    void DecreaseSpeed()
-    {
-        _speed -= _speed * GameManager.I._data.PlayerSpeedDecreasePercentage / 100;
     }
 
     void ResetSpeed()

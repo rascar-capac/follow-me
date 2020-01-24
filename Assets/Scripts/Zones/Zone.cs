@@ -14,22 +14,10 @@ public class Zone : BaseMonoBehaviour
     public float Radius = 25f; // Radius d'une zone (pour Capsulecollider et Cylinder)
 	[Header("Zone height")]
 	public float Height = 200f; // Height d'une zone (pour Capsulecollider et Cylinder)
-	[Header("Disable use of compass")]
-    public bool AllowCompass = false;
     [Header("Ressources")]
     public RessourcesType[] Ressources;
-    [Header("Player toxicity speed by second")]
-    public float HurtSpeed = 0.0f;
-    [Header("Player gain life speed by second")]
-    public float GainSpeed = 0.0f;
-    [Header("Player loose oxygen speed by second")]
-    public float LooseOxygenSpeed = 0.0f;
-    [Header("Player gain oxygen speed by second")]
-    public float GainOxygenSpeed = 0.0f;
-    [Header("Tribe loose fuel speed by second")]
-    public float LooseFuelSpeed = 0.0f;
-    [Header("Tribe gain fuel speed by second")]
-    public float GainFuelSpeed = 0.0f;
+    [Header("Player loose energy speed by second")]
+    public float LooseEnergySpeed = 0.0f;
 	[Header("Player gain energy speed by second")]
 	public float GainEnergySpeed = 0.0f;
 	[Header("Authorized layer")]

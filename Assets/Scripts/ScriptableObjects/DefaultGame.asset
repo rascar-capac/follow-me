@@ -12,37 +12,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11b29abf8b04ef043bce4d639d3e647d, type: 3}
   m_Name: DefaultGame
   m_EditorClassIdentifier: 
-  mouseSensitivity: 100
-  _initialPlayerEnergy: 100
-  _percentLifePlayerForCritical: 5
-  _energyPlayerLostPerSeconde: 1
-  _energyPlayerGainPerSeconde: 1
+  CameraRotationSpeed: 100
+  InitialPlayerEnergy: 100
+  EnergyPlayerLostPerSecond: 1
+  EnergyPlayerGainPerSecond: 1
   InitialPlayerSpeed: 3
   SpeedMultiplicator: 4
-  PlayerSpeedDecreasePercentage: 50
+  PlayerItemDistanceInteraction: 2
+  StonesActivationUsable: 
   MaximumDistanceOfTribe: 10000
-  CompassThresshold: 15
-  CompassActive: 1
   CompassUsable: 00000000
-  _initialTribeEnergy: 300
-  _percentLifeTribeForCritical: 0
-  _energyTribeLostPerSeconde: 1
-  _energyTribeGainPerSeconde: 0
-  _defaultSpeedTribe: 15
-  _criticalSpeedTribe: 0
-  MinimumTimeBetweenFog: 0
+  CompassEnergyLowUnusable: 0
+  BeaconPlacerUsable: 00000000
+  BeaconPlacerEnergyLowUnusable: 0
+  BeaconPlacementDistance: 3
+  MapUsable: 
+  PlayerRunUsable: 00000000
+  PlayerRunEnergyLowUnusable: 0
+  EnergyPlayerRunCostPerSecond: 1
+  SundialUsable: 
+  SundialEnergyLowUnusable: 0
+  PlayerEnergyMeterUsable: 
+  PlayerEnergyMeterEnergyLowUnusable: 0
+  TribeEnergyMeterUsable: 
+  TribeEnergyMeterEnergyLowUnusable: 0
+  TribeDistanceMeterUsable: 00000000
+  TribeDistanceMeterEnergyLowUnusable: 1
+  InitialTribeEnergy: 100
+  PercentEnergyTribeForCritical: 5
+  EnergyTribeLostPerSecond: 1
+  EnergyTribeGainPerSecond: 1
+  InitialSpeedTribe: 20
+  CriticalSpeedTribeMultiplicator: 0.5
+  InitialSpeedRotationTribe: 10
   States:
   - State: 0
     DayStateDurationInSecond: 20
     StateHoursCount: 16
     StateColor: {r: 1, g: 0.9411765, b: 0.8235294, a: 0}
-    TimeStateChanged: 370.80063
+    TimeStateChanged: 26.48354
     EnterSunRotation: {x: 90, y: -30, z: 0}
     ExitSunRotation: {x: 270, y: -30, z: 0}
   - State: 1
     DayStateDurationInSecond: 6.5
     StateHoursCount: 8
     StateColor: {r: 0.16078432, g: 0.13333334, b: 0.050980393, a: 0}
-    TimeStateChanged: 364.30304
+    TimeStateChanged: 46.47474
     EnterSunRotation: {x: 270, y: -30, z: 0}
     ExitSunRotation: {x: 90, y: -30, z: 0}

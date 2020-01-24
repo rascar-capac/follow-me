@@ -10,9 +10,6 @@ public class PlayerInventory : BaseMonoBehaviour
 	[Header("Player Inventory")]
 	public List<ItemData> _playerInventory;
 
-	[Header("Pick-up Range")]
-	public float _pickUpRange = 5;
-
     [Header("Pick-up item layer")]
     public LayerMask ItemLayer;
 
@@ -78,7 +75,7 @@ public class PlayerInventory : BaseMonoBehaviour
             return;
 
 		RaycastHit hitInfo;
-		if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hitInfo, _pickUpRange, ItemLayer))
+		if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hitInfo, GameManager.I._data.PlayerItemDistanceInteraction, ItemLayer))
         {
             Item it = hitInfo.transform.GetComponent<Item>();
             if (it._itemData.IsCatchable)
@@ -95,14 +92,14 @@ public class PlayerInventory : BaseMonoBehaviour
 		if (!AllowActivate)
             return;
 
-        if (!AmbiantManager.I.IsDay)
+        if (!AmbiantManager.I.IsUsableNow(GameManager.I._data.StonesActivationUsable))
         {
-            UIManager.I.AlertMessage("Unable to activate item during the night.");
+            UIManager.I.AlertMessage("Unable to activate the stone now.");
             return;
         }
 
 		RaycastHit hitInfo;
-		if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hitInfo, _pickUpRange, ItemLayer))
+		if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hitInfo, GameManager.I._data.PlayerItemDistanceInteraction, ItemLayer))
         {
             Item it = hitInfo.transform.GetComponentInParent<Item>();
             ItemData data = it._itemData;
