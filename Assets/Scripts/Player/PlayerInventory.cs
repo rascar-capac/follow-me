@@ -36,6 +36,8 @@ public class PlayerInventory : BaseMonoBehaviour
     float yPixels = 300;
     Vector3 leftHandItemPosition;
     Vector3 rightHandItemPosition;
+    Quaternion leftHandItemRotation;
+    Quaternion rightHandItemRotation;
 
     protected override void Start()
 	{
@@ -127,6 +129,12 @@ public class PlayerInventory : BaseMonoBehaviour
 
     public void PutItemInHand(GameObject o, Hand hand)
     {
+        leftHandItemPosition = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * 3));
+        leftHandItemRotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, CameraManager.I._MainCamera.transform.position - leftHandItemPosition);
+
+        rightHandItemPosition = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(Screen.width - xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * 3));
+        rightHandItemRotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, CameraManager.I._MainCamera.transform.position - rightHandItemPosition);
+
         if (hand == Hand.Left && RightHandItem && RightHandItem._itemData._itemName == o.GetComponent<Item>()._itemData._itemName)
         {
             SwapHands();
@@ -148,10 +156,8 @@ public class PlayerInventory : BaseMonoBehaviour
             LeftHandItem = newone.GetComponent<Item>();
             LeftHandItem.IsEnabled = true;
 
-            leftHandItemPosition = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * 3));
-            Quaternion rotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, CameraManager.I._MainCamera.transform.position - leftHandItemPosition);
             LeftHandItem.transform.position = leftHandItemPosition;
-            LeftHandItem.transform.rotation = rotation;
+            LeftHandItem.transform.rotation = leftHandItemRotation;
         }
         else
         {
@@ -159,30 +165,23 @@ public class PlayerInventory : BaseMonoBehaviour
                 Destroy(RightHandItem.gameObject);
             RightHandItem = newone.GetComponent<Item>();
             RightHandItem.IsEnabled = true;
-
-            rightHandItemPosition = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(Screen.width - xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * 3));
-            Quaternion rotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, CameraManager.I._MainCamera.transform.position - rightHandItemPosition);
+            
             RightHandItem.transform.position = rightHandItemPosition;
-            RightHandItem.transform.rotation = rotation;
+            RightHandItem.transform.rotation = rightHandItemRotation;
         }
     }
 
     public void SwapHands() {
         (LeftHandItem, RightHandItem) = (RightHandItem, LeftHandItem);
-        if(!LeftHandItem)
+        if (RightHandItem)
         {
-            RightHandItem.transform.position = LeftHandItem.transform.position;
-            RightHandItem.transform.rotation = LeftHandItem.transform.rotation;
+            RightHandItem.transform.position = rightHandItemPosition;
+            RightHandItem.transform.rotation = rightHandItemRotation;
         }
-        else if(!RightHandItem)
-        {
-            LeftHandItem.transform.position = RightHandItem.transform.position;
-            LeftHandItem.transform.rotation = RightHandItem.transform.rotation;
-        }
-        else
-        {
-            (LeftHandItem.transform.position, RightHandItem.transform.position) = (RightHandItem.transform.position, LeftHandItem.transform.position);
-            (LeftHandItem.transform.rotation, RightHandItem.transform.rotation) = (RightHandItem.transform.rotation, LeftHandItem.transform.rotation);
+        if (LeftHandItem)
+        { 
+            LeftHandItem.transform.position = leftHandItemPosition;
+            LeftHandItem.transform.rotation = leftHandItemRotation;
         }
     }
 }
