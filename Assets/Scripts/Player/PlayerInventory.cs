@@ -37,6 +37,9 @@ public class PlayerInventory : BaseMonoBehaviour
     public UnityEvent onQuestStoneFinished = new UnityEvent();
     float xPixels = 300;
     float yPixels = 300;
+    Vector3 leftHandItemPosition;
+    Vector3 rightHandItemPosition;
+
     protected override void Start()
 	{
 		base.Start();
@@ -113,7 +116,7 @@ public class PlayerInventory : BaseMonoBehaviour
 			if (data.IsActivable && !data.IsActivated && data._itemActivatedPrefab != null)
 			{
 				onItemActivated?.Invoke(it);
-                
+
 				it.ActivateItem();
                 dynamicItems.Remove(it);
                 if (dynamicItems.Count <= 0)
@@ -127,32 +130,63 @@ public class PlayerInventory : BaseMonoBehaviour
 
     public void PutItemInHand(GameObject o, Hand hand)
     {
+        if (hand == Hand.Left && RightHandItem && RightHandItem._itemData._itemName == o.GetComponent<Item>()._itemData._itemName)
+        {
+            SwapHands();
+            return;
+        }
+        if (hand == Hand.Right && LeftHandItem && LeftHandItem._itemData._itemName == o.GetComponent<Item>()._itemData._itemName)
+        {
+            SwapHands();
+            return;
+        }
+
         GameObject newone = Instantiate(o);
         newone.transform.SetParent(CameraManager.I._MainCamera.transform);
 
-        Vector3 position = Vector3.zero;
-
         if (hand == Hand.Left)
         {
-            position = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * 3));
             if (LeftHandItem)
                 Destroy(LeftHandItem.gameObject);
             LeftHandItem = newone.GetComponent<Item>();
             LeftHandItem.IsEnabled = true;
+
+            leftHandItemPosition = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * 3));
+            Quaternion rotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, CameraManager.I._MainCamera.transform.position - leftHandItemPosition);
+            LeftHandItem.transform.position = leftHandItemPosition;
+            LeftHandItem.transform.rotation = rotation;
         }
         else
         {
-            position = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(Screen.width - xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * 3));
             if (RightHandItem)
                 Destroy(RightHandItem.gameObject);
             RightHandItem = newone.GetComponent<Item>();
             RightHandItem.IsEnabled = true;
+
+            rightHandItemPosition = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(Screen.width - xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * 3));
+            Quaternion rotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, CameraManager.I._MainCamera.transform.position - rightHandItemPosition);
+            RightHandItem.transform.position = rightHandItemPosition;
+            RightHandItem.transform.rotation = rotation;
         }
+    }
 
-        Quaternion rotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, CameraManager.I._MainCamera.transform.position - position);
-
-        newone.transform.position = position;
-        newone.transform.rotation = rotation;
+    public void SwapHands() {
+        (LeftHandItem, RightHandItem) = (RightHandItem, LeftHandItem);
+        if(!LeftHandItem)
+        {
+            RightHandItem.transform.position = LeftHandItem.transform.position;
+            RightHandItem.transform.rotation = LeftHandItem.transform.rotation;
+        }
+        else if(!RightHandItem)
+        {
+            LeftHandItem.transform.position = RightHandItem.transform.position;
+            LeftHandItem.transform.rotation = RightHandItem.transform.rotation;
+        }
+        else
+        {
+            (LeftHandItem.transform.position, RightHandItem.transform.position) = (RightHandItem.transform.position, LeftHandItem.transform.position);
+            (LeftHandItem.transform.rotation, RightHandItem.transform.rotation) = (RightHandItem.transform.rotation, LeftHandItem.transform.rotation);
+        }
     }
 }
 public class ItemActivatedEvent : UnityEvent<Item> { }
