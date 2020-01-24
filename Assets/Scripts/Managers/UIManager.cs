@@ -48,16 +48,18 @@ public class UIManager : Singleton<UIManager>
 
 	#region Inventory Variables
 	List<GameObject> _inventoryCellList = new List<GameObject>();
-	#endregion
-	#region Quest Variables
-	List<GameObject> _questCellList = new List<GameObject>();
-    #endregion
-
     public UnityEvent onToolsInventoryOpenedEvent = new UnityEvent();
     public UnityEvent onToolsInventoryClosedEvent = new UnityEvent();
     public bool ToolsInvetoryOpened = false;
     bool AllowOpenInventory = true;
+    #endregion
+    #region Quest Variables
+    List<GameObject> _questCellList = new List<GameObject>();
+    #endregion
 
+    
+
+    #region start, update, awake...
     protected override void Start()
 	{
 		base.Start();
@@ -67,7 +69,8 @@ public class UIManager : Singleton<UIManager>
 		_refPlayerInventory = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerInventory>();
 		_refPlayerQuest = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerQuest>();
         _refTribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
-        _refTribe.onTribeLifeEnterCritical.AddListener(AlertTribeLifeCritical);
+		//_refTribe.onTribeLifeEnterCritical.AddListener(AlertTribeLifeCritical);
+		_refTribe.onTribeEnergyEnterCritical.AddListener(AlertTribeEnergyCritical);
 
         InputManager.I.onUIPlayerKeyPressed.AddListener(OpenPlayerPanel);
 		InputManager.I.onUITribeKeyPressed.AddListener(OpenTribePanel);
@@ -81,18 +84,27 @@ public class UIManager : Singleton<UIManager>
         onToolsInventoryClosedEvent.AddListener(() => { AllowOpenInventory = true; });
 
         CloseMenu();
-	}
+
+        ShowTime(false);
+        ShowPlayerOxygen(false);
+        ShowTribeDistance(false);
+        ShowTribeFuel(false);
+        ShowPlayerLife(false);
+        ShowTribeLife(false);
+    }
 
     private void Update()
     {
         SetTribeDistance();
         SetTimeOfDay();
-        SetPlayerLife();
-        SetTribeLife();
-        SetPlayerOxygen();
-        SetTribeFuel();
+        //SetPlayerLife();
+        //SetTribeLife();
+        //SetPlayerOxygen();
+        //SetTribeFuel();
     }
+    #endregion
 
+    #region Menu Functions
     void OpenMenu(string MenuName, bool CloseOthers = true)
     {
         if (_mainMenu == null || MenuPanels == null)
@@ -157,26 +169,49 @@ public class UIManager : Singleton<UIManager>
 	{
 		OpenMenu("OptionsPanel");
 	}
-
     public void OpenToolsInventory()
     {
         ToolsInventory.gameObject.SetActive(true);
         ToolsInventory.transform.position = CameraManager.I._MainCamera.transform.position + CameraManager.I._MainCamera.transform.forward * 7f;
-        //ToolsInventory.transform.rotation = CameraManager.I._MainCamera.transform.rotation;
         ToolsInventory.transform.rotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, -CameraManager.I._MainCamera.transform.forward);
-        //ToolsInventory.transform.Rotate(ToolsInventory.transform.right, 45, Space.Self);
         ToolsInvetoryOpened = true;
         onToolsInventoryOpenedEvent?.Invoke();
     }
-
     public void CloseToolsInventory()
     {
         ToolsInventory.gameObject.SetActive(false);
         ToolsInvetoryOpened = false;
         onToolsInventoryClosedEvent?.Invoke();
     }
+    #endregion
 
     #region Hud Functions
+    public void ShowTribeLife(bool show)
+    {
+        _HudTribeLifeText.gameObject.SetActive(show);
+    }
+    public void ShowPlayerLife(bool show)
+    {
+        _HudPlayerLifeText.gameObject.SetActive(show);
+    }
+
+    public void ShowTime(bool show)
+    {
+        _HudCurrentTimeText.gameObject.SetActive(show);
+    }
+    public void ShowPlayerOxygen(bool show)
+    {
+        _HudPlayerOxygenText.gameObject.SetActive(show);
+    }
+    public void ShowTribeFuel(bool show)
+    {
+        _HudTribeFuelText.gameObject.SetActive(show);
+    }
+    public void ShowTribeDistance(bool show)
+    {
+        _HudTribeDistanceText.gameObject.SetActive(show);
+    }
+
     public void SetTribeDistance()
     {
         _HudTribeDistanceText.text = $"Tribe distance " + _refPlayerMovement.TribeDistance + " m";
@@ -187,35 +222,54 @@ public class UIManager : Singleton<UIManager>
     {
         _HudCurrentTimeText.text = $"Current time " + (int)AmbiantManager.I.CurrentTimeOfDay + " h (" + AmbiantManager.I.CurrentDayState.State.ToString() + ")";
     }
-    public void SetPlayerLife()
-    {
-        _HudPlayerLifeText.text = $"Player life " + _refPlayer.PlayerLife;
-    }
-    public void SetTribeLife()
-    {
-        _HudTribeLifeText.text = $"Tribe life " + _refTribe.Life;
-    }
-    public void SetPlayerOxygen()
-    {
-        _HudPlayerOxygenText.text = $"Player Oxygen " + _refPlayer.PlayerOxygen;
-    }
-    public void SetTribeFuel()
-    {
-        _HudTribeFuelText.text = $"Tribe Fuel " + _refTribe.Fuel;
-    }
-    public void AlertTribeLifeCritical()
-    {
-        AlertMessage("Danger : Tribe life is critical.", 10f);
-    }
+	//public void SetPlayerLife()
+	//{
+	//    _HudPlayerLifeText.text = $"Player life " + _refPlayer.PlayerLife;
+	//}
+	//public void SetTribeLife()
+	//{
+	//    _HudTribeLifeText.text = $"Tribe life " + _refTribe._energy;
+	//}
+	//public void SetPlayerOxygen()
+	//{
+	//    _HudPlayerOxygenText.text = $"Player Oxygen " + _refPlayer.PlayerOxygen;
+	//}
+	//public void SetTribeFuel()
+	//{
+	//    _HudTribeFuelText.text = $"Tribe Fuel " + _refTribe.Fuel;
+	//}
+	//public void AlertTribeLifeCritical()
+	//{
+	//    AlertMessage("Danger : Tribe life is critical.", 10f);
+	//}
+	public void AlertTribeEnergyCritical()
+	{
+		AlertMessage("Danger : Tribe energy is critical.", 10f);
+	}
+
+	public List<Message> Messages = new List<Message>();
     public void AlertMessage(string message, float duration = 3f)
     {
-        _HudAlertMessageText.text = message;
-        _HudAlertMessageText.gameObject.SetActive(true);
-        StartChrono(duration, DisableMessage);
+        Message m = new Message() { Text = message, Duration = duration };
+        Messages.Add(m);
+        if (_HudAlertMessageText.gameObject.activeSelf)
+            return;
+        AlertMessageShow();
     }
+    void AlertMessageShow()
+    {
+        Message m = Messages[0];
+        Messages.RemoveAt(0);
+        _HudAlertMessageText.text = m.Text;
+        _HudAlertMessageText.gameObject.SetActive(true);
+        StartChrono(m.Duration, DisableMessage);
+    }
+
     void DisableMessage()
     {
         _HudAlertMessageText.gameObject.SetActive(false);
+        if (Messages.Count > 0)
+            AlertMessageShow();
     }
     #endregion
 
@@ -271,4 +325,9 @@ public class UIManager : Singleton<UIManager>
 	}
 	#endregion
 
+}
+public struct Message
+{
+    public string Text;
+    public float Duration;
 }

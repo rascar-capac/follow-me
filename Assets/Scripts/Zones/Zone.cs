@@ -30,7 +30,9 @@ public class Zone : BaseMonoBehaviour
     public float LooseFuelSpeed = 0.0f;
     [Header("Tribe gain fuel speed by second")]
     public float GainFuelSpeed = 0.0f;
-    [Header("Authorized layer")]
+	[Header("Player gain energy speed by second")]
+	public float GainEnergySpeed = 0.0f;
+	[Header("Authorized layer")]
     public LayerMask Layers;
 
 	[Header("Placer Coaster")]
@@ -46,16 +48,16 @@ public class Zone : BaseMonoBehaviour
 	// Attention ne pas changer l'ordre des enfants dans les prefabs zones pour cette fonction.
 	private void OnValidate()
 	{
-		CapsuleCollider capsuleCollider = GetComponent<CapsuleCollider>();
-		capsuleCollider.radius = Radius / 2;
-		capsuleCollider.height = Height * 2;
-		Transform cylinder = transform.GetChild(1);
-		cylinder.localScale = new Vector3(Radius, Height, Radius);
-	}
+        CapsuleCollider capsuleCollider = GetComponent<CapsuleCollider>();
+        capsuleCollider.radius = Radius / 2;
+        capsuleCollider.height = Height * 2;
+        Transform cylinder = transform.GetChild(1);
+        cylinder.localScale = new Vector3(Radius, Height, Radius);
+    }
 
 	private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collide");
+        Debug.Log("Collide " + other.name);
         if (Layers == (Layers | (1 << other.gameObject.layer)))
         {
             other.gameObject.GetComponent<ZoneInteractable>().EnterZone(this);

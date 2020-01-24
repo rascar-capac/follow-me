@@ -32,7 +32,7 @@ public class BeaconPlacer : Item
 
 	void PlaceBeacon()
 	{
-		Debug.Log("Dans PlaceBeacon");
+
 		if (!IsEnabled)
 			return;
 
@@ -44,7 +44,8 @@ public class BeaconPlacer : Item
 					_beacon = Instantiate(_beaconPrefab);
 
 				_beacon.transform.position = _hitInfo.point;
-				_tribeAgent.destination = _beacon.transform.position;
+				//_tribeAgent.destination = _beacon.transform.position;
+				_tribeAgent.destination = new Vector3(_beacon.transform.position.x, 0, _beacon.transform.position.z);
 			}
 		}
 		else if (_player.IsTooFar && !AmbiantManager.I.IsDay)

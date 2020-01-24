@@ -19,6 +19,9 @@ public class Compass : Item
         if (!IsEnabled)
             return;
 
+        if (!AmbiantManager.I.IsDay)
+            return;
+
         float min = float.PositiveInfinity;
         float dist = 0.0f;
         int minIndex = int.MaxValue;
@@ -34,6 +37,6 @@ public class Compass : Item
         }
 
         if (minIndex != int.MaxValue)
-            Needle.transform.LookAt(player.dynamicItems[minIndex].transform);
+            Needle.transform.LookAt(Vector3.ProjectOnPlane(player.dynamicItems[minIndex].transform.position, Vector3.up));
     }
 }
