@@ -50,6 +50,9 @@ public class GameData : ScriptableObject
 
     [Tooltip("when the player may run")]
     public List<DayState> PlayerRunUsable;
+    [Tooltip("Player run is unusable when energy low")]
+    public bool PlayerRunEnergyLowUnusable;
+
 
     [Tooltip("when sundial is usable")]
     public List<DayState> SundialUsable;

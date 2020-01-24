@@ -89,13 +89,6 @@ public class UIManager : Singleton<UIManager>
         ShowTribeEnergy(false);
     }
 
-    private void Update()
-    {
-        SetTribeDistance();
-        SetTimeOfDay();
-        SetPlayerEnergy();
-        SetTribeEnergy();
-    }
     #endregion
 
     #region Menu Functions

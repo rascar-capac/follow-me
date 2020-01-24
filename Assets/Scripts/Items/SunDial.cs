@@ -20,6 +20,12 @@ public class SunDial : Item
         UIManager.I.ShowTime(IsEnabled);
     }
 
+    private void Update()
+    {
+        if (IsEnabled && AmbiantManager.I.IsUsableNow(GameManager.I._data.SundialUsable))
+            UIManager.I.SetTimeOfDay();
+    }
+
     private void OnDestroy()
     {
         if (UIManager.I)

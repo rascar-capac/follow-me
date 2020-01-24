@@ -19,6 +19,12 @@ public class TribeEnergyMeter : Item
         UIManager.I.ShowTribeEnergy(IsEnabled);
     }
 
+    private void Update()
+    {
+        if (IsEnabled && AmbiantManager.I.IsUsableNow(GameManager.I._data.TribeEnergyMeterUsable))
+            UIManager.I.SetTribeEnergy();
+    }
+
     private void OnDestroy()
     {
         if (UIManager.I)

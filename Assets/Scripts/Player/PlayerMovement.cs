@@ -20,6 +20,7 @@ public class PlayerMovement : BaseMonoBehaviour
 
     [Header("Player is running")]
     public bool IsRunning = false;
+    bool PlayerMayRun = true;
 
     Vector3 _velocity;
     bool _isGrounded;
@@ -37,11 +38,11 @@ public class PlayerMovement : BaseMonoBehaviour
         Tribe = (GameObject)ObjectsManager.I["TribeGroundPosition"];
         _speed = GameManager.I._data.InitialPlayerSpeed;
         _player = GetComponent<Player>();
-		//_player.onPlayerEnergyEnterCritical.AddListener(DecreaseSpeed);
-		//_player.onPlayerEnergyExitCritical.AddListener(IncreaseSpeed);
-		//_player.onPlayerLifeEnterCritical.AddListener(DecreaseSpeed);
-		//_player.onPlayerLifeExitCritical.AddListener(IncreaseSpeed);
-		InputManager.I.onRunButtonPressed.AddListener(EnableRun);
+
+        _player.onPlayerEnergyNullEnter.AddListener(() => { if (GameManager.I._data.PlayerRunEnergyLowUnusable) PlayerMayRun = false; });
+        _player.onPlayerEnergyNullExit.AddListener(() => { if (GameManager.I._data.PlayerRunEnergyLowUnusable) PlayerMayRun = true; });
+
+        InputManager.I.onRunButtonPressed.AddListener(EnableRun);
         InputManager.I.onRunButtonReleased.AddListener(DisableRun);
         InputManager.I.onMoveInputAxisEvent.AddListener(Move);
         UIManager.I.onToolsInventoryClosedEvent.AddListener(() => { AllowMove = true; });
@@ -50,13 +51,12 @@ public class PlayerMovement : BaseMonoBehaviour
 
     void EnableRun()
     {
-
-        IsRunning = true;
+        if (PlayerMayRun)
+            IsRunning = true;
     }
     void DisableRun()
     {
         IsRunning = false;
-
     }
 
     private void Update()
