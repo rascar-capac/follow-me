@@ -42,7 +42,7 @@ public class Zone : BaseMonoBehaviour
 	[HideInInspector]
 	public bool _itemOnCoaster = false; // Si le coaster possède un item.
 
-	
+
 	// Pour adapter automatiquement la taille de la CapsuleCollider et de Cylinder(enfant) en fonction de Rius et Height de Zone.cs
 	// Appelé uniquement quand une valeur est changée dans l'inspecteur.
 	// Attention ne pas changer l'ordre des enfants dans les prefabs zones pour cette fonction.
@@ -51,8 +51,8 @@ public class Zone : BaseMonoBehaviour
         CapsuleCollider capsuleCollider = GetComponent<CapsuleCollider>();
         capsuleCollider.radius = Radius / 2;
         capsuleCollider.height = Height * 2;
-        Transform cylinder = transform.GetChild(1);
-        cylinder.localScale = new Vector3(Radius, Height, Radius);
+        //Transform cylinder = transform.GetChild(1);
+        //cylinder.localScale = new Vector3(Radius, Height, Radius);
     }
 
 	private void OnTriggerEnter(Collider other)

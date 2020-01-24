@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3406323248578473225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 25, y: 200, z: 25}
+  m_LocalPosition: {x: 0, y: -159.7, z: 0}
+  m_LocalScale: {x: 25, y: 20, z: 25}
   m_Children: []
   m_Father: {fileID: 761874580120975357}
   m_RootOrder: 1
@@ -178,9 +178,10 @@ MonoBehaviour:
   GainOxygenSpeed: 0
   LooseFuelSpeed: 0
   GainFuelSpeed: 0
+  GainEnergySpeed: 0
   Layers:
     serializedVersion: 2
     m_Bits: 512
-  _prefabCoaster: {fileID: 0}
+  _coaster: {fileID: 0}
   _spawnPositionItem: {fileID: 4012719181835637765}
   _itemOnCoaster: 0
