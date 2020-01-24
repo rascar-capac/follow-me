@@ -10,7 +10,8 @@ public class GameData : ScriptableObject
     [Tooltip("Camera rotation speed")]
     public float CameraRotationSpeed = 100f;
 
-	[Title("Player Energy")]
+    [Space(2)]
+    [Title("Player Energy")]
 	[Tooltip("The energy of the player when the game starts.")]
 	public float InitialPlayerEnergy = 100f;
 	[Tooltip("Energy player lost per second in the day")]
@@ -52,6 +53,8 @@ public class GameData : ScriptableObject
     public List<DayState> PlayerRunUsable;
     [Tooltip("Player run is unusable when energy low")]
     public bool PlayerRunEnergyLowUnusable;
+    [Tooltip("Energy player cost per second when running")]
+    public float EnergyPlayerRunCostPerSecond = 1f;
 
 
     [Tooltip("when sundial is usable")]

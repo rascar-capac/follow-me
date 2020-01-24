@@ -41,7 +41,6 @@ public class Tribe : ZoneInteractable
 
 	public void UpdateEnergy()
 	{
-
 		// Lost energy in journey
 		if (AmbiantManager.I.IsDay && !InZones.Exists(z => z.GainEnergySpeed > 0))
 			Energy -= GameManager.I._data.EnergyTribeLostPerSecond * Time.deltaTime;
@@ -81,14 +80,19 @@ public class Tribe : ZoneInteractable
 	public override void ApplyZoneEffect(Zone zone)
     {
         base.ApplyZoneEffect(zone);
-		GainTribeEnergy(zone);
+        GainTribeEnergy(zone);
+        LooseEnergy(zone);
     }
 
-	public void GainTribeEnergy(Zone zone)
+    public void GainTribeEnergy(Zone zone)
 	{
 		Energy += zone.GainEnergySpeed * Time.deltaTime;
         Energy = Mathf.Clamp(Energy, 0f, GameManager.I._data.InitialTribeEnergy);
     }
 
-
+    public void LooseEnergy(Zone zone)
+    {
+        Energy += zone.LooseEnergySpeed * Time.deltaTime;
+        Energy = Mathf.Clamp(Energy, 0f, GameManager.I._data.InitialTribeEnergy);
+    }
 }

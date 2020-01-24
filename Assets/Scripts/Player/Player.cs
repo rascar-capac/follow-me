@@ -7,6 +7,7 @@ public class Player : ZoneInteractable
 {
     PlayerLook playerLook;
     PlayerMovement playerMove;
+    PlayerInventory playerInventory;
 
 	[Header("Current player energy")]
 	public float Energy = 100f;
@@ -21,8 +22,9 @@ public class Player : ZoneInteractable
         base.Start();
         playerLook = CameraManager.I._MainCamera.GetComponent<PlayerLook>();
         playerMove = GetComponent<PlayerMovement>();
+        playerInventory = GetComponent<PlayerInventory>();
 
-		Energy = GameManager.I._data.InitialPlayerEnergy;
+        Energy = GameManager.I._data.InitialPlayerEnergy;
 	}
 
     protected override void Update()
@@ -36,7 +38,7 @@ public class Player : ZoneInteractable
 	{
         // Lost energy in journey
         if (AmbiantManager.I.IsDay && !InZones.Exists(z => z.GainEnergySpeed > 0))
-            Energy -= GameManager.I._data.EnergyPlayerLostPerSecond * Time.deltaTime;
+            Energy -= (GameManager.I._data.EnergyPlayerLostPerSecond+(playerMove.IsRunning ? GameManager.I._data.EnergyPlayerRunCostPerSecond:0)) * Time.deltaTime;
 
         // Gain energy in the night
         if (AmbiantManager.I.IsNight)
@@ -63,6 +65,7 @@ public class Player : ZoneInteractable
     {
         base.ApplyZoneEffect(zone);
 		GainEnergy(zone);
+        LooseEnergy(zone);
     }
 
 	public void GainEnergy(Zone zone)
@@ -70,6 +73,10 @@ public class Player : ZoneInteractable
 		Energy += zone.GainEnergySpeed * Time.deltaTime;
         Energy = Mathf.Clamp(Energy, 0f, GameManager.I._data.InitialPlayerEnergy);
     }
+    public void LooseEnergy(Zone zone)
+    {
+        Energy += zone.LooseEnergySpeed * Time.deltaTime;
+        Energy = Mathf.Clamp(Energy, 0f, GameManager.I._data.InitialPlayerEnergy);
+    }
 
-   
 }
