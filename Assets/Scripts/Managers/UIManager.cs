@@ -210,7 +210,7 @@ public class UIManager : Singleton<UIManager>
 	}
 	public void AlertTribeEnergyCritical()
 	{
-		AlertMessage("Danger : Tribe energy is critical.", 10f);
+		AlertMessage("Danger : Tribe energy is critical.", 3f);
 	}
 
 	public List<Message> Messages = new List<Message>();
