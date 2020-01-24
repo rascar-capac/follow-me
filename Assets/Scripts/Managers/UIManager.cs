@@ -69,7 +69,8 @@ public class UIManager : Singleton<UIManager>
 		_refPlayerInventory = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerInventory>();
 		_refPlayerQuest = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerQuest>();
         _refTribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
-        _refTribe.onTribeLifeEnterCritical.AddListener(AlertTribeLifeCritical);
+		//_refTribe.onTribeLifeEnterCritical.AddListener(AlertTribeLifeCritical);
+		_refTribe.onTribeEnergyEnterCritical.AddListener(AlertTribeEnergyCritical);
 
         InputManager.I.onUIPlayerKeyPressed.AddListener(OpenPlayerPanel);
 		InputManager.I.onUITribeKeyPressed.AddListener(OpenTribePanel);
@@ -97,9 +98,9 @@ public class UIManager : Singleton<UIManager>
         SetTribeDistance();
         SetTimeOfDay();
         //SetPlayerLife();
-        SetTribeLife();
+        //SetTribeLife();
         //SetPlayerOxygen();
-        SetTribeFuel();
+        //SetTribeFuel();
     }
     #endregion
 
@@ -221,28 +222,32 @@ public class UIManager : Singleton<UIManager>
     {
         _HudCurrentTimeText.text = $"Current time " + (int)AmbiantManager.I.CurrentTimeOfDay + " h (" + AmbiantManager.I.CurrentDayState.State.ToString() + ")";
     }
-    //public void SetPlayerLife()
-    //{
-    //    _HudPlayerLifeText.text = $"Player life " + _refPlayer.PlayerLife;
-    //}
-    public void SetTribeLife()
-    {
-        _HudTribeLifeText.text = $"Tribe life " + _refTribe.Life;
-    }
-    //public void SetPlayerOxygen()
-    //{
-    //    _HudPlayerOxygenText.text = $"Player Oxygen " + _refPlayer.PlayerOxygen;
-    //}
-    public void SetTribeFuel()
-    {
-        _HudTribeFuelText.text = $"Tribe Fuel " + _refTribe.Fuel;
-    }
-    public void AlertTribeLifeCritical()
-    {
-        AlertMessage("Danger : Tribe life is critical.", 10f);
-    }
+	//public void SetPlayerLife()
+	//{
+	//    _HudPlayerLifeText.text = $"Player life " + _refPlayer.PlayerLife;
+	//}
+	//public void SetTribeLife()
+	//{
+	//    _HudTribeLifeText.text = $"Tribe life " + _refTribe._energy;
+	//}
+	//public void SetPlayerOxygen()
+	//{
+	//    _HudPlayerOxygenText.text = $"Player Oxygen " + _refPlayer.PlayerOxygen;
+	//}
+	//public void SetTribeFuel()
+	//{
+	//    _HudTribeFuelText.text = $"Tribe Fuel " + _refTribe.Fuel;
+	//}
+	//public void AlertTribeLifeCritical()
+	//{
+	//    AlertMessage("Danger : Tribe life is critical.", 10f);
+	//}
+	public void AlertTribeEnergyCritical()
+	{
+		AlertMessage("Danger : Tribe energy is critical.", 10f);
+	}
 
-    public List<Message> Messages = new List<Message>();
+	public List<Message> Messages = new List<Message>();
     public void AlertMessage(string message, float duration = 3f)
     {
         Message m = new Message() { Text = message, Duration = duration };

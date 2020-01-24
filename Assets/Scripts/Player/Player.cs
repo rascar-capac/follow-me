@@ -18,12 +18,11 @@ public class Player : ZoneInteractable
 	[Header("Current player energy")]
 	public float _playerCurrentEnergy = 100f;
 	float _energyRatio;
-	bool _criticalEnergy;
+	bool _playerOnCriticalEnergy = false;
 	public UnityEvent onPlayerEnergyEnterCritical = new UnityEvent();
 	public UnityEvent onPlayerEnergyExitCritical = new UnityEvent();
 
 	float lastTime;
-
 
 
 	protected override void Start()
@@ -35,8 +34,7 @@ public class Player : ZoneInteractable
         playerMove = GetComponent<PlayerMovement>();
 
 		_playerCurrentEnergy = GameManager.I._data._initialPlayerEnergy;
-		_energyRatio = (_playerCurrentEnergy / 100) * GameManager.I._data._initialCriticalEnergy;
-		Debug.Log("Energy Ratio = " + _energyRatio);
+		_energyRatio = (_playerCurrentEnergy / 100) * GameManager.I._data._percentLifePlayerForCritical;
 
 		lastTime = Time.time;
 	}
@@ -46,45 +44,52 @@ public class Player : ZoneInteractable
         base.Update();
 		//LifeCritical();
 		//UpdateOxygen();
-		LoseEnergy();
+		UpdateEnergy();
 		EnergyCritical();
     }
 
-
-	//Reste à faire:
-	// Energy Clamp 0 100
+	public void UpdateEnergy()
+	{
+		// Lost energy in journey
+		if(Time.time >= lastTime + 1 && _playerCurrentEnergy > 0 && AmbiantManager.I.CurrentDayState.State == DayState.Day)
+		{
+			_playerCurrentEnergy -= GameManager.I._data._energyPlayerLostPerSeconde;
+			lastTime = Time.time;
+		}
+		// Gain energy in the night
+		if(Time.time >= lastTime + 1 && _playerCurrentEnergy <= GameManager.I._data._initialPlayerEnergy && AmbiantManager.I.CurrentDayState.State == DayState.Night)
+		{
+			_playerCurrentEnergy += GameManager.I._data._energyPlayerGainPerSeconde;
+			lastTime = Time.time;
+		}
+		// Checking if life is out of range
+		if(_playerCurrentEnergy < 0)
+			_playerCurrentEnergy = 0;
+		if(_playerCurrentEnergy > GameManager.I._data._initialPlayerEnergy)
+			_playerCurrentEnergy = GameManager.I._data._initialPlayerEnergy;
+	}
 	void EnergyCritical()
 	{
 		if(_playerCurrentEnergy <= _energyRatio)
 		{
-			Debug.Log("Enter energy critical");
-			_criticalEnergy = true;
+			_playerOnCriticalEnergy = true;
 			onPlayerEnergyEnterCritical.Invoke();
 		}
 		else if (_playerCurrentEnergy > _energyRatio)
 		{
-			Debug.Log("Exit energy critical");
-			_criticalEnergy = false;
+			_playerOnCriticalEnergy = false;
 			onPlayerEnergyExitCritical.Invoke();
-		}
-	}
-
-	public void LoseEnergy()
-	{
-		if(Time.time >= lastTime + 1 && _playerCurrentEnergy > 0)
-		{
-			_playerCurrentEnergy -= GameManager.I._data._energyLostPerSeconde;
-			lastTime = Time.time;
 		}
 	}
 
     public override void ApplyZoneEffect(Zone zone)
     {
         base.ApplyZoneEffect(zone);
+
+		GainEnergy(zone);
 		//LooseLife(zone);
 		//GainLife(zone);
 		//ApplyZoneOxygen(zone);
-		GainEnergy(zone);
     }
 
 	public void GainEnergy(Zone zone)
