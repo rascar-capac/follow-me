@@ -138,6 +138,11 @@ PrefabInstance:
       propertyPath: ToolsInventory
       value: 
       objectReference: {fileID: 365360246}
+    - target: {fileID: 177395195419760894, guid: 41b016115e9d7464e96dc233994afa42,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 65.6
+      objectReference: {fileID: 0}
     - target: {fileID: 869559789475343353, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -148,6 +153,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 26.999756
       objectReference: {fileID: 0}
+    - target: {fileID: 1785835181547677869, guid: 41b016115e9d7464e96dc233994afa42,
+        type: 3}
+      propertyPath: m_Text
+      value: Tribe Distance
+      objectReference: {fileID: 0}
     - target: {fileID: 1983081102144506237, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -156,12 +166,32 @@ PrefabInstance:
     - target: {fileID: 1983081102144506237, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 26.999756
+      value: 140.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3329791379119851953, guid: 41b016115e9d7464e96dc233994afa42,
+        type: 3}
+      propertyPath: m_Text
+      value: Tribe Life
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689825421110630093, guid: 41b016115e9d7464e96dc233994afa42,
+        type: 3}
+      propertyPath: m_Text
+      value: Alert
       objectReference: {fileID: 0}
     - target: {fileID: 4060246032947627222, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
       propertyPath: m_FontData.m_BestFit
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4060246032947627222, guid: 41b016115e9d7464e96dc233994afa42,
+        type: 3}
+      propertyPath: m_Text
+      value: Player Oxygen
+      objectReference: {fileID: 0}
+    - target: {fileID: 4376115063348206331, guid: 41b016115e9d7464e96dc233994afa42,
+        type: 3}
+      propertyPath: m_Text
+      value: Current Time
       objectReference: {fileID: 0}
     - target: {fileID: 4587518545162013130, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
@@ -281,7 +311,17 @@ PrefabInstance:
     - target: {fileID: 4911146487505532149, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 70
+      value: 180.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5896544219647618838, guid: 41b016115e9d7464e96dc233994afa42,
+        type: 3}
+      propertyPath: m_Text
+      value: Tribe Fuel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6260736797695402734, guid: 41b016115e9d7464e96dc233994afa42,
+        type: 3}
+      propertyPath: m_Text
+      value: Player Life
       objectReference: {fileID: 0}
     - target: {fileID: 7386491910394441093, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
@@ -291,12 +331,12 @@ PrefabInstance:
     - target: {fileID: 7386491910394441093, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 26.999756
+      value: 218.9
       objectReference: {fileID: 0}
     - target: {fileID: 7764453787208081178, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 26.999756
+      value: 103.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41b016115e9d7464e96dc233994afa42, type: 3}
