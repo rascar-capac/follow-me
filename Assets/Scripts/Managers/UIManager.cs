@@ -199,7 +199,7 @@ public class UIManager : Singleton<UIManager>
 
     public void SetTribeDistance()
     {
-        _HudTribeDistanceText.text = $"Tribe distance " + _refPlayerMovement.TribeDistance + " m";
+        _HudTribeDistanceText.text = $"Tribe distance " + Mathf.Floor(_refPlayerMovement.TribeDistance) + " m";
         if (_refPlayerMovement.IsTooFar)
             _HudTribeDistanceText.text += " - Too far.";
     }
@@ -209,11 +209,11 @@ public class UIManager : Singleton<UIManager>
     }
 	public void SetPlayerEnergy()
 	{
-	    _HudPlayerEnergyText.text = $"Player Energy " + _refPlayer.Energy;
+	    _HudPlayerEnergyText.text = $"Player Energy " + Mathf.Floor(_refPlayer.Energy);
 	}
 	public void SetTribeEnergy()
     {
-	    _HudTribeEnergyText.text = $"Tribe Energy " + _refTribe.Energy;
+	    _HudTribeEnergyText.text = $"Tribe Energy " + Mathf.Floor(_refTribe.Energy);
 	}
 	public void AlertTribeEnergyCritical()
 	{
