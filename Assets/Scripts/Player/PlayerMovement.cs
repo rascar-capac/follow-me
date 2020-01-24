@@ -50,6 +50,7 @@ public class PlayerMovement : BaseMonoBehaviour
 
     void EnableRun()
     {
+
         IsRunning = true;
     }
     void DisableRun()
@@ -80,7 +81,11 @@ public class PlayerMovement : BaseMonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
 
-        _controller.Move(move * _speed * (IsRunning?GameManager.I._data.SpeedMultiplicator:1) * Time.deltaTime);
+        float runMultiply = 1;
+        if (IsRunning && AmbiantManager.I.IsUsableNow(GameManager.I._data.PlayerRunUsable))
+            runMultiply = GameManager.I._data.SpeedMultiplicator;
+
+        _controller.Move(move * _speed * runMultiply * Time.deltaTime);
 
         if (Input.GetButtonDown("Jump") && _isGrounded)
         {
@@ -98,11 +103,6 @@ public class PlayerMovement : BaseMonoBehaviour
         Vector3 PlayerPositionProjected = Vector3.ProjectOnPlane(transform.position, Vector3.up);
         TribeDistance = Vector3.Distance(TribePositionProjected, PlayerPositionProjected);
         IsTooFar = TribeDistance > GameManager.I._data.MaximumDistanceOfTribe;
-    }
-
-    void DecreaseSpeed()
-    {
-        _speed -= _speed * GameManager.I._data.PlayerSpeedDecreasePercentage / 100;
     }
 
     void ResetSpeed()

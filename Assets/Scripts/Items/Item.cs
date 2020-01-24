@@ -20,8 +20,7 @@ public class Item : BaseMonoBehaviour
         set
         {
             _IsEnabled = value;
-            if (_IsEnabled)
-                Init();
+            Init();
             onObjectEnableChange.Invoke(this, _IsEnabled);
         }
     }
@@ -41,7 +40,6 @@ public class Item : BaseMonoBehaviour
 	public void ActivateItem()
 	{
 		_itemData.IsActivated = true;
-        //_currentItemPrefabDisplay.GetComponent<MeshFilter>().mesh = _itemData._itemActivatedMesh;
         Destroy(_currentItemPrefabDisplay);
         _currentItemPrefabDisplay = Instantiate(_itemData._itemActivatedPrefab, transform.position, Quaternion.identity, transform);
         UIManager.I.AlertMessage($"{_itemData._itemName} has been activated...");

@@ -14,29 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 100
   _initialPlayerEnergy: 100
-  _percentLifePlayerForCritical: 5
   _energyPlayerLostPerSeconde: 1
   _energyPlayerGainPerSeconde: 1
   InitialPlayerSpeed: 3
   SpeedMultiplicator: 4
-  PlayerSpeedDecreasePercentage: 50
   MaximumDistanceOfTribe: 10000
-  CompassThresshold: 15
-  CompassActive: 1
   CompassUsable: 00000000
+  BeaconPlacerUsable: 00000000
   _initialTribeEnergy: 300
-  _percentLifeTribeForCritical: 0
+  _percentEnergyTribeForCritical: 5
   _energyTribeLostPerSeconde: 1
   _energyTribeGainPerSeconde: 0
   _defaultSpeedTribe: 15
-  _criticalSpeedTribe: 0
-  MinimumTimeBetweenFog: 0
+  _criticalSpeedTribeMultiplicator: 0.5
   States:
   - State: 0
     DayStateDurationInSecond: 20
     StateHoursCount: 16
     StateColor: {r: 1, g: 0.9411765, b: 0.8235294, a: 0}
-    TimeStateChanged: 370.80063
+    TimeStateChanged: 0
     EnterSunRotation: {x: 90, y: -30, z: 0}
     ExitSunRotation: {x: 270, y: -30, z: 0}
   - State: 1

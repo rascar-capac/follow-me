@@ -27,12 +27,10 @@ public class UIManager : Singleton<UIManager>
 
 	[Header("HUD Components")]
     public Text _HudTribeDistanceText;
-    public Text _HudTribeLifeText;
-    public Text _HudTribeFuelText;
+    public Text _HudTribeEnergyText;
     public Text _HudAlertMessageText;
     public Text _HudCurrentTimeText;
-    public Text _HudPlayerLifeText;
-    public Text _HudPlayerOxygenText;
+    public Text _HudPlayerEnergyText;
 
     [Header("Inventory Prefabs")]
 	public Transform _inventoryContent;
@@ -69,8 +67,8 @@ public class UIManager : Singleton<UIManager>
 		_refPlayerInventory = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerInventory>();
 		_refPlayerQuest = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerQuest>();
         _refTribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
-		//_refTribe.onTribeLifeEnterCritical.AddListener(AlertTribeLifeCritical);
-		_refTribe.onTribeEnergyEnterCritical.AddListener(AlertTribeEnergyCritical);
+
+        _refTribe.onTribeEnergyEnterCritical.AddListener(AlertTribeEnergyCritical);
 
         InputManager.I.onUIPlayerKeyPressed.AddListener(OpenPlayerPanel);
 		InputManager.I.onUITribeKeyPressed.AddListener(OpenTribePanel);
@@ -86,21 +84,17 @@ public class UIManager : Singleton<UIManager>
         CloseMenu();
 
         ShowTime(false);
-        ShowPlayerOxygen(false);
+        ShowPlayerEnergy(false);
         ShowTribeDistance(false);
-        ShowTribeFuel(false);
-        ShowPlayerLife(false);
-        ShowTribeLife(false);
+        ShowTribeEnergy(false);
     }
 
     private void Update()
     {
         SetTribeDistance();
         SetTimeOfDay();
-        //SetPlayerLife();
-        //SetTribeLife();
-        SetPlayerOxygen();
-        SetTribeFuel();
+        SetPlayerEnergy();
+        SetTribeEnergy();
     }
     #endregion
 
@@ -186,26 +180,17 @@ public class UIManager : Singleton<UIManager>
     #endregion
 
     #region Hud Functions
-    public void ShowTribeLife(bool show)
+    public void ShowTribeEnergy(bool show)
     {
-        _HudTribeLifeText.gameObject.SetActive(show);
+        _HudTribeEnergyText.gameObject.SetActive(show);
     }
-    public void ShowPlayerLife(bool show)
-    {
-        _HudPlayerLifeText.gameObject.SetActive(show);
-    }
-
     public void ShowTime(bool show)
     {
         _HudCurrentTimeText.gameObject.SetActive(show);
     }
-    public void ShowPlayerOxygen(bool show)
+    public void ShowPlayerEnergy(bool show)
     {
-        _HudPlayerOxygenText.gameObject.SetActive(show);
-    }
-    public void ShowTribeFuel(bool show)
-    {
-        _HudTribeFuelText.gameObject.SetActive(show);
+        _HudPlayerEnergyText.gameObject.SetActive(show);
     }
     public void ShowTribeDistance(bool show)
     {
@@ -222,26 +207,14 @@ public class UIManager : Singleton<UIManager>
     {
         _HudCurrentTimeText.text = $"Current time " + (int)AmbiantManager.I.CurrentTimeOfDay + " h (" + AmbiantManager.I.CurrentDayState.State.ToString() + ")";
     }
-	//public void SetPlayerLife()
-	//{
-	//    _HudPlayerLifeText.text = $"Player life " + _refPlayer.PlayerLife;
-	//}
-	//public void SetTribeLife()
-	//{
-	//    _HudTribeLifeText.text = $"Tribe life " + _refTribe._energy;
-	//}
-	public void SetPlayerOxygen()
+	public void SetPlayerEnergy()
 	{
-	    _HudPlayerOxygenText.text = $"Player Energy " + _refPlayer._playerCurrentEnergy;
+	    _HudPlayerEnergyText.text = $"Player Energy " + _refPlayer.Energy;
 	}
-	public void SetTribeFuel()
+	public void SetTribeEnergy()
     {
-	    _HudTribeFuelText.text = $"Tribe Fuel " + _refTribe._tribeCurrentEnergy;
+	    _HudTribeEnergyText.text = $"Tribe Energy " + _refTribe.Energy;
 	}
-	//public void AlertTribeLifeCritical()
-	//{
-	//    AlertMessage("Danger : Tribe life is critical.", 10f);
-	//}
 	public void AlertTribeEnergyCritical()
 	{
 		AlertMessage("Danger : Tribe energy is critical.", 10f);

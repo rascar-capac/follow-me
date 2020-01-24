@@ -25,8 +25,8 @@ public class PlayerLook : BaseMonoBehaviour
         if (!AllowLook)
             return;
 
-        float mouseX = axis.XValue * GameManager.I._data.mouseSensitivity * Time.deltaTime;
-        float mouseY = axis.YValue * GameManager.I._data.mouseSensitivity * Time.deltaTime;
+        float mouseX = axis.XValue * GameManager.I._data.CameraRotationSpeed * Time.deltaTime;
+        float mouseY = axis.YValue * GameManager.I._data.CameraRotationSpeed * Time.deltaTime;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);

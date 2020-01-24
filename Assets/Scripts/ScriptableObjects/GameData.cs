@@ -7,81 +7,86 @@ using Sirenix.OdinInspector;
 public class GameData : ScriptableObject
 {
 	[Title("Controls parameters")]
-    [Tooltip("Player look mouse sensitivity")]
-    public float mouseSensitivity = 100f;
+    [Tooltip("Camera rotation speed")]
+    public float CameraRotationSpeed = 100f;
 
 	[Title("Player Energy")]
 	[Tooltip("The energy of the player when the game starts.")]
-	public float _initialPlayerEnergy = 100f;
-	[Tooltip("Percent of energy for entering in critical state")] [Range(0, 100)]
-	public float _percentLifePlayerForCritical = 5f;
+	public float InitialPlayerEnergy = 100f;
 	[Tooltip("Energy player lost per second in the day")]
-	public float _energyPlayerLostPerSeconde = 1f;
+	public float EnergyPlayerLostPerSecond = 1f;
 	[Tooltip("Energy player gain per second in the night")]
-	public float _energyPlayerGainPerSeconde = 1f;
-	//[Tooltip("The life of the player when the game starts.")]
-	//public float InitialPlayerLife = 100.0f;
-	//[Tooltip("The oxygen of the player when the game starts.")]
-	//public float InitialPlayerOxygen = 100.0f;
-	//[Tooltip("Oxygen loss by second walking.")]
-	//public float OxygenLossWalk = 0.2f;
-	//[Tooltip("Oxygen loss by second running.")]
-	//public float OxygenLossRun = 0.4f;
+	public float EnergyPlayerGainPerSecond = 1f;
 
-	[Title("Player Speed")]
+    [Title("Player Speed")]
 	[Tooltip("The speed of the player when the game starts.")]
     public float InitialPlayerSpeed = 12.0f;
-    [Tooltip("speed multiplicator value when running.")]
+    [Tooltip("speed multiplicator value when running (Speed * SpeedMultiplicator = Run).")]
     public float SpeedMultiplicator = 2f;
-    [Tooltip("The percentage of speed decrease when life is under thresshold.")]
-    [Range(0, 100)]
-    public float PlayerSpeedDecreasePercentage = 50f;
-    //[Tooltip("The life thresshold under which the speed decreases.")]
-    //[Range(0, 1)]
-    //public float PlayerLifeThresshold = 0.1f;
 
-	[Title(" Tools parameters")]
+    [Title("Player Items interactions")]
+    [Tooltip("The distance minimum betwees player and item for interaction.")]
+    public float PlayerItemDistanceInteraction = 2f;
+    [Tooltip("When the player may activate the stones.")]
+    public List<DayState> StonesActivationUsable;
+
+    [Title("Tools parameters")]
     [Tooltip("The maximum distance between player and tribe allowing beacon drop")]
     public float MaximumDistanceOfTribe = 300.0f;
-    [Tooltip("The Angle tresshold of the compass")]
-    public float CompassThresshold = 15f;
-    [Tooltip("Activate/deactivate compass feature")]
-    public bool CompassActive = true;
     [Tooltip("when compass is usable")]
     public List<DayState> CompassUsable;
+    [Tooltip("compass is unusable when energy low")]
+    public bool CompassEnergyLowUnusable;
+
+    [Tooltip("when beacon placer is usable")]
+    public List<DayState> BeaconPlacerUsable;
+    [Tooltip("beacon placer is unusable when energy low")]
+    public bool BeaconPlacerEnergyLowUnusable;
+    [Tooltip("distance where the beacon is dropped by the player")]
+    public float BeaconPlacementDistance = 3f;
+
+    [Tooltip("when map is usable")]
+    public List<DayState> MapUsable;
+
+    [Tooltip("when the player may run")]
+    public List<DayState> PlayerRunUsable;
+
+    [Tooltip("when sundial is usable")]
+    public List<DayState> SundialUsable;
+    [Tooltip("sundial is unusable when energy low")]
+    public bool SundialEnergyLowUnusable;
+
+    [Tooltip("when player energy meter is usable")]
+    public List<DayState> PlayerEnergyMeterUsable;
+    [Tooltip("player energy meter is unusable when energy low")]
+    public bool PlayerEnergyMeterEnergyLowUnusable;
+
+    [Tooltip("when tribe energy meter is usable")]
+    public List<DayState> TribeEnergyMeterUsable;
+    [Tooltip("tribe energy meter is unusable when energy low")]
+    public bool TribeEnergyMeterEnergyLowUnusable;
+
+    [Tooltip("when tribe distance meter is usable")]
+    public List<DayState> TribeDistanceMeterUsable;
+    [Tooltip("tribe distance meter is unusable when energy low")]
+    public bool TribeDistanceMeterEnergyLowUnusable;
 
     [Title("Tribe parameters")]
 	[Tooltip("The energy of the tribe when the game starts.")]
-	public float _initialTribeEnergy = 100f;
+	public float InitialTribeEnergy = 100f;
 	[Tooltip("Percent of energy for entering in critical state")]
 	[Range(0, 100)]
-	public float _percentLifeTribeForCritical = 5f;
+	public float PercentEnergyTribeForCritical = 5f;
 	[Tooltip("Energy tribe lost per second in the day")]
-	public float _energyTribeLostPerSeconde = 1f;
+	public float EnergyTribeLostPerSecond = 1f;
 	[Tooltip("Energy tribe gain per second in the night")]
-	public float _energyTribeGainPerSeconde = 1f;
+	public float EnergyTribeGainPerSecond = 1f;
 	[Tooltip("Default speed of Tribe")]
-	public float _defaultSpeedTribe = 20f;
-	[Tooltip("Critical speed of Tribe")]
-	public float _criticalSpeedTribe = 0f;
-	//[Tooltip("Initial Tribe energy when the game starts.")]
-	//public float InitialTribeEnergy = 100.0f;
-	//[Tooltip("Alert player when life is under threshold in ratio (between 0 and 1).")]
-	//[Range(0, 1)]
-	//public float TribeEnergyThresshold = 0.1f;
-	//[Tooltip("Initial Tribe life when the game starts.")]
-	//public float InitialTribeLife = 100.0f;
-	//[Tooltip("Initial Tribe fuel when the game starts.")]
-	//public float InitialTribeFuel = 100.0f;
-	//[Tooltip("Fuel loss by second walking.")]
-	//public float FuelLossSpeed = 0.2f;
-	//[Tooltip("Alert player when life is under threshold in ratio (between 0 and 1).")]
-	//[Range(0, 1)]
-	//public float TribeLifeThresshold = 0.1f;
-
-	[Title("Fog")]
-    [Tooltip("Seconds between 2 fogs apparition (0 = no fog)")]
-    public float MinimumTimeBetweenFog = 0;
+	public float InitialSpeedTribe = 20f;
+	[Tooltip("Critical (energy low) speed multiplicator of Tribe (speed * multiplicator = new speed)")]
+	public float CriticalSpeedTribeMultiplicator = 0.5f;
+    [Tooltip("Default speed rotation of Tribe")]
+    public float InitialSpeedRotationTribe = 10f;
 
     [Title("Ambiance parameters")]
     [Tooltip("Day states (night and day)")]

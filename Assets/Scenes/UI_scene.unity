@@ -127,6 +127,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3985127017723292321}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &966263739 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6260736797695402734, guid: 41b016115e9d7464e96dc233994afa42,
+    type: 3}
+  m_PrefabInstance: {fileID: 1112927564}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1112927564
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -138,15 +150,28 @@ PrefabInstance:
       propertyPath: ToolsInventory
       value: 
       objectReference: {fileID: 365360246}
+    - target: {fileID: 2103666910, guid: 41b016115e9d7464e96dc233994afa42, type: 3}
+      propertyPath: _HudTribeEnergyText
+      value: 
+      objectReference: {fileID: 1974605664}
+    - target: {fileID: 2103666910, guid: 41b016115e9d7464e96dc233994afa42, type: 3}
+      propertyPath: _HudPlayerEnergyText
+      value: 
+      objectReference: {fileID: 966263739}
     - target: {fileID: 177395195419760894, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 65.6001
       objectReference: {fileID: 0}
+    - target: {fileID: 291717549843979157, guid: 41b016115e9d7464e96dc233994afa42,
+        type: 3}
+      propertyPath: m_Name
+      value: HudTribeEnergyText
+      objectReference: {fileID: 0}
     - target: {fileID: 869559789475343353, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 23.04663
+      value: 23.046875
       objectReference: {fileID: 0}
     - target: {fileID: 869559789475343353, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
@@ -161,12 +186,12 @@ PrefabInstance:
     - target: {fileID: 1983081102144506237, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 23.04663
+      value: 23.046875
       objectReference: {fileID: 0}
     - target: {fileID: 1983081102144506237, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 140.3
+      value: 140.30005
       objectReference: {fileID: 0}
     - target: {fileID: 3329791379119851953, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
@@ -326,12 +351,17 @@ PrefabInstance:
     - target: {fileID: 7386491910394441093, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 23.04663
+      value: 23.046875
       objectReference: {fileID: 0}
     - target: {fileID: 7386491910394441093, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 218.9
+      value: 218.8999
+      objectReference: {fileID: 0}
+    - target: {fileID: 7724123728480283610, guid: 41b016115e9d7464e96dc233994afa42,
+        type: 3}
+      propertyPath: m_Name
+      value: HudPlayerEnergyText
       objectReference: {fileID: 0}
     - target: {fileID: 7764453787208081178, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
@@ -340,6 +370,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41b016115e9d7464e96dc233994afa42, type: 3}
+--- !u!114 &1974605664 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5896544219647618838, guid: 41b016115e9d7464e96dc233994afa42,
+    type: 3}
+  m_PrefabInstance: {fileID: 1112927564}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3985127017723292321
 PrefabInstance:
   m_ObjectHideFlags: 0
