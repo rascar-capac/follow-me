@@ -132,7 +132,6 @@ GameObject:
   - component: {fileID: 2075882568}
   - component: {fileID: 2075882569}
   - component: {fileID: 2075882570}
-  - component: {fileID: 2075882571}
   - component: {fileID: 2075882572}
   - component: {fileID: 2075882573}
   - component: {fileID: 2075882574}
@@ -228,24 +227,6 @@ MonoBehaviour:
   onUIOptionsKeyPressed:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2075882571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2075882567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7acc252b750436438189f48761f81e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerScene:
-    m_Handle: 0
-  TribeScene:
-    m_Handle: 0
-  PlaygroundScene:
-    m_Handle: 0
 --- !u!114 &2075882572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,7 +377,7 @@ PrefabInstance:
     - target: {fileID: 8244627102172702394, guid: 9ca38628b74597d41a27658761ef06f8,
         type: 3}
       propertyPath: m_Radius
-      value: 25
+      value: 12.5
       objectReference: {fileID: 0}
     - target: {fileID: 8269934336790834920, guid: 9ca38628b74597d41a27658761ef06f8,
         type: 3}
