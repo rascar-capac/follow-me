@@ -141,7 +141,7 @@ PrefabInstance:
     - target: {fileID: 177395195419760894, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 65.6
+      value: 65.6001
       objectReference: {fileID: 0}
     - target: {fileID: 869559789475343353, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
@@ -186,7 +186,7 @@ PrefabInstance:
     - target: {fileID: 4060246032947627222, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
       propertyPath: m_Text
-      value: Player Oxygen
+      value: Player Energy
       objectReference: {fileID: 0}
     - target: {fileID: 4376115063348206331, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
@@ -316,7 +316,7 @@ PrefabInstance:
     - target: {fileID: 5896544219647618838, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
       propertyPath: m_Text
-      value: Tribe Fuel
+      value: Tribe Energy
       objectReference: {fileID: 0}
     - target: {fileID: 6260736797695402734, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
@@ -336,7 +336,7 @@ PrefabInstance:
     - target: {fileID: 7764453787208081178, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 103.4
+      value: 103.3999
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41b016115e9d7464e96dc233994afa42, type: 3}
