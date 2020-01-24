@@ -57,7 +57,7 @@ public class UIManager : Singleton<UIManager>
     List<GameObject> _questCellList = new List<GameObject>();
     #endregion
 
-    
+
 
     #region start, update, awake...
     protected override void Start()
@@ -99,8 +99,8 @@ public class UIManager : Singleton<UIManager>
         SetTimeOfDay();
         //SetPlayerLife();
         //SetTribeLife();
-        //SetPlayerOxygen();
-        //SetTribeFuel();
+        SetPlayerOxygen();
+        SetTribeFuel();
     }
     #endregion
 
@@ -230,14 +230,14 @@ public class UIManager : Singleton<UIManager>
 	//{
 	//    _HudTribeLifeText.text = $"Tribe life " + _refTribe._energy;
 	//}
-	//public void SetPlayerOxygen()
-	//{
-	//    _HudPlayerOxygenText.text = $"Player Oxygen " + _refPlayer.PlayerOxygen;
-	//}
-	//public void SetTribeFuel()
-	//{
-	//    _HudTribeFuelText.text = $"Tribe Fuel " + _refTribe.Fuel;
-	//}
+	public void SetPlayerOxygen()
+	{
+	    _HudPlayerOxygenText.text = $"Player Energy " + _refPlayer._playerCurrentEnergy;
+	}
+	public void SetTribeFuel()
+    {
+	    _HudTribeFuelText.text = $"Tribe Fuel " + _refTribe._tribeCurrentEnergy;
+	}
 	//public void AlertTribeLifeCritical()
 	//{
 	//    AlertMessage("Danger : Tribe life is critical.", 10f);
