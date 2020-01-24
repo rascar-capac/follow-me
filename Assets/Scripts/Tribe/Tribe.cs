@@ -54,7 +54,6 @@ public class Tribe : ZoneInteractable
 	}
 	void EnergyCritical()
 	{
-        bool PreviousIsEnergyCritical = false;
 		if (IsEnergyCritical && !PreviousIsEnergyCritical)
 		{
             PreviousIsEnergyCritical = true;
