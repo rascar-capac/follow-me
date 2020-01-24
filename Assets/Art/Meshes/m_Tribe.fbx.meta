@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 2e74a036580a9de4aa61edc29b3f7b7c
+guid: dc6e992b1f761f8438ff9d0ba393fd36
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: mat_Convoy
-    second: {fileID: 2100000, guid: ea2febec2e07fec46a26c6768700b7e4, type: 2}
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
