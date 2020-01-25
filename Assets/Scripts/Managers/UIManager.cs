@@ -7,10 +7,10 @@ using UnityEngine.Events;
 public class UIManager : Singleton<UIManager>
 {
     #region References Player
-    Player _refPlayer;
+    Player Player;
     PlayerMovement _refPlayerMovement;
 	PlayerInventory _refPlayerInventory;
-	PlayerQuest _refPlayerQuest;
+	//PlayerQuest _refPlayerQuest;
     #endregion
 
     #region References Tribe
@@ -62,10 +62,10 @@ public class UIManager : Singleton<UIManager>
 	{
 		base.Start();
 
-        _refPlayer = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
+        Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
         _refPlayerMovement = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerMovement>();
 		_refPlayerInventory = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerInventory>();
-		_refPlayerQuest = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerQuest>();
+		//_refPlayerQuest = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerQuest>();
         _refTribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
 
         _refTribe.onTribeEnergyEnterCritical.AddListener(AlertTribeEnergyCritical);
@@ -202,7 +202,7 @@ public class UIManager : Singleton<UIManager>
     }
 	public void SetPlayerEnergy()
 	{
-	    _HudPlayerEnergyText.text = $"Player Energy " + Mathf.Floor(_refPlayer.Energy);
+	    _HudPlayerEnergyText.text = $"Player Energy " + Mathf.Floor(Player.Energy);
 	}
 	public void SetTribeEnergy()
     {
@@ -274,11 +274,10 @@ public class UIManager : Singleton<UIManager>
 			CleanCellsQuest();
 
 		// Instantiate all cells for each items in inventory and set-up cell
-		for (int i = 0; i < _refPlayerQuest._questsPlayer.Count; i++)
+		for (int i = 0; i < Player.Quests.Count; i++)
 		{
-			_questCellList.Add(Instantiate(_questCellAsset, _questContent));
-
-			_questCellList[i].transform.GetChild(0).GetComponent<Text>().text = _refPlayerQuest._questsPlayer[i]._questTitle;
+            _questCellList.Add(Instantiate(_questCellAsset, _questContent));
+            _questCellList[i].transform.GetChild(0).GetComponent<Text>().text = Player.Quests[i].Data.QuestTitle;
 		}
 	}
 	void CleanCellsQuest()

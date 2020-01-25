@@ -9,7 +9,12 @@ public class Player : ZoneInteractable
     PlayerMovement playerMove;
     PlayerInventory playerInventory;
 
-	[Header("Current player energy")]
+    [Header("List of the player quests data scriptable object")]
+    public List<QuestData> QuestData;
+    [HideInInspector]
+    public List<Quest> Quests;
+
+    [Header("Current player energy")]
 	public float Energy = 100f;
     bool IsEnergyNull => Energy == 0;
     bool PreviousEnergyNull = false;
@@ -25,6 +30,17 @@ public class Player : ZoneInteractable
         playerInventory = GetComponent<PlayerInventory>();
 
         Energy = GameManager.I._data.InitialPlayerEnergy;
+        if (QuestData != null)
+        {
+            Quest quest;
+            Quests = new List<Quest>();
+            foreach (QuestData data in QuestData)
+            {
+                quest = new Quest(this, data);
+                Quests.Add(quest);
+                quest.onQuestCompleted.AddListener(QuestCompleted);
+            }
+        }
 	}
 
     protected override void Update()
@@ -79,4 +95,8 @@ public class Player : ZoneInteractable
         Energy = Mathf.Clamp(Energy, 0f, GameManager.I._data.InitialPlayerEnergy);
     }
 
+    void QuestCompleted(Quest quest)
+    {
+        
+    }
 }

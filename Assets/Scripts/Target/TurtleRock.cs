@@ -32,6 +32,6 @@ public class TurtleRock : Zone
 
             yield return null;
         }
-        transform.GetComponent<Collider>().enabled = false;
+        transform.GetComponent<Collider>().enabled = true;
     }
 }

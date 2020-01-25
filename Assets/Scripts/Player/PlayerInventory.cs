@@ -121,7 +121,7 @@ public class PlayerInventory : BaseMonoBehaviour
                 if (dynamicItems.Count <= 0)
                 {
                     UIManager.I.AlertMessage("All stones has been activated !");
-                    onQuestStoneFinished.Invoke();
+                    onQuestStoneFinished.Invoke();  
                 }
 			}
 		}
