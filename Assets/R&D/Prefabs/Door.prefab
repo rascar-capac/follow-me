@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 243816926682891817}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5448753488069106670}
@@ -55,7 +55,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 763065999205541244}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 940169687129275173}
@@ -104,8 +104,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 3, z: 0.3}
-  m_Center: {x: -0.5, y: 1.5, z: 0}
+  m_Size: {x: 0, y: 0, z: 0}
+  m_Center: {x: -0, y: 0, z: 0}
 --- !u!1 &4324876668265424916
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,8 +148,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 3, z: 0.3}
-  m_Center: {x: 0.5, y: 1.5, z: 0}
+  m_Size: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5078420505862769646
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,15 +196,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a6d493a761801a4a8bb8bae837c8493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DoorClosedAngle: 0
-  DoorOpenAngle: 90
-  OpeningSpeed: 5
-  XSizeColliders: 1
-  YSizeColliders: 3
-  ZSizeColliders: 0.3
-  OpeningDayStates: 
-  ClosingDayStates: 
-  DayStateMode: 0
+  DoorProperties:
+    OpeningSpeed: 0
+    DoorClosedAngle: 0
+    DoorOpenAngle: 0
+    XSizeColliders: 0
+    YSizeColliders: 0
+    ZSizeColliders: 0
+    DayStateMode: 0
+    OpeningDayStates: 
+    ClosingDayStates: 
+    TimeOfDayMode: 0
+    DoorOpeningHours: []
+  isOpen: 0
 --- !u!1 &9181662427567180331
 GameObject:
   m_ObjectHideFlags: 0

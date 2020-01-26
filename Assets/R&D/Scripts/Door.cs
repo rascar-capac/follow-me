@@ -1,40 +1,60 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Sirenix.OdinInspector;
 
-[System.Serializable]
-public struct OpeningDoorProperties
-{
-	public DayState DayState;
-	public List<Vector2> OpeningHoursInDayState;
-}
 
-public class Door : BaseMonoBehaviour
+[System.Serializable]
+public struct DoorProperties
 {
 	[Title("Door")]
-	public float DoorClosedAngle = 0f;
-	public float DoorOpenAngle = 90f;
-	public float OpeningSpeed = 5f;
+	public float OpeningSpeed;
+	public float DoorClosedAngle;
+	public float DoorOpenAngle;
 
 	[Title("Colliders size")]
-	public float XSizeColliders = 1f;
-	public float YSizeColliders = 3f;
-	public float ZSizeColliders = 0.3f;
+	public float XSizeColliders;
+	public float YSizeColliders;
+	public float ZSizeColliders;
 
 	[ToggleGroup("DayStateMode")]
-	public bool DayStateMode = false;
+	public bool DayStateMode;
 	[ToggleGroup("DayStateMode")]
 	public List<DayState> OpeningDayStates;
 	[ToggleGroup("DayStateMode")]
 	public List<DayState> ClosingDayStates;
 
 	[ToggleGroup("TimeOfDayMode")]
-	public bool TimeOfDayMode = false;
+	public bool TimeOfDayMode;
 	[ToggleGroup("TimeOfDayMode")]
-	public List<OpeningDoorProperties> DoorOpeningHours;
-	
+	public List<OpeningHoursProperties> DoorOpeningHours;
+}
 
+[System.Serializable]
+public struct OpeningHoursProperties
+{
+	public DayState DayState;
+	public List<Vector2> OpeningHoursInDayState; // x = Start opening, y = Start closing;
+}
+
+
+public class Door : BaseMonoBehaviour
+{
+	[ShowInInspector][ReadOnly][Space(5)][GUIColor(1, 0, 0, 0.6f)]
+	public bool IsOpen = false; // Controlled by Door Mode
+
+	[Space(5)]
+	public DoorProperties DoorProperties;
+
+	[Space(5)]
+	public UnityEvent onDoorOpen = new UnityEvent();
+	public UnityEvent onDoorClosed = new UnityEvent();
+
+	Coroutine _InOpeningDoor;
+	Coroutine _InClosingDoor;
+
+	#region Debug Mode
 	[FoldoutGroup("DebugMode")][ShowInInspector][ReadOnly]
 	Transform LeftDoor;
 	[FoldoutGroup("DebugMode")][ShowInInspector][ReadOnly]
@@ -43,11 +63,7 @@ public class Door : BaseMonoBehaviour
 	BoxCollider LeftCollider;
 	[FoldoutGroup("DebugMode")][ShowInInspector][ReadOnly]
 	BoxCollider RightCollider;
-	[FoldoutGroup("DebugMode")][ShowInInspector][ReadOnly]
-	public bool isOpen = false;
-
-	Coroutine InOpeningDoor;
-	Coroutine InClosingDoor;
+	#endregion
 
 	private void OnValidate()
 	{
@@ -63,78 +79,37 @@ public class Door : BaseMonoBehaviour
 		#endregion
 
 		#region Change closed door angle with inspector
-		SetDoorCurrentAngle(DoorClosedAngle);
+		SetDoorCurrentAngle(DoorProperties.DoorClosedAngle);
 		#endregion
 
 		#region Change colliders size with inspector
-		LeftCollider.size = new Vector3(XSizeColliders, YSizeColliders, ZSizeColliders);
-		LeftCollider.center = new Vector3(XSizeColliders / 2, YSizeColliders / 2, LeftCollider.center.z);
-		LeftDoor.localPosition = new Vector3(-XSizeColliders, LeftDoor.localPosition.y, LeftDoor.localPosition.z);
+		LeftCollider.size = new Vector3(DoorProperties.XSizeColliders, DoorProperties.YSizeColliders, DoorProperties.ZSizeColliders);
+		LeftCollider.center = new Vector3(DoorProperties.XSizeColliders / 2, DoorProperties.YSizeColliders / 2, LeftCollider.center.z);
+		LeftDoor.localPosition = new Vector3(-DoorProperties.XSizeColliders, LeftDoor.localPosition.y, LeftDoor.localPosition.z);
 
-		RightCollider.size = new Vector3(XSizeColliders, YSizeColliders, ZSizeColliders);
-		RightCollider.center = new Vector3(-XSizeColliders / 2, YSizeColliders /2, RightCollider.center.z);
-		RightDoor.localPosition = new Vector3(XSizeColliders, RightDoor.localPosition.y, RightDoor.localPosition.z);
+		RightCollider.size = new Vector3(DoorProperties.XSizeColliders, DoorProperties.YSizeColliders, DoorProperties.ZSizeColliders);
+		RightCollider.center = new Vector3(-DoorProperties.XSizeColliders / 2, DoorProperties.YSizeColliders / 2, RightCollider.center.z);
+		RightDoor.localPosition = new Vector3(DoorProperties.XSizeColliders, RightDoor.localPosition.y, RightDoor.localPosition.z);
 		#endregion
 	}
 
+	protected override void Start()
+	{
+		base.Start();
+
+		AmbiantManager.I.onDayStateChanged.AddListener(DoorDayStateMode);
+
+	}
+
+
 	private void Update()
 	{
-		Debug.Log("--------------");
 		if (GamePaused)
 			return;
 
-		if (DayStateMode == true)
-			DoorDayStateMode();
-
-		if (TimeOfDayMode == true)
+		// Créer un Event à chaque heure changée ?
+		if (DoorProperties.TimeOfDayMode == true)
 			DoorTimeOfDayMode();
-
-		//Debug.Log(Mathf.Round(AmbiantManager.I.CurrentTimeOfDay) + "H");
-		Debug.Log("Actual Timer = " + AmbiantManager.I.CurrentTimeOfDay);
-		Debug.Log("Actual State = " + AmbiantManager.I.CurrentDayState.State.ToString());
-		Debug.Log("--------------");
-	}
-
-	public void DoorTimeOfDayMode()
-	{
-		bool _IsOpeningHour = false;
-		//DayState _CurrentDayState = AmbiantManager.I.CurrentDayState.State;
-		float _CurrentTime = AmbiantManager.I.CurrentTimeOfDay;
-
-		Debug.Log("Count = " + DoorOpeningHours.Count);
-
-		for (int i = 0; i < DoorOpeningHours.Count; i++)
-		{
-			Debug.Log("--- " + DoorOpeningHours[i].DayState.ToString());
-
-			//if (DoorOpeningHours[i].DayState != AmbiantManager.I.CurrentDayState.State/*_CurrentDayState*/)
-			//	break;
-
-			//foreach (Vector2 _DoorOpeningHour in DoorOpeningHours[i].OpeningHoursInDayState)
-			//	if (_CurrentTime >= _DoorOpeningHour.x && _CurrentTime < _DoorOpeningHour.y)
-			//		_IsOpeningHour = true;
-
-			if (DoorOpeningHours[i].DayState == AmbiantManager.I.CurrentDayState.State/*_CurrentDayState*/)
-			{
-				foreach (Vector2 _DoorOpeningHour in DoorOpeningHours[i].OpeningHoursInDayState)
-				if (_CurrentTime >= _DoorOpeningHour.x && _CurrentTime < _DoorOpeningHour.y)
-					_IsOpeningHour = true;
-			}
-		}
-
-		if (!isOpen && _IsOpeningHour)
-			OpenDoor();
-		else if (isOpen && !_IsOpeningHour)
-			CloseDoor();
-	}
-
-	public void DoorDayStateMode()
-	{
-		if (!isOpen && OpeningDayStates.Contains(AmbiantManager.I.CurrentDayState.State))
-			OpenDoor();
-
-		else if (isOpen && ClosingDayStates.Contains(AmbiantManager.I.CurrentDayState.State))
-			CloseDoor();
 	}
 
 	public void SetDoorCurrentAngle(float currentAngle)
@@ -143,63 +118,118 @@ public class Door : BaseMonoBehaviour
 		RightDoor.transform.eulerAngles = new Vector3(0, -currentAngle, 0);
 	}
 
-	[Button("Open Door (Playmode only)")]
+	#region Door Modes
+
+	void DoorDayStateMode(DayStatesProperties CurrentState, DayStatesProperties NextState)
+	{
+		if (GamePaused || !DoorProperties.DayStateMode)
+			return;
+
+		if (!IsOpen && DoorProperties.OpeningDayStates.Contains(CurrentState.State))
+			OpenDoor();
+
+		else if (IsOpen && DoorProperties.ClosingDayStates.Contains(CurrentState.State))
+			CloseDoor();
+	}
+
+	void DoorTimeOfDayMode()
+	{
+		bool _IsOpeningHour = false;
+		float _CurrentTime = AmbiantManager.I.CurrentTimeOfDay;
+		//DayState _CurrentDayState = AmbiantManager.I.CurrentDayState.State; // Pourquoi ceçi ne fonctionne pas ?
+
+		for (int i = 0; i < DoorProperties.DoorOpeningHours.Count; i++)
+		{
+			if (DoorProperties.DoorOpeningHours[i].DayState == AmbiantManager.I.CurrentDayState.State/*_CurrentDayState*/)
+			{
+				foreach (Vector2 _DoorOpeningHour in DoorProperties.DoorOpeningHours[i].OpeningHoursInDayState)
+					if (_CurrentTime >= _DoorOpeningHour.x && _CurrentTime < _DoorOpeningHour.y)
+						_IsOpeningHour = true;
+			}
+
+			// Et pourquoi ceçi ne fonctionne pas également ?
+			//if (DoorOpeningHours[i].DayState != AmbiantManager.I.CurrentDayState.State/*_CurrentDayState*/)
+			//	break;
+
+			//foreach (Vector2 _DoorOpeningHour in DoorOpeningHours[i].OpeningHoursInDayState)
+			//	if (_CurrentTime >= _DoorOpeningHour.x && _CurrentTime < _DoorOpeningHour.y)
+			//		_IsOpeningHour = true;
+		}
+
+		if (!IsOpen && _IsOpeningHour)
+			OpenDoor();
+		else if (IsOpen && !_IsOpeningHour)
+			CloseDoor();
+	}
+
+	#endregion
+
+
+	#region Opening Door
+
+	[FoldoutGroup("DebugMode")][Button("Open Door (Playmode only)")]
 	public void OpenDoor()
 	{
-		if (InOpeningDoor == null && InClosingDoor == null)
-			InOpeningDoor = StartCoroutine(OpeningDoor());
-		else
-			Debug.Log("Animation en cours!");
+		if (_InOpeningDoor == null && _InClosingDoor == null)
+			_InOpeningDoor = StartCoroutine(OpeningDoor());
 	}
+
 	IEnumerator OpeningDoor()
 	{
-		float _DoorCurrentAngle = DoorClosedAngle;
+		float _DoorCurrentAngle = DoorProperties.DoorClosedAngle;
 
-		while (_DoorCurrentAngle < DoorOpenAngle)
+		while (_DoorCurrentAngle < DoorProperties.DoorOpenAngle)
 		{
-			_DoorCurrentAngle += OpeningSpeed * Time.deltaTime;
+			_DoorCurrentAngle += DoorProperties.OpeningSpeed * Time.deltaTime;
 
-			if (_DoorCurrentAngle > DoorOpenAngle)
-				_DoorCurrentAngle = DoorOpenAngle;
+			if (_DoorCurrentAngle > DoorProperties.DoorOpenAngle)
+				_DoorCurrentAngle = DoorProperties.DoorOpenAngle;
 
 			SetDoorCurrentAngle(_DoorCurrentAngle);
 
 			yield return null;
 		}
 
-		Debug.Log("Fin Ouverture");
-		isOpen = true;
-		InOpeningDoor = null;
+		onDoorOpen.Invoke();
+		IsOpen = true;
+		_InOpeningDoor = null;
 		yield return null;
 	}
 
-	[Button("Close Door (Playmode only)")]
+	#endregion
+
+
+	#region Closing Door
+
+	[FoldoutGroup("DebugMode")]	[Button("Close Door (Playmode only)")]
 	public void CloseDoor()
 	{
-		if (InOpeningDoor == null && InClosingDoor == null)
-			InClosingDoor = StartCoroutine(ClosingDoor());
-		else
-			Debug.Log("Animation en cours!");
+		if (_InOpeningDoor == null && _InClosingDoor == null)
+			_InClosingDoor = StartCoroutine(ClosingDoor());
 	}
+
 	IEnumerator ClosingDoor()
 	{
-		float _DoorCurrentAngle = DoorOpenAngle;
+		float _DoorCurrentAngle = DoorProperties.DoorOpenAngle;
 
-		while (_DoorCurrentAngle > DoorClosedAngle)
+		while (_DoorCurrentAngle > DoorProperties.DoorClosedAngle)
 		{
-			_DoorCurrentAngle -= OpeningSpeed * Time.deltaTime;
+			_DoorCurrentAngle -= DoorProperties.OpeningSpeed * Time.deltaTime;
 
-			if (_DoorCurrentAngle < DoorClosedAngle)
-				_DoorCurrentAngle = DoorClosedAngle;
+			if (_DoorCurrentAngle < DoorProperties.DoorClosedAngle)
+				_DoorCurrentAngle = DoorProperties.DoorClosedAngle;
 
 			SetDoorCurrentAngle(_DoorCurrentAngle);
 
 			yield return null;
 		}
 
-		Debug.Log("Fin Fermeture");
-		isOpen = false;
-		InClosingDoor = null;
+		onDoorClosed.Invoke();
+		IsOpen = false;
+		_InClosingDoor = null;
 		yield return null;
 	}
+
+	#endregion
+
 }

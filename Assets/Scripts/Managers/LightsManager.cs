@@ -29,8 +29,6 @@ public class LightsManager : Singleton<LightsManager>
 	//  - les 2 materials (jour et Nuit)
 	//  - les 2 colors _ambientColor....
 	//  - l'intensité de la Light _.....LightIntensity
-	//
-	// ENJOYYYYYYYY
 
 
     protected override void Awake()
