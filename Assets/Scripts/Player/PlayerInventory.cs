@@ -46,9 +46,10 @@ public class PlayerInventory : BaseMonoBehaviour
         tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
 
 		InputManager.I.onPickUpKeyPressed.AddListener(PickUpItem);
-        InputManager.I.onActivateItemKeyPressed.AddListener(InteractItem);
+		//InputManager.I.onActivateItemKeyPressed.AddListener(InteractItem);
+		InputManager.I.onActivateItemKeyPressed.AddListener(PlayerInteract);
 
-        UIManager.I.onToolsInventoryClosedEvent.AddListener(() => { AllowPickup = true; AllowActivate = true; });
+		UIManager.I.onToolsInventoryClosedEvent.AddListener(() => { AllowPickup = true; AllowActivate = true; });
         UIManager.I.onToolsInventoryOpenedEvent.AddListener(() => { AllowPickup = false; AllowActivate = false; });
 
         ToolsInventoryManager.I.onToolSelected.AddListener(PutItemInHand);
@@ -71,6 +72,34 @@ public class PlayerInventory : BaseMonoBehaviour
         //RightHand = RightArm.transform.Find("Arm").transform.Find("Hand").gameObject;
     }
 
+	#region @ Olivier
+	// Les interactions dans un jeu peuvent être de plein de type, avec un item, une stone, une porte, ect...
+	// Hors en général on à un seul bouton d'interaction, chez nous "Y", donc il va falloir définir avec quoi 
+	// on veut intéragir et ce que l'on fait en fonction.
+	// Je propose la modification suivante pour les interactions du Player si tu es d'accord:
+	//	- PlayerInteract() pilote les interactions en fonction du "hitInfo".
+	//	- InteractItem() reçoit dorénavant son RaycastHit. (je n'ai pas bouger à sa logique)
+	//	- Rattaché l'event "onActivateItemKeyPressed" à PlayerInteract() (l'event pourrait aussi être renommé)
+	// Dans ce cas le LayerMask définit plus haut n'est plus utile, on précise dans le code ce que l'on doit
+	// faire en fonction de ce que l'on touche avec le RaycastHit.
+	// Si tu n'es pas ok avec cette modification, l'ancien InteractItem() est tjs présent en commentaire plus 
+	// bas et PlayerInteract() ainsi que le "nouveau" InteractItem() peuvent être supprimés.
+	#endregion
+	void PlayerInteract()
+	{
+		RaycastHit hitInfo;
+		if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hitInfo, GameManager.I._data.PlayerItemDistanceInteraction))
+		{
+			// Interact with Item (10 = index of layer)
+			if (hitInfo.transform.gameObject.layer == 10)
+				InteractItem(hitInfo);
+
+			// Interact with Door (Add a Layer for "Door", now on "Ground")
+			if (hitInfo.transform.gameObject.layer == 8)
+				hitInfo.transform.GetComponentInParent<Door>().InteractWithDoor();
+		}
+	}
+
     void PickUpItem()
 	{
         if (!AllowPickup)
@@ -88,46 +117,80 @@ public class PlayerInventory : BaseMonoBehaviour
 		}
 	}
 
-    void InteractItem()
-    {
+	//void InteractItem()
+	//{
+
+	//	if (!AllowActivate)
+	//		return;
+
+	//	if (!AmbiantManager.I.IsUsableNow(GameManager.I._data.StonesActivationUsable))
+	//	{
+	//		UIManager.I.AlertMessage("Unable to activate the stone now.");
+	//		return;
+	//	}
+
+	//	RaycastHit hitInfo;
+	//	if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hitInfo, GameManager.I._data.PlayerItemDistanceInteraction, ItemLayer))
+	//	{
+	//		Item it = hitInfo.transform.GetComponentInParent<Item>();
+	//		ItemData data = it._itemData;
+
+	//		if (!(it.InZone && tribe.InZones.Exists(z => z == it.InZone)))
+	//		{
+	//			UIManager.I.AlertMessage("Your tribe must be here to activate this Item.");
+	//			return;
+	//		}
+
+	//		if (data.IsActivable && !data.IsActivated && data._itemActivatedPrefab != null)
+	//		{
+	//			onItemActivated?.Invoke(it);
+
+	//			it.ActivateItem();
+	//			dynamicItems.Remove(it);
+	//			if (dynamicItems.Count <= 0)
+	//			{
+	//				UIManager.I.AlertMessage("All stones has been activated !");
+	//				onQuestStoneFinished.Invoke();
+	//			}
+	//		}
+	//	}
+	//}
+	void InteractItem(RaycastHit hitInfo)
+	{
 
 		if (!AllowActivate)
-            return;
+			return;
 
-        if (!AmbiantManager.I.IsUsableNow(GameManager.I._data.StonesActivationUsable))
-        {
-            UIManager.I.AlertMessage("Unable to activate the stone now.");
-            return;
-        }
+		if (!AmbiantManager.I.IsUsableNow(GameManager.I._data.StonesActivationUsable))
+		{
+			UIManager.I.AlertMessage("Unable to activate the stone now.");
+			return;
+		}
 
-		RaycastHit hitInfo;
-		if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hitInfo, GameManager.I._data.PlayerItemDistanceInteraction, ItemLayer))
-        {
-            Item it = hitInfo.transform.GetComponentInParent<Item>();
-            ItemData data = it._itemData;
+		Item it = hitInfo.transform.GetComponentInParent<Item>();
+		ItemData data = it._itemData;
 
-            if (!(it.InZone && tribe.InZones.Exists(z => z == it.InZone)))
-            {
-                UIManager.I.AlertMessage("Your tribe must be here to activate this Item.");
-                return;
-            }
+		if (!(it.InZone && tribe.InZones.Exists(z => z == it.InZone)))
+		{
+			UIManager.I.AlertMessage("Your tribe must be here to activate this Item.");
+			return;
+		}
 
-			if (data.IsActivable && !data.IsActivated && data._itemActivatedPrefab != null)
+		if (data.IsActivable && !data.IsActivated && data._itemActivatedPrefab != null)
+		{
+			onItemActivated?.Invoke(it);
+
+			it.ActivateItem();
+			dynamicItems.Remove(it);
+			if (dynamicItems.Count <= 0)
 			{
-				onItemActivated?.Invoke(it);
-
-				it.ActivateItem();
-                dynamicItems.Remove(it);
-                if (dynamicItems.Count <= 0)
-                {
-                    UIManager.I.AlertMessage("All stones has been activated !");
-                    onQuestStoneFinished.Invoke();  
-                }
+				UIManager.I.AlertMessage("All stones has been activated !");
+				onQuestStoneFinished.Invoke();
 			}
 		}
-    }
+	}
 
-    public void PutItemInHand(GameObject o, Hand hand)
+	public void PutItemInHand(GameObject o, Hand hand)
     {
         leftHandItemPosition = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * 3));
         leftHandItemRotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, CameraManager.I._MainCamera.transform.position - leftHandItemPosition);

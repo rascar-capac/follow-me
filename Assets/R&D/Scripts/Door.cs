@@ -4,11 +4,15 @@ using UnityEngine;
 using UnityEngine.Events;
 using Sirenix.OdinInspector;
 
-
 [System.Serializable]
 public struct DoorProperties
 {
-	[Title("Door")]
+	[Title("Status")][Tooltip("Open the door at Start")][PropertySpace(SpaceBefore = 5)]
+	public bool IsOpenOnStart;
+	[Tooltip("The player and door can interacts with Y Key")]
+	public bool IsInteractable;
+
+	[Title("Opening options")]
 	public float OpeningSpeed;
 	public float DoorClosedAngle;
 	public float DoorOpenAngle;
@@ -16,7 +20,7 @@ public struct DoorProperties
 	[Title("Colliders size")]
 	public float XSizeColliders;
 	public float YSizeColliders;
-	[PropertySpace(SpaceAfter = 10)]
+	[PropertySpace(SpaceBefore = 0, SpaceAfter = 10)]
 	public float ZSizeColliders;
 
 	[ToggleGroup("DayStateMode")]
@@ -39,14 +43,14 @@ public struct OpeningHoursProperties
 	public List<Vector2Int> OpeningHoursInDayState; // x = Start opening, y = Start closing;
 }
 
-
 public class Door : BaseMonoBehaviour
 {
-	[ShowInInspector][ReadOnly][PropertySpace(SpaceBefore = 5)][GUIColor(0.8f, 1, 1, 1)]
-	public bool IsOpen = false; // Controlled by Door Mode
-
+	[ShowInInspector][ReadOnly]
+	public bool IsOpen; // Controlled by Door Mode if Mode activated
 	[PropertySpace(SpaceBefore = 5, SpaceAfter = 10)]
 	public DoorProperties DoorProperties;
+
+	#region Events Door
 
 	[FoldoutGroup("Events Door")]
 	public UnityEvent onBeginOpeningDoor = new UnityEvent();
@@ -56,6 +60,8 @@ public class Door : BaseMonoBehaviour
 	public UnityEvent onBeginClosingDoor = new UnityEvent();
 	[FoldoutGroup("Events Door")]
 	public UnityEvent onDoorClosed = new UnityEvent();
+
+	#endregion
 
 	Coroutine _InOpeningDoor;
 	Coroutine _InClosingDoor;
@@ -103,6 +109,9 @@ public class Door : BaseMonoBehaviour
 	{
 		base.Start();
 
+		if (DoorProperties.IsOpenOnStart)
+			OpenDoor();
+
 		if (DoorProperties.DayStateMode)
 		{
 			AmbiantManager.I.onDayStateChanged.AddListener(DoorDayStateMode);
@@ -120,6 +129,17 @@ public class Door : BaseMonoBehaviour
 	{
 		LeftDoor.transform.localEulerAngles = new Vector3(LeftDoor.localEulerAngles.x, currentAngle, LeftDoor.localEulerAngles.z);
 		RightDoor.transform.localEulerAngles = new Vector3(RightDoor.localEulerAngles.x, -currentAngle, RightDoor.localEulerAngles.z);
+	}
+
+	public void InteractWithDoor()
+	{
+		if (!DoorProperties.IsInteractable)
+			return;
+
+		if (!IsOpen)
+			OpenDoor();
+		else
+			CloseDoor();
 	}
 
 	#region Door Modes
