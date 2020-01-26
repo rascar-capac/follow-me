@@ -35,7 +35,7 @@ public struct DoorProperties
 public struct OpeningHoursProperties
 {
 	public DayState DayState;
-	public List<Vector2> OpeningHoursInDayState; // x = Start opening, y = Start closing;
+	public List<Vector2Int> OpeningHoursInDayState; // x = Start opening, y = Start closing;
 }
 
 
@@ -97,19 +97,11 @@ public class Door : BaseMonoBehaviour
 	{
 		base.Start();
 
-		AmbiantManager.I.onDayStateChanged.AddListener(DoorDayStateMode);
+		if (DoorProperties.DayStateMode)
+			AmbiantManager.I.onDayStateChanged.AddListener(DoorDayStateMode);
 
-	}
-
-
-	private void Update()
-	{
-		if (GamePaused)
-			return;
-
-		// Créer un Event à chaque heure changée ?
-		if (DoorProperties.TimeOfDayMode == true)
-			DoorTimeOfDayMode();
+		if (DoorProperties.TimeOfDayMode)
+			AmbiantManager.I.onHourChanged.AddListener(DoorTimeOfDayMode);
 	}
 
 	public void SetDoorCurrentAngle(float currentAngle)
@@ -132,27 +124,28 @@ public class Door : BaseMonoBehaviour
 			CloseDoor();
 	}
 
-	void DoorTimeOfDayMode()
+	void DoorTimeOfDayMode(int currentHour, DayState currentDayState)
 	{
+		if (GamePaused || !DoorProperties.TimeOfDayMode)
+			return;
+
 		bool _IsOpeningHour = false;
-		float _CurrentTime = AmbiantManager.I.CurrentTimeOfDay;
-		//DayState _CurrentDayState = AmbiantManager.I.CurrentDayState.State; // Pourquoi ceçi ne fonctionne pas ?
 
 		for (int i = 0; i < DoorProperties.DoorOpeningHours.Count; i++)
 		{
-			if (DoorProperties.DoorOpeningHours[i].DayState == AmbiantManager.I.CurrentDayState.State/*_CurrentDayState*/)
+			if (DoorProperties.DoorOpeningHours[i].DayState == currentDayState)
 			{
-				foreach (Vector2 _DoorOpeningHour in DoorProperties.DoorOpeningHours[i].OpeningHoursInDayState)
-					if (_CurrentTime >= _DoorOpeningHour.x && _CurrentTime < _DoorOpeningHour.y)
+				foreach (Vector2Int _DoorOpeningHour in DoorProperties.DoorOpeningHours[i].OpeningHoursInDayState)
+					if (currentHour >= _DoorOpeningHour.x && currentHour < _DoorOpeningHour.y)
 						_IsOpeningHour = true;
 			}
 
-			// Et pourquoi ceçi ne fonctionne pas également ?
-			//if (DoorOpeningHours[i].DayState != AmbiantManager.I.CurrentDayState.State/*_CurrentDayState*/)
+			// Pourquoi ceçi ne fonctionne pas ?
+			//if (DoorProperties.DoorOpeningHours[i].DayState != currentDayState)
 			//	break;
 
-			//foreach (Vector2 _DoorOpeningHour in DoorOpeningHours[i].OpeningHoursInDayState)
-			//	if (_CurrentTime >= _DoorOpeningHour.x && _CurrentTime < _DoorOpeningHour.y)
+			//foreach (Vector2 _DoorOpeningHour in DoorProperties.DoorOpeningHours[i].OpeningHoursInDayState)
+			//	if (currentHour >= _DoorOpeningHour.x && currentHour < _DoorOpeningHour.y)
 			//		_IsOpeningHour = true;
 		}
 

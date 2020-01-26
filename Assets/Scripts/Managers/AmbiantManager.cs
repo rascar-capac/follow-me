@@ -6,8 +6,63 @@ using UnityEngine.Events;
 
 public class AmbiantManager : Singleton<AmbiantManager>
 {
-    #region Fog
-    GameObject Fog;
+	public HourChangedEvent onHourChanged = new HourChangedEvent();
+	public float _LastHour;
+
+
+    protected override void Start()
+    {
+        base.Start();
+        Fog = (GameObject)ObjectsManager.I["Fog"];
+        FogParticles = Fog.GetComponentInChildren<ParticleSystem>();
+        Fog.SetActive(false);
+        FogZone = Fog.GetComponentInChildren<Zone>();
+        Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
+        InitDaysStates();
+        ChangeDayState();
+
+		ResetLastHour(CurrentDayState, NextDayState);
+		onDayStateChanged.AddListener(ResetLastHour);
+
+		//StartChrono(GameManager.I._data.MinimumTimeBetweenFog, StartFog);
+	}
+
+	private void Update()
+	{
+		#region Hour Management
+	
+		if (CurrentTimeOfDay >= _LastHour + 1)
+		{
+			_LastHour = CurrentTimeOfDay;
+			onHourChanged.Invoke(Mathf.RoundToInt(_LastHour), CurrentDayState.State);
+		}
+
+		#endregion
+	}
+
+	void ResetLastHour(DayStatesProperties currentDayStateProperties, DayStatesProperties nextDayStateProperties)
+	{
+		_LastHour = 0;
+		// Invoke at 00h00
+		onHourChanged.Invoke(Mathf.RoundToInt(_LastHour), CurrentDayState.State);
+	}
+
+	public bool IsUsableNow(List<DayState> states)
+    {
+        if (states != null)
+        {
+            int i = 0;
+            for (i = 0; i < states.Count; i++)
+                if (states[i] == AmbiantManager.I.CurrentDayState.State)
+                    break;
+            if (i >= states.Count)
+                return false;
+        }
+        return true;
+    }
+
+	#region Fog
+	GameObject Fog;
     Zone FogZone;
     Player Player;
     ParticleSystem FogParticles;
@@ -35,35 +90,8 @@ public class AmbiantManager : Singleton<AmbiantManager>
     //}
     #endregion
 
-    protected override void Start()
-    {
-        base.Start();
-        Fog = (GameObject)ObjectsManager.I["Fog"];
-        FogParticles = Fog.GetComponentInChildren<ParticleSystem>();
-        Fog.SetActive(false);
-        FogZone = Fog.GetComponentInChildren<Zone>();
-        Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
-        InitDaysStates();
-        ChangeDayState();
-        //StartChrono(GameManager.I._data.MinimumTimeBetweenFog, StartFog);
-    }
-
-    public bool IsUsableNow(List<DayState> states)
-    {
-        if (states != null)
-        {
-            int i = 0;
-            for (i = 0; i < states.Count; i++)
-                if (states[i] == AmbiantManager.I.CurrentDayState.State)
-                    break;
-            if (i >= states.Count)
-                return false;
-        }
-        return true;
-    }
-
-    #region Day States Management
-    public DayStateChangedEvent onDayStateChanged = new DayStateChangedEvent();
+	#region Day States Management
+	public DayStateChangedEvent onDayStateChanged = new DayStateChangedEvent();
     public int CurrentDayStateIndex = 0;
     public DayStatesProperties CurrentDayState => GameManager.I._data.States[CurrentDayStateIndex];
     public DayStatesProperties NextDayState => GameManager.I._data.States[(int)Mathf.Repeat(CurrentDayStateIndex + 1, GameManager.I._data.States.Length)];
@@ -95,3 +123,4 @@ public class AmbiantManager : Singleton<AmbiantManager>
     #endregion
 }
 public class DayStateChangedEvent : UnityEvent<DayStatesProperties, DayStatesProperties> { }
+public class HourChangedEvent : UnityEvent<int, DayState> { }
