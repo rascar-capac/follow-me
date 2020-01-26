@@ -16,6 +16,7 @@ public struct DoorProperties
 	[Title("Colliders size")]
 	public float XSizeColliders;
 	public float YSizeColliders;
+	[PropertySpace(SpaceAfter = 10)]
 	public float ZSizeColliders;
 
 	[ToggleGroup("DayStateMode")]
@@ -41,14 +42,19 @@ public struct OpeningHoursProperties
 
 public class Door : BaseMonoBehaviour
 {
-	[ShowInInspector][ReadOnly][Space(5)][GUIColor(1, 0, 0, 0.6f)]
+	[ShowInInspector][ReadOnly][PropertySpace(SpaceBefore = 5)][GUIColor(0.8f, 1, 1, 1)]
 	public bool IsOpen = false; // Controlled by Door Mode
 
-	[Space(5)]
+	[PropertySpace(SpaceBefore = 5, SpaceAfter = 10)]
 	public DoorProperties DoorProperties;
 
-	[Space(5)]
+	[FoldoutGroup("Events Door")]
+	public UnityEvent onBeginOpeningDoor = new UnityEvent();
+	[FoldoutGroup("Events Door")]
 	public UnityEvent onDoorOpen = new UnityEvent();
+	[FoldoutGroup("Events Door")]
+	public UnityEvent onBeginClosingDoor = new UnityEvent();
+	[FoldoutGroup("Events Door")]
 	public UnityEvent onDoorClosed = new UnityEvent();
 
 	Coroutine _InOpeningDoor;
@@ -98,16 +104,22 @@ public class Door : BaseMonoBehaviour
 		base.Start();
 
 		if (DoorProperties.DayStateMode)
+		{
 			AmbiantManager.I.onDayStateChanged.AddListener(DoorDayStateMode);
+			DoorDayStateMode(AmbiantManager.I.CurrentDayState, AmbiantManager.I.NextDayState);
+		}
 
 		if (DoorProperties.TimeOfDayMode)
+		{
 			AmbiantManager.I.onHourChanged.AddListener(DoorTimeOfDayMode);
+			DoorTimeOfDayMode(Mathf.RoundToInt(AmbiantManager.I.CurrentTimeOfDay), AmbiantManager.I.CurrentDayState.State);
+		}
 	}
 
 	public void SetDoorCurrentAngle(float currentAngle)
 	{
-		LeftDoor.transform.eulerAngles = new Vector3(0, currentAngle, 0);
-		RightDoor.transform.eulerAngles = new Vector3(0, -currentAngle, 0);
+		LeftDoor.transform.localEulerAngles = new Vector3(LeftDoor.localEulerAngles.x, currentAngle, LeftDoor.localEulerAngles.z);
+		RightDoor.transform.localEulerAngles = new Vector3(RightDoor.localEulerAngles.x, -currentAngle, RightDoor.localEulerAngles.z);
 	}
 
 	#region Door Modes
@@ -169,6 +181,8 @@ public class Door : BaseMonoBehaviour
 
 	IEnumerator OpeningDoor()
 	{
+		onBeginOpeningDoor.Invoke();
+
 		float _DoorCurrentAngle = DoorProperties.DoorClosedAngle;
 
 		while (_DoorCurrentAngle < DoorProperties.DoorOpenAngle)
@@ -203,6 +217,8 @@ public class Door : BaseMonoBehaviour
 
 	IEnumerator ClosingDoor()
 	{
+		onBeginClosingDoor.Invoke();
+
 		float _DoorCurrentAngle = DoorProperties.DoorOpenAngle;
 
 		while (_DoorCurrentAngle > DoorProperties.DoorClosedAngle)
