@@ -76,11 +76,11 @@ public class BeaconPlacer : Item
     public void ActivateBeacon(GameObject beacon)
     {
         _tribeAgent.destination = new Vector3(beacon.transform.position.x, 0, beacon.transform.position.z);
-        beacon.transform.GetChild(0).transform.GetChild(0).GetComponent<Renderer>().material.color = Color.red;
+        beacon.GetComponentInChildren<Animator>().SetBool("IsOpened", true);
     }
     public void DeactivateBeacon(GameObject beacon)
     {
-        beacon.transform.GetChild(0).transform.GetChild(0).GetComponent<Renderer>().material.color = Color.white;
+        beacon.GetComponentInChildren<Animator>().SetBool("IsOpened", false);
     }
 
     public void BeaconActivation()
