@@ -51,8 +51,10 @@ public class GameData : ScriptableObject
     public float MaximumDistanceOfTribe = 300.0f;
 	[TabGroup("Tools")][Tooltip("distance where the beacon is dropped by the player")]
     public float BeaconPlacementDistance = 3f;
+    [TabGroup("Tools")][Tooltip("The count of beacon that may be placed at same time (0 = no limit).")]
+    public int BeaconPlacementCount = 5;
 
-	[Title("Map")]
+    [Title("Map")]
 	[TabGroup("Tools")][Tooltip("when map is usable")]
     public List<DayState> MapUsable;
 

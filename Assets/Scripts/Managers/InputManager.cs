@@ -36,7 +36,8 @@ public class InputManager : Singleton<InputManager>
     public UnityEvent onToolInventoryButtonPressed = new UnityEvent();
     public UnityEvent onToolInventoryButtonReleased = new UnityEvent();
     public UnityEvent onBeaconKeyPressed = new UnityEvent();
-	public UnityEvent onPickUpKeyPressed = new UnityEvent();
+    public UnityEvent onBeaconActivateKeyPressed = new UnityEvent();
+    public UnityEvent onPickUpKeyPressed = new UnityEvent();
     public UnityEvent onActivateItemKeyPressed = new UnityEvent();
     public UnityEvent onRunButtonPressed = new UnityEvent();
     public UnityEvent onRunButtonReleased = new UnityEvent();
@@ -88,10 +89,13 @@ public class InputManager : Singleton<InputManager>
 
         if (Input.GetButtonDown("XBoxA"))
             onBeaconKeyPressed?.Invoke();
-		if (Input.GetButtonDown("XBoxX"))
-			onPickUpKeyPressed?.Invoke();
-        if (Input.GetButtonDown("XBoxY"))
+        if (Input.GetButtonDown("XBoxX"))
+        {
+            onPickUpKeyPressed?.Invoke();
             onActivateItemKeyPressed?.Invoke();
+        }
+        if (Input.GetButtonDown("XBoxY"))
+            onBeaconActivateKeyPressed?.Invoke();
         if (Input.GetButtonDown("XBoxLB"))
             onRunButtonPressed?.Invoke();
         if (Input.GetButtonUp("XBoxLB"))

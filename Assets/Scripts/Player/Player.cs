@@ -19,6 +19,10 @@ public class Player : ZoneInteractable
     bool IsEnergyNull => Energy == 0;
     bool PreviousEnergyNull = false;
 
+    public List<GameObject> PlacedBeacon = new List<GameObject>();
+    public int CurrentBeaconIndex = -1;
+    public GameObject CurrentActiveBeacon => (CurrentBeaconIndex >= 0 && CurrentBeaconIndex < PlacedBeacon.Count) ? PlacedBeacon[CurrentBeaconIndex] : null;
+
     public UnityEvent onPlayerEnergyNullEnter = new UnityEvent();
     public UnityEvent onPlayerEnergyNullExit = new UnityEvent();
 
@@ -28,6 +32,7 @@ public class Player : ZoneInteractable
         playerLook = CameraManager.I._MainCamera.GetComponent<PlayerLook>();
         playerMove = GetComponent<PlayerMovement>();
         playerInventory = GetComponent<PlayerInventory>();
+        PlacedBeacon.Clear();
 
         Energy = GameManager.I._data.InitialPlayerEnergy;
         if (QuestData != null)
@@ -38,6 +43,7 @@ public class Player : ZoneInteractable
                 LoadQuest(data);
             }
         }
+
 	}
 
     protected override void Update()
@@ -133,4 +139,6 @@ public class Player : ZoneInteractable
             }
         }
     }
+
+    
 }

@@ -8,7 +8,6 @@ public class BeaconPlacer : Item
 
 	[Header("Beacon Prefab to spawn at Ground")]
 	public GameObject _beaconPrefab;
-	GameObject _beacon;
 	[Header("The layers on which the beacon can be placed.")]
 	public LayerMask DropableLayers;
 
@@ -23,11 +22,19 @@ public class BeaconPlacer : Item
 	{
 		base.Start();
 
-		_mainCamera = CameraManager.I._MainCamera;
-		_player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerMovement>();
-		_tribeAgent = ((GameObject)ObjectsManager.I["TribeGroundPosition"]).GetComponent<NavMeshAgent>();
+    }
 
-		InputManager.I.onBeaconKeyPressed.AddListener(PlaceBeacon);
+    public override void Init()
+    {
+        base.Init();
+
+        _mainCamera = CameraManager.I._MainCamera;
+        _player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerMovement>();
+        _tribeAgent = ((GameObject)ObjectsManager.I["TribeGroundPosition"]).GetComponent<NavMeshAgent>();
+
+        InputManager.I.onBeaconKeyPressed.AddListener(PlaceBeacon);
+        InputManager.I.onBeaconActivateKeyPressed.AddListener(BeaconActivation);
+
         Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
         Player.onPlayerEnergyNullEnter.AddListener(() => { if (GameManager.I._data.CompassEnergyLowUnusable) IsEnabled = false; });
         Player.onPlayerEnergyNullExit.AddListener(() => { if (GameManager.I._data.CompassEnergyLowUnusable) IsEnabled = true; });
@@ -35,9 +42,14 @@ public class BeaconPlacer : Item
 
     void PlaceBeacon()
 	{
-
 		if (!IsEnabled)
 			return;
+
+        if (GameManager.I._data.BeaconPlacementCount > 0 && Player.PlacedBeacon.Count >= GameManager.I._data.BeaconPlacementCount)
+        {
+            UIManager.I.AlertMessage("The maximum beacon count has been reached.");
+            return;
+        }
 
         if (!AmbiantManager.I.IsUsableNow(GameManager.I._data.BeaconPlacerUsable))
         {
@@ -53,12 +65,36 @@ public class BeaconPlacer : Item
 
 		if (Physics.Raycast(_mainCamera.transform.position + Vector3.ProjectOnPlane(_mainCamera.transform.forward, Vector3.up).normalized * GameManager.I._data.BeaconPlacementDistance, Vector3.down, out _hitInfo, 100.0f, DropableLayers))
 		{
-			if (_beacon == null)
-				_beacon = Instantiate(_beaconPrefab);
-
-			_beacon.transform.position = _hitInfo.point;
-			_tribeAgent.destination = new Vector3(_beacon.transform.position.x, 0, _beacon.transform.position.z);
-		}
 			
+			GameObject beacon =	Instantiate(_beaconPrefab);
+
+            beacon.transform.position = _hitInfo.point;
+			//_tribeAgent.destination = new Vector3(beacon.transform.position.x, 0, beacon.transform.position.z);
+            Player.PlacedBeacon.Add(beacon);
+		}
 	}
+    public void ActivateBeacon(GameObject beacon)
+    {
+        _tribeAgent.destination = new Vector3(beacon.transform.position.x, 0, beacon.transform.position.z);
+        beacon.transform.GetChild(0).transform.GetChild(0).GetComponent<Renderer>().material.color = Color.red;
+    }
+    public void DeactivateBeacon(GameObject beacon)
+    {
+        beacon.transform.GetChild(0).transform.GetChild(0).GetComponent<Renderer>().material.color = Color.white;
+    }
+
+    public void BeaconActivation()
+    {
+        if (Player.PlacedBeacon == null || Player.PlacedBeacon.Count <= 0)
+            return;
+
+        Player.PlacedBeacon.ForEach(b => DeactivateBeacon(b));
+        Player.CurrentBeaconIndex++;
+        if (Player.CurrentBeaconIndex == Player.PlacedBeacon.Count)
+        {
+            Player.CurrentBeaconIndex = -1;
+            return;
+        }
+        ActivateBeacon(Player.PlacedBeacon[(int)Mathf.Repeat(Player.CurrentBeaconIndex, Player.PlacedBeacon.Count)]);
+    }
 }
