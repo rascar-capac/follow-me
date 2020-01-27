@@ -2,7 +2,19 @@ fileFormatVersion: 2
 guid: 976146cfbdd6a2f47bdcf4bf98fcff8c
 ModelImporter:
   serializedVersion: 26
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: -6716894061063991479
+    second: RingOuter|RingInnerAction
+  - first:
+      74: -2080521084635727429
+    second: RingOuter|RingOuterAction
+  - first:
+      74: -4237531307949688231
+    second: RingInner|RingInnerAction
+  - first:
+      74: -4601056191215031041
+    second: RingInner|RingOuterAction
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -87,7 +99,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
