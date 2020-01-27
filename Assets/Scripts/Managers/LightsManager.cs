@@ -1,112 +1,104 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
+
+[System.Serializable]
+public struct DayNightCycleProperties
+{
+	[InfoBox("Do not forget to also modify the material properties")]
+	public Material SkyboxMaterial;
+	public Color AmbientColor;
+	public float SunLightIntensity;
+}
 
 public class LightsManager : Singleton<LightsManager>
 {
-	public GameObject _sunMoonPrefabs;
-	Light SunLight;
+	public Light SunLight;
+
+	[Title("Day Options")]
+	public DayNightCycleProperties DayProperties;
+
+	[Title("Night Options")]
+	public DayNightCycleProperties NightProperties;
 
 	DayStatesProperties CurrentDayState;
-    DayStatesProperties NextDayState;
     float CurrentTimeRatio;
 
-	[Header("Day Options")]
-	public Material _skyboxMaterialDay;
-	public Color _ambientColorDay;
-	public float _sunLightIntensity = 1;
-	Coroutine _DayCoroutine;
-
-	[Header("Night Options")]
-	public Material _skyboxMaterialNight;
-	public Color _ambientColorNight;
-	public float _moonLightIntensity = 0.5f;
-	Coroutine _NightCoroutine;
-
-	// IN PROGRESS
-	// Attention Oliv, je me suis raccrocher à tes events et CurrentTimeRatio, on en a besoin ici.
 	//Il reste des Lerps à faire lors des transitions jour/nuit entre:
 	//  - les 2 materials (jour et Nuit)
 	//  - les 2 colors _ambientColor....
 	//  - l'intensité de la Light _.....LightIntensity
 
 
-    protected override void Start()
+	protected override void Start()
     {
         base.Start();
 
         AmbiantManager.I.onDayStateChanged.AddListener(DayChanged);
-		SunLight = _sunMoonPrefabs.GetComponent<Light>();
+
+		//Debug.Log(DayProperties.SkyboxMaterial.GetFloat("_SunSize")); //Tips: Access to Material Properties.
 	}
 
     protected void Update()
     {
         CurrentTimeRatio = (Time.time - CurrentDayState.TimeStateChanged) / CurrentDayState.DayStateDurationInSecond;
-		DayNightCycle();
 
 		//InterpolateLightColor();
 	}
 
-	void DayChanged(DayStatesProperties CurrentState, DayStatesProperties NextState)
+	void DayChanged(DayStatesProperties currentDayState, DayStatesProperties nextDayState)
     {
-        CurrentDayState = CurrentState;
-        NextDayState = NextState;
-    }
+		CurrentDayState = currentDayState;
 
-	void DayNightCycle()
-	{
-		if(CurrentDayState.State == DayState.Day)
-			_DayCoroutine = StartCoroutine(DayCycle());
+		StopAllCoroutines();
 
-		if (CurrentDayState.State == DayState.Night)
-			_NightCoroutine = StartCoroutine(NightCycle());
+		if (CurrentDayState.State == DayState.Day)
+			StartCoroutine(DayCycle());
 
-		//Sun.transform.eulerAngles = Vector3.Lerp(CurrentDayState.EnterSunRotation, CurrentDayState.ExitSunRotation, CurrentTimeRatio);
-		//Sun.transform.localRotation = Quaternion.Euler(Vector3.Lerp(CurrentDayState.EnterSunRotation, CurrentDayState.ExitSunRotation, CurrentTimeRatio));
-		//Moon.transform.localRotation = Quaternion.Euler(Vector3.Lerp(NextDayState.EnterSunRotation, NextDayState.ExitSunRotation, CurrentTimeRatio));
+		else if (CurrentDayState.State == DayState.Night)
+			StartCoroutine(NightCycle());
 	}
 
 	IEnumerator DayCycle()
 	{
 		ResetSunRotation();
 
-		RenderSettings.skybox = _skyboxMaterialDay;
-		SunLight.color = _ambientColorDay;
-		SunLight.intensity = _sunLightIntensity;
+		RenderSettings.skybox = DayProperties.SkyboxMaterial;
+		SunLight.color = DayProperties.AmbientColor;
+		SunLight.intensity = DayProperties.SunLightIntensity;
 
 		while (CurrentTimeRatio < 1)
 		{
-			_sunMoonPrefabs.transform.eulerAngles = new Vector3(CurrentTimeRatio * 180, 0, 0);
-			break;
+			RotateLight();
+			yield return null;
 		}
-
-		_DayCoroutine = null;
-		yield return null;
 	}
 
 	IEnumerator NightCycle()
 	{
 		ResetSunRotation();
 
-		RenderSettings.skybox = _skyboxMaterialNight;
-		SunLight.color = _ambientColorNight;
-		SunLight.intensity = _moonLightIntensity;
+		RenderSettings.skybox = NightProperties.SkyboxMaterial;
+		SunLight.color = NightProperties.AmbientColor;
+		SunLight.intensity = NightProperties.SunLightIntensity;
+
 		while (CurrentTimeRatio < 1)
 		{
-			_sunMoonPrefabs.transform.eulerAngles = new Vector3(CurrentTimeRatio * 180, 0, 0);
-			break;
+			RotateLight();
+			yield return null;
 		}
+	}
 
-		_NightCoroutine = null;
-		yield return null;
+	void RotateLight()
+	{
+		SunLight.transform.eulerAngles = new Vector3(CurrentTimeRatio * 180, 0, 0);
 	}
 
 	void ResetSunRotation()
 	{
-		_sunMoonPrefabs.transform.eulerAngles = Vector3.zero;
+		SunLight.transform.eulerAngles = Vector3.zero;
 	}
-
-
 
     /*void InterpolateLightColor()
     //{
