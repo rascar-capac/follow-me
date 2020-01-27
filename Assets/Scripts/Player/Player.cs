@@ -32,13 +32,10 @@ public class Player : ZoneInteractable
         Energy = GameManager.I._data.InitialPlayerEnergy;
         if (QuestData != null)
         {
-            Quest quest;
             Quests = new List<Quest>();
             foreach (QuestData data in QuestData)
             {
-                quest = new Quest(this, data);
-                Quests.Add(quest);
-                quest.onQuestCompleted.AddListener(QuestCompleted);
+                LoadQuest(data);
             }
         }
 	}
@@ -48,6 +45,7 @@ public class Player : ZoneInteractable
         base.Update();
 		UpdateEnergy();
 		EnergyCritical();
+
     }
 
 	public void UpdateEnergy()
@@ -95,8 +93,44 @@ public class Player : ZoneInteractable
         Energy = Mathf.Clamp(Energy, 0f, GameManager.I._data.InitialPlayerEnergy);
     }
 
+    public void LoadQuest(QuestData data)
+    {
+        Quest quest = new Quest(this, data);
+        Quests.Add(quest);
+        quest.onQuestCompleted.AddListener(QuestCompleted);
+    }
+
     void QuestCompleted(Quest quest)
     {
-        
+        List<QuestRewardData> rewards = quest.Data.QuestRewardData;
+        if (rewards == null || rewards.Count <= 0)
+            return;
+
+        for (int i = 0; i < rewards.Count; i++)
+        {
+            if (rewards[i].Items != null)
+            {
+                foreach (ItemData it in rewards[i].Items)
+                {
+                    //Ajouter l'item dans l'inventaire;
+                }
+            }
+            if (rewards[i].Quests != null)
+            {
+                foreach (QuestData questdata in rewards[i].Quests)
+                {
+                    LoadQuest(questdata);
+                }
+            }
+            if (rewards[i].Zones != null)
+            {
+                foreach (ZoneApparition zone in rewards[i].Zones)
+                {
+                    GameObject newZone = Instantiate(zone.Zone.gameObject);
+                    newZone.transform.position = zone.PositionToAppear.transform.position;
+                    newZone.transform.rotation = Quaternion.identity;
+                }
+            }
+        }
     }
 }

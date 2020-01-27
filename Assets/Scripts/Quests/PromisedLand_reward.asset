@@ -15,3 +15,6 @@ MonoBehaviour:
   Items: []
   Quests:
   - {fileID: 11400000, guid: d47aeb09cd3368d449cf65efc402c2f3, type: 2}
+  Zones:
+  - Zone: {fileID: 2134438129, guid: ea6f55b8ff616ab4992706abe0b0b5dc, type: 3}
+    PositionToAppear: {fileID: 0}

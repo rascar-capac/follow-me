@@ -9,5 +9,7 @@ Fonctionnement des quests
 
 5. Glisser le quest data dans le player.
 
+PS.: Une reward de type zone doit contenir un prefab (zone à instantier) et un gameobject de la scène (position de la zone dans la carte)
+
 Merci Renaud
 

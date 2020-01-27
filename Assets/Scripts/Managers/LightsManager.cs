@@ -31,9 +31,9 @@ public class LightsManager : Singleton<LightsManager>
 	//  - l'intensité de la Light _.....LightIntensity
 
 
-    protected override void Awake()
+    protected override void Start()
     {
-        base.Awake();
+        base.Start();
 
         AmbiantManager.I.onDayStateChanged.AddListener(DayChanged);
 		SunLight = _sunMoonPrefabs.GetComponent<Light>();

@@ -20,6 +20,7 @@ public class ToolsInventoryManager : Singleton<ToolsInventoryManager>
     public float AngleInterval;
     public int CurrentIndex = 0;
     public ToolSelectedEvent onToolSelected = new ToolSelectedEvent();
+
     protected override void Start()
     {
         base.Start();

@@ -13,10 +13,10 @@ public class AmbiantManager : Singleton<AmbiantManager>
     protected override void Start()
     {
         base.Start();
-        Fog = (GameObject)ObjectsManager.I["Fog"];
-        FogParticles = Fog.GetComponentInChildren<ParticleSystem>();
-        Fog.SetActive(false);
-        FogZone = Fog.GetComponentInChildren<Zone>();
+        //Fog = (GameObject)ObjectsManager.I["Fog"];
+        //FogParticles = Fog.GetComponentInChildren<ParticleSystem>();
+        //Fog.SetActive(false);
+        //FogZone = Fog.GetComponentInChildren<Zone>();
         Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
         InitDaysStates();
         ChangeDayState();
@@ -62,10 +62,10 @@ public class AmbiantManager : Singleton<AmbiantManager>
     }
 
 	#region Fog
-	GameObject Fog;
+	//GameObject Fog;
     Zone FogZone;
     Player Player;
-    ParticleSystem FogParticles;
+    //ParticleSystem FogParticles;
 
 
     //void StartFog()

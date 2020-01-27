@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class TurtleRock : Zone
 {
-    public GameObject FinalPosition;
-
     PlayerInventory player;
 
     protected override void Start()
     {
         base.Start();
         player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerInventory>();
-        player.onQuestStoneFinished.AddListener(ElevateTurtleRock);
+        //player.onQuestStoneFinished.AddListener(ElevateTurtleRock);
         transform.GetComponent<Collider>().enabled = false;
+        ElevateTurtleRock();
     }
 
     public void ElevateTurtleRock()
@@ -25,9 +24,9 @@ public class TurtleRock : Zone
     {
         while (true)
         {
-            Vector3.MoveTowards(transform.position, FinalPosition.transform.position, 1 * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, GameManager.I._data.TurtleRockFinalPosition.transform.position, 1 * Time.deltaTime);
             
-            if (Vector3.Distance(transform.position, FinalPosition.transform.position) <= 0.01f)
+            if (Vector3.Distance(transform.position, GameManager.I._data.TurtleRockFinalPosition.transform.position) <= 0.01f)
                 break;
 
             yield return null;

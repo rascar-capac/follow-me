@@ -101,6 +101,11 @@ public class GameData : ScriptableObject
     [Title("Ambience parameters")]
 	[TabGroup("Ambience")][Tooltip("Day states (night and day)")]
     public DayStatesProperties[] States;
+
+    [Title("Scene parameters")]
+    [TabGroup("Zones")]
+    [Tooltip("Final Turtle rock position after appearing (elevation position)")]
+    public GameObject TurtleRockFinalPosition;
 }
 
 public enum DayState

@@ -10,4 +10,12 @@ public class QuestRewardData : ScriptableObject
 	public List<ItemData> Items;
 	[Header("Quests data to open on quest completed")]
 	public List<QuestData> Quests;
+    [Header("Zone to activate on quest completed")]
+    public List<ZoneApparition> Zones;
 }
+[System.Serializable]
+public struct ZoneApparition
+{
+    public Zone Zone;
+    public GameObject PositionToAppear;
+}   

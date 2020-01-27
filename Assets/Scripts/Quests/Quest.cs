@@ -53,7 +53,7 @@ public class Quest
         CheckQuestFinished();
     }
 
-    void CheckQuestFinished() 
+    public void CheckQuestFinished() 
     {
         if (ItemsToActivate != null && ItemsToActivate.Count > 0)
             return;
@@ -62,6 +62,10 @@ public class Quest
             return;
 
         QuestCompleted = true;
+
+        PlayerInventory.onItemActivated.RemoveListener(ItemActivated);
+        Player.onZoneEnter.RemoveListener(ZoneReached);
+
         onQuestCompleted.Invoke(this);
     }
 }
