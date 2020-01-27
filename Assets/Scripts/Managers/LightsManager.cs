@@ -8,7 +8,8 @@ public struct DayNightCycleProperties
 {
 	[InfoBox("Do not forget to also modify the material properties")]
 	public Material SkyboxMaterial;
-	public Color AmbientColor;
+	public float AmbientLightIntensity;
+	public Color SunColor;
 	public float SunLightIntensity;
 }
 
@@ -25,19 +26,12 @@ public class LightsManager : Singleton<LightsManager>
 	DayStatesProperties CurrentDayState;
     float CurrentTimeRatio;
 
-	//Il reste des Lerps à faire lors des transitions jour/nuit entre:
-	//  - les 2 materials (jour et Nuit)
-	//  - les 2 colors _ambientColor....
-	//  - l'intensité de la Light _.....LightIntensity
-
 
 	protected override void Start()
     {
         base.Start();
 
         AmbiantManager.I.onDayStateChanged.AddListener(DayChanged);
-
-		//Debug.Log(DayProperties.SkyboxMaterial.GetFloat("_SunSize")); //Tips: Access to Material Properties.
 	}
 
     protected void Update()
@@ -65,12 +59,21 @@ public class LightsManager : Singleton<LightsManager>
 		ResetSunRotation();
 
 		RenderSettings.skybox = DayProperties.SkyboxMaterial;
-		SunLight.color = DayProperties.AmbientColor;
+		RenderSettings.ambientIntensity = DayProperties.AmbientLightIntensity;
+
+		SunLight.color = DayProperties.SunColor;
 		SunLight.intensity = DayProperties.SunLightIntensity;
 
 		while (CurrentTimeRatio < 1)
 		{
 			RotateLight();
+
+			//Lerp test...
+			//RenderSettings.skybox.SetColor("_SkyTint", Color.Lerp(DayProperties.AmbientColor, NightProperties.AmbientColor, CurrentTimeRatio));
+			//RenderSettings.skybox.SetFloat("_Exposure", Mathf.Lerp(DayProperties.SkyboxMaterial.GetFloat("_Exposure"), NightProperties.SkyboxMaterial.GetFloat("_Exposure"), CurrentTimeRatio));
+			//Skybox.material.Lerp(DayProperties.SkyboxMaterial, NightProperties.SkyboxMaterial, CurrentTimeRatio);
+			//SunLight.color = Color.Lerp(Color.blue, Color.red, CurrentTimeRatio);
+			//RenderSettings.ambientIntensity = Mathf.Lerp(RenderSettings.ambientIntensity, 0.2f, Time.deltaTime);
 			yield return null;
 		}
 	}
@@ -80,12 +83,21 @@ public class LightsManager : Singleton<LightsManager>
 		ResetSunRotation();
 
 		RenderSettings.skybox = NightProperties.SkyboxMaterial;
-		SunLight.color = NightProperties.AmbientColor;
+		RenderSettings.ambientIntensity = NightProperties.AmbientLightIntensity;
+
+		SunLight.color = NightProperties.SunColor;
 		SunLight.intensity = NightProperties.SunLightIntensity;
 
 		while (CurrentTimeRatio < 1)
 		{
 			RotateLight();
+
+			// Lerp test...
+			//RenderSettings.skybox.SetColor("_SkyTint", Color.Lerp(NightProperties.AmbientColor, DayProperties.AmbientColor, CurrentTimeRatio));
+			//RenderSettings.skybox.SetFloat("_Exposure", Mathf.Lerp(NightProperties.SkyboxMaterial.GetFloat("_Exposure"), DayProperties.SkyboxMaterial.GetFloat("_Exposure"), CurrentTimeRatio));
+			//Skybox.material.Lerp(NightProperties.SkyboxMaterial, DayProperties.SkyboxMaterial, CurrentTimeRatio);
+			//SunLight.color = Color.Lerp(Color.red, Color.blue, CurrentTimeRatio);
+			//RenderSettings.ambientIntensity = Mathf.Lerp(RenderSettings.ambientIntensity, 1, Time.deltaTime);
 			yield return null;
 		}
 	}
@@ -100,23 +112,4 @@ public class LightsManager : Singleton<LightsManager>
 		SunLight.transform.eulerAngles = Vector3.zero;
 	}
 
-    /*void InterpolateLightColor()
-    //{
-    //    SunLight.color = Color.Lerp(CurrentDayState.StateColor, NextDayState.StateColor, CurrentTimeRatio);
-    //}
-	*/
-
-	/*void SkyboxMatGoToDay()
-	//{
-	//	Debug.Log("Lerp vers jour");
-	//	RenderSettings.skybox.Lerp(_skyboxMaterialNight, _skyboxMaterialDay, CurrentTimeRatio);
-	//	// Lerp Color Sun
-	//}
-	//void SkyboxMatGoToNight()
-	//{
-	//	Debug.Log("Lerp vers nuit");
-	//	RenderSettings.skybox.Lerp(_skyboxMaterialDay, _skyboxMaterialNight, CurrentTimeRatio);
-	//	// Lerp Color Sun
-	//}
-	*/
 }
