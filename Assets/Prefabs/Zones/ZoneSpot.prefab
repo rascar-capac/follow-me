@@ -24,12 +24,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6845070835772085464}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -182, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 317931038121776150}
   m_Father: {fileID: 8529712639384518814}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4689144786165726988
 PrefabInstance:
@@ -38,41 +38,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 344083162281869236}
     m_Modifications:
-    - target: {fileID: -4216859302048453862, guid: 2b885f61a4e91ed4db25ace012d485a0,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 2b885f61a4e91ed4db25ace012d485a0,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 2b885f61a4e91ed4db25ace012d485a0,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 2b885f61a4e91ed4db25ace012d485a0,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 2b885f61a4e91ed4db25ace012d485a0,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 2b885f61a4e91ed4db25ace012d485a0,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 2b885f61a4e91ed4db25ace012d485a0,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2b885f61a4e91ed4db25ace012d485a0,
         type: 3}
       propertyPath: m_RootOrder
@@ -179,6 +144,11 @@ PrefabInstance:
       propertyPath: _coaster
       value: 
       objectReference: {fileID: 6845070835772085464}
+    - target: {fileID: 8640311679168677487, guid: ec7384ee67dab194196a9aca6817867c,
+        type: 3}
+      propertyPath: Layers.m_Bits
+      value: 4096
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec7384ee67dab194196a9aca6817867c, type: 3}
 --- !u!4 &8529712639384518814 stripped

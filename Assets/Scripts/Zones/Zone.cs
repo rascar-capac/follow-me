@@ -10,10 +10,6 @@ public enum RessourcesType
 
 public class Zone : BaseMonoBehaviour
 {
-    [Header("Zone radius")]
-    public float Radius = 25f; // Radius d'une zone (pour Capsulecollider et Cylinder)
-	[Header("Zone height")]
-	public float Height = 200f; // Height d'une zone (pour Capsulecollider et Cylinder)
     [Header("Ressources")]
     public RessourcesType[] Ressources;
     [Header("Player loose energy speed by second")]
@@ -29,19 +25,6 @@ public class Zone : BaseMonoBehaviour
 	public Transform _spawnPositionItem; // Position de spawn d'un item dans la zone.
 	[HideInInspector]
 	public bool _itemOnCoaster = false; // Si le coaster possède un item.
-
-
-	// Pour adapter automatiquement la taille de la CapsuleCollider et de Cylinder(enfant) en fonction de Rius et Height de Zone.cs
-	// Appelé uniquement quand une valeur est changée dans l'inspecteur.
-	// Attention ne pas changer l'ordre des enfants dans les prefabs zones pour cette fonction.
-	private void OnValidate()
-	{
-        CapsuleCollider capsuleCollider = GetComponent<CapsuleCollider>();
-        capsuleCollider.radius = Radius / 2;
-        capsuleCollider.height = Height * 2;
-        //Transform cylinder = transform.GetChild(1);
-        //cylinder.localScale = new Vector3(Radius, Height, Radius);
-    }
 
 	private void OnTriggerEnter(Collider other)
     {
