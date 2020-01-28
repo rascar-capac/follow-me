@@ -39,6 +39,7 @@ public class InputManager : Singleton<InputManager>
 	public InputAxisUnityEvent onMoveInputAxisEvent = new InputAxisUnityEvent();
     public InputAxisUnityEvent onLookInputAxisEvent = new InputAxisUnityEvent();
 
+    public UnityEvent onPlayerJumpPressed = new UnityEvent();
     public UnityEvent onPauseKeyPressed = new UnityEvent();
 
     public UnityEvent onRunButtonPressed = new UnityEvent();
@@ -86,6 +87,8 @@ public class InputManager : Singleton<InputManager>
         EventInputMapping.Add(GameManager.I._data.Input_RightHand_ShowHide, new EventToggle() { Pressed = new List<UnityEvent> { onRightHandShowHide } });
 
         EventInputMapping.Add(GameManager.I._data.Input_InventoryOpenClose, new EventToggle() { Pressed = new List<UnityEvent> { onUIOpenCloseInventoryKeyPressed } });
+
+        EventInputMapping.Add(GameManager.I._data.Input_PlayerJump, new EventToggle() { Pressed = new List<UnityEvent> { onPlayerJumpPressed } });
     }
 
     // Update is called once per frame

@@ -25,7 +25,7 @@ public class PlayerMovement : BaseMonoBehaviour
     public float PlayerRunGauge = 100f;
 
     Vector3 _velocity;
-    bool _isGrounded;
+    public bool _isGrounded;
     public bool IsTooFar = false;
     public float TribeDistance = 0.1f;
     GameObject Tribe;
@@ -49,6 +49,7 @@ public class PlayerMovement : BaseMonoBehaviour
         InputManager.I.onRunButtonPressed.AddListener(EnableRun);
         InputManager.I.onRunButtonReleased.AddListener(DisableRun);
         InputManager.I.onMoveInputAxisEvent.AddListener(Move);
+        InputManager.I.onPlayerJumpPressed.AddListener(Jump);
         UIManager.I.onToolsInventoryClosedEvent.AddListener((hand) => { AllowMove = true; });
         UIManager.I.onToolsInventoryOpenedEvent.AddListener((hand) => { AllowMove = false; });
     }
@@ -91,14 +92,22 @@ public class PlayerMovement : BaseMonoBehaviour
 
         _controller.Move(move * _speed * runMultiply * Time.deltaTime);
 
-        if (Input.GetButtonDown("Jump") && _isGrounded)
-        {
-            _velocity.y = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
-        }
+        //if (Input.GetButtonDown("Jump") && _isGrounded)
+        //{
+        //    _velocity.y = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
+        //}
 
         _velocity.y += _gravity * Time.deltaTime;
 
         _controller.Move(_velocity * Time.deltaTime);
+    }
+
+    public void Jump()
+    {
+        if (!_isGrounded)
+            return;
+
+        _velocity.y = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
     }
 
     void ComputeTribeDistance()

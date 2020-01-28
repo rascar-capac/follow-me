@@ -120,6 +120,8 @@ public class GameData : ScriptableObject
     [Tooltip("Pause the game")]
     public PlayerInputs Input_Pause;
     [TabGroup("Inputs")]
+    [Tooltip("Player jump")]
+    public PlayerInputs Input_PlayerJump;
     [Tooltip("Make the player run")]
     public PlayerInputs Input_PlayerRun;
     [TabGroup("Inputs")]
