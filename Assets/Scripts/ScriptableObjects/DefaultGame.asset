@@ -60,7 +60,7 @@ MonoBehaviour:
     DayStateDurationInSecond: 120
     StateHoursCount: 12
     StateColor: {r: 0.16078432, g: 0.13333334, b: 0.050980393, a: 0}
-    TimeStateChanged: 9.982609
+    TimeStateChanged: 120.008354
     EnterSunRotation: {x: 270, y: -30, z: 0}
     ExitSunRotation: {x: 90, y: -30, z: 0}
   TurtleRockFinalPosition: {fileID: 0}
@@ -81,10 +81,10 @@ MonoBehaviour:
     Keyboard: 305
   Input_LeftHand_ShowHide:
     XBox: 7
-    Keyboard: 9
+    Keyboard: 304
   Input_RightHand_ShowHide:
     XBox: 8
-    Keyboard: 9
+    Keyboard: 303
   Input_BeaconPlace:
     XBox: 4
     Keyboard: 102

@@ -3,8 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[System.Serializable]
 
+public class HandWrapper
+{
+    public Item Item = null;
+    public bool Show = true;
+    public Vector3 ItemPosition = Vector3.zero;
+    public Quaternion ItemRotation = Quaternion.identity;
+    public Hand hand;
+}
+
+[System.Serializable]
 public class PlayerInventory : BaseMonoBehaviour
 {
     List<ItemData> _playerInventory = new List<ItemData>();
@@ -19,16 +28,11 @@ public class PlayerInventory : BaseMonoBehaviour
     bool AllowActivate = true;
 	Camera _mainCamera;
 
-    Item LeftHandItem;
-    Item RightHandItem;
+    HandWrapper[] Hands;
 
     public ItemActivatedEvent onItemActivated = new ItemActivatedEvent();
     float xPixels = 300;
     float yPixels = 300;
-    Vector3 leftHandItemPosition;
-    Vector3 rightHandItemPosition;
-    Quaternion leftHandItemRotation;
-    Quaternion rightHandItemRotation;
 
     protected override void Start()
 	{
@@ -37,14 +41,29 @@ public class PlayerInventory : BaseMonoBehaviour
         tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
         player = GetComponent<Player>();
 		InputManager.I.onPickUpKeyPressed.AddListener(PickUpItem);
-		//InputManager.I.onActivateItemKeyPressed.AddListener(InteractItem);
 		InputManager.I.onActivateItemKeyPressed.AddListener(PlayerInteract);
 
-		UIManager.I.onToolsInventoryClosedEvent.AddListener((hand) => { AllowPickup = true; AllowActivate = true; });
+        InputManager.I.onLeftHandShowHide.AddListener(() => { ShowHideHand(Hand.Left); });
+        InputManager.I.onRightHandShowHide.AddListener(() => { ShowHideHand(Hand.Right); });
+
+        UIManager.I.onToolsInventoryClosedEvent.AddListener((hand) => { AllowPickup = true; AllowActivate = true; });
         UIManager.I.onToolsInventoryOpenedEvent.AddListener((hand) => { AllowPickup = false; AllowActivate = false; });
 
         ToolsInventoryManager.I.onToolSelected.AddListener(PutItemInHand);
 
+        Hands = new HandWrapper[2];
+        Hands[0] = new HandWrapper() { hand = Hand.Left };
+        Hands[1] = new HandWrapper() { hand = Hand.Right };
+    }
+
+    public void ShowHideHand(Hand hand)
+    {
+        Hands[(int)hand].Show = !Hands[(int)hand].Show;
+        if (Hands[(int)hand].Item)
+        {
+            Hands[(int)hand].Item.IsEnabled = Hands[(int)hand].Show;
+            Hands[(int)hand].Item.gameObject.SetActive(Hands[(int)hand].Show);
+        }
     }
 
     public List<ItemData> Inventory => _playerInventory;
@@ -129,18 +148,16 @@ public class PlayerInventory : BaseMonoBehaviour
 
 	public void PutItemInHand(GameObject o, Hand hand)
     {
-        leftHandItemPosition = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * 3));
-        leftHandItemRotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, CameraManager.I._MainCamera.transform.position - leftHandItemPosition);
+        HandWrapper CurrentHand = Hands[(int)hand];
+        HandWrapper OtherHand = Hands[(int)Mathf.Repeat(((int)hand) + 1, 2)];
 
-        rightHandItemPosition = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(Screen.width - xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * 3));
-        rightHandItemRotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, CameraManager.I._MainCamera.transform.position - rightHandItemPosition);
+        Hands[0].ItemPosition = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * 3));
+        Hands[0].ItemRotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, CameraManager.I._MainCamera.transform.position - Hands[0].ItemPosition);
 
-        if (hand == Hand.Left && RightHandItem && RightHandItem._itemData._itemName == o.GetComponent<Item>()._itemData._itemName)
-        {
-            SwapHands();
-            return;
-        }
-        if (hand == Hand.Right && LeftHandItem && LeftHandItem._itemData._itemName == o.GetComponent<Item>()._itemData._itemName)
+        Hands[1].ItemPosition = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(Screen.width - xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * 3));
+        Hands[1].ItemRotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, CameraManager.I._MainCamera.transform.position - Hands[1].ItemPosition);
+
+        if (OtherHand.Item && OtherHand.Item._itemData._itemName == o.GetComponent<Item>()._itemData._itemName)
         {
             SwapHands();
             return;
@@ -149,39 +166,30 @@ public class PlayerInventory : BaseMonoBehaviour
         GameObject newone = Instantiate(o);
         newone.transform.SetParent(CameraManager.I._MainCamera.transform);
 
-        if (hand == Hand.Left)
-        {
-            if (LeftHandItem)
-                Destroy(LeftHandItem.gameObject);
-            LeftHandItem = newone.GetComponent<Item>();
-            LeftHandItem.IsEnabled = true;
+        if (CurrentHand.Item)
+            Destroy(CurrentHand.Item.gameObject);
 
-            LeftHandItem.transform.position = leftHandItemPosition;
-            LeftHandItem.transform.rotation = leftHandItemRotation;
-        }
-        else
-        {
-            if (RightHandItem)
-                Destroy(RightHandItem.gameObject);
-            RightHandItem = newone.GetComponent<Item>();
-            RightHandItem.IsEnabled = true;
-            
-            RightHandItem.transform.position = rightHandItemPosition;
-            RightHandItem.transform.rotation = rightHandItemRotation;
-        }
+        CurrentHand.Item = newone.GetComponent<Item>();
+        CurrentHand.Item.IsEnabled = true;
+
+        CurrentHand.Item.transform.position = CurrentHand.ItemPosition;
+        CurrentHand.Item.transform.rotation = CurrentHand.ItemRotation;
+
     }
 
     public void SwapHands() {
-        (LeftHandItem, RightHandItem) = (RightHandItem, LeftHandItem);
-        if (RightHandItem)
+
+        (Hands[0].Item, Hands[1].Item) = (Hands[1].Item, Hands[0].Item);
+
+        if (Hands[0].Item)
         {
-            RightHandItem.transform.position = rightHandItemPosition;
-            RightHandItem.transform.rotation = rightHandItemRotation;
+            Hands[0].Item.transform.position = Hands[0].ItemPosition;
+            Hands[0].Item.transform.rotation = Hands[0].ItemRotation;
         }
-        if (LeftHandItem)
-        { 
-            LeftHandItem.transform.position = leftHandItemPosition;
-            LeftHandItem.transform.rotation = leftHandItemRotation;
+        if (Hands[1].Item)
+        {
+            Hands[1].Item.transform.position = Hands[1].ItemPosition;
+            Hands[1].Item.transform.rotation = Hands[1].ItemRotation;
         }
     }
 }
