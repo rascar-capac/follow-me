@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: 1556ae67fe83b6f44b85d10d3898ab74
+guid: 5783bee423f6f8148beee10aeb5eb6a0
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_Plants
+    second: {fileID: 2100000, guid: bae11db5cc23d4648a38277111bd06d1, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -68,7 +73,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     serializedVersion: 3
