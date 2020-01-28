@@ -97,12 +97,15 @@ public class GameData : ScriptableObject
 	public float EnergyTribeGainPerSecond = 1f;
 
 	[Title("Tribe speed")]
-	[TabGroup("Tribe")][Tooltip("Default speed of Tribe")]
-	public float InitialSpeedTribe = 20f;
-	[TabGroup("Tribe")][Tooltip("Critical (energy low) speed multiplicator of Tribe (speed * multiplicator = new speed)")]
-	public float CriticalSpeedTribeMultiplicator = 0.5f;
-	[TabGroup("Tribe")][Tooltip("Default speed rotation of Tribe")]
-    public float InitialSpeedRotationTribe = 10f;
+	[TabGroup("Tribe")]
+	[Tooltip("Futur Tribe Properties")]
+	public TribeProperties TribeProperties;
+	//[TabGroup("Tribe")][Tooltip("Default speed of Tribe")]
+	//public float InitialSpeedTribe = 20f;
+	//[TabGroup("Tribe")][Tooltip("Critical (energy low) speed multiplicator of Tribe (speed * multiplicator = new speed)")]
+	//public float CriticalSpeedTribeMultiplicator = 0.5f;
+	//[TabGroup("Tribe")][Tooltip("Default speed rotation of Tribe")]
+ //   public float InitialSpeedRotationTribe = 10f;
 
     [Title("Ambience parameters")]
 	[TabGroup("Ambience")][Tooltip("Day states (night and day)")]

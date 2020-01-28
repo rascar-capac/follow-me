@@ -12,23 +12,27 @@ public enum TribeMovementsMode
 	Wait
 }
 
+[System.Serializable]
+public struct TribeProperties
+{
+	public float MaxSpeed;
+	public float MaxAngularSpeed;
+	public float AccelerationForce;
+	public float DecelerationForce;
+	public float MinDistForAcceleration;
+	public float MinDistForDeceleration;
+	public float CriticalSpeedMultiplicator;
+	//[TabGroup("Tribe")]
+	//[Tooltip("Critical (energy low) speed multiplicator of Tribe (speed * multiplicator = new speed)")]
+
+}
+
 public class Tribe : ZoneInteractable
 {
-	#region Tribe Modes
+	public TribeProperties TribeProperties;
 
 	[ShowInInspector][ReadOnly]
 	TribeMovementsMode _TribeMovementsMode;
-
-	#endregion
-
-	#region Tribe Movements
-
-	public float AccelerationForce;
-	public float DecelerationForce;
-	public float CloseEnoughMeters;
-
-	#endregion
-
 	#region Tribe Energy
 
 	[Header("Current Tribe energy")]
@@ -55,6 +59,8 @@ public class Tribe : ZoneInteractable
     {
         base.Start();
 
+		TribeProperties = GameManager.I._data.TribeProperties;
+
 		_TribeNavAgent = GetComponentInParent<NavMeshAgent>();
 		_Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
 		_PlayerMovement = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerMovement>();
@@ -80,12 +86,7 @@ public class Tribe : ZoneInteractable
 
 		// Acceleration and deceleration controls of Tribe
 		if (_TribeNavAgent.hasPath)
-			_TribeNavAgent.acceleration = (_TribeNavAgent.remainingDistance < CloseEnoughMeters) ? DecelerationForce : AccelerationForce;
-	}
-
-	void Test()
-	{
-		Debug.Log("Test");
+			_TribeNavAgent.acceleration = (_TribeNavAgent.remainingDistance < TribeProperties.MinDistForDeceleration) ? TribeProperties.DecelerationForce : TribeProperties.AccelerationForce;
 	}
 
 	#region Tribe Movements
@@ -109,7 +110,6 @@ public class Tribe : ZoneInteractable
 	public void ModeFollowPlayer()
 	{
 		_TribeMovementsMode = TribeMovementsMode.FollowPlayer;
-		//AmbiantManager.I.onHourChanged.AddListener(TribeFollowPlayer);
 		_PlayerMovement.onPlayerHasMoved.AddListener(TribeFollowPlayer);
 	}
 	void TribeFollowPlayer(Vector3 playerPosition)
@@ -122,11 +122,8 @@ public class Tribe : ZoneInteractable
 	public void ModeStopAndWait()
 	{
 		_TribeMovementsMode = TribeMovementsMode.Wait;
-		//AmbiantManager.I.onHourChanged.RemoveListener(TribeFollowPlayer);
 		_PlayerMovement.onPlayerHasMoved.RemoveListener(TribeFollowPlayer);
-
-		//if (_TribeMovementsMode == TribeMovementsMode.FollowPlayer)
-		//	AmbiantManager.I.onHourChanged.RemoveListener(TribeFollowPlayer);
+		_TribeNavAgent.ResetPath();
 	}
 
 	#endregion
@@ -169,13 +166,16 @@ public class Tribe : ZoneInteractable
 
 	void TribeInDefaultSpeed()
 	{
-		_TribeNavAgent.speed = GameManager.I._data.InitialSpeedTribe;
-        _TribeNavAgent.angularSpeed = GameManager.I._data.InitialSpeedRotationTribe;
-    }
+		//_TribeNavAgent.speed = GameManager.I._data.InitialSpeedTribe;
+		//_TribeNavAgent.angularSpeed = GameManager.I._data.InitialSpeedRotationTribe;
+		_TribeNavAgent.speed = GameManager.I._data.TribeProperties.MaxSpeed;
+		_TribeNavAgent.angularSpeed = GameManager.I._data.TribeProperties.MaxAngularSpeed;
+	}
 
 	void TribeInCriticalSpeed()
 	{
-		_TribeNavAgent.speed = GameManager.I._data.InitialSpeedTribe * GameManager.I._data.CriticalSpeedTribeMultiplicator;
+		//_TribeNavAgent.speed = GameManager.I._data.InitialSpeedTribe * GameManager.I._data.CriticalSpeedTribeMultiplicator;
+		_TribeNavAgent.speed = GameManager.I._data.TribeProperties.MaxSpeed * GameManager.I._data.TribeProperties.CriticalSpeedMultiplicator;
 	}
 
 	#endregion
