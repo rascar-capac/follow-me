@@ -15,7 +15,7 @@ public class PlayerMovement : BaseMonoBehaviour
     public float _jumpHeight = 3f;
     [Header("The game object bottom of the player to check he is grounded.")]
     public Transform _groundCheck;
-    public float _groundDistance = 0.4f;
+    public float _groundDistance = 0.0f;
     [Header("The Layer of the ground or element on which we can walk.")]
     public LayerMask _groundMask;
 
@@ -27,7 +27,7 @@ public class PlayerMovement : BaseMonoBehaviour
     Vector3 _velocity;
     bool _isGrounded;
     public bool IsTooFar = false;
-    public float TribeDistance = 0.0f;
+    public float TribeDistance = 0.1f;
     GameObject Tribe;
     Player _player;
     bool AllowMove = true;
