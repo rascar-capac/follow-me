@@ -4,17 +4,23 @@ ModelImporter:
   serializedVersion: 26
   internalIDToNameTable:
   - first:
-      74: 635965950524157907
-    second: Armature|@activate
+      74: 3556621292053809310
+    second: rig_Beacon@activate
   - first:
-      74: -3926259194085362685
-    second: Armature|@idle
+      74: -5000775558324994273
+    second: rig_Beacon@deactivate
   - first:
-      74: 1463797176767312508
-    second: Armature|RingInnerAction
+      74: -336751291341813637
+    second: rig_Beacon@idleClosed
   - first:
-      74: 5834874192523715653
-    second: Armature|RingOuterAction
+      74: 2477863404032919214
+    second: rig_Beacon@idleOpened
+  - first:
+      74: -2321579460094723413
+    second: rig_Beacon|RingInnerAction
+  - first:
+      74: -8907680137876306351
+    second: rig_Beacon|RingOuterAction
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -59,8 +65,8 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Armature|@activate
-      takeName: Armature|@activate
+      name: rig_Beacon@activate
+      takeName: rig_Beacon|@activate
       internalID: 0
       firstFrame: 0
       lastFrame: 60
@@ -88,8 +94,37 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature|@idle
-      takeName: Armature|@idle
+      name: rig_Beacon@deactivate
+      takeName: rig_Beacon|@deactivate
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: rig_Beacon@idleClosed
+      takeName: rig_Beacon|@idleClosed
       internalID: 0
       firstFrame: 0
       lastFrame: 60
@@ -99,7 +134,36 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: rig_Beacon@idleOpened
+      takeName: rig_Beacon|@idleOpened
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -167,7 +231,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: 
+    rootMotionBoneName: Root
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
