@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : BaseMonoBehaviour
@@ -30,6 +31,8 @@ public class PlayerMovement : BaseMonoBehaviour
     GameObject Tribe;
     Player _player;
     bool AllowMove = true;
+
+	public PlayerHasMovedEvent onPlayerHasMoved = new PlayerHasMovedEvent();
 
     // Start is called before the first frame update
     protected override void Start()
@@ -104,6 +107,9 @@ public class PlayerMovement : BaseMonoBehaviour
         Vector3 PlayerPositionProjected = Vector3.ProjectOnPlane(transform.position, Vector3.up);
         TribeDistance = Vector3.Distance(TribePositionProjected, PlayerPositionProjected);
         IsTooFar = TribeDistance > GameManager.I._data.MaximumDistanceOfTribe;
+
+		if (TribeDistance > 5)
+			onPlayerHasMoved.Invoke(transform.position);
     }
 
     void ResetSpeed()
@@ -111,3 +117,5 @@ public class PlayerMovement : BaseMonoBehaviour
         _speed = GameManager.I._data.InitialPlayerSpeed;
     }
 }
+
+public class PlayerHasMovedEvent : UnityEvent<Vector3> { }

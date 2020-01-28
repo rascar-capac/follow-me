@@ -48,6 +48,7 @@ public class Tribe : ZoneInteractable
 
 	NavMeshAgent _TribeNavAgent;
 	Player _Player;
+	PlayerMovement _PlayerMovement;
 
 
 	protected override void Start()
@@ -56,6 +57,7 @@ public class Tribe : ZoneInteractable
 
 		_TribeNavAgent = GetComponentInParent<NavMeshAgent>();
 		_Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
+		_PlayerMovement = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerMovement>();
 
 		Energy = GameManager.I._data.InitialTribeEnergy;
 		CriticalEnergy = (Energy / 100) * GameManager.I._data.PercentEnergyTribeForCritical;
@@ -81,6 +83,11 @@ public class Tribe : ZoneInteractable
 			_TribeNavAgent.acceleration = (_TribeNavAgent.remainingDistance < CloseEnoughMeters) ? DecelerationForce : AccelerationForce;
 	}
 
+	void Test()
+	{
+		Debug.Log("Test");
+	}
+
 	#region Tribe Movements
 
 	public void SwitchModeFollowAndWait()
@@ -102,11 +109,12 @@ public class Tribe : ZoneInteractable
 	public void ModeFollowPlayer()
 	{
 		_TribeMovementsMode = TribeMovementsMode.FollowPlayer;
-		AmbiantManager.I.onHourChanged.AddListener(TribeFollowPlayer);
+		//AmbiantManager.I.onHourChanged.AddListener(TribeFollowPlayer);
+		_PlayerMovement.onPlayerHasMoved.AddListener(TribeFollowPlayer);
 	}
-	void TribeFollowPlayer(int currentHours, DayState currentDayState)
+	void TribeFollowPlayer(Vector3 playerPosition)
 	{
-		Vector3 playerPositionXZ = new Vector3(_Player.transform.position.x, 0, _Player.transform.position.z);
+		Vector3 playerPositionXZ = new Vector3(playerPosition.x, 0, playerPosition.z);
 		if (_TribeNavAgent.destination != playerPositionXZ)
 			_TribeNavAgent.SetDestination(playerPositionXZ);
 	}
@@ -114,7 +122,8 @@ public class Tribe : ZoneInteractable
 	public void ModeStopAndWait()
 	{
 		_TribeMovementsMode = TribeMovementsMode.Wait;
-		AmbiantManager.I.onHourChanged.RemoveListener(TribeFollowPlayer);
+		//AmbiantManager.I.onHourChanged.RemoveListener(TribeFollowPlayer);
+		_PlayerMovement.onPlayerHasMoved.RemoveListener(TribeFollowPlayer);
 
 		//if (_TribeMovementsMode == TribeMovementsMode.FollowPlayer)
 		//	AmbiantManager.I.onHourChanged.RemoveListener(TribeFollowPlayer);
