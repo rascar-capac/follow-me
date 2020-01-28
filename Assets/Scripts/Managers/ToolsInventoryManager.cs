@@ -20,6 +20,7 @@ public class ToolsInventoryManager : Singleton<ToolsInventoryManager>
     public float AngleInterval;
     public int CurrentIndex = 0;
     public ToolSelectedEvent onToolSelected = new ToolSelectedEvent();
+    public Hand CurrentHand;
 
     protected override void Start()
     {
@@ -36,22 +37,26 @@ public class ToolsInventoryManager : Singleton<ToolsInventoryManager>
             ToolItems[i].renderer = ToolItems[i].CreatedObject.GetComponentInChildren<MeshRenderer>();
             ToolItems[i].InitialColor = ToolItems[i].renderer.material.color;
         }
+        //InputManager.I.onPickUpKeyPressed.AddListener(SelectObjectLeft);
+        //InputManager.I.onUIOpenCloseInventoryKeyPressed.AddListener(SelectObjectRight);
+
         InputManager.I.onLookInputAxisEvent.AddListener(PointObject);
-        InputManager.I.onPickUpKeyPressed.AddListener(SelectObjectLeft);
-        InputManager.I.onUIInventoryKeyPressed.AddListener(SelectObjectRight);
+        UIManager.I.onToolsInventoryOpenedEvent.AddListener(Init);
+        UIManager.I.onToolsInventoryClosedEvent.AddListener(SelectObject);
     }
 
-    private void Update()
+    public void Init(Hand hand)
     {
         if (!UIManager.I.ToolsInvetoryOpened)
             return;
+
+        CurrentHand = hand;
 
         for (int i = 0; i < ToolItems.Length; i++)
         {
             ToolItems[i].CreatedObject.transform.rotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, -CameraManager.I._MainCamera.transform.forward);
         }
     }
-
 
     public void PointObject(InputAxisUnityEventArg axis)
     {
@@ -74,16 +79,21 @@ public class ToolsInventoryManager : Singleton<ToolsInventoryManager>
         }
     }
 
-    public void SelectObjectLeft()
+    public void SelectObject(Hand hand)
     {
         if (!UIManager.I.ToolsInvetoryOpened)
             return;
-        onToolSelected?.Invoke(ToolItems[CurrentIndex].Prefab, Hand.Left);
+        onToolSelected?.Invoke(ToolItems[CurrentIndex].Prefab, hand);
     }
-    public void SelectObjectRight()
-    {
-        if (!UIManager.I.ToolsInvetoryOpened)
-            return;
-        onToolSelected?.Invoke(ToolItems[CurrentIndex].Prefab, Hand.Right);
-    }
+
+    //public void SelectObjectLeft()
+    //{
+
+    //}
+    //public void SelectObjectRight()
+    //{
+    //    if (!UIManager.I.ToolsInvetoryOpened)
+    //        return;
+    //    onToolSelected?.Invoke(ToolItems[CurrentIndex].Prefab, Hand.Right);
+    //}
 }

@@ -49,8 +49,8 @@ public class PlayerInventory : BaseMonoBehaviour
 		//InputManager.I.onActivateItemKeyPressed.AddListener(InteractItem);
 		InputManager.I.onActivateItemKeyPressed.AddListener(PlayerInteract);
 
-		UIManager.I.onToolsInventoryClosedEvent.AddListener(() => { AllowPickup = true; AllowActivate = true; });
-        UIManager.I.onToolsInventoryOpenedEvent.AddListener(() => { AllowPickup = false; AllowActivate = false; });
+		UIManager.I.onToolsInventoryClosedEvent.AddListener((hand) => { AllowPickup = true; AllowActivate = true; });
+        UIManager.I.onToolsInventoryOpenedEvent.AddListener((hand) => { AllowPickup = false; AllowActivate = false; });
 
         ToolsInventoryManager.I.onToolSelected.AddListener(PutItemInHand);
 

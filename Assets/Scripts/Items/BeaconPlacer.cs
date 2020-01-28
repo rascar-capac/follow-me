@@ -32,7 +32,7 @@ public class BeaconPlacer : Item
         _player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerMovement>();
         _tribeAgent = ((GameObject)ObjectsManager.I["TribeGroundPosition"]).GetComponent<NavMeshAgent>();
 
-        InputManager.I.onBeaconKeyPressed.AddListener(PlaceBeacon);
+        InputManager.I.onBeaconPlaceButtonPressed.AddListener(PlaceBeacon);
         InputManager.I.onBeaconActivateKeyPressed.AddListener(BeaconActivation);
 
         Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();

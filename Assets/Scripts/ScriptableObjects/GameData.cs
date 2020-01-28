@@ -108,6 +108,74 @@ public class GameData : ScriptableObject
     [TabGroup("Zones")]
     [Tooltip("Final Turtle rock position after appearing (elevation position)")]
     public GameObject TurtleRockFinalPosition;
+
+    [Title("Inputs Parameters")]
+    [TabGroup("Inputs")]
+    [Header("Player Move is readonly (Left stick / Arrows)")]
+    [Header("Player Look is readonly (Right stick / Mouse)")]
+    [Tooltip("Pause the game")]
+    public PlayerInputs Input_Pause;
+    [TabGroup("Inputs")]
+    [Tooltip("Make the player run")]
+    public PlayerInputs Input_PlayerRun;
+    [TabGroup("Inputs")]
+    [Tooltip("Order tribe to follow the player")]
+    public PlayerInputs Input_TribeOrder;
+    [TabGroup("Inputs")]
+    [Tooltip("Open left hand inventory tools")]
+    public PlayerInputs Input_LeftHand_SelectTool;
+    [TabGroup("Inputs")]
+    [Tooltip("Open right hand inventory tools")]
+    public PlayerInputs Input_RightHand_SelectTool;
+    [TabGroup("Inputs")]
+    [Tooltip("Raise/Lower left hand")]
+    public PlayerInputs Input_LeftHand_ShowHide;
+    [TabGroup("Inputs")]
+    [Tooltip("Raise/Lower right hand")]
+    public PlayerInputs Input_RightHand_ShowHide;
+    [TabGroup("Inputs")]
+    [Tooltip("Place a beacon")]
+    public PlayerInputs Input_BeaconPlace;
+    [TabGroup("Inputs")]
+    [Tooltip("Activate a beacon")]
+    public PlayerInputs Input_BeaconActivate;
+    [TabGroup("Inputs")]
+    [Tooltip("Activate / Pickup an item")]
+    public PlayerInputs Input_Item_ActivationPickup;
+    [TabGroup("Inputs")]
+    [Tooltip("Open items inventory")]
+    public PlayerInputs Input_InventoryOpenClose;
+    [TabGroup("Inputs")]
+    [Tooltip("Select in inventory")]
+    public PlayerInputs Input_InventorySelect;
+    [TabGroup("Inputs")]
+    [Tooltip("back in inventory")]
+    public PlayerInputs Input_InventoryBack;
+
+}
+
+[System.Serializable]
+public class PlayerInputs
+{
+    public XBoxInputs XBox = XBoxInputs.None;
+    public KeyCode Keyboard = KeyCode.None;
+}
+
+public enum XBoxInputs
+{
+    None,
+    A,
+    B,
+    X,
+    Y,
+    LB,
+    RB,
+    LT,
+    RT,
+    Back,
+    Start,
+    LeftStickPush,
+    RightStickPush
 }
 
 public enum DayState

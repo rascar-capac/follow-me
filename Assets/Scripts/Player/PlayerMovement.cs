@@ -45,8 +45,8 @@ public class PlayerMovement : BaseMonoBehaviour
         InputManager.I.onRunButtonPressed.AddListener(EnableRun);
         InputManager.I.onRunButtonReleased.AddListener(DisableRun);
         InputManager.I.onMoveInputAxisEvent.AddListener(Move);
-        UIManager.I.onToolsInventoryClosedEvent.AddListener(() => { AllowMove = true; });
-        UIManager.I.onToolsInventoryOpenedEvent.AddListener(() => { AllowMove = false; });
+        UIManager.I.onToolsInventoryClosedEvent.AddListener((hand) => { AllowMove = true; });
+        UIManager.I.onToolsInventoryOpenedEvent.AddListener((hand) => { AllowMove = false; });
     }
 
     void EnableRun()

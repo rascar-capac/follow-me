@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
+public class ToolsInventoryEvent : UnityEvent<Hand> { }
 public class UIManager : Singleton<UIManager>
 {
     #region References Player
@@ -46,8 +47,8 @@ public class UIManager : Singleton<UIManager>
 
 	#region Inventory Variables
 	List<GameObject> _inventoryCellList = new List<GameObject>();
-    public UnityEvent onToolsInventoryOpenedEvent = new UnityEvent();
-    public UnityEvent onToolsInventoryClosedEvent = new UnityEvent();
+    public ToolsInventoryEvent onToolsInventoryOpenedEvent = new ToolsInventoryEvent();
+    public ToolsInventoryEvent onToolsInventoryClosedEvent = new ToolsInventoryEvent();
     public bool ToolsInvetoryOpened = false;
     bool AllowOpenInventory = true;
     #endregion
@@ -55,6 +56,7 @@ public class UIManager : Singleton<UIManager>
     List<GameObject> _questCellList = new List<GameObject>();
     #endregion
 
+    Hand CurrentOpenedHand;
 
 
     #region start, update, awake...
@@ -70,16 +72,20 @@ public class UIManager : Singleton<UIManager>
 
         _refTribe.onTribeEnergyEnterCritical.AddListener(AlertTribeEnergyCritical);
 
-        InputManager.I.onUIPlayerKeyPressed.AddListener(OpenPlayerPanel);
-		InputManager.I.onUITribeKeyPressed.AddListener(OpenTribePanel);
-		InputManager.I.onUIInventoryKeyPressed.AddListener(OpenInventoryPanel);
-		InputManager.I.onUIQuestKeyPressed.AddListener(OpenQuestPanel);
-		InputManager.I.onUIMapKeyPressed.AddListener(OpenMapPanel);
-		InputManager.I.onUIOptionsKeyPressed.AddListener(OpenOptionsPanel);
-        InputManager.I.onToolInventoryButtonPressed.AddListener(OpenToolsInventory);
-        InputManager.I.onToolInventoryButtonReleased.AddListener(CloseToolsInventory);
-        onToolsInventoryOpenedEvent.AddListener(() => { AllowOpenInventory = false;  });
-        onToolsInventoryClosedEvent.AddListener(() => { AllowOpenInventory = true; });
+  //      InputManager.I.onUIPlayerKeyPressed.AddListener(OpenPlayerPanel);
+		//InputManager.I.onUITribeKeyPressed.AddListener(OpenTribePanel);
+		InputManager.I.onUIOpenCloseInventoryKeyPressed.AddListener(OpenInventoryPanel);
+        //InputManager.I.onUIQuestKeyPressed.AddListener(OpenQuestPanel);
+        //InputManager.I.onUIMapKeyPressed.AddListener(OpenMapPanel);
+        //InputManager.I.onUIOptionsKeyPressed.AddListener(OpenOptionsPanel);
+
+        InputManager.I.onLeftHandOpenToolInventory.AddListener(() => { OpenToolsInventory(Hand.Left); }) ;
+        InputManager.I.onLeftHandCloseToolInventory.AddListener(() => { CloseToolsInventory(Hand.Left); });
+        InputManager.I.onRightHandOpenToolInventory.AddListener(() => { OpenToolsInventory(Hand.Right); });
+        InputManager.I.onRightHandCloseToolInventory.AddListener(() => { CloseToolsInventory(Hand.Right); });
+
+        onToolsInventoryOpenedEvent.AddListener((hand) => { AllowOpenInventory = false; });
+        onToolsInventoryClosedEvent.AddListener((hand) => { AllowOpenInventory = true; });
 
         CloseMenu();
 
@@ -156,19 +162,19 @@ public class UIManager : Singleton<UIManager>
 	{
 		OpenMenu("OptionsPanel");
 	}
-    public void OpenToolsInventory()
+    public void OpenToolsInventory(Hand hand)
     {
         ToolsInventory.gameObject.SetActive(true);
         ToolsInventory.transform.position = CameraManager.I._MainCamera.transform.position + CameraManager.I._MainCamera.transform.forward * 7f;
         ToolsInventory.transform.rotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, -CameraManager.I._MainCamera.transform.forward);
         ToolsInvetoryOpened = true;
-        onToolsInventoryOpenedEvent?.Invoke();
+        onToolsInventoryOpenedEvent?.Invoke(hand);
     }
-    public void CloseToolsInventory()
+    public void CloseToolsInventory(Hand hand)
     {
+        onToolsInventoryClosedEvent?.Invoke(hand);
         ToolsInventory.gameObject.SetActive(false);
         ToolsInvetoryOpened = false;
-        onToolsInventoryClosedEvent?.Invoke();
     }
     #endregion
 
