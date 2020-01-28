@@ -253,12 +253,12 @@ public class UIManager : Singleton<UIManager>
 			CleanCellsInventory();
 
 		// Instantiate all cells for each items in inventory and set-up cell
-		for (int i = 0; i < _refPlayerInventory._playerInventory.Count; i++)
+		for (int i = 0; i < _refPlayerInventory.Inventory.Count; i++)
 		{
 			_inventoryCellList.Add(Instantiate(_inventoryCellAsset, _inventoryContent));
 
-			_inventoryCellList[i].transform.GetChild(0).GetComponent<Image>().sprite = _refPlayerInventory._playerInventory[i]._itemIcon;
-			_inventoryCellList[i].transform.GetChild(1).GetComponent<Text>().text = _refPlayerInventory._playerInventory[i]._itemName;
+			_inventoryCellList[i].transform.GetChild(0).GetComponent<Image>().sprite = _refPlayerInventory.Inventory[i]._itemIcon;
+			_inventoryCellList[i].transform.GetChild(1).GetComponent<Text>().text = _refPlayerInventory.Inventory[i]._itemName;
 			//_inventoryUiItemList[i].transform.GetChild(2).GetComponent<Image>().sprite = _refPlayerInventory._playerInventory[i]._itemIcon;
 		}
 	}
