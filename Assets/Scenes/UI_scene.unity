@@ -397,37 +397,49 @@ PrefabInstance:
     - target: {fileID: 3985127017416990422, guid: f734d39bcc193b14594daa5285973c9a,
         type: 3}
       propertyPath: ToolItems.Array.size
-      value: 8
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3985127017416990422, guid: f734d39bcc193b14594daa5285973c9a,
         type: 3}
       propertyPath: ToolItems.Array.data[3].Prefab
       value: 
-      objectReference: {fileID: 7642297270107902926, guid: 595c218bc8089a540983684d1efab7f6,
+      objectReference: {fileID: 7642297270107902926, guid: e4f8620be679f244cb185fc6c6fe9f06,
         type: 3}
     - target: {fileID: 3985127017416990422, guid: f734d39bcc193b14594daa5285973c9a,
         type: 3}
       propertyPath: ToolItems.Array.data[4].Prefab
       value: 
-      objectReference: {fileID: 7642297270107902926, guid: ad16fc07ee9c19d4e919541dc6ff7f82,
+      objectReference: {fileID: 7642297270107902926, guid: d666e67ca930eaa4ab39d5f48459f5bd,
         type: 3}
     - target: {fileID: 3985127017416990422, guid: f734d39bcc193b14594daa5285973c9a,
         type: 3}
       propertyPath: ToolItems.Array.data[5].Prefab
       value: 
-      objectReference: {fileID: 7642297270107902926, guid: 573928a45c29c4747aea3d7c7de23d69,
+      objectReference: {fileID: 7642297270107902926, guid: d666e67ca930eaa4ab39d5f48459f5bd,
         type: 3}
     - target: {fileID: 3985127017416990422, guid: f734d39bcc193b14594daa5285973c9a,
         type: 3}
       propertyPath: ToolItems.Array.data[6].Prefab
       value: 
-      objectReference: {fileID: 7642297270107902926, guid: e4f8620be679f244cb185fc6c6fe9f06,
+      objectReference: {fileID: 7642297270107902926, guid: d666e67ca930eaa4ab39d5f48459f5bd,
         type: 3}
     - target: {fileID: 3985127017416990422, guid: f734d39bcc193b14594daa5285973c9a,
         type: 3}
       propertyPath: ToolItems.Array.data[7].Prefab
       value: 
       objectReference: {fileID: 7642297270107902926, guid: d666e67ca930eaa4ab39d5f48459f5bd,
+        type: 3}
+    - target: {fileID: 3985127017416990422, guid: f734d39bcc193b14594daa5285973c9a,
+        type: 3}
+      propertyPath: ToolItems.Array.data[2].Prefab
+      value: 
+      objectReference: {fileID: 7642297270107902926, guid: 573928a45c29c4747aea3d7c7de23d69,
+        type: 3}
+    - target: {fileID: 3985127017416990422, guid: f734d39bcc193b14594daa5285973c9a,
+        type: 3}
+      propertyPath: ToolItems.Array.data[1].Prefab
+      value: 
+      objectReference: {fileID: 7642297270107902926, guid: ad16fc07ee9c19d4e919541dc6ff7f82,
         type: 3}
     - target: {fileID: 3985127017416990423, guid: f734d39bcc193b14594daa5285973c9a,
         type: 3}
