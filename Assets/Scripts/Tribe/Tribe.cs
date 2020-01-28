@@ -3,32 +3,70 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.AI;
+using Sirenix.OdinInspector;
+
+public enum TribeMovementsMode
+{
+	GoToBeacon,
+	FollowPlayer,
+	Wait
+}
 
 public class Tribe : ZoneInteractable
 {
+	#region Tribe Modes
+
+	[ShowInInspector][ReadOnly]
+	TribeMovementsMode _TribeMovementsMode;
+
+	#endregion
+
+	#region Tribe Movements
+
+	public float AccelerationForce;
+	public float DecelerationForce;
+	public float CloseEnoughMeters;
+
+	#endregion
+
+	#region Tribe Energy
+
 	[Header("Current Tribe energy")]
 	public float Energy = 100f;
-
 	float CriticalEnergy;
     bool IsEnergyCritical => Energy <= CriticalEnergy;
     bool PreviousIsEnergyCritical = false;
 
-    public UnityEvent onTribeEnergyEnterCritical = new UnityEvent();
+	#endregion
+
+	#region Tribe Events
+
+	public UnityEvent onTribeEnergyEnterCritical = new UnityEvent();
 	public UnityEvent onTribeEnergyExitCritical = new UnityEvent();
 
-	NavMeshAgent _tribeNavAgent;
+	#endregion
+
+	NavMeshAgent _TribeNavAgent;
+	Player _Player;
+
 
 	protected override void Start()
     {
         base.Start();
 
+		_TribeNavAgent = GetComponentInParent<NavMeshAgent>();
+		_Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
+
 		Energy = GameManager.I._data.InitialTribeEnergy;
 		CriticalEnergy = (Energy / 100) * GameManager.I._data.PercentEnergyTribeForCritical;
 
-		_tribeNavAgent = GetComponentInParent<NavMeshAgent>();
 		TribeInDefaultSpeed();
+
 		onTribeEnergyEnterCritical.AddListener(TribeInCriticalSpeed);
 		onTribeEnergyExitCritical.AddListener(TribeInDefaultSpeed);
+		InputManager.I.onTribeOrderKeyPressed.AddListener(SwitchModeFollowAndWait);
+
+		ModeStopAndWait();
 	}
 
 	protected override void Update()
@@ -37,7 +75,55 @@ public class Tribe : ZoneInteractable
 
 		UpdateEnergy();
 		EnergyCritical();
+
+		// Acceleration and deceleration controls of Tribe
+		if (_TribeNavAgent.hasPath)
+			_TribeNavAgent.acceleration = (_TribeNavAgent.remainingDistance < CloseEnoughMeters) ? DecelerationForce : AccelerationForce;
 	}
+
+	#region Tribe Movements
+
+	public void SwitchModeFollowAndWait()
+	{
+		if (_TribeMovementsMode == TribeMovementsMode.FollowPlayer)
+			ModeStopAndWait();
+		else if (_TribeMovementsMode == TribeMovementsMode.Wait || _TribeMovementsMode == TribeMovementsMode.GoToBeacon)
+			ModeFollowPlayer();
+	}
+
+	public void ModeGoToBeacon(Vector3 destination)
+	{
+		ModeStopAndWait();
+
+		_TribeMovementsMode = TribeMovementsMode.GoToBeacon;
+		_TribeNavAgent.SetDestination(new Vector3(destination.x, 0, destination.z));
+	}
+
+	public void ModeFollowPlayer()
+	{
+		_TribeMovementsMode = TribeMovementsMode.FollowPlayer;
+		AmbiantManager.I.onHourChanged.AddListener(TribeFollowPlayer);
+	}
+	void TribeFollowPlayer(int currentHours, DayState currentDayState)
+	{
+		Vector3 playerPositionXZ = new Vector3(_Player.transform.position.x, 0, _Player.transform.position.z);
+		if (_TribeNavAgent.destination != playerPositionXZ)
+			_TribeNavAgent.SetDestination(playerPositionXZ);
+	}
+
+	public void ModeStopAndWait()
+	{
+		_TribeMovementsMode = TribeMovementsMode.Wait;
+		AmbiantManager.I.onHourChanged.RemoveListener(TribeFollowPlayer);
+
+		//if (_TribeMovementsMode == TribeMovementsMode.FollowPlayer)
+		//	AmbiantManager.I.onHourChanged.RemoveListener(TribeFollowPlayer);
+	}
+
+	#endregion
+
+
+	#region Tribe energy
 
 	public void UpdateEnergy()
 	{
@@ -52,6 +138,7 @@ public class Tribe : ZoneInteractable
         // Clamp if life is out of range
         Energy = Mathf.Clamp(Energy, 0f, GameManager.I._data.InitialTribeEnergy);
 	}
+
 	void EnergyCritical()
 	{
 		if (IsEnergyCritical && !PreviousIsEnergyCritical)
@@ -65,16 +152,27 @@ public class Tribe : ZoneInteractable
 			onTribeEnergyExitCritical.Invoke();
 		}
 	}
+
+	#endregion
+
+
+	#region Tribe speed
+
 	void TribeInDefaultSpeed()
 	{
-		_tribeNavAgent.speed = GameManager.I._data.InitialSpeedTribe;
-        _tribeNavAgent.angularSpeed = GameManager.I._data.InitialSpeedRotationTribe;
+		_TribeNavAgent.speed = GameManager.I._data.InitialSpeedTribe;
+        _TribeNavAgent.angularSpeed = GameManager.I._data.InitialSpeedRotationTribe;
     }
 
 	void TribeInCriticalSpeed()
 	{
-		_tribeNavAgent.speed = GameManager.I._data.InitialSpeedTribe * GameManager.I._data.CriticalSpeedTribeMultiplicator;
+		_TribeNavAgent.speed = GameManager.I._data.InitialSpeedTribe * GameManager.I._data.CriticalSpeedTribeMultiplicator;
 	}
+
+	#endregion
+
+
+	#region Tribe in zone
 
 	public override void ApplyZoneEffect(Zone zone)
     {
@@ -94,4 +192,40 @@ public class Tribe : ZoneInteractable
         Energy += zone.LooseEnergySpeed * Time.deltaTime;
         Energy = Mathf.Clamp(Energy, 0f, GameManager.I._data.InitialTribeEnergy);
     }
+
+	#endregion
+
+
+	#region Debug NavMesh
+
+	//NavMeshPath path = new NavMeshPath();
+	//_TribeNavAgent.CalculatePath(new Vector3(_Player.transform.position.x, 0, _Player.transform.position.z), path);
+	//_TribeNavAgent.SetPath(path);
+
+	//void DebugNavMesh()
+	//{
+	//	Debug.Log("Speed = " + _TribeNavAgent.speed);
+	//	Debug.Log("Acceleration = " + _TribeNavAgent.acceleration);
+	//	Debug.Log("Angular speed = " + _TribeNavAgent.angularSpeed);
+	//	Debug.Log("Velocity = " + _TribeNavAgent.velocity);
+	//	Debug.Log("Desired Velocity = " + _TribeNavAgent.desiredVelocity);
+	//	Debug.Log("Destination = " + _TribeNavAgent.destination);
+	//	Debug.Log("Remaining Distance = " + _TribeNavAgent.remainingDistance);
+	//	Debug.Log("Stopping Distance = " + _TribeNavAgent.stoppingDistance);
+	//	Debug.Log("Steering Target = " + _TribeNavAgent.steeringTarget);
+	//	Debug.Log("Next Position = " + _TribeNavAgent.nextPosition);
+	//	Debug.Log("Update Position = " + _TribeNavAgent.updatePosition);
+	//	Debug.Log("Update Rotation = " + _TribeNavAgent.updateRotation);
+	//	Debug.Log("Auto Braking = " + _TribeNavAgent.autoBraking);
+	//	Debug.Log("Auro Repath = " + _TribeNavAgent.autoRepath);
+	//	Debug.Log("Has Path = " + _TribeNavAgent.hasPath);
+	//	Debug.Log("Is Stopped = " + _TribeNavAgent.isStopped);
+	//	Debug.Log("Path Status = " + _TribeNavAgent.path.status);
+	//	Debug.Log("Path Status = " + _TribeNavAgent.pathStatus);
+	//	Debug.Log("PathPending = " + _TribeNavAgent.pathPending);
+	//	Debug.Log("**********************************************");
+	//	Debug.Log("**********************************************");
+	//}
+
+	#endregion
 }

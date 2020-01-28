@@ -14,8 +14,9 @@ public class BeaconPlacer : Item
 	PlayerMovement _player;
     Player Player;
 	Camera _mainCamera;
-	NavMeshAgent _tribeAgent;
-	RaycastHit _hitInfo = new RaycastHit();
+	//NavMeshAgent _tribeAgent;
+	Tribe _Tribe;
+	RaycastHit _HitInfo = new RaycastHit();
 
 
 	protected override void Start()
@@ -30,9 +31,10 @@ public class BeaconPlacer : Item
 
         _mainCamera = CameraManager.I._MainCamera;
         _player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerMovement>();
-        _tribeAgent = ((GameObject)ObjectsManager.I["TribeGroundPosition"]).GetComponent<NavMeshAgent>();
+		//_tribeAgent = ((GameObject)ObjectsManager.I["TribeGroundPosition"]).GetComponent<NavMeshAgent>();
+		_Tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
 
-        InputManager.I.onBeaconPlaceButtonPressed.AddListener(PlaceBeacon);
+		InputManager.I.onBeaconPlaceButtonPressed.AddListener(PlaceBeacon);
         InputManager.I.onBeaconActivateKeyPressed.AddListener(BeaconActivation);
 
         Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
@@ -63,19 +65,18 @@ public class BeaconPlacer : Item
             return;
         }
 
-		if (Physics.Raycast(_mainCamera.transform.position + Vector3.ProjectOnPlane(_mainCamera.transform.forward, Vector3.up).normalized * GameManager.I._data.BeaconPlacementDistance, Vector3.down, out _hitInfo, 100.0f, DropableLayers))
+		if (Physics.Raycast(_mainCamera.transform.position + Vector3.ProjectOnPlane(_mainCamera.transform.forward, Vector3.up).normalized * GameManager.I._data.BeaconPlacementDistance, Vector3.down, out _HitInfo, 100.0f, DropableLayers))
 		{
-			
 			GameObject beacon =	Instantiate(_beaconPrefab);
 
-            beacon.transform.position = _hitInfo.point;
-			//_tribeAgent.destination = new Vector3(beacon.transform.position.x, 0, beacon.transform.position.z);
+            beacon.transform.position = _HitInfo.point;
             Player.PlacedBeacon.Add(beacon);
 		}
 	}
     public void ActivateBeacon(GameObject beacon)
     {
-        _tribeAgent.destination = new Vector3(beacon.transform.position.x, 0, beacon.transform.position.z);
+		//_tribeAgent.destination = new Vector3(beacon.transform.position.x, 0, beacon.transform.position.z);
+		_Tribe.ModeGoToBeacon(new Vector3(beacon.transform.position.x, 0, beacon.transform.position.z));
         beacon.GetComponentInChildren<Animator>().SetBool("IsOpened", true);
     }
     public void DeactivateBeacon(GameObject beacon)
