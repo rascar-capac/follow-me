@@ -19,7 +19,7 @@ public class QuestData : ScriptableObject
     [Header("List of zone the player must reached to complete the quest")]
     public List<Zone> Zones;
     [Header("List of items the player must activate to complete the quest")]
-    public List<Item> Items;
+    public List<GameObject> Items;
     [Header("List of rewards the player receives when the quest is completed")]
     public List<QuestRewardData> QuestRewardData;
 }

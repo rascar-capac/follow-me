@@ -21,6 +21,7 @@ public class PlayerMovement : BaseMonoBehaviour
     [Header("Player is running")]
     public bool IsRunning = false;
     bool PlayerMayRun = true;
+    public float PlayerRunGauge = 100f;
 
     Vector3 _velocity;
     bool _isGrounded;
@@ -38,7 +39,7 @@ public class PlayerMovement : BaseMonoBehaviour
         Tribe = (GameObject)ObjectsManager.I["TribeGroundPosition"];
         _speed = GameManager.I._data.InitialPlayerSpeed;
         _player = GetComponent<Player>();
-
+        PlayerRunGauge = GameManager.I._data.PlayerRunGaugeMax;
         _player.onPlayerEnergyNullEnter.AddListener(() => { if (GameManager.I._data.PlayerRunEnergyLowUnusable) PlayerMayRun = false; });
         _player.onPlayerEnergyNullExit.AddListener(() => { if (GameManager.I._data.PlayerRunEnergyLowUnusable) PlayerMayRun = true; });
 

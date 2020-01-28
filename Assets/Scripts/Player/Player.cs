@@ -51,14 +51,25 @@ public class Player : ZoneInteractable
         base.Update();
 		UpdateEnergy();
 		EnergyCritical();
-
+        UpdateRunGauge();
     }
 
-	public void UpdateEnergy()
+
+    public void UpdateRunGauge()
+    {
+        if (playerMove.IsRunning)
+            playerMove.PlayerRunGauge -= GameManager.I._data.PlayerRunCostBySecond * Time.deltaTime;
+        else
+            playerMove.PlayerRunGauge += GameManager.I._data.PlayerRunGainBySecond * Time.deltaTime;
+
+        playerMove.PlayerRunGauge = Mathf.Clamp(playerMove.PlayerRunGauge, 0, GameManager.I._data.PlayerRunGaugeMax);
+    }
+
+    public void UpdateEnergy()
 	{
         // Lost energy in journey
         if (AmbiantManager.I.IsDay && !InZones.Exists(z => z.GainEnergySpeed > 0))
-            Energy -= (GameManager.I._data.EnergyPlayerLostPerSecond+(playerMove.IsRunning ? GameManager.I._data.EnergyPlayerRunCostPerSecond:0)) * Time.deltaTime;
+            Energy -= GameManager.I._data.EnergyPlayerLostPerSecond * Time.deltaTime;
 
         // Gain energy in the night
         if (AmbiantManager.I.IsNight)
@@ -118,7 +129,7 @@ public class Player : ZoneInteractable
             {
                 foreach (ItemData it in rewards[i].Items)
                 {
-                    //Ajouter l'item dans l'inventaire;
+                    playerInventory.AddItemToInventory(it);
                 }
             }
             if (rewards[i].Quests != null)

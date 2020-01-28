@@ -28,19 +28,24 @@ public class Compass : Item
 
         float min = float.PositiveInfinity;
         float dist = 0.0f;
-        int minIndex = int.MaxValue;
-        
-        for (int i = 0;i<PlayerInventory.dynamicItems.Count;i++)
+        Item Nearest = null;
+
+        foreach (Quest q in Player.Quests)
         {
-            dist = Vector3.Distance(PlayerInventory.dynamicItems[i].transform.position, Needle.transform.position);
-            if (dist < min)
+            if (q.ItemsToActivate == null || q.ItemsToActivate.Count <= 0)
+                continue;
+
+            for (int i = 0; i < q.ItemsToActivate.Count; i++)
             {
-                min = dist;
-                minIndex = i;
+                dist = Vector3.Distance(q.ItemsToActivate[i].transform.position, Needle.transform.position);
+                if (dist < min)
+                {
+                    min = dist;
+                    Nearest = q.ItemsToActivate[i];
+                }
             }
         }
-
-        if (minIndex != int.MaxValue)
-            Needle.transform.LookAt(Vector3.ProjectOnPlane(PlayerInventory.dynamicItems[minIndex].transform.position, Vector3.up));
+        if (Nearest)
+            Needle.transform.LookAt(Vector3.ProjectOnPlane(Nearest.transform.position, Vector3.up));
     }
 }

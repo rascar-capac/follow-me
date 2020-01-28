@@ -25,10 +25,14 @@ public class GameData : ScriptableObject
     public float SpeedMultiplicator = 2f;
 	[TabGroup("Player")][Tooltip("when the player may run")]
     public List<DayState> PlayerRunUsable;
-	[TabGroup("Player")][Tooltip("Player run is unusable when energy low")]
+    [TabGroup("Player")][Tooltip("Player run gauge maximum")]
+    public float PlayerRunGaugeMax = 100f;
+    [TabGroup("Player")][Tooltip("Player run is unusable when energy low")]
     public bool PlayerRunEnergyLowUnusable;
-	[TabGroup("Player")][Tooltip("Energy player cost per second when running")]
-    public float EnergyPlayerRunCostPerSecond = 1f;
+	[TabGroup("Player")][Tooltip("player run gauge cost by second when running")]
+    public float PlayerRunCostBySecond = 1f;
+    [TabGroup("Player")][Tooltip("player run gauge gain by second when walking")]
+    public float PlayerRunGainBySecond = 1f;
 
     [Title("Items interactions")]
 	[TabGroup("Player")][Tooltip("The distance minimum betwees player and item for interaction.")]

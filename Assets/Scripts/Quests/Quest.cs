@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Linq;
 
 public class Quest
 {
     [HideInInspector]
     public QuestData Data;
 
-    List<Item> ItemsToActivate;
-    List<Zone> ZoneToReach;
+    [HideInInspector]
+    public List<Item> ItemsToActivate = new List<Item>();
+    [HideInInspector]
+    public List<Zone> ZoneToReach = new List<Zone>();
 
     PlayerInventory PlayerInventory;
     Player Player;
@@ -23,9 +26,11 @@ public class Quest
         PlayerInventory = Player.transform.GetComponent<PlayerInventory>();
 
         Data = data;
+        if (Data.Items != null)
+            ItemsToActivate.AddRange(Data.Items.Select(i => i.GetComponent<Item>()));
 
-        ItemsToActivate = Data.Items;
-        ZoneToReach = Data.Zones;
+        if (Data.Zones != null)
+            ZoneToReach.AddRange(Data.Zones);
 
         if (ItemsToActivate != null && ItemsToActivate.Count > 0)
             PlayerInventory.onItemActivated.AddListener(ItemActivated);
@@ -36,6 +41,7 @@ public class Quest
 
     void ItemActivated(Item Item)
     {
+        Item.ActivateItem();
         if (ItemsToActivate != null && ItemsToActivate.Count > 0 && ItemsToActivate.Exists(It => It == Item))
             ItemsToActivate.Remove(Item);
 

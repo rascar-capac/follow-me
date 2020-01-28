@@ -7,21 +7,13 @@ using UnityEngine.Events;
 
 public class PlayerInventory : BaseMonoBehaviour
 {
-	[Header("Player Inventory")]
-	public List<ItemData> _playerInventory;
+    List<ItemData> _playerInventory = new List<ItemData>();
 
-    [Header("Pick-up item layer")]
+    [Header("Pick-up / Activate item layer")]
     public LayerMask ItemLayer;
 
-    public List<Item> ItemsToActivate;
-    [HideInInspector]
-    public List<Item> dynamicItems;
-    //public GameObject LeftArm;
-    //public GameObject LeftHand;
-    //public GameObject RightArm;
-    //public GameObject RightHand;
-
     Tribe tribe;
+    Player player;
 
     bool AllowPickup = true;
     bool AllowActivate = true;
@@ -31,7 +23,6 @@ public class PlayerInventory : BaseMonoBehaviour
     Item RightHandItem;
 
     public ItemActivatedEvent onItemActivated = new ItemActivatedEvent();
-    public UnityEvent onQuestStoneFinished = new UnityEvent();
     float xPixels = 300;
     float yPixels = 300;
     Vector3 leftHandItemPosition;
@@ -44,7 +35,7 @@ public class PlayerInventory : BaseMonoBehaviour
 		base.Start();
 		_mainCamera = CameraManager.I._MainCamera;
         tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
-
+        player = GetComponent<Player>();
 		InputManager.I.onPickUpKeyPressed.AddListener(PickUpItem);
 		//InputManager.I.onActivateItemKeyPressed.AddListener(InteractItem);
 		InputManager.I.onActivateItemKeyPressed.AddListener(PlayerInteract);
@@ -54,22 +45,12 @@ public class PlayerInventory : BaseMonoBehaviour
 
         ToolsInventoryManager.I.onToolSelected.AddListener(PutItemInHand);
 
-        dynamicItems = new List<Item>();
-        dynamicItems.AddRange(ItemsToActivate);
-        foreach (Item it in dynamicItems)
-        {
-            it._itemData.IsActivated = false;
-        }
+    }
 
-        //Vector3 pos = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(xpixels, ypixels, CameraManager.I._MainCamera.nearClipPlane * 1.5f));
-        //pos.z -= LeftArm.transform.GetChild(0).localScale.y / 1.5f ;
-        //LeftArm.transform.position = pos;
-        //pos = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(Screen.width - xpixels, ypixels, CameraManager.I._MainCamera.nearClipPlane * 1.5f));
-        //pos.z -= RightArm.transform.GetChild(0).localScale.y / 1.5f;
-        //RightArm.transform.position = pos;
-
-        //LeftHand = LeftArm.transform.Find("Arm").transform.Find("Hand").gameObject;
-        //RightHand = RightArm.transform.Find("Arm").transform.Find("Hand").gameObject;
+    public List<ItemData> Inventory => _playerInventory;
+    public void AddItemToInventory(ItemData itemData)
+    {
+        Inventory.Add(itemData);
     }
 
 	#region @ Olivier
@@ -87,12 +68,15 @@ public class PlayerInventory : BaseMonoBehaviour
 	#endregion
 	void PlayerInteract()
 	{
+        if (!AllowActivate)
+            return;
+
 		RaycastHit hitInfo;
-		if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hitInfo, GameManager.I._data.PlayerItemDistanceInteraction))
+		if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hitInfo, GameManager.I._data.PlayerItemDistanceInteraction, ItemLayer))
 		{
-			// Interact with Item (10 = index of layer)
-			if (hitInfo.transform.gameObject.layer == 10)
-				InteractItem(hitInfo);
+            Item it = hitInfo.transform.GetComponent<Item>();
+            if (it._itemData.IsActivable)
+                InteractItem(hitInfo);
 
 			// Interact with Door (Add a Layer for "Door", now on "Ground")
 			if (hitInfo.transform.gameObject.layer == 8)
@@ -117,47 +101,8 @@ public class PlayerInventory : BaseMonoBehaviour
 		}
 	}
 
-	//void InteractItem()
-	//{
-
-	//	if (!AllowActivate)
-	//		return;
-
-	//	if (!AmbiantManager.I.IsUsableNow(GameManager.I._data.StonesActivationUsable))
-	//	{
-	//		UIManager.I.AlertMessage("Unable to activate the stone now.");
-	//		return;
-	//	}
-
-	//	RaycastHit hitInfo;
-	//	if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hitInfo, GameManager.I._data.PlayerItemDistanceInteraction, ItemLayer))
-	//	{
-	//		Item it = hitInfo.transform.GetComponentInParent<Item>();
-	//		ItemData data = it._itemData;
-
-	//		if (!(it.InZone && tribe.InZones.Exists(z => z == it.InZone)))
-	//		{
-	//			UIManager.I.AlertMessage("Your tribe must be here to activate this Item.");
-	//			return;
-	//		}
-
-	//		if (data.IsActivable && !data.IsActivated && data._itemActivatedPrefab != null)
-	//		{
-	//			onItemActivated?.Invoke(it);
-
-	//			it.ActivateItem();
-	//			dynamicItems.Remove(it);
-	//			if (dynamicItems.Count <= 0)
-	//			{
-	//				UIManager.I.AlertMessage("All stones has been activated !");
-	//				onQuestStoneFinished.Invoke();
-	//			}
-	//		}
-	//	}
-	//}
 	void InteractItem(RaycastHit hitInfo)
 	{
-
 		if (!AllowActivate)
 			return;
 
@@ -179,14 +124,6 @@ public class PlayerInventory : BaseMonoBehaviour
 		if (data.IsActivable && !data.IsActivated && data._itemActivatedPrefab != null)
 		{
 			onItemActivated?.Invoke(it);
-
-			it.ActivateItem();
-			dynamicItems.Remove(it);
-			if (dynamicItems.Count <= 0)
-			{
-				UIManager.I.AlertMessage("All stones has been activated !");
-				onQuestStoneFinished.Invoke();
-			}
 		}
 	}
 
