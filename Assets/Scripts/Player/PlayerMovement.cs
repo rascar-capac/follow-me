@@ -32,7 +32,9 @@ public class PlayerMovement : BaseMonoBehaviour
     Player _player;
     bool AllowMove = true;
 
+	// Event For Tribe
 	public PlayerHasMovedEvent onPlayerHasMoved = new PlayerHasMovedEvent();
+	float _MinDistForTribeAcceleration;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -40,6 +42,7 @@ public class PlayerMovement : BaseMonoBehaviour
         base.Start();
         _controller = GetComponent<CharacterController>();
         Tribe = (GameObject)ObjectsManager.I["TribeGroundPosition"];
+		_MinDistForTribeAcceleration = GameManager.I._data.TribeProperties.MinDistForAcceleration;
         _speed = GameManager.I._data.InitialPlayerSpeed;
         _player = GetComponent<Player>();
         PlayerRunGauge = GameManager.I._data.PlayerRunGaugeMax;
@@ -117,7 +120,7 @@ public class PlayerMovement : BaseMonoBehaviour
         TribeDistance = Vector3.Distance(TribePositionProjected, PlayerPositionProjected);
         IsTooFar = TribeDistance > GameManager.I._data.MaximumDistanceOfTribe;
 
-		if (TribeDistance > 5)
+		if (TribeDistance > _MinDistForTribeAcceleration)
 			onPlayerHasMoved.Invoke(transform.position);
     }
 
