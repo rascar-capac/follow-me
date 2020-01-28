@@ -125,6 +125,7 @@ public class GameData : ScriptableObject
     [TabGroup("Inputs")]
     [Tooltip("Player jump")]
     public PlayerInputs Input_PlayerJump;
+    [TabGroup("Inputs")]
     [Tooltip("Make the player run")]
     public PlayerInputs Input_PlayerRun;
     [TabGroup("Inputs")]
