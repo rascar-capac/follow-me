@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Linq;
 
 public class Quest
 {
@@ -26,7 +27,7 @@ public class Quest
 
         Data = data;
         if (Data.Items != null)
-            ItemsToActivate.AddRange(Data.Items);
+            ItemsToActivate.AddRange(Data.Items.Select(i => i.GetComponent<Item>()));
 
         if (Data.Zones != null)
             ZoneToReach.AddRange(Data.Zones);
