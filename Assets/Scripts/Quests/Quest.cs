@@ -26,8 +26,19 @@ public class Quest
         PlayerInventory = Player.transform.GetComponent<PlayerInventory>();
 
         Data = data;
+        Item it = null;
         if (Data.Items != null)
-            ItemsToActivate.AddRange(Data.Items.Select(i => i.GetComponent<Item>()));
+        {
+            Data.Items.ForEach(i =>
+            {
+                if (i != null)
+                {
+                    it = i.GetComponent<Item>();
+                    it._itemData.IsActivated = false;
+                    ItemsToActivate.Add(it);
+                }
+            });
+        }
 
         if (Data.Zones != null)
             ZoneToReach.AddRange(Data.Zones);
