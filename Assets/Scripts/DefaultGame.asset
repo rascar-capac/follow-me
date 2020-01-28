@@ -45,9 +45,14 @@ MonoBehaviour:
   PercentEnergyTribeForCritical: 10
   EnergyTribeLostPerSecond: 0.3
   EnergyTribeGainPerSecond: 5
-  InitialSpeedTribe: 20
-  CriticalSpeedTribeMultiplicator: 0.5
-  InitialSpeedRotationTribe: 10
+  TribeProperties:
+    MaxSpeed: 50
+    MaxAngularSpeed: 3
+    AccelerationForce: 50
+    DecelerationForce: 50
+    MinDistForAcceleration: 50
+    MinDistForDeceleration: 50
+    CriticalSpeedMultiplicator: 0.5
   States:
   - State: 0
     DayStateDurationInSecond: 120
@@ -60,7 +65,7 @@ MonoBehaviour:
     DayStateDurationInSecond: 120
     StateHoursCount: 12
     StateColor: {r: 0.16078432, g: 0.13333334, b: 0.050980393, a: 0}
-    TimeStateChanged: 119.98118
+    TimeStateChanged: 119.98842
     EnterSunRotation: {x: 270, y: -30, z: 0}
     ExitSunRotation: {x: 90, y: -30, z: 0}
   TurtleRockFinalPosition: {fileID: 0}
