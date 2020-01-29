@@ -8,6 +8,14 @@ public enum RessourcesType
     Water
 }
 
+[System.Serializable]
+public class TribePlayerDialog
+{
+    [Multiline()]
+    public string Message = "";
+    public MessageOrigin Who = MessageOrigin.System; 
+}
+
 public class Zone : BaseMonoBehaviour
 {
     [Header("Ressources")]
@@ -26,12 +34,22 @@ public class Zone : BaseMonoBehaviour
 	[HideInInspector]
 	public bool _itemOnCoaster = false; // Si le coaster possède un item.
 
-	private void OnTriggerEnter(Collider other)
+    [Header("The dialog between tribe and player when player enter zone")]
+    public List<TribePlayerDialog> Dialogs;
+
+    private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Collide " + other.name);
         if (Layers == (Layers | (1 << other.gameObject.layer)))
         {
             other.gameObject.GetComponent<ZoneInteractable>().EnterZone(this);
+            if (Dialogs != null && other.gameObject.GetComponent<ZoneInteractable>() is Player)
+            {
+                foreach (TribePlayerDialog dialog in Dialogs)
+                {
+                    UIManager.I.AlertMessage(dialog.Message, WhoTalks: dialog.Who);
+                }
+            }
         }
     }
 

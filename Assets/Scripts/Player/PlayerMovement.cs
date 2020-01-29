@@ -60,6 +60,8 @@ public class PlayerMovement : BaseMonoBehaviour
         InputManager.I.onPlayerJumpPressed.AddListener(Jump);
         UIManager.I.onToolsInventoryClosedEvent.AddListener((hand) => { AllowMove = true; });
         UIManager.I.onToolsInventoryOpenedEvent.AddListener((hand) => { AllowMove = false; });
+
+
     }
 
     void SwitchRun()

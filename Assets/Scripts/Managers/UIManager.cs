@@ -29,9 +29,13 @@ public class UIManager : Singleton<UIManager>
 	[Header("HUD Components")]
     public Text _HudTribeDistanceText;
     public Text _HudTribeEnergyText;
-    public Text _HudAlertMessageText;
     public Text _HudCurrentTimeText;
     public Text _HudPlayerEnergyText;
+    
+ 
+    //public Text _HudAlertMessageText;
+    //public Text _HudTribeSaysText;
+    //public Text _HudPlayerSaysText;
 
     [Header("Inventory Prefabs")]
 	public Transform _inventoryContent;
@@ -86,6 +90,16 @@ public class UIManager : Singleton<UIManager>
 
         onToolsInventoryOpenedEvent.AddListener((hand) => { AllowOpenInventory = false; });
         onToolsInventoryClosedEvent.AddListener((hand) => { AllowOpenInventory = true; });
+
+        Callbacks = new List<System.Action>();
+        Messages[(int)MessageOrigin.System] = new List<Message>();
+        Callbacks.Add(DisableMessageSystem);
+
+        Messages[(int)MessageOrigin.Tribe] = new List<Message>();
+        Callbacks.Add(DisableMessageTribe);
+
+        Messages[(int)MessageOrigin.Player] = new List<Message>();
+        Callbacks.Add(DisableMessagePlayer);
 
         CloseMenu();
 
@@ -219,35 +233,51 @@ public class UIManager : Singleton<UIManager>
 		AlertMessage("Danger : Tribe energy is critical.", 3f);
 	}
 
-	public List<Message> Messages = new List<Message>();
-    public void AlertMessage(string message, float duration = 3f)
+	List<Message>[] Messages = new List<Message>[3];
+    List<System.Action> Callbacks = new List<System.Action>();
+    [Header("0 : System, 1 : Tribe, 2 : Player")]
+    public Text[] MessageText;
+
+    public void AlertMessage(string message, float duration = 3f, MessageOrigin WhoTalks = MessageOrigin.System)
     {
-        Message m = new Message() { Text = message, Duration = duration };
-        Messages.Add(m);
-        if (_HudAlertMessageText.gameObject.activeSelf)
+        Message m = new Message() { Text = message, Duration = duration, Origin = WhoTalks };
+        Messages[(int)WhoTalks].Add(m);
+        if (MessageText[(int)WhoTalks].gameObject.activeSelf)
             return;
-        AlertMessageShow();
+        AlertMessageShow(WhoTalks);
     }
-    void AlertMessageShow()
+    void AlertMessageShow(MessageOrigin WhoTalks = MessageOrigin.System)
     {
-        Message m = Messages[0];
-        Messages.RemoveAt(0);
-        _HudAlertMessageText.text = m.Text;
-        _HudAlertMessageText.gameObject.SetActive(true);
-        StartChrono(m.Duration, DisableMessage);
+        Message m = Messages[(int)WhoTalks][0];
+        Messages[(int)WhoTalks].RemoveAt(0);
+        MessageText[(int)WhoTalks].text = WhoTalks.ToString() + ": " + m.Text;
+        MessageText[(int)WhoTalks].gameObject.SetActive(true);
+        StartChrono(m.Duration, Callbacks[(int)WhoTalks]);
     }
 
-    void DisableMessage()
+    void DisableMessageSystem()
     {
-        _HudAlertMessageText.gameObject.SetActive(false);
-        if (Messages.Count > 0)
-            AlertMessageShow();
+        MessageText[(int)MessageOrigin.System].gameObject.SetActive(false);
+        if (Messages[(int)MessageOrigin.System].Count > 0)
+            AlertMessageShow(MessageOrigin.System);
+    }
+    void DisableMessageTribe()
+    {
+        MessageText[(int)MessageOrigin.Tribe].gameObject.SetActive(false);
+        if (Messages[(int)MessageOrigin.Tribe].Count > 0)
+            AlertMessageShow(MessageOrigin.Tribe);
+    }
+    void DisableMessagePlayer()
+    {
+        MessageText[(int)MessageOrigin.Player].gameObject.SetActive(false);
+        if (Messages[(int)MessageOrigin.Player].Count > 0)
+            AlertMessageShow(MessageOrigin.Player);
     }
     #endregion
 
 
-	#region Inventory Functions
-	void GenerateCellsInventory()
+    #region Inventory Functions
+    void GenerateCellsInventory()
 	{
 		if (_inventoryCellList.Count > 0)
 			CleanCellsInventory();
@@ -301,4 +331,12 @@ public struct Message
 {
     public string Text;
     public float Duration;
+    public MessageOrigin Origin;
+}
+
+public enum MessageOrigin
+{
+    System,
+    Tribe,
+    Player
 }
