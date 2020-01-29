@@ -150,8 +150,8 @@ public class GameData : ScriptableObject
     [Tooltip("Activate a beacon")]
     public PlayerInputs Input_BeaconActivate;
     [TabGroup("Inputs")]
-    [Tooltip("Activate / Pickup an item")]
-    public PlayerInputs Input_Item_ActivationPickup;
+    [Tooltip("Interaction with an item")]
+    public PlayerInputs Input_Interaction;
     [TabGroup("Inputs")]
     [Tooltip("Open items inventory")]
     public PlayerInputs Input_InventoryOpenClose;

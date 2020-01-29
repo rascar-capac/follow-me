@@ -7,7 +7,7 @@ public class BeaconPlacer : Item
 {
 
 	[Header("Beacon Prefab to spawn at Ground")]
-	public GameObject _beaconPrefab;
+	public Item _beaconPrefab;
 	[Header("The layers on which the beacon can be placed.")]
 	public LayerMask DropableLayers;
 
@@ -67,19 +67,19 @@ public class BeaconPlacer : Item
 
 		if (Physics.Raycast(_mainCamera.transform.position + Vector3.ProjectOnPlane(_mainCamera.transform.forward, Vector3.up).normalized * GameManager.I._data.BeaconPlacementDistance, Vector3.down, out _HitInfo, 100.0f, DropableLayers))
 		{
-			GameObject beacon =	Instantiate(_beaconPrefab);
+			Item beacon =	Instantiate(_beaconPrefab);
 
             beacon.transform.position = _HitInfo.point;
             Player.PlacedBeacon.Add(beacon);
 		}
 	}
-    public void ActivateBeacon(GameObject beacon)
+    public void ActivateBeacon(Item beacon)
     {
 		//_tribeAgent.destination = new Vector3(beacon.transform.position.x, 0, beacon.transform.position.z);
 		_Tribe.ModeGoToBeacon(new Vector3(beacon.transform.position.x, 0, beacon.transform.position.z));
         beacon.GetComponentInChildren<Animator>().SetBool("IsOpened", true);
     }
-    public void DeactivateBeacon(GameObject beacon)
+    public void DeactivateBeacon(Item beacon)
     {
         beacon.GetComponentInChildren<Animator>().SetBool("IsOpened", false);
     }

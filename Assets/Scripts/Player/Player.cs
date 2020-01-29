@@ -19,9 +19,9 @@ public class Player : ZoneInteractable
     bool IsEnergyNull => Energy == 0;
     bool PreviousEnergyNull = false;
 
-    public List<GameObject> PlacedBeacon = new List<GameObject>();
+    public List<Item> PlacedBeacon = new List<Item>();
     public int CurrentBeaconIndex = -1;
-    public GameObject CurrentActiveBeacon => (CurrentBeaconIndex >= 0 && CurrentBeaconIndex < PlacedBeacon.Count) ? PlacedBeacon[CurrentBeaconIndex] : null;
+    public Item CurrentActiveBeacon => (CurrentBeaconIndex >= 0 && CurrentBeaconIndex < PlacedBeacon.Count) ? PlacedBeacon[CurrentBeaconIndex] : null;
 
     public UnityEvent onPlayerEnergyNullEnter = new UnityEvent();
     public UnityEvent onPlayerEnergyNullExit = new UnityEvent();
@@ -151,5 +151,5 @@ public class Player : ZoneInteractable
         }
     }
 
-    
+
 }

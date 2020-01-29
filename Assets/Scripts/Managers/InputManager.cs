@@ -11,7 +11,7 @@ public struct EventToggle
 }
 public class InputManager : Singleton<InputManager>
 {
-	
+
 	[Header("Key for open Tribe Menu")]
 	public KeyCode UITribeKey = KeyCode.T;
 	[Header("Key for open Quest Menu")]
@@ -48,8 +48,7 @@ public class InputManager : Singleton<InputManager>
     public UnityEvent onBeaconPlaceButtonPressed = new UnityEvent();
     public UnityEvent onBeaconActivateKeyPressed = new UnityEvent();
 
-    public UnityEvent onPickUpKeyPressed = new UnityEvent();
-    public UnityEvent onActivateItemKeyPressed = new UnityEvent();
+    public UnityEvent onInteractionKeyPressed = new UnityEvent();
 
 	public UnityEvent onUIOpenCloseInventoryKeyPressed = new UnityEvent();
 
@@ -76,7 +75,7 @@ public class InputManager : Singleton<InputManager>
         EventInputMapping.Add(GameManager.I._data.Input_BeaconPlace, new EventToggle() { Pressed = new List<UnityEvent> { onBeaconPlaceButtonPressed } });
         EventInputMapping.Add(GameManager.I._data.Input_BeaconActivate, new EventToggle() { Pressed = new List<UnityEvent> { onBeaconActivateKeyPressed } });
 
-        EventInputMapping.Add(GameManager.I._data.Input_Item_ActivationPickup, new EventToggle() { Pressed = new List<UnityEvent> { onPickUpKeyPressed, onActivateItemKeyPressed } });
+        EventInputMapping.Add(GameManager.I._data.Input_Interaction, new EventToggle() { Pressed = new List<UnityEvent> { onInteractionKeyPressed } });
 
         EventInputMapping.Add(GameManager.I._data.Input_TribeOrder, new EventToggle() { Pressed = new List<UnityEvent> { onTribeOrderKeyPressed } });
 
@@ -172,7 +171,7 @@ public class InputManager : Singleton<InputManager>
 	}
 }
 
-public class InputAxisUnityEventArg 
+public class InputAxisUnityEventArg
 {
     public string XDirection;
     public float XValue;

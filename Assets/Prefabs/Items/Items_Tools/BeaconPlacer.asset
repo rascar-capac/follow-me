@@ -18,6 +18,6 @@ MonoBehaviour:
   _itemBasePrefab: {fileID: 7642297270107902926, guid: 595c218bc8089a540983684d1efab7f6,
     type: 3}
   _itemActivatedPrefab: {fileID: 0}
-  IsCatchable: 0
+  IsCatchable: 1
   IsActivable: 0
   IsActivated: 0

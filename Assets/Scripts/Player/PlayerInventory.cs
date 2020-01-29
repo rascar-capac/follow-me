@@ -21,11 +21,17 @@ public class PlayerInventory : BaseMonoBehaviour
     [Header("Pick-up / Activate item layer")]
     public LayerMask ItemLayer;
 
+    [Header("Beacon Prefab to spawn at Ground")]
+	public Item BeaconPrefab;
+
+    [Header("The layers on which the beacons can be placed.")]
+	public LayerMask DropableLayers;
+
     Tribe tribe;
     Player player;
+    PlayerMovement playerMovement;
 
-    bool AllowPickup = true;
-    bool AllowActivate = true;
+    bool isInteractionAllowed = true;
 	Camera _mainCamera;
 
     HandWrapper[] Hands;
@@ -40,14 +46,17 @@ public class PlayerInventory : BaseMonoBehaviour
 		_mainCamera = CameraManager.I._MainCamera;
         tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
         player = GetComponent<Player>();
-		InputManager.I.onPickUpKeyPressed.AddListener(PickUpItem);
-		InputManager.I.onActivateItemKeyPressed.AddListener(PlayerInteract);
+        playerMovement = GetComponent<PlayerMovement>();
 
+		InputManager.I.onInteractionKeyPressed.AddListener(PlayerInteract);
         InputManager.I.onLeftHandShowHide.AddListener(() => { ShowHideHand(Hand.Left); });
         InputManager.I.onRightHandShowHide.AddListener(() => { ShowHideHand(Hand.Right); });
+		InputManager.I.onBeaconPlaceButtonPressed.AddListener(PlaceBeacon);
+        InputManager.I.onBeaconActivateKeyPressed.AddListener(BeaconActivation);
 
-        UIManager.I.onToolsInventoryClosedEvent.AddListener((hand) => { AllowPickup = true; AllowActivate = true; });
-        UIManager.I.onToolsInventoryOpenedEvent.AddListener((hand) => { AllowPickup = false; AllowActivate = false; });
+        UIManager.I.onToolsInventoryClosedEvent.AddListener((hand) => { isInteractionAllowed = true; });
+        UIManager.I.onToolsInventoryOpenedEvent.AddListener((hand) => { isInteractionAllowed = false; });
+
 
         ToolsInventoryManager.I.onToolSelected.AddListener(PutItemInHand);
 
@@ -74,7 +83,7 @@ public class PlayerInventory : BaseMonoBehaviour
 
 	#region @ Olivier
 	// Les interactions dans un jeu peuvent être de plein de type, avec un item, une stone, une porte, ect...
-	// Hors en général on à un seul bouton d'interaction, chez nous "Y", donc il va falloir définir avec quoi 
+	// Hors en général on à un seul bouton d'interaction, chez nous "Y", donc il va falloir définir avec quoi
 	// on veut intéragir et ce que l'on fait en fonction.
 	// Je propose la modification suivante pour les interactions du Player si tu es d'accord:
 	//	- PlayerInteract() pilote les interactions en fonction du "hitInfo".
@@ -82,20 +91,22 @@ public class PlayerInventory : BaseMonoBehaviour
 	//	- Rattaché l'event "onActivateItemKeyPressed" à PlayerInteract() (l'event pourrait aussi être renommé)
 	// Dans ce cas le LayerMask définit plus haut n'est plus utile, on précise dans le code ce que l'on doit
 	// faire en fonction de ce que l'on touche avec le RaycastHit.
-	// Si tu n'es pas ok avec cette modification, l'ancien InteractItem() est tjs présent en commentaire plus 
+	// Si tu n'es pas ok avec cette modification, l'ancien InteractItem() est tjs présent en commentaire plus
 	// bas et PlayerInteract() ainsi que le "nouveau" InteractItem() peuvent être supprimés.
 	#endregion
 	void PlayerInteract()
 	{
-        if (!AllowActivate)
+        if (!isInteractionAllowed)
             return;
 
 		RaycastHit hitInfo;
-		if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hitInfo, GameManager.I._data.PlayerItemDistanceInteraction, ItemLayer))
+		if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hitInfo, 10000, ItemLayer))
 		{
             Item it = hitInfo.transform.GetComponent<Item>();
             if (it._itemData.IsActivable)
-                InteractItem(hitInfo);
+                InteractItem(it);
+            else if (it._itemData.IsCatchable)
+                PickUpItem(it);
 
 			// Interact with Door (Add a Layer for "Door", now on "Ground")
 			if (hitInfo.transform.gameObject.layer == 8)
@@ -103,37 +114,30 @@ public class PlayerInventory : BaseMonoBehaviour
 		}
 	}
 
-    void PickUpItem()
+    void PickUpItem(Item it)
 	{
-        if (!AllowPickup)
-            return;
-
-		RaycastHit hitInfo;
-		if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hitInfo, GameManager.I._data.PlayerItemDistanceInteraction, ItemLayer))
+        // à améliorer, gérer autrement l’inventaire peut être?
+        if (it._itemData._itemName == "Beacon")
         {
-            Item it = hitInfo.transform.GetComponent<Item>();
-            if (it._itemData.IsCatchable)
-            {
-                _playerInventory.Add(it._itemData);
-                Destroy(hitInfo.transform.gameObject);
-            }
-		}
+            player.PlacedBeacon.Remove(it);
+            tribe.ModeStopAndWait();
+        }
+        else
+        {
+            _playerInventory.Add(it._itemData);
+        }
+        Destroy(it.gameObject);
 	}
 
-	void InteractItem(RaycastHit hitInfo)
+	void InteractItem(Item it)
 	{
-		if (!AllowActivate)
-			return;
-
 		if (!AmbiantManager.I.IsUsableNow(GameManager.I._data.StonesActivationUsable))
 		{
 			UIManager.I.AlertMessage("Unable to activate the stone now.");
 			return;
 		}
 
-		Item it = hitInfo.transform.GetComponentInParent<Item>();
 		ItemData data = it._itemData;
-
 		if (!(it.InZone && tribe.InZones.Exists(z => z == it.InZone)))
 		{
 			UIManager.I.AlertMessage("Your tribe must be here to activate this Item.");
@@ -192,7 +196,66 @@ public class PlayerInventory : BaseMonoBehaviour
             Hands[1].Item.transform.rotation = Hands[1].ItemRotation;
         }
     }
+
+    void PlaceBeacon()
+	{
+        if (GameManager.I._data.BeaconPlacementCount > 0 && player.PlacedBeacon.Count >= GameManager.I._data.BeaconPlacementCount)
+        {
+            UIManager.I.AlertMessage("The maximum beacon count has been reached.");
+            return;
+        }
+
+        if (!AmbiantManager.I.IsUsableNow(GameManager.I._data.BeaconPlacerUsable))
+        {
+            UIManager.I.AlertMessage("Unable to place beacon now.");
+            return;
+        }
+
+        if (playerMovement.IsTooFar)
+        {
+            UIManager.I.AlertMessage("You are too far from tribe.");
+            return;
+        }
+
+        RaycastHit hitInfo = new RaycastHit();
+		if (Physics.Raycast(_mainCamera.transform.position + Vector3.ProjectOnPlane(_mainCamera.transform.forward, Vector3.up).normalized * GameManager.I._data.BeaconPlacementDistance, Vector3.down, out hitInfo, 100.0f, DropableLayers))
+		{
+			Item beacon =	Instantiate(BeaconPrefab);
+
+            beacon.transform.position = hitInfo.point;
+            player.PlacedBeacon.Insert(0, beacon);
+            player.CurrentBeaconIndex = -1;
+		}
+	}
+
+    public void BeaconActivation()
+    {
+        if (player.PlacedBeacon == null || player.PlacedBeacon.Count <= 0)
+            return;
+
+        player.PlacedBeacon.ForEach(b => DeactivateBeacon(b));
+        player.CurrentBeaconIndex++;
+        if (player.CurrentBeaconIndex == player.PlacedBeacon.Count)
+        {
+            player.CurrentBeaconIndex = -1;
+            tribe.ModeStopAndWait();
+            return;
+        }
+        ActivateBeacon(player.PlacedBeacon[(int)Mathf.Repeat(player.CurrentBeaconIndex, player.PlacedBeacon.Count)]);
+    }
+
+    public void ActivateBeacon(Item beacon)
+    {
+		//_tribeAgent.destination = new Vector3(beacon.transform.position.x, 0, beacon.transform.position.z);
+		tribe.ModeGoToBeacon(new Vector3(beacon.transform.position.x, 0, beacon.transform.position.z));
+        beacon.GetComponentInChildren<Animator>().SetBool("IsOpened", true);
+    }
+    public void DeactivateBeacon(Item beacon)
+    {
+        beacon.GetComponentInChildren<Animator>().SetBool("IsOpened", false);
+    }
 }
+
 public class ItemActivatedEvent : UnityEvent<Item> { }
 public enum Hand
 {
