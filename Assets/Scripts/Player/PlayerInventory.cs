@@ -27,6 +27,10 @@ public class PlayerInventory : BaseMonoBehaviour
     [Header("The layers on which the beacons can be placed.")]
 	public LayerMask DropableLayers;
 
+    [Header("The depth of the tools from camera.")]
+    [Range(1, 10)]
+    public float NearClipPlaneMultiply = 3f;
+
     Tribe tribe;
     Player player;
     PlayerMovement playerMovement;
@@ -160,10 +164,10 @@ public class PlayerInventory : BaseMonoBehaviour
         HandWrapper CurrentHand = Hands[(int)hand];
         HandWrapper OtherHand = Hands[(int)Mathf.Repeat(((int)hand) + 1, 2)];
 
-        Hands[0].ItemPosition = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * 3));
+        Hands[0].ItemPosition = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * NearClipPlaneMultiply));
         Hands[0].ItemRotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, CameraManager.I._MainCamera.transform.position - Hands[0].ItemPosition);
 
-        Hands[1].ItemPosition = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(Screen.width - xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * 3));
+        Hands[1].ItemPosition = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(Screen.width - xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * NearClipPlaneMultiply));
         Hands[1].ItemRotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, CameraManager.I._MainCamera.transform.position - Hands[1].ItemPosition);
 
         if (OtherHand.Item && OtherHand.Item._itemData._itemName == o.GetComponent<Item>()._itemData._itemName)

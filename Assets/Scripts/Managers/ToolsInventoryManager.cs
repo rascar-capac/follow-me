@@ -22,6 +22,11 @@ public class ToolsInventoryManager : Singleton<ToolsInventoryManager>
     public ToolSelectedEvent onToolSelected = new ToolSelectedEvent();
     public Hand CurrentHand;
 
+    [Range(1, 10)][Header("The radius of the circle.")]
+    public float RadiusOfTheCircle = 4f;
+    [Header("The distance from camera.")]
+    public float DistanceFromCamera = 0.5f;
+
     protected override void Start()
     {
         base.Start();
@@ -31,7 +36,7 @@ public class ToolsInventoryManager : Singleton<ToolsInventoryManager>
 
         for (int i = 0; i < ToolItems.Length; i++)
         { 
-            CurrentPosition = transform.position + Quaternion.AngleAxis((i+1) * AngleInterval, transform.up) * transform.forward * 4f;
+            CurrentPosition = transform.position + Quaternion.AngleAxis((i+1) * AngleInterval, transform.up) * transform.forward * RadiusOfTheCircle;
             ToolItems[i].CreatedObject = Instantiate(ToolItems[i].Prefab, CurrentPosition, Quaternion.identity, transform);
             ToolItems[i].CreatedObject.transform.rotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, - CameraManager.I._MainCamera.transform.forward);
             ToolItems[i].renderer = ToolItems[i].CreatedObject.GetComponentInChildren<MeshRenderer>();

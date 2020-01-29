@@ -522,6 +522,11 @@ PrefabInstance:
       propertyPath: ToolItems.Array.data[3].Owned
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3985127017416990422, guid: f734d39bcc193b14594daa5285973c9a,
+        type: 3}
+      propertyPath: DistanceFromCamera
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3985127017416990423, guid: f734d39bcc193b14594daa5285973c9a,
         type: 3}
       propertyPath: m_Name
