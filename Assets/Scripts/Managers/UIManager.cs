@@ -106,7 +106,7 @@ public class UIManager : Singleton<UIManager>
         ShowTime(false);
         ShowPlayerEnergy(false);
         ShowTribeDistance(false);
-        ShowTribeEnergy(false);
+        //ShowTribeEnergy(false);
     }
 
     #endregion
