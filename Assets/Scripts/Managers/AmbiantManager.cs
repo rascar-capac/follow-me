@@ -77,6 +77,7 @@ public class AmbiantManager : Singleton<AmbiantManager>
                 else
                     childRenderer.material.DisableKeyword("_EMISSION");
                 childRenderer.material.SetColor("_EmissionColor", other.GetColor("_EmissionColor"));
+                childRenderer.material.SetColor("_Color", other.GetColor("_Color"));
             }
         }
     }
