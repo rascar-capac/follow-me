@@ -46,6 +46,13 @@ public class Compass : Item
             }
         }
         if (Nearest)
-            Needle.transform.LookAt(Vector3.ProjectOnPlane(Nearest.transform.position, Vector3.up));
+        {
+            Vector3 direction = Nearest.transform.position - Player.transform.position;
+            float offsetAngle = Vector3.SignedAngle(- Player.transform.forward, Vector3.ProjectOnPlane(direction, Player.transform.up), Player.transform.up);
+            Needle.transform.localRotation = Quaternion.Euler(0, offsetAngle, 0);
+            // Needle.transform.LookRotation();
+            // Needle.transform.Rotate
+            // Quaternion.FromToRotation(Needle.transform.)
+        }
     }
 }
