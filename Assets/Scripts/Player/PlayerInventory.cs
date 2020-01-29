@@ -103,14 +103,19 @@ public class PlayerInventory : BaseMonoBehaviour
 		if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hitInfo, 10000, ItemLayer))
 		{
             Item it = hitInfo.transform.GetComponent<Item>();
-            if (it._itemData.IsActivable)
-                InteractItem(it);
-            else if (it._itemData.IsCatchable)
-                PickUpItem(it);
-
-			// Interact with Door (Add a Layer for "Door", now on "Ground")
-			if (hitInfo.transform.gameObject.layer == 8)
-				hitInfo.transform.GetComponentInParent<Door>().InteractWithDoor();
+            if (it)
+            {
+                if (it._itemData.IsActivable)
+                    InteractItem(it);
+                else if (it._itemData.IsCatchable)
+                    PickUpItem(it);
+            }
+            else
+            {
+                Door door = hitInfo.transform.GetComponentInParent<Door>();
+                if (door)
+                    door.InteractWithDoor();
+            }
 		}
 	}
 
