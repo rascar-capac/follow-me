@@ -32,6 +32,7 @@ public class UIManager : Singleton<UIManager>
     public Text _HudCurrentTimeText;
     public Text _HudPlayerEnergyText;
     public Text _HudPlayerRunStaminaText;
+    public Text _HudTribeDocilityText;
 
 
     //public Text _HudAlertMessageText;
@@ -108,6 +109,7 @@ public class UIManager : Singleton<UIManager>
         ShowPlayerEnergy(false);
         ShowTribeDistance(false);
         ShowPlayerRunStamina(false);
+        ShowTribeDocility(false);
     }
 
     #endregion
@@ -216,6 +218,11 @@ public class UIManager : Singleton<UIManager>
         _HudPlayerRunStaminaText.gameObject.SetActive(show);
     }
 
+    public void ShowTribeDocility(bool show)
+    {
+        _HudTribeDocilityText.gameObject.SetActive(show);
+    }
+
     public void SetTribeDistance()
     {
         _HudTribeDistanceText.text = $"Tribe distance " + Mathf.Floor(_refPlayerMovement.TribeDistance) + " m";
@@ -237,6 +244,10 @@ public class UIManager : Singleton<UIManager>
     public void SetRunStamina(float runStamina)
     {
         _HudPlayerRunStaminaText.text = $"Run Stamina " + Mathf.Floor(runStamina);
+    }
+    public void SetTribeDocility(float tribeDocility)
+    {
+        _HudTribeDocilityText.text = $"Tribe Docility " + Mathf.Floor(tribeDocility);
     }
 	public void AlertTribeEnergyCritical()
 	{

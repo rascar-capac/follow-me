@@ -43,6 +43,17 @@ public class Tribe : ZoneInteractable
 
 	#endregion
 
+    #region Desobedience System
+
+    [Header("Desobedience system")]
+    [Range(0, 1f)] public float level1IgnoranceProbability = 0.5f;
+    public int level1IgnoranceDuration = 3;
+    public float level1DesobedienceProbability = 0.1f;
+    public int desobedienceMinDuration = 30;
+    public int desobedienceMaxDuration = 120;
+
+    #endregion
+
 	#region Tribe Events
 
 	public UnityEvent onTribeEnergyEnterCritical = new UnityEvent();
@@ -53,7 +64,15 @@ public class Tribe : ZoneInteractable
 	NavMeshAgent _TribeNavAgent;
 	Player _Player;
 	PlayerMovement _PlayerMovement;
+    PlayerInventory _PlayerInventory;
 
+    int _DocilityScore;
+    bool _IsIgnoring;
+    float _IgnoranceProbability;
+    int _IgnoranceDuration;
+    float _IgnoranceTimer;
+    float _DisobedienceProbability;
+    int _DisobedienceTimer;
 
 	protected override void Start()
     {
@@ -64,6 +83,7 @@ public class Tribe : ZoneInteractable
 		_TribeNavAgent = GetComponentInParent<NavMeshAgent>();
 		_Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
 		_PlayerMovement = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerMovement>();
+        _PlayerInventory = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerInventory>();
 
 		Energy = GameManager.I._data.InitialTribeEnergy;
 		CriticalEnergy = (Energy / 100) * GameManager.I._data.PercentEnergyTribeForCritical;
@@ -73,7 +93,11 @@ public class Tribe : ZoneInteractable
 		onTribeEnergyEnterCritical.AddListener(TribeInCriticalSpeed);
 		onTribeEnergyExitCritical.AddListener(TribeInDefaultSpeed);
 		InputManager.I.onTribeOrderKeyPressed.AddListener(SwitchModeFollowAndWait);
+        _PlayerInventory.onItemActivated.AddListener(AddItemActivationDocilityBonus);
+        AmbiantManager.I.onDayStateChanged.AddListener(AddNewDayDocilityBonus);
 
+        _DocilityScore = 50;
+        _IsIgnoring = false;
 		ModeStopAndWait();
 	}
 
@@ -89,48 +113,164 @@ public class Tribe : ZoneInteractable
 
 		// Acceleration and deceleration controls of Tribe
 		if (_TribeNavAgent.hasPath)
-			_TribeNavAgent.acceleration = (_TribeNavAgent.remainingDistance < TribeProperties.MinDistForDeceleration) ? TribeProperties.DecelerationForce : TribeProperties.AccelerationForce;
+			_TribeNavAgent.acceleration = (_TribeNavAgent.remainingDistance < TribeProperties.MinDistForDeceleration) ?     TribeProperties.DecelerationForce : TribeProperties.AccelerationForce;
+
+
+        // if (_DisobedienceTimer -=
+        if (_IsIgnoring)
+        {
+            _IgnoranceTimer -= Time.deltaTime;
+            if (_IgnoranceTimer <= 0)
+            {
+                _IsIgnoring = false;
+            }
+        }
+        else
+        {
+            UpdateDocility();
+        }
 	}
 
 	#region Tribe Movements
 
 	public void SwitchModeFollowAndWait()
 	{
-		if (_TribeMovementsMode == TribeMovementsMode.FollowPlayer)
-			ModeStopAndWait();
-		else if (_TribeMovementsMode == TribeMovementsMode.Wait || _TribeMovementsMode == TribeMovementsMode.GoToBeacon)
-			ModeFollowPlayer();
-	}
-
-	public void ModeGoToBeacon(Vector3 destination)
-	{
-		ModeStopAndWait();
-
-		_TribeMovementsMode = TribeMovementsMode.GoToBeacon;
-		_TribeNavAgent.SetDestination(new Vector3(destination.x, 0, destination.z));
-	}
-
-	public void ModeFollowPlayer()
-	{
-		_TribeMovementsMode = TribeMovementsMode.FollowPlayer;
-		_PlayerMovement.onPlayerHasMoved.AddListener(TribeFollowPlayer);
-	}
-	void TribeFollowPlayer(Vector3 playerPosition)
-	{
-		Vector3 playerPositionXZ = new Vector3(playerPosition.x, 0, playerPosition.z);
-		if (_TribeNavAgent.destination != playerPositionXZ)
-			_TribeNavAgent.SetDestination(playerPositionXZ);
+        if(!_IsIgnoring)
+        {
+            if (_TribeMovementsMode == TribeMovementsMode.FollowPlayer)
+                ModeStopAndWait();
+            else if (_TribeMovementsMode == TribeMovementsMode.Wait || _TribeMovementsMode == TribeMovementsMode.GoToBeacon)
+                ModeFollowPlayer();
+        }
 	}
 
 	public void ModeStopAndWait()
 	{
-		_TribeMovementsMode = TribeMovementsMode.Wait;
-		_PlayerMovement.onPlayerHasMoved.RemoveListener(TribeFollowPlayer);
-		_TribeNavAgent.ResetPath();
+        _TribeMovementsMode = TribeMovementsMode.Wait;
+        _PlayerMovement.onPlayerHasMoved.RemoveListener(TribeFollowPlayer);
+        _TribeNavAgent.ResetPath();
 	}
 
-	#endregion
+	public void ModeFollowPlayer()
+	{
+        _TribeMovementsMode = TribeMovementsMode.FollowPlayer;
+        _PlayerMovement.onPlayerHasMoved.AddListener(TribeFollowPlayer);
+	}
 
+	void TribeFollowPlayer(Vector3 playerPosition)
+	{
+        Vector3 playerPositionXZ = new Vector3(playerPosition.x, 0, playerPosition.z);
+        if (_TribeNavAgent.destination != playerPositionXZ)
+            _TribeNavAgent.SetDestination(playerPositionXZ);
+	}
+
+    public void ModeGoToBeacon(Vector3 destination)
+	{
+        if(!_IsIgnoring)
+        {
+            ModeStopAndWait();
+
+            _TribeMovementsMode = TribeMovementsMode.GoToBeacon;
+            _TribeNavAgent.SetDestination(new Vector3(destination.x, 0, destination.z));
+        }
+	}
+
+    public void UpdateDocility()
+    {
+        switch(ComputeDocilityLevel())
+        {
+            case 0:
+                _IgnoranceProbability = .6f;
+                _IgnoranceDuration = 30;
+                _DisobedienceProbability = .5f;
+                break;
+            case 1:
+                _IgnoranceProbability = .5f;
+                _IgnoranceDuration = 25;
+                _DisobedienceProbability = .25f;
+                break;
+            case 2:
+                _IgnoranceProbability = .4f;
+                _IgnoranceDuration = 20;
+                _DisobedienceProbability = .2f;
+                break;
+            case 3:
+                _IgnoranceProbability = .3f;
+                _IgnoranceDuration = 15;
+                _DisobedienceProbability = .15f;
+                break;
+            case 4:
+                _IgnoranceProbability = .2f;
+                _IgnoranceDuration = 10;
+                _DisobedienceProbability = .8f;
+                break;
+            case 5:
+                _IgnoranceProbability = .1f;
+                _IgnoranceDuration = 5;
+                _DisobedienceProbability = .5f;
+                break;
+            case 6:
+                _IgnoranceProbability = 0;
+                _IgnoranceDuration = 0;
+                _DisobedienceProbability = .3f;
+                break;
+        }
+
+
+
+        UIManager.I.ShowTribeDocility(true);
+        UIManager.I.SetTribeDocility(_DocilityScore);
+    }
+
+    public void AddItemActivationDocilityBonus(Item item)
+    {
+        _DocilityScore += 100;
+    }
+
+    // public void AddObstacleDocilityMalus() {}
+
+    public void AddNewDayDocilityBonus(DayStatesProperties currentDayState, DayStatesProperties nextDayState)
+    {
+        if(currentDayState.State == DayState.Day)
+        {
+            _DocilityScore += 10;
+        }
+    }
+
+    public int ComputeDocilityLevel()
+    {
+        int bonusMalus = 0;
+        bonusMalus -= 100 - Mathf.RoundToInt(Energy);
+        if(IsEnergyCritical)
+        {
+            bonusMalus -= 50;
+        }
+        if(AmbiantManager.I.IsNight)
+        {
+            bonusMalus += 50;
+        }
+
+        int finalScore = _DocilityScore + bonusMalus;
+        if(finalScore <    0) { return 0; }
+        if(finalScore <   50) { return 1; }
+        if(finalScore <  100) { return 2; }
+        if(finalScore <  150) { return 3; }
+        if(finalScore <  200) { return 4; }
+        if(finalScore <  300) { return 5; }
+        if(finalScore >= 300) { return 6; }
+        return 0;
+    }
+
+    public void IsIgnoring()
+    {
+        if(Random.Range(0, 1f) < _IgnoranceProbability)
+        {
+            _IsIgnoring = true;
+            _IgnoranceTimer = _IgnoranceDuration;
+        }
+    }
+
+	#endregion
 
 	#region Tribe energy
 

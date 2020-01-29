@@ -121,6 +121,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: baf843615f01be14180a23061d7007c5, type: 2}
+--- !u!114 &129271315 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5366616924655900059, guid: 41b016115e9d7464e96dc233994afa42,
+    type: 3}
+  m_PrefabInstance: {fileID: 1112927564}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &365360246 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3985127017416990423, guid: f734d39bcc193b14594daa5285973c9a,
@@ -146,6 +158,10 @@ PrefabInstance:
       propertyPath: _HudPlayerSaysText
       value: 
       objectReference: {fileID: 1112927566}
+    - target: {fileID: 2103666910, guid: 41b016115e9d7464e96dc233994afa42, type: 3}
+      propertyPath: _HudTribeDocilityText
+      value: 
+      objectReference: {fileID: 129271315}
     - target: {fileID: 177395195419760894, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
       propertyPath: m_AnchoredPosition.y
