@@ -6,9 +6,10 @@ using UnityEngine.Events;
 
 public class AmbiantManager : Singleton<AmbiantManager>
 {
+    public MaterialData Materials;
 	public HourChangedEvent onHourChanged = new HourChangedEvent();
 	public float _LastHour;
-
+    GameObject Terrain;
 
     protected override void Start()
     {
@@ -18,16 +19,19 @@ public class AmbiantManager : Singleton<AmbiantManager>
         //Fog.SetActive(false);
         //FogZone = Fog.GetComponentInChildren<Zone>();
         Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
+        Terrain = (GameObject)ObjectsManager.I["Terrain"];
+
         InitDaysStates();
         ChangeDayState();
 
 		ResetLastHour(CurrentDayState, NextDayState);
 		onDayStateChanged.AddListener(ResetLastHour);
+        onDayStateChanged.AddListener(ChangeMaterial);
 
-		//StartChrono(GameManager.I._data.MinimumTimeBetweenFog, StartFog);
-	}
+        //StartChrono(GameManager.I._data.MinimumTimeBetweenFog, StartFog);
+    }
 
-	private void Update()
+    private void Update()
 	{
 		#region Hour Management
 	
@@ -39,6 +43,43 @@ public class AmbiantManager : Singleton<AmbiantManager>
 
 		#endregion
 	}
+
+    void ChangeMaterial(DayStatesProperties currentDayStateProperties, DayStatesProperties nextDayStateProperties)
+    {
+        UIManager.I.AlertMessage("It is " + currentDayStateProperties.State.ToString());
+        if (!Materials)
+            return;
+
+        string Suffix = "D";
+        List<Material> SearchList = Materials.DayMaterials;
+        if (currentDayStateProperties.State == DayState.Night)
+        {
+            Suffix = "N";
+            SearchList = Materials.NightMaterials;
+        }
+
+        for (int i = 0; i < Terrain.transform.childCount; i++)
+        {
+            Renderer childRenderer = Terrain.transform.GetChild(i).GetComponent<Renderer>();
+            string matName = childRenderer.material.name.Replace("(Instance)", "").Trim();
+            if (!matName.EndsWith("_D"))
+                continue;
+
+            string otherName = matName.Substring(0, matName.Length - 1) + Suffix;
+            Material other = null;
+
+            other = SearchList.Find(m => m.name == otherName);
+
+            if (other)
+            {
+                if (other.IsKeywordEnabled("_EMISSION"))
+                    childRenderer.material.EnableKeyword("_EMISSION");
+                else
+                    childRenderer.material.DisableKeyword("_EMISSION");
+                childRenderer.material.SetColor("_EmissionColor", other.GetColor("_EmissionColor"));
+            }
+        }
+    }
 
 	void ResetLastHour(DayStatesProperties currentDayStateProperties, DayStatesProperties nextDayStateProperties)
 	{
