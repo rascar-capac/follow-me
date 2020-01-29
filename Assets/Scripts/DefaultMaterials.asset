@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061faaf7e692aaf41855de929d9ac00e, type: 3}
+  m_Name: DefaultMaterials
+  m_EditorClassIdentifier: 
+  DayMaterials:
+  - {fileID: 2100000, guid: c9e02396d6757d44ca38e9ae60008b18, type: 2}
+  - {fileID: 2100000, guid: 59339a9dcd17fac4eb6c67727a854ed1, type: 2}
+  - {fileID: 2100000, guid: 80f48216b18d00d40a679fd00ec3b727, type: 2}
+  - {fileID: 2100000, guid: bae11db5cc23d4648a38277111bd06d1, type: 2}
+  - {fileID: 2100000, guid: 2793ac90a71bb5c43baf97dadbe15e75, type: 2}
+  - {fileID: 2100000, guid: 36ea3c870a7277d44a99a8057f84908e, type: 2}
+  - {fileID: 2100000, guid: 81774c53e38981548b520e082f330cda, type: 2}
+  - {fileID: 2100000, guid: ea2febec2e07fec46a26c6768700b7e4, type: 2}
+  NightMaterials:
+  - {fileID: 2100000, guid: 8b9790279a98be7448e2a9cc6d73dd8b, type: 2}
+  - {fileID: 2100000, guid: d0d01c5ffe852374d8a8afe8d73fefee, type: 2}
+  - {fileID: 2100000, guid: fff3d860ac0976b4fbc32d655756bd07, type: 2}
+  - {fileID: 2100000, guid: 6f60eeded2e5ac346a8d85b6cfb31a27, type: 2}
+  - {fileID: 2100000, guid: ed840b52d0a8bc0409c33e39e84a0ecd, type: 2}
+  - {fileID: 2100000, guid: 7932f8abb811abc49b69e78669707aec, type: 2}
+  - {fileID: 2100000, guid: 09a1534729893364ca93aa458c4d33fc, type: 2}
+  - {fileID: 2100000, guid: 6f331fa134d21c346a1be673b486f59d, type: 2}
