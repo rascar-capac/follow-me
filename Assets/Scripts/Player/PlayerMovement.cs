@@ -22,8 +22,8 @@ public class PlayerMovement : BaseMonoBehaviour
     [Header("Player is running")]
     public bool IsRunning = false;
     public bool IsWaiting = true;
-    public float PlayerRunGauge = 100f;
-    bool IsRunGaugeNull => PlayerRunGauge == 0;
+    public float PlayerRunStamina = 100f;
+    bool IsRunStaminaNull => PlayerRunStamina == 0;
     bool PlayerMayRun = true;
 
     Vector3 _velocity;
@@ -34,8 +34,8 @@ public class PlayerMovement : BaseMonoBehaviour
     Player _player;
     bool AllowMove = true;
 
-    public UnityEvent onPlayerRunGaugeNullEnter = new UnityEvent();
-    public UnityEvent onPlayerRunGaugeNullExit = new UnityEvent();
+    public UnityEvent onPlayerRunStaminaNullEnter = new UnityEvent();
+    public UnityEvent onPlayerRunStaminaNullExit = new UnityEvent();
 
 	// Event For Tribe
 	public PlayerHasMovedEvent onPlayerHasMoved = new PlayerHasMovedEvent();
@@ -50,9 +50,9 @@ public class PlayerMovement : BaseMonoBehaviour
 		_MinDistForTribeAcceleration = GameManager.I._data.TribeProperties.MinDistForAcceleration;
         _speed = GameManager.I._data.InitialPlayerSpeed;
         _player = GetComponent<Player>();
-        PlayerRunGauge = GameManager.I._data.PlayerRunGaugeMax;
-        onPlayerRunGaugeNullEnter.AddListener(() => { PlayerMayRun = false; });
-        onPlayerRunGaugeNullExit.AddListener(() => {  PlayerMayRun = true; });
+        PlayerRunStamina = GameManager.I._data.PlayerRunStaminaMax;
+        onPlayerRunStaminaNullEnter.AddListener(() => { PlayerMayRun = false; });
+        onPlayerRunStaminaNullExit.AddListener(() => {  PlayerMayRun = true; });
 
         InputManager.I.onRunButtonPressed.AddListener(SwitchRun);
         InputManager.I.onMoveInputAxisEvent.AddListener(Move);
@@ -75,8 +75,8 @@ public class PlayerMovement : BaseMonoBehaviour
     private void Update()
     {
         ComputeTribeDistance();
-        UpdateRunGauge();
-        RunGaugeCritical();
+        UpdateRunStamina();
+        RunStaminaCritical();
     }
 
     public void Move(InputAxisUnityEventArg axis)
@@ -144,29 +144,32 @@ public class PlayerMovement : BaseMonoBehaviour
         _speed = GameManager.I._data.InitialPlayerSpeed;
     }
 
-    public void UpdateRunGauge()
+    public void UpdateRunStamina()
     {
-        if(GameManager.I._data.PlayerRunGauge)
+        if(GameManager.I._data.PlayerRunStamina)
         {
             if (IsRunning)
-                PlayerRunGauge -= GameManager.I._data.PlayerRunCostBySecond * Time.deltaTime;
+                PlayerRunStamina -= GameManager.I._data.PlayerRunCostBySecond * Time.deltaTime;
             else
-                PlayerRunGauge += GameManager.I._data.PlayerRunGainBySecond * Time.deltaTime;
+                PlayerRunStamina += GameManager.I._data.PlayerRunGainBySecond * Time.deltaTime;
 
-            PlayerRunGauge = Mathf.Clamp(PlayerRunGauge, 0, GameManager.I._data.PlayerRunGaugeMax);
+            PlayerRunStamina = Mathf.Clamp(PlayerRunStamina, 0, GameManager.I._data.PlayerRunStaminaMax);
+
+            UIManager.I.ShowPlayerRunStamina(true);
+            UIManager.I.SetRunStamina(PlayerRunStamina);
         }
     }
 
-    void RunGaugeCritical()
+    void RunStaminaCritical()
 	{
-		if(IsRunGaugeNull)
+		if(IsRunStaminaNull)
 		{
-			onPlayerRunGaugeNullEnter.Invoke();
+			onPlayerRunStaminaNullEnter.Invoke();
             IsRunning = false;
 		}
 		else
 		{
-            onPlayerRunGaugeNullExit.Invoke();
+            onPlayerRunStaminaNullExit.Invoke();
 		}
 	}
 }

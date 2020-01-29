@@ -31,8 +31,9 @@ public class UIManager : Singleton<UIManager>
     public Text _HudTribeEnergyText;
     public Text _HudCurrentTimeText;
     public Text _HudPlayerEnergyText;
-    
- 
+    public Text _HudPlayerRunStaminaText;
+
+
     //public Text _HudAlertMessageText;
     //public Text _HudTribeSaysText;
     //public Text _HudPlayerSaysText;
@@ -106,7 +107,7 @@ public class UIManager : Singleton<UIManager>
         ShowTime(false);
         ShowPlayerEnergy(false);
         ShowTribeDistance(false);
-        //ShowTribeEnergy(false);
+        ShowPlayerRunStamina(false);
     }
 
     #endregion
@@ -210,6 +211,11 @@ public class UIManager : Singleton<UIManager>
         _HudTribeDistanceText.gameObject.SetActive(show);
     }
 
+    public void ShowPlayerRunStamina(bool show)
+    {
+        _HudPlayerRunStaminaText.gameObject.SetActive(show);
+    }
+
     public void SetTribeDistance()
     {
         _HudTribeDistanceText.text = $"Tribe distance " + Mathf.Floor(_refPlayerMovement.TribeDistance) + " m";
@@ -227,7 +233,11 @@ public class UIManager : Singleton<UIManager>
 	public void SetTribeEnergy()
     {
 	    _HudTribeEnergyText.text = $"Tribe Energy " + Mathf.Floor(_refTribe.Energy);
-	}
+    }
+    public void SetRunStamina(float runStamina)
+    {
+        _HudPlayerRunStaminaText.text = $"Run Stamina " + Mathf.Floor(runStamina);
+    }
 	public void AlertTribeEnergyCritical()
 	{
 		AlertMessage("Danger : Tribe energy is critical.", 3f);
