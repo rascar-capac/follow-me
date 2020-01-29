@@ -27,6 +27,8 @@ public class GameData : ScriptableObject
     public List<DayState> PlayerRunUsable;
     [TabGroup("Player")][Tooltip("Player run is unusable when energy low")]
     public bool PlayerRunEnergyLowUnusable;
+    [TabGroup("Player")][Tooltip("Running is limited by a run gauge")]
+    public bool PlayerRunGauge;
     [TabGroup("Player")][Tooltip("Player run gauge maximum")]
     public float PlayerRunGaugeMax = 100f;
 	[TabGroup("Player")][Tooltip("player run gauge cost by second when running")]

@@ -1,0 +1,114 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11b29abf8b04ef043bce4d639d3e647d, type: 3}
+  m_Name: _TestSetting
+  m_EditorClassIdentifier: 
+  CameraRotationSpeed: 150
+  InitialPlayerEnergy: 100
+  EnergyPlayerLostPerSecond: 0
+  EnergyPlayerGainPerSecond: 0
+  InitialPlayerSpeed: 10
+  SpeedMultiplicator: 4
+  PlayerRunUsable: 0000000001000000
+  PlayerRunEnergyLowUnusable: 0
+  PlayerRunGauge: 0
+  PlayerRunGaugeMax: 5
+  PlayerRunCostBySecond: 1
+  PlayerRunGainBySecond: 0.1
+  PlayerItemDistanceInteraction: 2
+  StonesActivationUsable: 0000000001000000
+  CompassUsable: 0000000001000000
+  CompassEnergyLowUnusable: 0
+  BeaconPlacerUsable: 0000000001000000
+  BeaconPlacerEnergyLowUnusable: 0
+  MaximumDistanceOfTribe: 10000
+  BeaconPlacementDistance: 3
+  BeaconPlacementCount: 3
+  MapUsable: 0000000001000000
+  SundialUsable: 0000000001000000
+  SundialEnergyLowUnusable: 0
+  PlayerEnergyMeterUsable: 0000000001000000
+  PlayerEnergyMeterEnergyLowUnusable: 0
+  TribeEnergyMeterUsable: 0000000001000000
+  TribeEnergyMeterEnergyLowUnusable: 0
+  TribeDistanceMeterUsable: 0000000001000000
+  TribeDistanceMeterEnergyLowUnusable: 0
+  InitialTribeEnergy: 100
+  PercentEnergyTribeForCritical: 10
+  EnergyTribeLostPerSecond: 0.3
+  EnergyTribeGainPerSecond: 5
+  TribeProperties:
+    MaxSpeed: 50
+    MaxAngularSpeed: 3
+    AccelerationForce: 50
+    DecelerationForce: 50
+    MinDistForAcceleration: 50
+    MinDistForDeceleration: 50
+    CriticalSpeedMultiplicator: 0.5
+  States:
+  - State: 0
+    DayStateDurationInSecond: 120
+    StateHoursCount: 12
+    StateColor: {r: 1, g: 0.9411765, b: 0.8235294, a: 0}
+    TimeStateChanged: 0
+    EnterSunRotation: {x: 90, y: -30, z: 0}
+    ExitSunRotation: {x: 270, y: -30, z: 0}
+  - State: 1
+    DayStateDurationInSecond: 120
+    StateHoursCount: 12
+    StateColor: {r: 0.16078432, g: 0.13333334, b: 0.050980393, a: 0}
+    TimeStateChanged: 119.99352
+    EnterSunRotation: {x: 270, y: -30, z: 0}
+    ExitSunRotation: {x: 90, y: -30, z: 0}
+  TurtleRockFinalPosition: {fileID: 0}
+  Input_Pause:
+    XBox: 10
+    Keyboard: 27
+  Input_PlayerJump:
+    XBox: 0
+    Keyboard: 32
+  Input_PlayerRun:
+    XBox: 11
+    Keyboard: 308
+  Input_TribeOrder:
+    XBox: 12
+    Keyboard: 97
+  Input_LeftHand_SelectTool:
+    XBox: 5
+    Keyboard: 306
+  Input_RightHand_SelectTool:
+    XBox: 6
+    Keyboard: 305
+  Input_LeftHand_ShowHide:
+    XBox: 7
+    Keyboard: 304
+  Input_RightHand_ShowHide:
+    XBox: 8
+    Keyboard: 303
+  Input_BeaconPlace:
+    XBox: 4
+    Keyboard: 102
+  Input_BeaconActivate:
+    XBox: 2
+    Keyboard: 103
+  Input_Interaction:
+    XBox: 3
+    Keyboard: 101
+  Input_InventoryOpenClose:
+    XBox: 9
+    Keyboard: 282
+  Input_InventorySelect:
+    XBox: 1
+    Keyboard: 13
+  Input_InventoryBack:
+    XBox: 2
+    Keyboard: 27

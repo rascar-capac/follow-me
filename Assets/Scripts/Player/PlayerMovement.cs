@@ -144,12 +144,15 @@ public class PlayerMovement : BaseMonoBehaviour
 
     public void UpdateRunGauge()
     {
-        if (IsRunning)
-            PlayerRunGauge -= GameManager.I._data.PlayerRunCostBySecond * Time.deltaTime;
-        else
-            PlayerRunGauge += GameManager.I._data.PlayerRunGainBySecond * Time.deltaTime;
+        if(GameManager.I._data.PlayerRunGauge)
+        {
+            if (IsRunning)
+                PlayerRunGauge -= GameManager.I._data.PlayerRunCostBySecond * Time.deltaTime;
+            else
+                PlayerRunGauge += GameManager.I._data.PlayerRunGainBySecond * Time.deltaTime;
 
-        PlayerRunGauge = Mathf.Clamp(PlayerRunGauge, 0, GameManager.I._data.PlayerRunGaugeMax);
+            PlayerRunGauge = Mathf.Clamp(PlayerRunGauge, 0, GameManager.I._data.PlayerRunGaugeMax);
+        }
     }
 
     void RunGaugeCritical()
