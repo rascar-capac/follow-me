@@ -6,7 +6,6 @@ using UnityEngine.Events;
 public class Player : ZoneInteractable
 {
     PlayerLook playerLook;
-    PlayerMovement playerMove;
     PlayerInventory playerInventory;
 
     [Header("List of the player quests data scriptable object")]
@@ -30,7 +29,6 @@ public class Player : ZoneInteractable
     {
         base.Start();
         playerLook = CameraManager.I._MainCamera.GetComponent<PlayerLook>();
-        playerMove = GetComponent<PlayerMovement>();
         playerInventory = GetComponent<PlayerInventory>();
         PlacedBeacon.Clear();
 
@@ -51,18 +49,6 @@ public class Player : ZoneInteractable
         base.Update();
 		UpdateEnergy();
 		EnergyCritical();
-        UpdateRunGauge();
-    }
-
-
-    public void UpdateRunGauge()
-    {
-        if (playerMove.IsRunning)
-            playerMove.PlayerRunGauge -= GameManager.I._data.PlayerRunCostBySecond * Time.deltaTime;
-        else
-            playerMove.PlayerRunGauge += GameManager.I._data.PlayerRunGainBySecond * Time.deltaTime;
-
-        playerMove.PlayerRunGauge = Mathf.Clamp(playerMove.PlayerRunGauge, 0, GameManager.I._data.PlayerRunGaugeMax);
     }
 
     public void UpdateEnergy()

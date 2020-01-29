@@ -21,8 +21,10 @@ public class PlayerMovement : BaseMonoBehaviour
 
     [Header("Player is running")]
     public bool IsRunning = false;
-    bool PlayerMayRun = true;
+    public bool IsWaiting = true;
     public float PlayerRunGauge = 100f;
+    bool IsRunGaugeNull => PlayerRunGauge == 0;
+    bool PlayerMayRun = true;
 
     Vector3 _velocity;
     public bool _isGrounded;
@@ -31,6 +33,9 @@ public class PlayerMovement : BaseMonoBehaviour
     GameObject Tribe;
     Player _player;
     bool AllowMove = true;
+
+    public UnityEvent onPlayerRunGaugeNullEnter = new UnityEvent();
+    public UnityEvent onPlayerRunGaugeNullExit = new UnityEvent();
 
 	// Event For Tribe
 	public PlayerHasMovedEvent onPlayerHasMoved = new PlayerHasMovedEvent();
@@ -46,30 +51,30 @@ public class PlayerMovement : BaseMonoBehaviour
         _speed = GameManager.I._data.InitialPlayerSpeed;
         _player = GetComponent<Player>();
         PlayerRunGauge = GameManager.I._data.PlayerRunGaugeMax;
-        _player.onPlayerEnergyNullEnter.AddListener(() => { if (GameManager.I._data.PlayerRunEnergyLowUnusable) PlayerMayRun = false; });
-        _player.onPlayerEnergyNullExit.AddListener(() => { if (GameManager.I._data.PlayerRunEnergyLowUnusable) PlayerMayRun = true; });
+        onPlayerRunGaugeNullEnter.AddListener(() => { PlayerMayRun = false; });
+        onPlayerRunGaugeNullExit.AddListener(() => {  PlayerMayRun = true; });
 
-        InputManager.I.onRunButtonPressed.AddListener(EnableRun);
-        InputManager.I.onRunButtonReleased.AddListener(DisableRun);
+        InputManager.I.onRunButtonPressed.AddListener(SwitchRun);
         InputManager.I.onMoveInputAxisEvent.AddListener(Move);
+        InputManager.I.onStopMoveInputAxisEvent.AddListener(Wait);
         InputManager.I.onPlayerJumpPressed.AddListener(Jump);
         UIManager.I.onToolsInventoryClosedEvent.AddListener((hand) => { AllowMove = true; });
         UIManager.I.onToolsInventoryOpenedEvent.AddListener((hand) => { AllowMove = false; });
     }
 
-    void EnableRun()
+    void SwitchRun()
     {
-        if (PlayerMayRun)
+        if (!IsRunning && !IsWaiting && PlayerMayRun)
             IsRunning = true;
-    }
-    void DisableRun()
-    {
-        IsRunning = false;
+        else
+            IsRunning = false;
     }
 
     private void Update()
     {
         ComputeTribeDistance();
+        UpdateRunGauge();
+        RunGaugeCritical();
     }
 
     public void Move(InputAxisUnityEventArg axis)
@@ -103,6 +108,14 @@ public class PlayerMovement : BaseMonoBehaviour
         _velocity.y += _gravity * Time.deltaTime;
 
         _controller.Move(_velocity * Time.deltaTime);
+
+        IsWaiting = false;
+    }
+
+    public void Wait()
+    {
+        IsWaiting = true;
+        IsRunning = false;
     }
 
     public void Jump()
@@ -128,6 +141,29 @@ public class PlayerMovement : BaseMonoBehaviour
     {
         _speed = GameManager.I._data.InitialPlayerSpeed;
     }
+
+    public void UpdateRunGauge()
+    {
+        if (IsRunning)
+            PlayerRunGauge -= GameManager.I._data.PlayerRunCostBySecond * Time.deltaTime;
+        else
+            PlayerRunGauge += GameManager.I._data.PlayerRunGainBySecond * Time.deltaTime;
+
+        PlayerRunGauge = Mathf.Clamp(PlayerRunGauge, 0, GameManager.I._data.PlayerRunGaugeMax);
+    }
+
+    void RunGaugeCritical()
+	{
+		if(IsRunGaugeNull)
+		{
+			onPlayerRunGaugeNullEnter.Invoke();
+            IsRunning = false;
+		}
+		else
+		{
+            onPlayerRunGaugeNullExit.Invoke();
+		}
+	}
 }
 
 public class PlayerHasMovedEvent : UnityEvent<Vector3> { }

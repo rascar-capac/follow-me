@@ -19,10 +19,10 @@ MonoBehaviour:
   InitialPlayerSpeed: 3
   SpeedMultiplicator: 4
   PlayerRunUsable: 0000000001000000
-  PlayerRunGaugeMax: 5
   PlayerRunEnergyLowUnusable: 0
+  PlayerRunGaugeMax: 5
   PlayerRunCostBySecond: 1
-  PlayerRunGainBySecond: 0.2
+  PlayerRunGainBySecond: 0.1
   PlayerItemDistanceInteraction: 2
   StonesActivationUsable: 0000000001000000
   CompassUsable: 0000000001000000

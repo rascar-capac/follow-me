@@ -37,13 +37,13 @@ public class InputManager : Singleton<InputManager>
 
 	// Player Events
 	public InputAxisUnityEvent onMoveInputAxisEvent = new InputAxisUnityEvent();
+	public UnityEvent onStopMoveInputAxisEvent = new UnityEvent();
     public InputAxisUnityEvent onLookInputAxisEvent = new InputAxisUnityEvent();
 
     public UnityEvent onPlayerJumpPressed = new UnityEvent();
     public UnityEvent onPauseKeyPressed = new UnityEvent();
 
     public UnityEvent onRunButtonPressed = new UnityEvent();
-    public UnityEvent onRunButtonReleased = new UnityEvent();
 
     public UnityEvent onBeaconPlaceButtonPressed = new UnityEvent();
     public UnityEvent onBeaconActivateKeyPressed = new UnityEvent();
@@ -70,7 +70,7 @@ public class InputManager : Singleton<InputManager>
 
         EventInputMapping.Add(GameManager.I._data.Input_Pause, new EventToggle() { Pressed = new List<UnityEvent> { onPauseKeyPressed } });
 
-        EventInputMapping.Add(GameManager.I._data.Input_PlayerRun, new EventToggle() { Pressed = new List<UnityEvent> { onRunButtonPressed }, Released = new List<UnityEvent> { onRunButtonReleased } });
+        EventInputMapping.Add(GameManager.I._data.Input_PlayerRun, new EventToggle() { Pressed = new List<UnityEvent> { onRunButtonPressed } });
 
         EventInputMapping.Add(GameManager.I._data.Input_BeaconPlace, new EventToggle() { Pressed = new List<UnityEvent> { onBeaconPlaceButtonPressed } });
         EventInputMapping.Add(GameManager.I._data.Input_BeaconActivate, new EventToggle() { Pressed = new List<UnityEvent> { onBeaconActivateKeyPressed } });
@@ -94,16 +94,19 @@ public class InputManager : Singleton<InputManager>
     void Update()
     {
         //Player moving (keyboard)
+        bool isKeyboardMove = false;
         float horizontalAxis = Input.GetAxis("Horizontal");
         float verticalAxis = Input.GetAxis("Vertical");
         if (horizontalAxis != 0 || verticalAxis != 0)
+            isKeyboardMove = true;
             onMoveInputAxisEvent?.Invoke(new InputAxisUnityEventArg() { XDirection = "Horizontal", XValue = horizontalAxis, YDirection = "Vertical", YValue = verticalAxis });
         //Player moving (XBox controller)
         horizontalAxis = Input.GetAxis("XBoxLeftStickHorizontal");
         verticalAxis = Input.GetAxis("XBoxLeftStickVertical");
         if (horizontalAxis != 0 || verticalAxis != 0)
             onMoveInputAxisEvent?.Invoke(new InputAxisUnityEventArg() { XDirection = "XBoxLeftStickHorizontal", XValue = horizontalAxis, YDirection = "XBoxLeftStickVertical", YValue = verticalAxis });
-
+        else if (!isKeyboardMove)
+            onStopMoveInputAxisEvent?.Invoke();
         //Player Look (mouse)
         float CameraLookX = Input.GetAxis("Mouse X");
         float CameraLookY = Input.GetAxis("Mouse Y");
