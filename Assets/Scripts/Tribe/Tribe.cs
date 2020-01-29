@@ -84,6 +84,9 @@ public class Tribe : ZoneInteractable
 		UpdateEnergy();
 		EnergyCritical();
 
+        // à changer quand l’énergie du convoi sera affichée autrement que par du texte
+        UIManager.I.SetTribeEnergy();
+
 		// Acceleration and deceleration controls of Tribe
 		if (_TribeNavAgent.hasPath)
 			_TribeNavAgent.acceleration = (_TribeNavAgent.remainingDistance < TribeProperties.MinDistForDeceleration) ? TribeProperties.DecelerationForce : TribeProperties.AccelerationForce;
@@ -136,7 +139,7 @@ public class Tribe : ZoneInteractable
 		// Lost energy in journey
 		if (AmbiantManager.I.IsDay && !InZones.Exists(z => z.GainEnergySpeed > 0))
 			Energy -= GameManager.I._data.EnergyTribeLostPerSecond * Time.deltaTime;
-		
+
         // Gain energy in the night
 		if (AmbiantManager.I.IsNight)
 			Energy += GameManager.I._data.EnergyTribeGainPerSecond * Time.deltaTime;
