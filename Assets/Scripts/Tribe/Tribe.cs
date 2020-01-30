@@ -89,8 +89,8 @@ public class Tribe : ZoneInteractable
         _PlayerInventory.onItemActivated.AddListener(AddItemActivationDocilityBonus);
         AmbiantManager.I.onDayStateChanged.AddListener(AddNewDayDocilityBonus);
 
-        _DocilityScore = 50;
-        _DocilityLevel = 2;
+        _DocilityScore = GameManager.I._data.InitialDocilityScore;
+        _DocilityLevel = 1;
         _IsIgnoring = false;
         _SpontaneityCheckTimer = ComputeRandomSpontaneityCheckTimer();
 		ModeStopAndWait();
@@ -129,8 +129,7 @@ public class Tribe : ZoneInteractable
         }
 
         UIManager.I.ShowTribeDocility(true);
-        UIManager.I.SetTribeDocility(_DocilityScore, _DocilityLevel, _TribeMovementsMode.ToString(),
-                _SpontaneityCheckTimer, _IsIgnoring, _IgnoranceTimer);
+        UIManager.I.SetTribeDocility(_IsIgnoring);
 	}
 
 	#region Tribe Movements
