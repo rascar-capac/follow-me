@@ -245,10 +245,15 @@ public class UIManager : Singleton<UIManager>
     {
         _HudPlayerRunStaminaText.text = $"Run Stamina " + Mathf.Floor(runStamina);
     }
-    public void SetTribeDocility(float tribeDocility)
+    public void SetTribeDocility(float tribeDocility, int docilityLevel, string movementMode,
+            float spontaneityCheckTimer, bool isIgnoring, float ignoranceTimer)
     {
-        _HudTribeDocilityText.text = $"Tribe Docility " + Mathf.Floor(tribeDocility);
+        _HudTribeDocilityText.text =
+                $"Tribe Docility " + Mathf.Floor(tribeDocility) + " level " + docilityLevel + " mode " + movementMode + "\n"
+                + "Spontaneity timer " + spontaneityCheckTimer + "\n"
+                + "Ignorance " + (isIgnoring ? "yes ":"no ") + ignoranceTimer;
     }
+
 	public void AlertTribeEnergyCritical()
 	{
 		AlertMessage("Danger : Tribe energy is critical.", 3f);

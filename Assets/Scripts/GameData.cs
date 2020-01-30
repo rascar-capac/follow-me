@@ -109,6 +109,79 @@ public class GameData : ScriptableObject
 	//[TabGroup("Tribe")][Tooltip("Default speed rotation of Tribe")]
  //   public float InitialSpeedRotationTribe = 10f;
 
+	[Title("Tribe docility")]
+	[TabGroup("Tribe")]
+	[Tooltip("Ignorance probability at level 0")]
+    public int InitialDocilityScore = 50;
+
+	[TabGroup("Tribe")]
+	[Tooltip("Ignorance probability at level 0")]
+    [Range(0, 1f)] public float IgnoranceProbability0 = 0.5f;
+
+	[TabGroup("Tribe")]
+	[Tooltip("Ignorance duration at level 0")]
+    public int IgnoranceDuration0 = 25;
+
+	[TabGroup("Tribe")]
+	[Tooltip("Spontaneity probability at level 0")]
+    [Range(0, 1f)] public float SpontaneityProbability0 = .5f;
+
+	[TabGroup("Tribe")]
+	[Tooltip("Ignorance probability at level 1")]
+    [Range(0, 1f)] public float IgnoranceProbability1 = 0.3f;
+
+	[TabGroup("Tribe")]
+	[Tooltip("Ignorance duration at level 1")]
+    public int IgnoranceDuration1 = 10;
+
+	[TabGroup("Tribe")]
+	[Tooltip("Spontaneity probability at level 1")]
+    [Range(0, 1f)] public float SpontaneityProbability1 = 0.2f;
+
+	[TabGroup("Tribe")]
+	[Tooltip("Ignorance probability at level 2")]
+    [Range(0, 1f)] public float IgnoranceProbability2 = 0.2f;
+
+	[TabGroup("Tribe")]
+	[Tooltip("Ignorance duration at level 2")]
+    public int IgnoranceDuration2 = 6;
+
+	[TabGroup("Tribe")]
+	[Tooltip("Spontaneity probability at level 2")]
+    [Range(0, 1f)] public float SpontaneityProbability2 = 0.15f;
+
+	[TabGroup("Tribe")]
+	[Tooltip("Ignorance probability at level 3")]
+    [Range(0, 1f)] public float IgnoranceProbability3 = 0.1f;
+
+	[TabGroup("Tribe")]
+	[Tooltip("Ignorance duration at level 3")]
+    public int IgnoranceDuration3 = 3;
+
+	[TabGroup("Tribe")]
+	[Tooltip("Spontaneity probability at level 3")]
+    [Range(0, 1f)] public float SpontaneityProbability3 = 0.1f;
+
+	[TabGroup("Tribe")]
+	[Tooltip("Ignorance probability at level 4")]
+    [Range(0, 1f)] public float IgnoranceProbability4 = 0;
+
+	[TabGroup("Tribe")]
+	[Tooltip("Ignorance duration at level 4")]
+    public int IgnoranceDuration4 = 0;
+
+	[TabGroup("Tribe")]
+	[Tooltip("Spontaneity probability at level 4")]
+    [Range(0, 1f)] public float SpontaneityProbability4 = 0.05f;
+
+	[TabGroup("Tribe")]
+	[Tooltip("Minimal timer duration between potential spontaneous actions")]
+    public int SpontaneityCheckTimerMinDuration = 30;
+
+	[TabGroup("Tribe")]
+	[Tooltip("Maximal timer duration between potential spontaneous actions")]
+    public int SpontaneityCheckTimerMaxDuration = 60;
+
     [Title("Ambience parameters")]
 	[TabGroup("Ambience")][Tooltip("Day states (night and day)")]
     public DayStatesProperties[] States;

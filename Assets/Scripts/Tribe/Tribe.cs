@@ -7,9 +7,10 @@ using Sirenix.OdinInspector;
 
 public enum TribeMovementsMode
 {
-	GoToBeacon,
+	Wait,
 	FollowPlayer,
-	Wait
+	GoToBeacon,
+    BeSpontaneous
 }
 
 [System.Serializable]
@@ -41,17 +42,6 @@ public class Tribe : ZoneInteractable
     bool IsEnergyCritical => Energy <= CriticalEnergy;
     bool PreviousIsEnergyCritical = false;
 
-	#endregion
-
-    #region Desobedience System
-
-    [Header("Desobedience system")]
-    [Range(0, 1f)] public float level1IgnoranceProbability = 0.5f;
-    public int level1IgnoranceDuration = 3;
-    public float level1DesobedienceProbability = 0.1f;
-    public int desobedienceMinDuration = 30;
-    public int desobedienceMaxDuration = 120;
-
     #endregion
 
 	#region Tribe Events
@@ -65,14 +55,16 @@ public class Tribe : ZoneInteractable
 	Player _Player;
 	PlayerMovement _PlayerMovement;
     PlayerInventory _PlayerInventory;
+    GameObject _Terrain;
 
     int _DocilityScore;
+    int _DocilityLevel;
     bool _IsIgnoring;
     float _IgnoranceProbability;
     int _IgnoranceDuration;
     float _IgnoranceTimer;
-    float _DisobedienceProbability;
-    int _DisobedienceTimer;
+    float _SpontaneityProbability;
+    float _SpontaneityCheckTimer;
 
 	protected override void Start()
     {
@@ -81,9 +73,10 @@ public class Tribe : ZoneInteractable
 		TribeProperties = GameManager.I._data.TribeProperties;
 
 		_TribeNavAgent = GetComponentInParent<NavMeshAgent>();
-		_Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
+        _Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
 		_PlayerMovement = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerMovement>();
         _PlayerInventory = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerInventory>();
+        _Terrain = ((GameObject)ObjectsManager.I["Terrain"]);
 
 		Energy = GameManager.I._data.InitialTribeEnergy;
 		CriticalEnergy = (Energy / 100) * GameManager.I._data.PercentEnergyTribeForCritical;
@@ -97,7 +90,9 @@ public class Tribe : ZoneInteractable
         AmbiantManager.I.onDayStateChanged.AddListener(AddNewDayDocilityBonus);
 
         _DocilityScore = 50;
+        _DocilityLevel = 2;
         _IsIgnoring = false;
+        _SpontaneityCheckTimer = ComputeRandomSpontaneityCheckTimer();
 		ModeStopAndWait();
 	}
 
@@ -115,8 +110,6 @@ public class Tribe : ZoneInteractable
 		if (_TribeNavAgent.hasPath)
 			_TribeNavAgent.acceleration = (_TribeNavAgent.remainingDistance < TribeProperties.MinDistForDeceleration) ?     TribeProperties.DecelerationForce : TribeProperties.AccelerationForce;
 
-
-        // if (_DisobedienceTimer -=
         if (_IsIgnoring)
         {
             _IgnoranceTimer -= Time.deltaTime;
@@ -128,18 +121,27 @@ public class Tribe : ZoneInteractable
         else
         {
             UpdateDocility();
+            _SpontaneityCheckTimer -= Time.deltaTime;
+            if (_SpontaneityCheckTimer <= 0)
+            {
+                CheckSpontaneity();
+            }
         }
+
+        UIManager.I.ShowTribeDocility(true);
+        UIManager.I.SetTribeDocility(_DocilityScore, _DocilityLevel, _TribeMovementsMode.ToString(),
+                _SpontaneityCheckTimer, _IsIgnoring, _IgnoranceTimer);
 	}
 
 	#region Tribe Movements
 
 	public void SwitchModeFollowAndWait()
 	{
-        if(!_IsIgnoring)
+        if(!IsIgnoring())
         {
             if (_TribeMovementsMode == TribeMovementsMode.FollowPlayer)
                 ModeStopAndWait();
-            else if (_TribeMovementsMode == TribeMovementsMode.Wait || _TribeMovementsMode == TribeMovementsMode.GoToBeacon)
+            else
                 ModeFollowPlayer();
         }
 	}
@@ -166,60 +168,51 @@ public class Tribe : ZoneInteractable
 
     public void ModeGoToBeacon(Vector3 destination)
 	{
-        if(!_IsIgnoring)
+        if(!IsIgnoring())
         {
             ModeStopAndWait();
-
             _TribeMovementsMode = TribeMovementsMode.GoToBeacon;
             _TribeNavAgent.SetDestination(new Vector3(destination.x, 0, destination.z));
         }
 	}
+
+    public void ModeBeSpontaneous(Vector2 destination)
+    {
+        ModeStopAndWait();
+        _TribeMovementsMode = TribeMovementsMode.BeSpontaneous;
+        _TribeNavAgent.SetDestination(new Vector3(destination.x, 0, destination.y));
+    }
 
     public void UpdateDocility()
     {
         switch(ComputeDocilityLevel())
         {
             case 0:
-                _IgnoranceProbability = .6f;
-                _IgnoranceDuration = 30;
-                _DisobedienceProbability = .5f;
+                _IgnoranceProbability = GameManager.I._data.IgnoranceProbability0;
+                _IgnoranceDuration = GameManager.I._data.IgnoranceDuration0;
+                _SpontaneityProbability = GameManager.I._data.SpontaneityProbability0;
                 break;
             case 1:
-                _IgnoranceProbability = .5f;
-                _IgnoranceDuration = 25;
-                _DisobedienceProbability = .25f;
+                _IgnoranceProbability = GameManager.I._data.IgnoranceProbability1;
+                _IgnoranceDuration = GameManager.I._data.IgnoranceDuration1;
+                _SpontaneityProbability = GameManager.I._data.SpontaneityProbability1;
                 break;
             case 2:
-                _IgnoranceProbability = .4f;
-                _IgnoranceDuration = 20;
-                _DisobedienceProbability = .2f;
+                _IgnoranceProbability = GameManager.I._data.IgnoranceProbability2;
+                _IgnoranceDuration = GameManager.I._data.IgnoranceDuration2;
+                _SpontaneityProbability = GameManager.I._data.SpontaneityProbability2;
                 break;
             case 3:
-                _IgnoranceProbability = .3f;
-                _IgnoranceDuration = 15;
-                _DisobedienceProbability = .15f;
+                _IgnoranceProbability = GameManager.I._data.IgnoranceProbability3;
+                _IgnoranceDuration = GameManager.I._data.IgnoranceDuration3;
+                _SpontaneityProbability = GameManager.I._data.SpontaneityProbability3;
                 break;
             case 4:
-                _IgnoranceProbability = .2f;
-                _IgnoranceDuration = 10;
-                _DisobedienceProbability = .8f;
-                break;
-            case 5:
-                _IgnoranceProbability = .1f;
-                _IgnoranceDuration = 5;
-                _DisobedienceProbability = .5f;
-                break;
-            case 6:
-                _IgnoranceProbability = 0;
-                _IgnoranceDuration = 0;
-                _DisobedienceProbability = .3f;
+                _IgnoranceProbability = GameManager.I._data.IgnoranceProbability4;
+                _IgnoranceDuration = GameManager.I._data.IgnoranceDuration4;
+                _SpontaneityProbability = GameManager.I._data.SpontaneityProbability4;
                 break;
         }
-
-
-
-        UIManager.I.ShowTribeDocility(true);
-        UIManager.I.SetTribeDocility(_DocilityScore);
     }
 
     public void AddItemActivationDocilityBonus(Item item)
@@ -251,23 +244,43 @@ public class Tribe : ZoneInteractable
         }
 
         int finalScore = _DocilityScore + bonusMalus;
-        if(finalScore <    0) { return 0; }
-        if(finalScore <   50) { return 1; }
-        if(finalScore <  100) { return 2; }
-        if(finalScore <  150) { return 3; }
-        if(finalScore <  200) { return 4; }
-        if(finalScore <  300) { return 5; }
-        if(finalScore >= 300) { return 6; }
-        return 0;
+        if(finalScore <         0) { _DocilityLevel = 0; }
+        else if(finalScore <  100) { _DocilityLevel = 1; }
+        else if(finalScore <  200) { _DocilityLevel = 2; }
+        else if(finalScore <  300) { _DocilityLevel = 3; }
+        else if(finalScore >= 300) { _DocilityLevel = 4; }
+        return _DocilityLevel;
     }
 
-    public void IsIgnoring()
+    public bool IsIgnoring()
     {
-        if(Random.Range(0, 1f) < _IgnoranceProbability)
+        if(!_IsIgnoring && Random.Range(0, 1f) < _IgnoranceProbability)
         {
             _IsIgnoring = true;
             _IgnoranceTimer = _IgnoranceDuration;
         }
+        return _IsIgnoring;
+    }
+
+    public bool CheckSpontaneity()
+    {
+        if(Random.Range(0, 1f) < _SpontaneityProbability)
+        {
+            _SpontaneityCheckTimer = ComputeRandomSpontaneityCheckTimer();
+            Bounds terrainDimensions = _Terrain.GetComponent<MeshCollider>().bounds;
+            Vector2 randomDestination = new Vector2(terrainDimensions.center.x, terrainDimensions.center.z)
+                    + Random.insideUnitCircle * (terrainDimensions.size / 2);
+            ModeBeSpontaneous(randomDestination);
+            _IsIgnoring = true;
+            _IgnoranceTimer = _IgnoranceDuration;
+            return true;
+        }
+        return false;
+    }
+
+    public int ComputeRandomSpontaneityCheckTimer()
+    {
+        return Random.Range(GameManager.I._data.SpontaneityCheckTimerMinDuration, GameManager.I._data.SpontaneityCheckTimerMaxDuration);
     }
 
 	#endregion
