@@ -41,7 +41,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BottomExponent: 1
-    - _CloudsHeight: 0
+    - _CloudsHeight: 0.07
     - _CloudsRotation: 0
     - _Exponent: 1
     - _Exposure: 1.5
