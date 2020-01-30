@@ -58,27 +58,47 @@ public class AmbiantManager : Singleton<AmbiantManager>
             SearchList = Materials.NightMaterials;
         }
 
+        Renderer childRenderer = Terrain.transform.GetComponent<Renderer>();
+        Material TerrainMaterial = GetTargetMaterial(childRenderer, Suffix, SearchList);
+        if (TerrainMaterial)
+        {
+            childRenderer.material.SetTexture("_MainTex", TerrainMaterial.GetTexture("_MainTex"));
+            childRenderer.material.SetTexture("_BaseBump", TerrainMaterial.GetTexture("_BaseBump"));
+            childRenderer.material.SetTexture("_Texture1", TerrainMaterial.GetTexture("_Texture1"));
+            childRenderer.material.SetTexture("_Texture2", TerrainMaterial.GetTexture("_Texture2"));
+            childRenderer.material.SetTexture("_Texture3", TerrainMaterial.GetTexture("_Texture3"));
+        }
+
         for (int i = 0; i < Terrain.transform.childCount; i++)
         {
-            Renderer childRenderer = Terrain.transform.GetChild(i).GetComponent<Renderer>();
-            string matName = childRenderer.material.name.Replace("(Instance)", "").Trim();
-            if (!matName.EndsWith("_D"))
-                continue;
+            childRenderer = Terrain.transform.GetChild(i).GetComponent<Renderer>();
+            ChangeMaterialSettings(childRenderer, GetTargetMaterial(childRenderer, Suffix, SearchList));
+        }
+    }
 
-            string otherName = matName.Substring(0, matName.Length - 1) + Suffix;
-            Material other = null;
+    Material GetTargetMaterial(Renderer renderer, string Suffix, List<Material> SearchList)
+    {
+        string matName = renderer.material.name.Replace("(Instance)", "").Trim();
+        if (!matName.EndsWith("_D"))
+            return null;
 
-            other = SearchList.Find(m => m.name == otherName);
+        string otherName = matName.Substring(0, matName.Length - 1) + Suffix;
 
-            if (other)
-            {
-                if (other.IsKeywordEnabled("_EMISSION"))
-                    childRenderer.material.EnableKeyword("_EMISSION");
-                else
-                    childRenderer.material.DisableKeyword("_EMISSION");
-                childRenderer.material.SetColor("_EmissionColor", other.GetColor("_EmissionColor"));
-                childRenderer.material.SetColor("_Color", other.GetColor("_Color"));
-            }
+        return SearchList.Find(m => m.name == otherName);
+    }
+
+    public void ChangeMaterialSettings(Renderer renderer, Material other)
+    {
+        if (other)
+        {
+            if (other.IsKeywordEnabled("_EMISSION"))
+                renderer.material.EnableKeyword("_EMISSION");
+            else
+                renderer.material.DisableKeyword("_EMISSION");
+            renderer.material.SetColor("_EmissionColor", other.GetColor("_EmissionColor"));
+            renderer.material.SetColor("_Color", other.GetColor("_Color"));
+            renderer.material.SetTexture("_MainTex", other.GetTexture("_MainTex"));
+            renderer.material.SetTexture("_EmissionMap", other.GetTexture("_EmissionMap"));
         }
     }
 
