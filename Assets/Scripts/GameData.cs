@@ -276,8 +276,8 @@ public struct DayStatesProperties
     public DayState State;
     public float DayStateDurationInSecond;
     public float StateHoursCount;
-    public Color StateColor;
-    public float TimeStateChanged;
-    public Vector3 EnterSunRotation;
-    public Vector3 ExitSunRotation;
+	public float TimeStateChanged;
+	//public Color StateColor;
+	//public Vector3 EnterSunRotation;
+	//public Vector3 ExitSunRotation;
 }
