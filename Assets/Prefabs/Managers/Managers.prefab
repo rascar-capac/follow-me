@@ -1,0 +1,153 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1555734747346325636
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1555734747346325643}
+  - component: {fileID: 1555734747346325642}
+  - component: {fileID: 1555734747346325641}
+  - component: {fileID: 1555734747346325647}
+  - component: {fileID: 1555734747346325646}
+  - component: {fileID: 1555734747346325645}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &1555734747346325643
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555734747346325636}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1555734747346325642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555734747346325636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3393523878ee3b543aa93f27ce4fa108, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _MainCamera: {fileID: 0}
+--- !u!114 &1555734747346325641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555734747346325636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48cb0faffc7dd1c4a9607a5eecc97642, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UITribeKey: 116
+  UIQuestKey: 111
+  UIMapKey: 109
+  UIOptionsKey: 282
+  onStopMoveInputAxisEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlayerJumpPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  onPauseKeyPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  onRunButtonPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  onBeaconPlaceButtonPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  onBeaconActivateKeyPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  onInteractionKeyPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  onUIOpenCloseInventoryKeyPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  onTribeOrderKeyPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  onLeftHandOpenToolInventory:
+    m_PersistentCalls:
+      m_Calls: []
+  onLeftHandCloseToolInventory:
+    m_PersistentCalls:
+      m_Calls: []
+  onLeftHandShowHide:
+    m_PersistentCalls:
+      m_Calls: []
+  onRightHandOpenToolInventory:
+    m_PersistentCalls:
+      m_Calls: []
+  onRightHandCloseToolInventory:
+    m_PersistentCalls:
+      m_Calls: []
+  onRightHandShowHide:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1555734747346325647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555734747346325636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59d1920d6418c0d48bff1622885a8778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1555734747346325646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555734747346325636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0312a9c587def5e408520c89f48b1b06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data: {fileID: 11400000, guid: 8688b016710d3f046a851197047646b0, type: 2}
+--- !u!114 &1555734747346325645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555734747346325636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d1ed11eb901fea4bac46943dc1ef7ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Materials: {fileID: 11400000, guid: 6255a6cf19fdcfb43889ab823ee08256, type: 2}
+  _LastHour: 0
+  CurrentDayStateIndex: 0
+  CurrentTimeOfDay: 0
+  TotalDayTime: 0
