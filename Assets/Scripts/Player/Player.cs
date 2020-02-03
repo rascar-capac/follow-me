@@ -33,15 +33,6 @@ public class Player : ZoneInteractable
         PlacedBeacon.Clear();
 
         Energy = GameManager.I._data.InitialPlayerEnergy;
-        if (QuestData != null)
-        {
-            Quests = new List<Quest>();
-            foreach (QuestData data in QuestData)
-            {
-                LoadQuest(data);
-            }
-        }
-
 	}
 
     protected override void Update()
@@ -96,49 +87,6 @@ public class Player : ZoneInteractable
         Energy = Mathf.Clamp(Energy, 0f, GameManager.I._data.InitialPlayerEnergy);
     }
 
-    public void LoadQuest(QuestData data)
-    {
-        Quest quest = new Quest(this, data);
-        Quests.Add(quest);
-        quest.onQuestCompleted.AddListener(QuestCompleted);
-    }
-
-    void QuestCompleted(Quest quest)
-    {
-        UIManager.I.AlertMessage(quest.Data.QuestCompletedDescription);
-
-        List<QuestRewardData> rewards = quest.Data.QuestRewardData;
-        if (rewards == null || rewards.Count <= 0)
-            return;
-
-        for (int i = 0; i < rewards.Count; i++)
-        {
-            if (rewards[i].Items != null)
-            {
-                foreach (ItemData it in rewards[i].Items)
-                {
-                    playerInventory.AddItemToInventory(it);
-                }
-            }
-            if (rewards[i].Quests != null)
-            {
-                foreach (QuestData questdata in rewards[i].Quests)
-                {
-                    LoadQuest(questdata);
-                    UIManager.I.AlertMessage(questdata.QuestDescription);
-                }
-            }
-            if (rewards[i].Zones != null)
-            {
-                foreach (ZoneApparition zone in rewards[i].Zones)
-                {
-                    GameObject newZone = Instantiate(zone.Zone.gameObject);
-                    newZone.transform.position = zone.PositionToAppear.transform.position;
-                    newZone.transform.rotation = Quaternion.identity;
-                }
-            }
-        }
-    }
 
 
 }

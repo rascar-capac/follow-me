@@ -31,6 +31,7 @@ public struct TribeProperties
 public class Tribe : ZoneInteractable
 {
 	public TribeProperties TribeProperties;
+    public UnityEvent onEnergyFull = new UnityEvent();
 
 	[ShowInInspector][ReadOnly]
 	TribeMovementsMode _TribeMovementsMode;
@@ -310,11 +311,11 @@ public class Tribe : ZoneInteractable
         return Random.Range(GameManager.I._data.SpontaneityCheckTimerMinDuration, GameManager.I._data.SpontaneityCheckTimerMaxDuration);
     }
 
-	#endregion
+    #endregion
 
 
-	#region Tribe energy
-
+    #region Tribe energy
+    bool EventCalled = false;
 	public void UpdateEnergy()
 	{
 		// Lost energy in journey
@@ -327,9 +328,16 @@ public class Tribe : ZoneInteractable
 
         // Clamp if life is out of range
         Energy = Mathf.Clamp(Energy, 0f, GameManager.I._data.InitialTribeEnergy);
-	}
+        if (Energy == GameManager.I._data.InitialTribeEnergy && !EventCalled)
+        {
+            EventCalled = true;
+            onEnergyFull.Invoke();
+        }
+        else if (Energy != GameManager.I._data.InitialTribeEnergy)
+            EventCalled = false;
+    }
 
-	void EnergyCritical()
+    void EnergyCritical()
 	{
 		if (IsEnergyCritical && !PreviousIsEnergyCritical)
 		{

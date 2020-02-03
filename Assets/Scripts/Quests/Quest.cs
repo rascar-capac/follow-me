@@ -59,6 +59,8 @@ public class Quest
         if (TribeZoneToReach != null && TribeZoneToReach.Count > 0)
             Tribe.onZoneEnter.AddListener(ZoneReached);
 
+        if (Data.TribeCharged)
+            Tribe.onEnergyFull.AddListener(() => CheckQuestFinished());
     }
 
     void ItemActivated(Item Item)
