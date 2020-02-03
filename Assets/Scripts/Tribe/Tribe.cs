@@ -81,7 +81,8 @@ public class Tribe : ZoneInteractable
 		Energy = GameManager.I._data.InitialTribeEnergy;
 		CriticalEnergy = (Energy / 100) * GameManager.I._data.PercentEnergyTribeForCritical;
 
-		TribeInDefaultSpeed();
+		//TribeInDefaultSpeed();
+		SetNavMeshAgent();
 
 		onTribeEnergyEnterCritical.AddListener(TribeInCriticalSpeed);
 		onTribeEnergyExitCritical.AddListener(TribeInDefaultSpeed);
@@ -97,42 +98,68 @@ public class Tribe : ZoneInteractable
 	}
 
 	protected override void Update()
-    {
-        base.Update();
+	{
+		base.Update();
 
 		UpdateEnergy();
 		EnergyCritical();
 
-        // à changer quand l’énergie du convoi sera affichée autrement que par du texte
-        UIManager.I.SetTribeEnergy();
+		// à changer quand l’énergie du convoi sera affichée autrement que par du texte
+		UIManager.I.SetTribeEnergy();
 
 		// Acceleration and deceleration controls of Tribe
 		if (_TribeNavAgent.hasPath)
-			_TribeNavAgent.acceleration = (_TribeNavAgent.remainingDistance < TribeProperties.MinDistForDeceleration) ?     TribeProperties.DecelerationForce : TribeProperties.AccelerationForce;
+			_TribeNavAgent.acceleration = (_TribeNavAgent.remainingDistance < TribeProperties.MinDistForDeceleration) ? TribeProperties.DecelerationForce : TribeProperties.AccelerationForce;
 
-        if (_IsIgnoring)
-        {
-            _IgnoranceTimer -= Time.deltaTime;
-            if (_IgnoranceTimer <= 0)
-            {
-                _IsIgnoring = false;
-            }
-        }
-        else
-        {
-            UpdateDocility();
-            _SpontaneityCheckTimer -= Time.deltaTime;
-            if (_SpontaneityCheckTimer <= 0)
-            {
-                CheckSpontaneity();
-            }
-        }
+		if (_IsIgnoring)
+		{
+			_IgnoranceTimer -= Time.deltaTime;
+			if (_IgnoranceTimer <= 0)
+			{
+				_IsIgnoring = false;
+			}
+		}
+		else
+		{
+			UpdateDocility();
+			_SpontaneityCheckTimer -= Time.deltaTime;
+			if (_SpontaneityCheckTimer <= 0)
+			{
+				CheckSpontaneity();
+			}
+		}
 
-        UIManager.I.ShowTribeDocility(true);
-        UIManager.I.SetTribeDocility(_IsIgnoring);
+		UIManager.I.ShowTribeDocility(true);
+		UIManager.I.SetTribeDocility(_IsIgnoring);
+
+		DebugNavMesh();
+
+		if (IsInMeleeRangeOf())
+		{
+			RotateTowards();
+		}
 	}
 
 	#region Tribe Movements
+	// Renock Test
+	void SetNavMeshAgent()
+	{
+		_TribeNavAgent.acceleration = TribeProperties.AccelerationForce;
+		_TribeNavAgent.stoppingDistance = TribeProperties.MinDistForAcceleration;
+		TribeInDefaultSpeed();
+	}
+	bool IsInMeleeRangeOf()
+	{
+		float distance = Vector3.Distance(transform.position, _Player.transform.position);
+		return distance < TribeProperties.MinDistForAcceleration;
+	}
+	void RotateTowards()
+	{
+		Vector3 direction = (_Player.transform.position - transform.position).normalized;
+		Quaternion lookRotation = Quaternion.LookRotation(direction);
+		transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * TribeProperties.MaxAngularSpeed);
+	}
+	// Fin Test
 
 	public void SwitchModeFollowAndWait()
 	{
@@ -162,7 +189,8 @@ public class Tribe : ZoneInteractable
 	{
         Vector3 playerPositionXZ = new Vector3(playerPosition.x, 0, playerPosition.z);
         if (_TribeNavAgent.destination != playerPositionXZ)
-            _TribeNavAgent.SetDestination(playerPositionXZ);
+			_TribeNavAgent.SetDestination(playerPositionXZ);
+		//_TribeNavAgent.SetDestination(Vector3.Slerp(transform.position, playerPositionXZ, 5));
 	}
 
     public void ModeGoToBeacon(Vector3 destination)
@@ -284,6 +312,7 @@ public class Tribe : ZoneInteractable
 
 	#endregion
 
+
 	#region Tribe energy
 
 	public void UpdateEnergy()
@@ -366,30 +395,38 @@ public class Tribe : ZoneInteractable
 	//_TribeNavAgent.CalculatePath(new Vector3(_Player.transform.position.x, 0, _Player.transform.position.z), path);
 	//_TribeNavAgent.SetPath(path);
 
-	//void DebugNavMesh()
-	//{
-	//	Debug.Log("Speed = " + _TribeNavAgent.speed);
-	//	Debug.Log("Acceleration = " + _TribeNavAgent.acceleration);
-	//	Debug.Log("Angular speed = " + _TribeNavAgent.angularSpeed);
-	//	Debug.Log("Velocity = " + _TribeNavAgent.velocity);
-	//	Debug.Log("Desired Velocity = " + _TribeNavAgent.desiredVelocity);
-	//	Debug.Log("Destination = " + _TribeNavAgent.destination);
-	//	Debug.Log("Remaining Distance = " + _TribeNavAgent.remainingDistance);
-	//	Debug.Log("Stopping Distance = " + _TribeNavAgent.stoppingDistance);
-	//	Debug.Log("Steering Target = " + _TribeNavAgent.steeringTarget);
-	//	Debug.Log("Next Position = " + _TribeNavAgent.nextPosition);
-	//	Debug.Log("Update Position = " + _TribeNavAgent.updatePosition);
-	//	Debug.Log("Update Rotation = " + _TribeNavAgent.updateRotation);
-	//	Debug.Log("Auto Braking = " + _TribeNavAgent.autoBraking);
-	//	Debug.Log("Auro Repath = " + _TribeNavAgent.autoRepath);
-	//	Debug.Log("Has Path = " + _TribeNavAgent.hasPath);
-	//	Debug.Log("Is Stopped = " + _TribeNavAgent.isStopped);
-	//	Debug.Log("Path Status = " + _TribeNavAgent.path.status);
-	//	Debug.Log("Path Status = " + _TribeNavAgent.pathStatus);
-	//	Debug.Log("PathPending = " + _TribeNavAgent.pathPending);
-	//	Debug.Log("**********************************************");
-	//	Debug.Log("**********************************************");
-	//}
+	void DebugNavMesh()
+	{
+		//Debug.Log("Speed = " + _TribeNavAgent.speed);
+		//Debug.Log("Acceleration = " + _TribeNavAgent.acceleration);
+		//Debug.Log("Angular speed = " + _TribeNavAgent.angularSpeed);
+		//Debug.Log("Velocity = " + _TribeNavAgent.velocity);
+		//Debug.Log("Desired Velocity = " + _TribeNavAgent.desiredVelocity);
+		//Debug.Log("Destination = " + _TribeNavAgent.destination);
+		//Debug.Log("Remaining Distance = " + _TribeNavAgent.remainingDistance);
+		//Debug.Log("Stopping Distance = " + _TribeNavAgent.stoppingDistance);
+		//Debug.Log("Steering Target = " + _TribeNavAgent.steeringTarget);
+		//Debug.Log("Next Position = " + _TribeNavAgent.nextPosition);
+		//Debug.Log("Update Position = " + _TribeNavAgent.updatePosition);
+		//Debug.Log("Update Rotation = " + _TribeNavAgent.updateRotation);
+		//Debug.Log("Auto Braking = " + _TribeNavAgent.autoBraking);
+		//Debug.Log("Auro Repath = " + _TribeNavAgent.autoRepath);
+		//Debug.Log("Has Path = " + _TribeNavAgent.hasPath);
+		//Debug.Log("Is Stopped = " + _TribeNavAgent.isStopped);
+		//Debug.Log("Path Status = " + _TribeNavAgent.path.status);
+		//Debug.Log("Path Status = " + _TribeNavAgent.pathStatus);
+		//Debug.Log("PathPending = " + _TribeNavAgent.pathPending);
+		//Debug.Log("**********************************************");
+		//Debug.Log("**********************************************");
+	}
+
+	private void OnDrawGizmos()
+	{
+		Gizmos.color = Color.green;
+		Gizmos.DrawWireSphere(transform.position, TribeProperties.MinDistForAcceleration);
+		Gizmos.color = Color.red;
+		Gizmos.DrawWireSphere(transform.position, TribeProperties.MinDistForDeceleration);
+	}
 
 	#endregion
 }
