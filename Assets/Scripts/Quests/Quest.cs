@@ -13,9 +13,12 @@ public class Quest
     public List<Item> ItemsToActivate = new List<Item>();
     [HideInInspector]
     public List<Zone> ZoneToReach = new List<Zone>();
+    [HideInInspector]
+    public List<Zone> TribeZoneToReach = new List<Zone>();
 
     PlayerInventory PlayerInventory;
     Player Player;
+    Tribe Tribe;
     bool QuestCompleted = false;
 
     public QuestCompletedEvent onQuestCompleted = new QuestCompletedEvent();
@@ -24,6 +27,7 @@ public class Quest
     {
         Player = player;
         PlayerInventory = Player.transform.GetComponent<PlayerInventory>();
+        Tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
 
         Data = data;
         Item it = null;
@@ -43,11 +47,18 @@ public class Quest
         if (Data.Zones != null)
             ZoneToReach.AddRange(Data.Zones);
 
+        if (Data.TribeZones != null)
+            TribeZoneToReach.AddRange(Data.TribeZones);
+
         if (ItemsToActivate != null && ItemsToActivate.Count > 0)
             PlayerInventory.onItemActivated.AddListener(ItemActivated);
 
         if (ZoneToReach != null && ZoneToReach.Count > 0)
             Player.onZoneEnter.AddListener(ZoneReached);
+
+        if (TribeZoneToReach != null && TribeZoneToReach.Count > 0)
+            Tribe.onZoneEnter.AddListener(ZoneReached);
+
     }
 
     void ItemActivated(Item Item)
@@ -61,12 +72,16 @@ public class Quest
 
     void ZoneReached(ZoneInteractable who, Zone zone)
     {
-        if (!(who is Player))
-            return;
-
-        if (ZoneToReach != null && ZoneToReach.Count > 0 && ZoneToReach.Exists(z => z == zone))
-            ZoneToReach.Remove(zone);
-
+        if (who is Player)
+        {
+            if (ZoneToReach != null && ZoneToReach.Count > 0 && ZoneToReach.Exists(z => z == zone))
+                ZoneToReach.Remove(zone);
+        }
+        else if (who is Tribe)
+        {
+            if (TribeZoneToReach != null && TribeZoneToReach.Count > 0 && TribeZoneToReach.Exists(z => z == zone))
+                TribeZoneToReach.Remove(zone);
+        }
         CheckQuestFinished();
     }
 
@@ -78,10 +93,17 @@ public class Quest
         if (ZoneToReach != null && ZoneToReach.Count > 0)
             return;
 
+        if (TribeZoneToReach != null && TribeZoneToReach.Count > 0)
+            return;
+
+        if (Data.TribeCharged && Tribe.Energy < GameManager.I._data.InitialTribeEnergy)
+            return;
+
         QuestCompleted = true;
 
         PlayerInventory.onItemActivated.RemoveListener(ItemActivated);
         Player.onZoneEnter.RemoveListener(ZoneReached);
+        Tribe.onZoneEnter.RemoveListener(ZoneReached);
 
         onQuestCompleted.Invoke(this);
     }

@@ -105,6 +105,8 @@ public class Player : ZoneInteractable
 
     void QuestCompleted(Quest quest)
     {
+        UIManager.I.AlertMessage(quest.Data.QuestCompletedDescription);
+
         List<QuestRewardData> rewards = quest.Data.QuestRewardData;
         if (rewards == null || rewards.Count <= 0)
             return;
@@ -123,6 +125,7 @@ public class Player : ZoneInteractable
                 foreach (QuestData questdata in rewards[i].Quests)
                 {
                     LoadQuest(questdata);
+                    UIManager.I.AlertMessage(questdata.QuestDescription);
                 }
             }
             if (rewards[i].Zones != null)

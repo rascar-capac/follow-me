@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 198af5eba7916214c901a32cac5b24ef, type: 3}
+  m_Name: FindEnergyZone
+  m_EditorClassIdentifier: 
+  QuestTitle: Find an energy zone
+  QuestDescription: Find an energy zone for your tribe
+  QuestCompletedDescription: Energy zone found !
+  ZonesNames:
+  - ZoneEnergy1
+  Zones:
+  - {fileID: 0}
+  TribeZones: []
+  Items: []
+  TribeCharged: 0
+  QuestRewardData:
+  - {fileID: 11400000, guid: ba283b0df4f9c4d40bc92f76ead385f9, type: 2}
