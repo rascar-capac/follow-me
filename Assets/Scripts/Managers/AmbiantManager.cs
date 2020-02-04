@@ -46,7 +46,7 @@ public class AmbiantManager : Singleton<AmbiantManager>
 
     void ChangeMaterial(DayStatesProperties currentDayStateProperties, DayStatesProperties nextDayStateProperties)
     {
-        UIManager.I.AlertMessage("It is " + currentDayStateProperties.State.ToString());
+        //UIManager.I.AlertMessage("It is " + currentDayStateProperties.State.ToString());
         if (!Materials)
             return;
 

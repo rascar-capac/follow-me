@@ -9,12 +9,14 @@ public class QuestManager : Singleton<QuestManager>
 
     Player player;
     PlayerInventory playerInventory;
+    Tribe Tribe;
 
     protected override void Start()
     {
         base.Start();
         player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
         playerInventory = player.GetComponent<PlayerInventory>();
+        Tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
         InitQuests();
     }
 
@@ -29,7 +31,7 @@ public class QuestManager : Singleton<QuestManager>
             LoadQuest(QuestsData[i]);
         }
         if (Quests.Count > 0)
-            StartChrono(2, () => { UIManager.I.AlertMessage(Quests[0].Data.QuestDescription); });
+            StartChrono(2, () => { UIManager.I.AlertMessage(Quests[0].Data.QuestDescription, GameManager.I._data.MessageDuration, MessageOrigin.Tribe); });
     }
 
     void LoadQuest(QuestData questdata)
@@ -41,7 +43,7 @@ public class QuestManager : Singleton<QuestManager>
 
     void QuestCompleted(Quest quest)
     {
-        UIManager.I.AlertMessage(quest.Data.QuestCompletedDescription);
+        UIManager.I.AlertMessage(quest.Data.QuestCompletedDescription, GameManager.I._data.MessageDuration, MessageOrigin.Tribe);
 
         if (quest.Data.ItemsReward != null)
         {
@@ -55,7 +57,7 @@ public class QuestManager : Singleton<QuestManager>
             foreach (QuestData questdata in quest.Data.QuestsReward)
             {
                 LoadQuest(questdata);
-                UIManager.I.AlertMessage(questdata.QuestDescription);
+                UIManager.I.AlertMessage(questdata.QuestDescription, GameManager.I._data.MessageDuration, MessageOrigin.Tribe);
             }
         }
         if (quest.Data.ZonesReward != null)
@@ -74,6 +76,9 @@ public class QuestManager : Singleton<QuestManager>
                 zone.Zone.Init();
             }
         }
+
+        Tribe.DocilityScore += quest.Data.DocilityPointsReward;
+
         Quests.Remove(quest);
     }
 }

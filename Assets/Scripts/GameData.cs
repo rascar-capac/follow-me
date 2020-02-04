@@ -237,6 +237,10 @@ public class GameData : ScriptableObject
     [Tooltip("back in inventory")]
     public PlayerInputs Input_InventoryBack;
 
+    [TabGroup("UI")]
+    [Tooltip("Messages duration")]
+    public float MessageDuration;
+
 }
 
 [System.Serializable]

@@ -55,16 +55,16 @@ MonoBehaviour:
     MinDistForDeceleration: 50
     CriticalSpeedMultiplicator: 0.5
   InitialDocilityScore: 50
-  IgnoranceProbability0: 0
+  IgnoranceProbability0: 0.5
   IgnoranceDuration0: 25
   SpontaneityProbability0: 0.5
-  IgnoranceProbability1: 0
+  IgnoranceProbability1: 0.3
   IgnoranceDuration1: 10
   SpontaneityProbability1: 0.2
-  IgnoranceProbability2: 0
+  IgnoranceProbability2: 0.2
   IgnoranceDuration2: 6
   SpontaneityProbability2: 0.15
-  IgnoranceProbability3: 0
+  IgnoranceProbability3: 0.1
   IgnoranceDuration3: 3
   SpontaneityProbability3: 0.1
   IgnoranceProbability4: 0
@@ -76,11 +76,11 @@ MonoBehaviour:
   - State: 0
     DayStateDurationInSecond: 10
     StateHoursCount: 12
-    TimeStateChanged: 0
+    TimeStateChanged: 319.72824
   - State: 1
     DayStateDurationInSecond: 10
     StateHoursCount: 12
-    TimeStateChanged: 119.99299
+    TimeStateChanged: 329.72287
   TurtleRockFinalPosition: {fileID: 0}
   Input_Pause:
     XBox: 10
@@ -124,3 +124,4 @@ MonoBehaviour:
   Input_InventoryBack:
     XBox: 2
     Keyboard: 27
+  MessageDuration: 0

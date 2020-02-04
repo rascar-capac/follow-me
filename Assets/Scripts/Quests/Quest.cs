@@ -64,8 +64,9 @@ public class Quest
             Tribe.onZoneEnter.AddListener(ZoneReached);
 
         if (Data.TribeCharged)
-            Tribe.onEnergyFull.AddListener(() => CheckQuestFinished());
+            Tribe.onEnergyFull.AddListener(CheckQuestFinished);
     }
+
 
     void ItemActivated(Item Item)
     {
@@ -96,6 +97,9 @@ public class Quest
 
     public void CheckQuestFinished() 
     {
+        if (QuestCompleted)
+            return;
+
         if (ItemsToActivate != null && ItemsToActivate.Count > 0)
             return;
 
@@ -114,6 +118,7 @@ public class Quest
         PlayerInventory.onItemPickedUp.RemoveListener(ItemActivated);
         Player.onZoneEnter.RemoveListener(ZoneReached);
         Tribe.onZoneEnter.RemoveListener(ZoneReached);
+        Tribe.onEnergyFull.RemoveListener(CheckQuestFinished);
 
         onQuestCompleted.Invoke(this);
     }

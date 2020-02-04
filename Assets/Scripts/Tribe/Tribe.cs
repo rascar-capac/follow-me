@@ -58,7 +58,8 @@ public class Tribe : ZoneInteractable
     PlayerInventory _PlayerInventory;
     GameObject _Terrain;
 
-    int _DocilityScore;
+    [HideInInspector]
+    public int DocilityScore;
     int _DocilityLevel;
     bool _IsIgnoring;
     float _IgnoranceProbability;
@@ -91,7 +92,7 @@ public class Tribe : ZoneInteractable
         _PlayerInventory.onItemActivated.AddListener(AddItemActivationDocilityBonus);
         AmbiantManager.I.onDayStateChanged.AddListener(AddNewDayDocilityBonus);
 
-        _DocilityScore = GameManager.I._data.InitialDocilityScore;
+        DocilityScore = GameManager.I._data.InitialDocilityScore;
         _DocilityLevel = 1;
         _IsIgnoring = false;
         _SpontaneityCheckTimer = ComputeRandomSpontaneityCheckTimer();
@@ -245,7 +246,7 @@ public class Tribe : ZoneInteractable
 
     public void AddItemActivationDocilityBonus(Item item)
     {
-        _DocilityScore += 100;
+        DocilityScore += 100;
     }
 
     // public void AddObstacleDocilityMalus() {}
@@ -254,7 +255,7 @@ public class Tribe : ZoneInteractable
     {
         if(currentDayState.State == DayState.Day)
         {
-            _DocilityScore += 10;
+            DocilityScore += 10;
         }
     }
 
@@ -271,7 +272,7 @@ public class Tribe : ZoneInteractable
             bonusMalus += 50;
         }
 
-        int finalScore = _DocilityScore + bonusMalus;
+        int finalScore = DocilityScore + bonusMalus;
         if(finalScore <         0) { _DocilityLevel = 0; }
         else if(finalScore <  100) { _DocilityLevel = 1; }
         else if(finalScore <  200) { _DocilityLevel = 2; }

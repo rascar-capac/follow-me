@@ -31,7 +31,8 @@ public class QuestData : BaseMonoBehaviour
     public List<QuestData> QuestsReward;
     [Header("Zone to activate on quest completed")]
     public List<ZoneApparition> ZonesReward;
-
+    [Header("Docility point reward")]
+    public int DocilityPointsReward = 0;
 }
 public enum QuestType
 {
