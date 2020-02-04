@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c775962f82cc0b244b3dac4d0701e81f
+guid: d505ab27477e87b4c8222f0d42d59cfa
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
@@ -8,12 +8,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: mat_Foliage
-    second: {fileID: 2100000, guid: 80f48216b18d00d40a679fd00ec3b727, type: 2}
+    second: {fileID: 2100000, guid: 59339a9dcd17fac4eb6c67727a854ed1, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: mat_Tree
-    second: {fileID: 2100000, guid: 54748e8043805f4499069a4e7582bd10, type: 2}
+    second: {fileID: 2100000, guid: 2793ac90a71bb5c43baf97dadbe15e75, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -44,7 +44,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1.5
+    globalScale: 1.8
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -78,7 +78,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     serializedVersion: 3
@@ -91,7 +91,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1.5
+    globalScale: 1.8
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
