@@ -47,12 +47,12 @@ MonoBehaviour:
   EnergyTribeLostPerSecond: 0.3
   EnergyTribeGainPerSecond: 5
   TribeProperties:
-    MaxSpeed: 50
-    MaxAngularSpeed: 3
-    AccelerationForce: 50
-    DecelerationForce: 50
-    MinDistForAcceleration: 50
-    MinDistForDeceleration: 50
+    MaxSpeed: 20
+    MaxAngularSpeed: 30
+    AccelerationForce: 8
+    DecelerationForce: 1.2
+    MinDistForAcceleration: 30
+    MinDistForDeceleration: 70
     CriticalSpeedMultiplicator: 0.5
   InitialDocilityScore: 50
   IgnoranceProbability0: 0.5
@@ -76,11 +76,11 @@ MonoBehaviour:
   - State: 0
     DayStateDurationInSecond: 10
     StateHoursCount: 12
-    TimeStateChanged: 839.129
+    TimeStateChanged: 259.7783
   - State: 1
     DayStateDurationInSecond: 10
     StateHoursCount: 12
-    TimeStateChanged: 829.1365
+    TimeStateChanged: 249.78398
   TurtleRockFinalPosition: {fileID: 0}
   Input_Pause:
     XBox: 10
