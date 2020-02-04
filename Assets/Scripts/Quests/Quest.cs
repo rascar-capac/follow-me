@@ -71,7 +71,8 @@ public class Quest
     {
         if (ItemsToActivate != null && ItemsToActivate.Count > 0 && ItemsToActivate.Exists(It => It == Item))
         {
-            Item.ActivateItem();
+            if (Item._itemData.IsActivable)
+                Item.ActivateItem();
             ItemsToActivate.Remove(Item);
         }
 
@@ -110,6 +111,7 @@ public class Quest
         QuestCompleted = true;
 
         PlayerInventory.onItemActivated.RemoveListener(ItemActivated);
+        PlayerInventory.onItemPickedUp.RemoveListener(ItemActivated);
         Player.onZoneEnter.RemoveListener(ZoneReached);
         Tribe.onZoneEnter.RemoveListener(ZoneReached);
 

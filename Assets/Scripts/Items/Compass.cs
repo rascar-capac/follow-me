@@ -37,11 +37,14 @@ public class Compass : Item
 
             for (int i = 0; i < q.ItemsToActivate.Count; i++)
             {
-                dist = Vector3.Distance(q.ItemsToActivate[i].transform.position, Needle.transform.position);
-                if (dist < min)
+                if (q.ItemsToActivate[i]._itemData.IsActivable)
                 {
-                    min = dist;
-                    Nearest = q.ItemsToActivate[i];
+                    dist = Vector3.Distance(q.ItemsToActivate[i].transform.position, Needle.transform.position);
+                    if (dist < min)
+                    {
+                        min = dist;
+                        Nearest = q.ItemsToActivate[i];
+                    }
                 }
             }
         }
