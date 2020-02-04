@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: dc6e992b1f761f8438ff9d0ba393fd36
+guid: feea6548c261be547a177c416001869a
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
@@ -7,8 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_Tribe
-    second: {fileID: 2100000, guid: ea2febec2e07fec46a26c6768700b7e4, type: 2}
+      name: mat_Foliage
+    second: {fileID: 2100000, guid: c410d899b8bbc6c4bbfe80f4f7e7ee1c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_Tree
+    second: {fileID: 2100000, guid: 54748e8043805f4499069a4e7582bd10, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -39,7 +44,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 1.5
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -86,7 +91,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 1.5
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
