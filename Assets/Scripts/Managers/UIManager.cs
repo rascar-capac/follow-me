@@ -339,10 +339,10 @@ public class UIManager : Singleton<UIManager>
 			CleanCellsQuest();
 
 		// Instantiate all cells for each items in inventory and set-up cell
-		for (int i = 0; i < Player.Quests.Count; i++)
+		for (int i = 0; i < QuestManager.I.Quests.Count; i++)
 		{
             _questCellList.Add(Instantiate(_questCellAsset, _questContent));
-            _questCellList[i].transform.GetChild(0).GetComponent<Text>().text = Player.Quests[i].Data.QuestTitle;
+            _questCellList[i].transform.GetChild(0).GetComponent<Text>().text = QuestManager.I.Quests[i].Data.QuestTitle;
 		}
 	}
 	void CleanCellsQuest()

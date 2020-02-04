@@ -39,6 +39,7 @@ public class Quest
                 {
                     it = i.GetComponent<Item>();
                     it._itemData.IsActivated = false;
+                    it.gameObject.SetActive(true);
                     ItemsToActivate.Add(it);
                 }
             });
@@ -51,7 +52,10 @@ public class Quest
             TribeZoneToReach.AddRange(Data.TribeZones);
 
         if (ItemsToActivate != null && ItemsToActivate.Count > 0)
+        {
+            PlayerInventory.onItemPickedUp.AddListener(ItemActivated);
             PlayerInventory.onItemActivated.AddListener(ItemActivated);
+        }
 
         if (ZoneToReach != null && ZoneToReach.Count > 0)
             Player.onZoneEnter.AddListener(ZoneReached);
@@ -65,9 +69,11 @@ public class Quest
 
     void ItemActivated(Item Item)
     {
-        Item.ActivateItem();
         if (ItemsToActivate != null && ItemsToActivate.Count > 0 && ItemsToActivate.Exists(It => It == Item))
+        {
+            Item.ActivateItem();
             ItemsToActivate.Remove(Item);
+        }
 
         CheckQuestFinished();
     }

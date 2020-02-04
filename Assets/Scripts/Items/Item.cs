@@ -40,11 +40,12 @@ public class Item : BaseMonoBehaviour
 	public void ActivateItem()
 	{
 		_itemData.IsActivated = true;
-        Destroy(_currentItemPrefabDisplay);
-        _currentItemPrefabDisplay = Instantiate(_itemData._itemActivatedPrefab, transform.position, Quaternion.identity, transform);
+        if (_itemData._itemActivatedPrefab)
+        {
+            Destroy(_currentItemPrefabDisplay);
+            _currentItemPrefabDisplay = Instantiate(_itemData._itemActivatedPrefab, transform.position, Quaternion.identity, transform);
+        }
         UIManager.I.AlertMessage($"{_itemData._itemName} has been activated...");
     }
 
-    public virtual void Init()
-    { }
 }

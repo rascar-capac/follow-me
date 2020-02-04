@@ -30,7 +30,7 @@ public class Compass : Item
         float dist = 0.0f;
         Item Nearest = null;
 
-        foreach (Quest q in Player.Quests)
+        foreach (Quest q in QuestManager.I.Quests)
         {
             if (q.ItemsToActivate == null || q.ItemsToActivate.Count <= 0)
                 continue;

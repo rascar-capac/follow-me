@@ -80,7 +80,7 @@ MonoBehaviour:
   - State: 1
     DayStateDurationInSecond: 120
     StateHoursCount: 12
-    TimeStateChanged: 0
+    TimeStateChanged: 119.98411
   TurtleRockFinalPosition: {fileID: 0}
   Input_Pause:
     XBox: 10

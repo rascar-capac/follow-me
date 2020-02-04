@@ -5,7 +5,7 @@ using UnityEngine;
 public class QuestManager : Singleton<QuestManager>
 {
     public List<QuestData> QuestsData;
-    List<Quest> Quests;
+    public List<Quest> Quests;
 
     Player player;
     PlayerInventory playerInventory;
@@ -62,10 +62,18 @@ public class QuestManager : Singleton<QuestManager>
         {
             foreach (ZoneApparition zone in quest.Data.ZonesReward)
             {
-                GameObject newZone = Instantiate(zone.Zone.gameObject);
-                newZone.transform.position = zone.PositionToAppear.transform.position;
-                newZone.transform.rotation = Quaternion.identity;
+                if (zone.Instantiate)
+                {
+                    GameObject newZone = Instantiate(zone.Zone.gameObject);
+                    if (zone.PositionToAppear)
+                    {
+                        newZone.transform.position = zone.PositionToAppear.transform.position;
+                        newZone.transform.rotation = Quaternion.identity;
+                    }
+                }
+                zone.Zone.Init();
             }
         }
+        Quests.Remove(quest);
     }
 }
