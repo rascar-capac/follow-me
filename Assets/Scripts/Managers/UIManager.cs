@@ -70,6 +70,7 @@ public class UIManager : Singleton<UIManager>
 	{
 		base.Start();
 
+        
         Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
         _refPlayerMovement = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerMovement>();
 		_refPlayerInventory = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerInventory>();
@@ -110,6 +111,7 @@ public class UIManager : Singleton<UIManager>
         ShowTribeDistance(false);
         ShowPlayerRunStamina(false);
         ShowTribeDocility(false);
+
     }
 
     #endregion
@@ -269,6 +271,7 @@ public class UIManager : Singleton<UIManager>
 
     public void AlertMessage(string message, float duration = 3f, MessageOrigin WhoTalks = MessageOrigin.System)
     {
+        Debug.Log("Alert message");
         Message m = new Message() { Text = message, Duration = duration, Origin = WhoTalks };
         Messages[(int)WhoTalks].Add(m);
         if (MessageText[(int)WhoTalks].gameObject.activeSelf)
@@ -279,7 +282,7 @@ public class UIManager : Singleton<UIManager>
     {
         Message m = Messages[(int)WhoTalks][0];
         Messages[(int)WhoTalks].RemoveAt(0);
-        MessageText[(int)WhoTalks].text = WhoTalks.ToString() + ": " + m.Text;
+        MessageText[(int)WhoTalks].text = m.Text;
         MessageText[(int)WhoTalks].gameObject.SetActive(true);
         StartChrono(m.Duration, Callbacks[(int)WhoTalks]);
     }
