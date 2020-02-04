@@ -31,7 +31,7 @@ public class QuestManager : Singleton<QuestManager>
             LoadQuest(QuestsData[i]);
         }
         if (Quests.Count > 0)
-            StartChrono(2, () => { UIManager.I.AlertMessage(Quests[0].Data.QuestDescription, GameManager.I._data.MessageDuration, MessageOrigin.Tribe); });
+            StartChrono(2, () => { UIManager.I.AlertMessage(Quests[0].Data.QuestDescription, GameManager.I._data.MessageDuration); });
     }
 
     void LoadQuest(QuestData questdata)
@@ -43,7 +43,7 @@ public class QuestManager : Singleton<QuestManager>
 
     void QuestCompleted(Quest quest)
     {
-        UIManager.I.AlertMessage(quest.Data.QuestCompletedDescription, GameManager.I._data.MessageDuration, MessageOrigin.Tribe);
+        UIManager.I.AlertMessage(quest.Data.QuestCompletedDescription, GameManager.I._data.MessageDuration);
 
         if (quest.Data.ItemsReward != null)
         {
@@ -57,7 +57,7 @@ public class QuestManager : Singleton<QuestManager>
             foreach (QuestData questdata in quest.Data.QuestsReward)
             {
                 LoadQuest(questdata);
-                UIManager.I.AlertMessage(questdata.QuestDescription, GameManager.I._data.MessageDuration, MessageOrigin.Tribe);
+                UIManager.I.AlertMessage(questdata.QuestDescription, GameManager.I._data.MessageDuration);
             }
         }
         if (quest.Data.ZonesReward != null)

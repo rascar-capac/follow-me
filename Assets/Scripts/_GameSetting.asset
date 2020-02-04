@@ -76,11 +76,11 @@ MonoBehaviour:
   - State: 0
     DayStateDurationInSecond: 10
     StateHoursCount: 12
-    TimeStateChanged: 319.72824
+    TimeStateChanged: 0
   - State: 1
     DayStateDurationInSecond: 10
     StateHoursCount: 12
-    TimeStateChanged: 329.72287
+    TimeStateChanged: 49.94962
   TurtleRockFinalPosition: {fileID: 0}
   Input_Pause:
     XBox: 10
@@ -124,4 +124,4 @@ MonoBehaviour:
   Input_InventoryBack:
     XBox: 2
     Keyboard: 27
-  MessageDuration: 0
+  MessageDuration: 5
