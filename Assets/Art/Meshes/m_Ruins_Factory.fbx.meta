@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 53a8d709543ad3c489f953d947cc34f5
+guid: da8a75b6dca91094d9c6d1bdbc3a5834
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
@@ -7,8 +7,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_Plants
-    second: {fileID: 2100000, guid: cdf7ec55567d5f94397bc6198f0e1af4, type: 2}
+      name: mat_Emissive
+    second: {fileID: 2100000, guid: 74ee34ba8c78dcb43a0f2a574e81054d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_metal
+    second: {fileID: 2100000, guid: fddeaae8b5ce6c547bfa41b7026e7278, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_metalDark
+    second: {fileID: 2100000, guid: 7c7477c9d966c81409202ef89daa00a2, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -39,7 +49,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1.5
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -73,7 +83,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 0
+  importAnimation: 1
   copyAvatar: 0
   humanDescription:
     serializedVersion: 3
@@ -86,7 +96,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1.5
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
