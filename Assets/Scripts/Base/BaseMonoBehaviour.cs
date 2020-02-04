@@ -88,6 +88,7 @@ public class BaseMonoBehaviour : MonoBehaviour
     }
     #endregion Unity Standard events
 
+    public virtual void Init() {; }
 }
 
 public class AnimationCallbackEvent : UnityEvent<string> { }

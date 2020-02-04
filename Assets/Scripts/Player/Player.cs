@@ -8,11 +8,6 @@ public class Player : ZoneInteractable
     PlayerLook playerLook;
     PlayerInventory playerInventory;
 
-    [Header("List of the player quests data scriptable object")]
-    public List<QuestData> QuestData;
-    [HideInInspector]
-    public List<Quest> Quests;
-
     [Header("Current player energy")]
 	public float Energy = 100f;
     bool IsEnergyNull => Energy == 0;

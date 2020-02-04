@@ -30,18 +30,21 @@ public class Compass : Item
         float dist = 0.0f;
         Item Nearest = null;
 
-        foreach (Quest q in Player.Quests)
+        foreach (Quest q in QuestManager.I.Quests)
         {
             if (q.ItemsToActivate == null || q.ItemsToActivate.Count <= 0)
                 continue;
 
             for (int i = 0; i < q.ItemsToActivate.Count; i++)
             {
-                dist = Vector3.Distance(q.ItemsToActivate[i].transform.position, Needle.transform.position);
-                if (dist < min)
+                if (q.ItemsToActivate[i]._itemData.IsActivable)
                 {
-                    min = dist;
-                    Nearest = q.ItemsToActivate[i];
+                    dist = Vector3.Distance(q.ItemsToActivate[i].transform.position, Needle.transform.position);
+                    if (dist < min)
+                    {
+                        min = dist;
+                        Nearest = q.ItemsToActivate[i];
+                    }
                 }
             }
         }

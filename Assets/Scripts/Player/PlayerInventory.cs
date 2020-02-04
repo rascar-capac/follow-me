@@ -41,6 +41,7 @@ public class PlayerInventory : BaseMonoBehaviour
     HandWrapper[] Hands;
 
     public ItemActivatedEvent onItemActivated = new ItemActivatedEvent();
+    public ItemActivatedEvent onItemPickedUp = new ItemActivatedEvent();
     float xPixels = 300;
     float yPixels = 300;
 
@@ -135,6 +136,9 @@ public class PlayerInventory : BaseMonoBehaviour
         {
             _playerInventory.Add(it._itemData);
         }
+        onItemPickedUp.Invoke(it);
+        UIManager.I.AlertMessage(it._itemData._itemDescription, WhoTalks: MessageOrigin.Player);
+
         Destroy(it.gameObject);
 	}
 

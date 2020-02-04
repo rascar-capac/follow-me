@@ -10,6 +10,12 @@ public class TurtleRock : Zone
     {
         base.Start();
         player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerInventory>();
+
+    }
+
+    public override void Init()
+    {
+        base.Init();
         //player.onQuestStoneFinished.AddListener(ElevateTurtleRock);
         transform.GetComponent<Collider>().enabled = false;
         ElevateTurtleRock();

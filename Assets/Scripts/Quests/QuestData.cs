@@ -41,6 +41,7 @@ public enum QuestType
 [System.Serializable]
 public struct ZoneApparition
 {
+    public bool Instantiate;
     public Zone Zone;
     public GameObject PositionToAppear;
 }

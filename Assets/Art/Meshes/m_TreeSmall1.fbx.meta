@@ -13,7 +13,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: mat_Tree
-    second: {fileID: 2100000, guid: 36ea3c870a7277d44a99a8057f84908e, type: 2}
+    second: {fileID: 2100000, guid: 54748e8043805f4499069a4e7582bd10, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -91,7 +91,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.015
+    globalScale: 1.5
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
