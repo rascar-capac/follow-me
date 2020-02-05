@@ -42,6 +42,7 @@ public class UIManager : Singleton<UIManager>
     [Header("Inventory Prefabs")]
 	public Transform _inventoryContent;
 	public GameObject _inventoryCellAsset;
+	public GameObject PanelViewInventory;
 
 	[Header("Quest Prefabs")]
 	public Transform _questContent;
@@ -53,7 +54,7 @@ public class UIManager : Singleton<UIManager>
 	#endregion
 
 	#region Inventory Variables
-	List<GameObject> _inventoryCellList = new List<GameObject>();
+	List<GameObject> _InventoryCellList = new List<GameObject>();
     public ToolsInventoryEvent onToolsInventoryOpenedEvent = new ToolsInventoryEvent();
     public ToolsInventoryEvent onToolsInventoryClosedEvent = new ToolsInventoryEvent();
     public bool ToolsInvetoryOpened = false;
@@ -61,7 +62,7 @@ public class UIManager : Singleton<UIManager>
     #endregion
 
     #region Quest Variables
-    List<GameObject> _questCellList = new List<GameObject>();
+    List<GameObject> _QuestCellList = new List<GameObject>();
     #endregion
 
     Hand CurrentOpenedHand;
@@ -336,29 +337,40 @@ public class UIManager : Singleton<UIManager>
     #endregion
 
     #region Inventory Functions
+
     void GenerateCellsInventory()
 	{
-		if (_inventoryCellList.Count > 0)
+		// Checking InventoryCellList is empty
+		if (_InventoryCellList.Count > 0)
 			CleanCellsInventory();
 
-		// Instantiate all cells for each items in inventory and set-up cell
-		for (int i = 0; i < _PlayerInventory.Inventory.Count; i++)
+		// Instantiate cells for each items.
+		List<ItemData> playerInventoryList = _PlayerInventory.Inventory;
+		for (int i = 0; i < playerInventoryList.Count; i++)
 		{
-			_inventoryCellList.Add(Instantiate(_inventoryCellAsset, _inventoryContent));
+			_InventoryCellList.Add(Instantiate(_inventoryCellAsset, _inventoryContent));
 
-			_inventoryCellList[i].transform.GetChild(0).GetComponent<Image>().sprite = _PlayerInventory.Inventory[i]._itemIcon;
-			_inventoryCellList[i].transform.GetChild(1).GetComponent<Text>().text = _PlayerInventory.Inventory[i]._itemName;
-			//_inventoryUiItemList[i].transform.GetChild(2).GetComponent<Image>().sprite = _refPlayerInventory._playerInventory[i]._itemIcon;
+			// Checking QuestCellList is empty
+			InventoryCell inventoryCell = _InventoryCellList[i].GetComponent<InventoryCell>();
+			inventoryCell.ItemData = playerInventoryList[i];
+			inventoryCell.PanelViewInventory = PanelViewInventory;
+			inventoryCell.InitInventoryCell();
 		}
 	}
 	void CleanCellsInventory()
 	{
-		foreach (GameObject cell in _inventoryCellList)
+		foreach (GameObject cell in _InventoryCellList)
 		{
 			Destroy(cell);
 		}
-		_inventoryCellList.Clear();
+
+		// Clean InventoryCellList.
+		_InventoryCellList.Clear();
+
+		// Desactivate PanelView for Inventory.
+		PanelViewInventory.SetActive(false);
 	}
+
 	#endregion
 
 	#region Quest Functions
@@ -366,17 +378,17 @@ public class UIManager : Singleton<UIManager>
 	void GenerateCellsQuest()
 	{
 		// Checking QuestCellList is empty
-		if (_questCellList.Count > 0)
+		if (_QuestCellList.Count > 0)
 			CleanCellsQuest();
 
-		// Instantiate all cells for each items in inventory.
+		// Instantiate cells for each quest.
 		List<Quest> playerQuestsList = QuestManager.I.Quests;
 		for (int i = 0; i < playerQuestsList.Count; i++)
 		{
-            _questCellList.Add(Instantiate(_questCellAsset, _questContent));
+            _QuestCellList.Add(Instantiate(_questCellAsset, _questContent));
 
-			// Set-up foreach cell.
-			QuestCell questCell = _questCellList[i].GetComponent<QuestCell>();
+			// Set-up for each cell.
+			QuestCell questCell = _QuestCellList[i].GetComponent<QuestCell>();
 			questCell.Quest = playerQuestsList[i];
 			questCell.PanelViewQuest = PanelViewQuest;
 			questCell.InitQuestCell();
@@ -385,13 +397,13 @@ public class UIManager : Singleton<UIManager>
 	void CleanCellsQuest()
 	{
 		// Destroy all gameobjects cells in QuestCellList
-		foreach (GameObject cell in _questCellList)
+		foreach (GameObject cell in _QuestCellList)
 		{
 			Destroy(cell);
 		}
 
 		// Clean QuestCellList.
-		_questCellList.Clear();
+		_QuestCellList.Clear();
 
 		// Desactivate PanelView for Quest.
 		PanelViewQuest.SetActive(false);

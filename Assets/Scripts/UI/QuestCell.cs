@@ -21,7 +21,7 @@ public class QuestCell : MonoBehaviour
 		if (PanelViewQuest.activeSelf == false)
 			PanelViewQuest.SetActive(true);
 
-		// Update PanelView with for Quest with infos of this Quest.
+		// Update PanelView for Quest with infos of this Quest.
 		PanelViewQuest.transform.GetChild(0).GetComponent<Text>().text = Quest.Data.QuestTitle;
 		PanelViewQuest.transform.GetChild(1).GetComponent<Text>().text = Quest.Data.QuestDescription;
 	}

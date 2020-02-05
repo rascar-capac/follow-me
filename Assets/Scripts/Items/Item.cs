@@ -45,7 +45,7 @@ public class Item : BaseMonoBehaviour
             Destroy(_currentItemPrefabDisplay);
             _currentItemPrefabDisplay = Instantiate(_itemData._itemActivatedPrefab, transform.position, Quaternion.identity, transform);
         }
-        UIManager.I.AlertMessage($"{_itemData._itemName} has been activated...");
+        UIManager.I.AlertMessage($"{_itemData.Name} has been activated...");
     }
 
 }

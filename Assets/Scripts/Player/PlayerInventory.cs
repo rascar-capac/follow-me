@@ -16,9 +16,9 @@ public class HandWrapper
 [System.Serializable]
 public class PlayerInventory : BaseMonoBehaviour
 {
-    List<ItemData> _playerInventory = new List<ItemData>();
+	public List<ItemData> Inventory;
 
-    [Header("Pick-up / Activate item layer")]
+	[Header("Pick-up / Activate item layer")]
     public LayerMask ItemLayer;
 
     [Header("Beacon Prefab to spawn at Ground")]
@@ -80,25 +80,11 @@ public class PlayerInventory : BaseMonoBehaviour
         }
     }
 
-    public List<ItemData> Inventory => _playerInventory;
     public void AddItemToInventory(ItemData itemData)
     {
         Inventory.Add(itemData);
     }
 
-	#region @ Olivier
-	// Les interactions dans un jeu peuvent être de plein de type, avec un item, une stone, une porte, ect...
-	// Hors en général on à un seul bouton d'interaction, chez nous "Y", donc il va falloir définir avec quoi
-	// on veut intéragir et ce que l'on fait en fonction.
-	// Je propose la modification suivante pour les interactions du Player si tu es d'accord:
-	//	- PlayerInteract() pilote les interactions en fonction du "hitInfo".
-	//	- InteractItem() reçoit dorénavant son RaycastHit. (je n'ai pas bouger à sa logique)
-	//	- Rattaché l'event "onActivateItemKeyPressed" à PlayerInteract() (l'event pourrait aussi être renommé)
-	// Dans ce cas le LayerMask définit plus haut n'est plus utile, on précise dans le code ce que l'on doit
-	// faire en fonction de ce que l'on touche avec le RaycastHit.
-	// Si tu n'es pas ok avec cette modification, l'ancien InteractItem() est tjs présent en commentaire plus
-	// bas et PlayerInteract() ainsi que le "nouveau" InteractItem() peuvent être supprimés.
-	#endregion
 	void PlayerInteract()
 	{
         if (!isInteractionAllowed)
@@ -126,18 +112,16 @@ public class PlayerInventory : BaseMonoBehaviour
 
     void PickUpItem(Item it)
 	{
-        // à améliorer, gérer autrement l’inventaire peut être?
-        if (it._itemData._itemName == "Beacon")
+        if (it._itemData.Name == "Beacon")
         {
             player.PlacedBeacon.Remove(it);
             tribe.ModeStopAndWait();
         }
         else
-        {
-            _playerInventory.Add(it._itemData);
-        }
-        onItemPickedUp.Invoke(it);
-        UIManager.I.AlertMessage(it._itemData._itemDescription, WhoTalks: MessageOrigin.Player);
+			Inventory.Add(it._itemData);
+
+		onItemPickedUp.Invoke(it);
+        UIManager.I.AlertMessage(it._itemData.Description, WhoTalks: MessageOrigin.Player);
 
         Destroy(it.gameObject);
 	}
@@ -174,7 +158,7 @@ public class PlayerInventory : BaseMonoBehaviour
         Hands[1].ItemPosition = CameraManager.I._MainCamera.ScreenToWorldPoint(new Vector3(Screen.width - xPixels, yPixels, CameraManager.I._MainCamera.nearClipPlane * NearClipPlaneMultiply));
         Hands[1].ItemRotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, CameraManager.I._MainCamera.transform.position - Hands[1].ItemPosition);
 
-        if (OtherHand.Item && OtherHand.Item._itemData._itemName == o.GetComponent<Item>()._itemData._itemName)
+        if (OtherHand.Item && OtherHand.Item._itemData.Name == o.GetComponent<Item>()._itemData.Name)
         {
             SwapHands();
             return;
@@ -259,7 +243,6 @@ public class PlayerInventory : BaseMonoBehaviour
 
     public void ActivateBeacon(Item beacon)
     {
-		//_tribeAgent.destination = new Vector3(beacon.transform.position.x, 0, beacon.transform.position.z);
 		tribe.ModeGoToBeacon(new Vector3(beacon.transform.position.x, 0, beacon.transform.position.z));
         beacon.GetComponentInChildren<Animator>().SetBool("IsOpened", true);
     }

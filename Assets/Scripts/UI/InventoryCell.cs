@@ -1,0 +1,29 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class InventoryCell : MonoBehaviour
+{
+	public ItemData ItemData;
+	public GameObject PanelViewInventory;
+
+	public void InitInventoryCell()
+	{
+		// Set-up Button on Inventory List
+		transform.GetChild(0).GetComponent<Image>().sprite = ItemData.Icon;
+		transform.GetChild(1).GetComponent<Text>().text = ItemData.Name;
+		transform.GetComponent<Button>().onClick.AddListener(ClickInventoryCell);
+	}
+
+	public void ClickInventoryCell()
+	{
+		// Activate PanelView for Item
+		if (PanelViewInventory.activeSelf == false)
+			PanelViewInventory.SetActive(true);
+
+		// Update PanelView for Item with infos of this Item.
+		PanelViewInventory.transform.GetChild(0).GetComponent<Text>().text = ItemData.Name;
+		PanelViewInventory.transform.GetChild(1).GetComponent<Text>().text = ItemData.Description;
+	}
+}

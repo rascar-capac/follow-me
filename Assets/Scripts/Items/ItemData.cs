@@ -6,11 +6,11 @@ using UnityEngine;
 public class ItemData : ScriptableObject
 {
     [Tooltip("Name of the item")]
-	public string _itemName;
+	public string Name;
     [Tooltip("Description of the item")]
-    public string _itemDescription;
+    public string Description;
     [Tooltip("Icon of the item")]
-    public Sprite _itemIcon;
+    public Sprite Icon;
     [Tooltip("Base prefab of the item")]
     public GameObject _itemBasePrefab;
     [Tooltip("Activated prefab of the item")]
