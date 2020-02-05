@@ -20,8 +20,8 @@ MonoBehaviour:
   SpeedMultiplicator: 4
   PlayerRunUsable: 0000000001000000
   PlayerRunEnergyLowUnusable: 0
-  PlayerRunGauge: 0
-  PlayerRunGaugeMax: 5
+  PlayerRunStamina: 0
+  PlayerRunStaminaMax: 100
   PlayerRunCostBySecond: 1
   PlayerRunGainBySecond: 0.1
   PlayerItemDistanceInteraction: 2
@@ -54,21 +54,38 @@ MonoBehaviour:
     MinDistForAcceleration: 50
     MinDistForDeceleration: 50
     CriticalSpeedMultiplicator: 0.5
+  InitialDocilityScore: 50
+  Level0Params:
+    IgnoranceProbability: 0.4
+    IgnoranceDuration: 25
+    SpontaneityProbability: 0.5
+  Level1Params:
+    IgnoranceProbability: 0.2
+    IgnoranceDuration: 10
+    SpontaneityProbability: 0.3
+  Level2Params:
+    IgnoranceProbability: 0.15
+    IgnoranceDuration: 6
+    SpontaneityProbability: 0.2
+  Level3Params:
+    IgnoranceProbability: 0.1
+    IgnoranceDuration: 3
+    SpontaneityProbability: 0.1
+  Level4Params:
+    IgnoranceProbability: 0
+    IgnoranceDuration: 0
+    SpontaneityProbability: 0.05
+  SpontaneityCheckTimerMinDuration: 30
+  SpontaneityCheckTimerMaxDuration: 60
   States:
   - State: 0
     DayStateDurationInSecond: 120
     StateHoursCount: 12
-    StateColor: {r: 1, g: 0.9411765, b: 0.8235294, a: 0}
     TimeStateChanged: 0
-    EnterSunRotation: {x: 90, y: -30, z: 0}
-    ExitSunRotation: {x: 270, y: -30, z: 0}
   - State: 1
     DayStateDurationInSecond: 120
     StateHoursCount: 12
-    StateColor: {r: 0.16078432, g: 0.13333334, b: 0.050980393, a: 0}
-    TimeStateChanged: 119.99352
-    EnterSunRotation: {x: 270, y: -30, z: 0}
-    ExitSunRotation: {x: 90, y: -30, z: 0}
+    TimeStateChanged: 119.990234
   TurtleRockFinalPosition: {fileID: 0}
   Input_Pause:
     XBox: 10
@@ -112,3 +129,4 @@ MonoBehaviour:
   Input_InventoryBack:
     XBox: 2
     Keyboard: 27
+  MessageDuration: 5

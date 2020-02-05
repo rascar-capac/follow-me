@@ -189,10 +189,11 @@ public class Tribe : ZoneInteractable
 
 	void TribeFollowPlayer(Vector3 playerPosition)
 	{
-        Vector3 playerPositionXZ = new Vector3(playerPosition.x, 0, playerPosition.z);
+        Debug.Log("follow");
+        Vector3 playerPositionXZ = new Vector3(playerPosition.x, 400, playerPosition.z);
         if (_TribeNavAgent.destination != playerPositionXZ)
 			_TribeNavAgent.SetDestination(playerPositionXZ);
-		//_TribeNavAgent.SetDestination(Vector3.Slerp(transform.position, playerPositionXZ, 5));
+		_TribeNavAgent.SetDestination(Vector3.Slerp(transform.position, playerPositionXZ, 5));
 	}
 
     public void ModeGoToBeacon(Vector3 destination)
@@ -217,29 +218,29 @@ public class Tribe : ZoneInteractable
         switch(ComputeDocilityLevel())
         {
             case 0:
-                _IgnoranceProbability = GameManager.I._data.IgnoranceProbability0;
-                _IgnoranceDuration = GameManager.I._data.IgnoranceDuration0;
-                _SpontaneityProbability = GameManager.I._data.SpontaneityProbability0;
+                _IgnoranceProbability = GameManager.I._data.Level0Params.IgnoranceProbability;
+                _IgnoranceDuration = GameManager.I._data.Level0Params.IgnoranceDuration;
+                _SpontaneityProbability = GameManager.I._data.Level0Params.SpontaneityProbability;
                 break;
             case 1:
-                _IgnoranceProbability = GameManager.I._data.IgnoranceProbability1;
-                _IgnoranceDuration = GameManager.I._data.IgnoranceDuration1;
-                _SpontaneityProbability = GameManager.I._data.SpontaneityProbability1;
+                _IgnoranceProbability = GameManager.I._data.Level1Params.IgnoranceProbability;
+                _IgnoranceDuration = GameManager.I._data.Level1Params.IgnoranceDuration;
+                _SpontaneityProbability = GameManager.I._data.Level1Params.SpontaneityProbability;
                 break;
             case 2:
-                _IgnoranceProbability = GameManager.I._data.IgnoranceProbability2;
-                _IgnoranceDuration = GameManager.I._data.IgnoranceDuration2;
-                _SpontaneityProbability = GameManager.I._data.SpontaneityProbability2;
+                _IgnoranceProbability = GameManager.I._data.Level2Params.IgnoranceProbability;
+                _IgnoranceDuration = GameManager.I._data.Level2Params.IgnoranceDuration;
+                _SpontaneityProbability = GameManager.I._data.Level2Params.SpontaneityProbability;
                 break;
             case 3:
-                _IgnoranceProbability = GameManager.I._data.IgnoranceProbability3;
-                _IgnoranceDuration = GameManager.I._data.IgnoranceDuration3;
-                _SpontaneityProbability = GameManager.I._data.SpontaneityProbability3;
+                _IgnoranceProbability = GameManager.I._data.Level3Params.IgnoranceProbability;
+                _IgnoranceDuration = GameManager.I._data.Level3Params.IgnoranceDuration;
+                _SpontaneityProbability = GameManager.I._data.Level3Params.SpontaneityProbability;
                 break;
             case 4:
-                _IgnoranceProbability = GameManager.I._data.IgnoranceProbability4;
-                _IgnoranceDuration = GameManager.I._data.IgnoranceDuration4;
-                _SpontaneityProbability = GameManager.I._data.SpontaneityProbability4;
+                _IgnoranceProbability = GameManager.I._data.Level4Params.IgnoranceProbability;
+                _IgnoranceDuration = GameManager.I._data.Level4Params.IgnoranceDuration;
+                _SpontaneityProbability = GameManager.I._data.Level4Params.SpontaneityProbability;
                 break;
         }
     }
