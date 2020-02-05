@@ -20,9 +20,9 @@ public class UIManager : Singleton<UIManager>
 
     #region References UI Prefabs
     [Header("HUD Panel")]
-	public GameObject _hudPanel;
+	public GameObject HudPanel;
 	[Header("Main Menu")]
-	public GameObject _mainMenu;
+	public GameObject MainMenu;
 	[Header("Tout les Panels du Menu (sauf MainMenu)")]
 	public List<GameObject> MenuPanels;
 
@@ -46,6 +46,7 @@ public class UIManager : Singleton<UIManager>
 	[Header("Quest Prefabs")]
 	public Transform _questContent;
 	public GameObject _questCellAsset;
+	public GameObject PanelViewQuest;
 
     [Header("Tools Inventory gameobject")]
     public GameObject ToolsInventory;
@@ -69,7 +70,6 @@ public class UIManager : Singleton<UIManager>
     protected override void Start()
 	{
 		base.Start();
-
         
         Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
         _refPlayerMovement = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerMovement>();
@@ -79,12 +79,8 @@ public class UIManager : Singleton<UIManager>
 
         _refTribe.onTribeEnergyEnterCritical.AddListener(AlertTribeEnergyCritical);
 
-  //      InputManager.I.onUIPlayerKeyPressed.AddListener(OpenPlayerPanel);
-		//InputManager.I.onUITribeKeyPressed.AddListener(OpenTribePanel);
-		InputManager.I.onUIOpenCloseInventoryKeyPressed.AddListener(OpenInventoryPanel);
-        //InputManager.I.onUIQuestKeyPressed.AddListener(OpenQuestPanel);
-        //InputManager.I.onUIMapKeyPressed.AddListener(OpenMapPanel);
-        //InputManager.I.onUIOptionsKeyPressed.AddListener(OpenOptionsPanel);
+
+		InputManager.I.onUIOpenCloseInventoryKeyPressed.AddListener(OpenCloseMainMenu);
 
         InputManager.I.onLeftHandOpenToolInventory.AddListener(() => { OpenToolsInventory(Hand.Left); }) ;
         InputManager.I.onLeftHandCloseToolInventory.AddListener(() => { CloseToolsInventory(Hand.Left); });
@@ -111,19 +107,26 @@ public class UIManager : Singleton<UIManager>
         ShowTribeDistance(false);
         ShowPlayerRunStamina(false);
         ShowTribeDocility(false);
-
     }
 
     #endregion
 
     #region Menu Functions
+	void OpenCloseMainMenu()
+	{
+		if (MainMenu.activeSelf == false)
+			OpenQuestPanel();
+		else
+			CloseMenu();
+	}
+
     void OpenMenu(string MenuName, bool CloseOthers = true)
     {
-        if (_mainMenu == null || MenuPanels == null)
+        if (MainMenu == null || MenuPanels == null)
             return;
 
-		_mainMenu.SetActive(true);
-		_hudPanel.SetActive(false);
+		MainMenu.SetActive(true);
+		HudPanel.SetActive(false);
 
         for (int i = 0; i < MenuPanels.Count; i++)
         {
@@ -138,11 +141,11 @@ public class UIManager : Singleton<UIManager>
 	}
 	public void CloseMenu()
 	{
-		if (_mainMenu == null || MenuPanels == null)
+		if (MainMenu == null || MenuPanels == null)
 			return;
 
-		_mainMenu.SetActive(false);
-		_hudPanel.SetActive(true);
+		MainMenu.SetActive(false);
+		HudPanel.SetActive(true);
 
 		for (int i = 0; i < MenuPanels.Count; i++)
 			MenuPanels[i].SetActive(false);
@@ -152,6 +155,7 @@ public class UIManager : Singleton<UIManager>
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
 	}
+
 	public void OpenPlayerPanel()
 	{
 		OpenMenu("PlayerPanel");
@@ -181,6 +185,7 @@ public class UIManager : Singleton<UIManager>
 	{
 		OpenMenu("OptionsPanel");
 	}
+
     public void OpenToolsInventory(Hand hand)
     {
         ToolsInventory.gameObject.SetActive(true);
@@ -342,10 +347,16 @@ public class UIManager : Singleton<UIManager>
 			CleanCellsQuest();
 
 		// Instantiate all cells for each items in inventory and set-up cell
-		for (int i = 0; i < QuestManager.I.Quests.Count; i++)
+		List<Quest> playerQuestsList = QuestManager.I.Quests;
+		for (int i = 0; i < playerQuestsList.Count; i++)
 		{
             _questCellList.Add(Instantiate(_questCellAsset, _questContent));
-            _questCellList[i].transform.GetChild(0).GetComponent<Text>().text = QuestManager.I.Quests[i].Data.QuestTitle;
+            //_questCellList[i].transform.GetChild(0).GetComponent<Text>().text = playerQuestsList[i].Data.QuestTitle;
+
+			QuestCell questCell = _questCellList[i].GetComponent<QuestCell>();
+			questCell.Quest = playerQuestsList[i];
+			questCell.PanelViewQuest = PanelViewQuest;
+			questCell.InitQuestCell();
 		}
 	}
 	void CleanCellsQuest()
@@ -355,6 +366,7 @@ public class UIManager : Singleton<UIManager>
 			Destroy(cell);
 		}
 		_questCellList.Clear();
+		PanelViewQuest.SetActive(false);
 	}
 	#endregion
 
