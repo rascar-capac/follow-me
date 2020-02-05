@@ -112,6 +112,7 @@ public class PlayerInventory : BaseMonoBehaviour
 
     void PickUpItem(Item it)
 	{
+		Debug.Log("Dans Pick-up");
         if (it._itemData.Name == "Beacon")
         {
             player.PlacedBeacon.Remove(it);

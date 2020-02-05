@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd87958864f503d478f5c177edbbd4c3, type: 3}
+  m_Name: TEST_Bois
+  m_EditorClassIdentifier: 
+  Name: Bois
+  Description: Du bois brut.
+  Icon: {fileID: 21300000, guid: 80fb0771254d67e43b61e6998d4d808e, type: 3}
+  _itemBasePrefab: {fileID: 467959756313569114, guid: 85c025d051936044ea8c00683707334b,
+    type: 3}
+  _itemActivatedPrefab: {fileID: 467959756313569114, guid: 85c025d051936044ea8c00683707334b,
+    type: 3}
+  IsCatchable: 1
+  IsActivable: 0
+  IsActivated: 0

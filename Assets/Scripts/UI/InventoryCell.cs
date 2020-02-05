@@ -7,6 +7,7 @@ public class InventoryCell : MonoBehaviour
 {
 	public ItemData ItemData;
 	public GameObject PanelViewInventory;
+	public GameObject ItemViewer;
 
 	public void InitInventoryCell()
 	{
@@ -21,6 +22,8 @@ public class InventoryCell : MonoBehaviour
 		// Activate PanelView for Item
 		if (PanelViewInventory.activeSelf == false)
 			PanelViewInventory.SetActive(true);
+		if (ItemViewer.activeSelf == false)
+			ItemViewer.SetActive(true);
 
 		// Update PanelView for Item with infos of this Item.
 		PanelViewInventory.transform.GetChild(0).GetComponent<Text>().text = ItemData.Name;

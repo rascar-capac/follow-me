@@ -7,6 +7,9 @@ using UnityEngine.Events;
 public class ToolsInventoryEvent : UnityEvent<Hand> { }
 public class UIManager : Singleton<UIManager>
 {
+	public Camera CameraMain;
+	public Camera CameraUI;
+
     #region References Player
     Player _Player;
     PlayerMovement _PlayerMovement;
@@ -43,6 +46,7 @@ public class UIManager : Singleton<UIManager>
 	public Transform _inventoryContent;
 	public GameObject _inventoryCellAsset;
 	public GameObject PanelViewInventory;
+	public GameObject ItemViewer;
 
 	[Header("Quest Prefabs")]
 	public Transform _questContent;
@@ -126,10 +130,7 @@ public class UIManager : Singleton<UIManager>
 	#endregion
 
     #region Hud Functions
-    public void ShowTribeEnergy(bool show)
-    {
-        _HudTribeEnergyText.gameObject.SetActive(show);
-    }
+
     public void ShowTime(bool show)
     {
         _HudCurrentTimeText.gameObject.SetActive(show);
@@ -138,27 +139,23 @@ public class UIManager : Singleton<UIManager>
     {
         _HudPlayerEnergyText.gameObject.SetActive(show);
     }
-    public void ShowTribeDistance(bool show)
-    {
-        _HudTribeDistanceText.gameObject.SetActive(show);
-    }
-
     public void ShowPlayerRunStamina(bool show)
     {
         _HudPlayerRunStaminaText.gameObject.SetActive(show);
     }
-
+    public void ShowTribeEnergy(bool show)
+    {
+        _HudTribeEnergyText.gameObject.SetActive(show);
+    }
+    public void ShowTribeDistance(bool show)
+    {
+        _HudTribeDistanceText.gameObject.SetActive(show);
+    }
     public void ShowTribeDocility(bool show)
     {
         _HudTribeDocilityText.gameObject.SetActive(show);
     }
 
-    public void SetTribeDistance()
-    {
-        _HudTribeDistanceText.text = $"Tribe distance " + Mathf.Floor(_PlayerMovement.TribeDistance) + " m";
-        if (_PlayerMovement.IsTooFar)
-            _HudTribeDistanceText.text += " - Too far.";
-    }
     public void SetTimeOfDay()
     {
         _HudCurrentTimeText.text = $"Current time " + (int)AmbiantManager.I.CurrentTimeOfDay + " h (" + AmbiantManager.I.CurrentDayState.State.ToString() + ")";
@@ -167,13 +164,19 @@ public class UIManager : Singleton<UIManager>
 	{
 	    _HudPlayerEnergyText.text = $"Player Energy " + Mathf.Floor(_Player.Energy);
 	}
+    public void SetRunStamina(float runStamina)
+    {
+        _HudPlayerRunStaminaText.text = $"Run Stamina " + Mathf.Floor(runStamina);
+    }
 	public void SetTribeEnergy()
     {
 	    _HudTribeEnergyText.text = $"Glaucus Energy " + Mathf.Floor(_Tribe.Energy);
     }
-    public void SetRunStamina(float runStamina)
+    public void SetTribeDistance()
     {
-        _HudPlayerRunStaminaText.text = $"Run Stamina " + Mathf.Floor(runStamina);
+        _HudTribeDistanceText.text = $"Tribe distance " + Mathf.Floor(_PlayerMovement.TribeDistance) + " m";
+        if (_PlayerMovement.IsTooFar)
+            _HudTribeDistanceText.text += " - Too far.";
     }
     public void SetTribeDocility(bool isIgnoring)
     {
@@ -233,6 +236,7 @@ public class UIManager : Singleton<UIManager>
         if (Messages[(int)MessageOrigin.Player].Count > 0)
             AlertMessageShow(MessageOrigin.Player);
     }
+
     #endregion
 
 	#region Menu Functions
@@ -241,13 +245,17 @@ public class UIManager : Singleton<UIManager>
 	{
 		if (MainMenu.activeSelf == false)
 		{
+			CameraMain.gameObject.SetActive(false);
+			CameraUI.gameObject.SetActive(true);
 			OpenQuestPanel();
 			_PlayerMovement.AllowMove = false;
 			_PlayerLook.AllowLook = false;
 		}
 		else
 		{
-			Debug.Log("Close Menu");
+			CameraMain.gameObject.SetActive(true);
+			CameraUI.gameObject.SetActive(false);
+
 			CloseMenu();
 			_PlayerMovement.AllowMove = true;
 			_PlayerLook.AllowLook = true;
@@ -354,6 +362,7 @@ public class UIManager : Singleton<UIManager>
 			InventoryCell inventoryCell = _InventoryCellList[i].GetComponent<InventoryCell>();
 			inventoryCell.ItemData = playerInventoryList[i];
 			inventoryCell.PanelViewInventory = PanelViewInventory;
+			inventoryCell.ItemViewer = ItemViewer;
 			inventoryCell.InitInventoryCell();
 		}
 	}
