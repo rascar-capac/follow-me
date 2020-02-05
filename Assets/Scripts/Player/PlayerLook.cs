@@ -6,7 +6,7 @@ public class PlayerLook : BaseMonoBehaviour
 {
     [HideInInspector]
     public Transform playerBody;
-    bool AllowLook = true;
+    public bool AllowLook = true;
 
     float xRotation = 0f;
 

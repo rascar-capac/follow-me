@@ -32,7 +32,7 @@ public class PlayerMovement : BaseMonoBehaviour
     public float TribeDistance = 0.1f;
     GameObject Tribe;
     Player _player;
-    bool AllowMove = true;
+    public bool AllowMove = true;
 
     public UnityEvent onPlayerRunStaminaNullEnter = new UnityEvent();
     public UnityEvent onPlayerRunStaminaNullExit = new UnityEvent();
