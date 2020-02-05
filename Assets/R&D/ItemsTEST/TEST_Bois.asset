@@ -22,3 +22,7 @@ MonoBehaviour:
   IsCatchable: 1
   IsActivable: 0
   IsActivated: 0
+  MeshBase: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  MaterialBase: {fileID: 2100000, guid: 2793ac90a71bb5c43baf97dadbe15e75, type: 2}
+  MeshActivated: {fileID: 0}
+  MaterialActivated: {fileID: 0}

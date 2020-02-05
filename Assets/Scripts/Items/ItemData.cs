@@ -21,4 +21,12 @@ public class ItemData : ScriptableObject
     public bool IsActivable = false;
 	[HideInInspector]
 	public bool IsActivated = false;
+	[Tooltip("Base mesh of item")]
+	public Mesh MeshBase;
+	[Tooltip("Base material of item")]
+	public Material MaterialBase;
+	[Tooltip("Base mesh of item")]
+	public Mesh MeshActivated;
+	[Tooltip("Base material of item")]
+	public Material MaterialActivated;
 }

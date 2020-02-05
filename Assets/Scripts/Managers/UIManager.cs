@@ -290,8 +290,10 @@ public class UIManager : Singleton<UIManager>
 
 		for (int i = 0; i < MenuPanels.Count; i++)
 			MenuPanels[i].SetActive(false);
+
 		CleanCellsInventory();
 		CleanCellsQuest();
+		ItemViewer.SetActive(false);
 
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
@@ -299,10 +301,12 @@ public class UIManager : Singleton<UIManager>
 
 	public void OpenPlayerPanel()
 	{
+		ItemViewer.SetActive(false);
 		OpenMenu("PlayerPanel");
 	}
 	public void OpenTribePanel()
 	{
+		ItemViewer.SetActive(false);
 		OpenMenu("TribePanel");
 	}
 	public void OpenInventoryPanel()
@@ -310,20 +314,25 @@ public class UIManager : Singleton<UIManager>
         if (!AllowOpenInventory)
             return;
 
+
+		ItemViewer.SetActive(false);
 		OpenMenu("InventoryPanel");
 		GenerateCellsInventory();
 	}
 	public void OpenQuestPanel()
 	{
+		ItemViewer.SetActive(false);
 		OpenMenu("QuestPanel");
 		GenerateCellsQuest();
 	}
 	public void OpenMapPanel()
 	{
+		ItemViewer.SetActive(false);
 		OpenMenu("MapPanel");
 	}
 	public void OpenOptionsPanel()
 	{
+		ItemViewer.SetActive(false);
 		OpenMenu("OptionsPanel");
 	}
 
