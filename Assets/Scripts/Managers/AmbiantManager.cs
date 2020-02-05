@@ -26,7 +26,7 @@ public class AmbiantManager : Singleton<AmbiantManager>
 
 		ResetLastHour(CurrentDayState, NextDayState);
 		onDayStateChanged.AddListener(ResetLastHour);
-        onDayStateChanged.AddListener(ChangeMaterial);
+        //onDayStateChanged.AddListener(ChangeMaterial);
 
         //StartChrono(GameManager.I._data.MinimumTimeBetweenFog, StartFog);
     }
@@ -34,7 +34,7 @@ public class AmbiantManager : Singleton<AmbiantManager>
     private void Update()
 	{
 		#region Hour Management
-	
+
 		if (CurrentTimeOfDay >= _LastHour + 1)
 		{
 			_LastHour = CurrentTimeOfDay;
