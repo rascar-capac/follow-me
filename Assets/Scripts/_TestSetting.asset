@@ -30,9 +30,9 @@ MonoBehaviour:
   CompassEnergyLowUnusable: 0
   BeaconPlacerUsable: 0000000001000000
   BeaconPlacerEnergyLowUnusable: 0
-  MaximumDistanceOfTribe: 350
+  MaximumDistanceOfTribe: 500
   BeaconPlacementDistance: 3
-  BeaconPlacementCount: 3
+  BeaconPlacementCount: 1
   MapUsable: 0000000001000000
   SundialUsable: 0000000001000000
   SundialEnergyLowUnusable: 0
@@ -44,11 +44,11 @@ MonoBehaviour:
   TribeDistanceMeterEnergyLowUnusable: 0
   InitialTribeEnergy: 100
   PercentEnergyTribeForCritical: 10
-  EnergyTribeLostPerSecond: 0.3
-  EnergyTribeGainPerSecond: 5
+  EnergyTribeLostPerSecond: 1
+  EnergyTribeGainPerSecond: 3
   TribeProperties:
     MaxSpeed: 50
-    MaxAngularSpeed: 3
+    MaxAngularSpeed: 30
     AccelerationForce: 50
     DecelerationForce: 50
     MinDistForAcceleration: 50

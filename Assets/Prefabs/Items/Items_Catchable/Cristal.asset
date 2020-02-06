@@ -12,12 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd87958864f503d478f5c177edbbd4c3, type: 3}
   m_Name: Cristal
   m_EditorClassIdentifier: 
-  _itemName: Cristal
-  _itemDescription: "Un rare cristal emplis d'\xE9nergie"
-  _itemIcon: {fileID: 21300000, guid: 7bbf661826a5dbf4daff9987e9fea1fe, type: 3}
+  Name: 
+  Description: 
+  Icon: {fileID: 0}
   _itemBasePrefab: {fileID: 7055700096461130060, guid: 82d4d4bba39fefb46881c500e241d33e,
     type: 3}
   _itemActivatedPrefab: {fileID: 0}
-  IsCatchable: 1
-  IsActivable: 0
+  _itemToDrop: {fileID: 0}
+  _PositionToDrop: {fileID: 0}
+  IsCatchable: 0
+  IsActivable: 1
   IsActivated: 0
+  MeshBase: {fileID: 0}
+  MaterialBase: {fileID: 0}
+  MeshActivated: {fileID: 0}
+  MaterialActivated: {fileID: 0}
