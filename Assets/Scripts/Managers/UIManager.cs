@@ -104,12 +104,15 @@ public class UIManager : Singleton<UIManager>
 
 		Callbacks = new List<System.Action>();
         Messages[(int)MessageOrigin.System] = new List<Message>();
+        MessageText[(int)MessageOrigin.System].gameObject.SetActive(false);
         Callbacks.Add(DisableMessageSystem);
 
         Messages[(int)MessageOrigin.Tribe] = new List<Message>();
+        MessageText[(int)MessageOrigin.Tribe].gameObject.SetActive(false);
         Callbacks.Add(DisableMessageTribe);
 
         Messages[(int)MessageOrigin.Player] = new List<Message>();
+        MessageText[(int)MessageOrigin.Player].gameObject.SetActive(false);
         Callbacks.Add(DisableMessagePlayer);
 
 		#endregion
