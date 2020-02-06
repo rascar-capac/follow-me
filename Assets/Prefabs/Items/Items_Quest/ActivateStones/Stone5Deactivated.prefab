@@ -85,7 +85,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _itemData
       value: 
-      objectReference: {fileID: 11400000, guid: 134e2c73002e06d4c979d14a59879496,
+      objectReference: {fileID: 11400000, guid: 85f80c44c4e53ae42a51666a7ecb6819,
         type: 2}
     - target: {fileID: 5653032936331489186, guid: 81f0907f0932c6b4397b24c3e4ad4972,
         type: 3}
@@ -145,7 +145,7 @@ PrefabInstance:
     - target: {fileID: 5653032936331489209, guid: 81f0907f0932c6b4397b24c3e4ad4972,
         type: 3}
       propertyPath: m_Name
-      value: Stone4Deactivated
+      value: Stone5Deactivated
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81f0907f0932c6b4397b24c3e4ad4972, type: 3}
