@@ -25,12 +25,13 @@ public class InventoryCell : MonoBehaviour
 			PanelViewInventory.SetActive(true);
 
 		// Update PanelView for Item with infos of this Item.
-		PanelViewInventory.transform.GetChild(0).GetComponent<Text>().text = ItemData.Name;
+		PanelViewInventory.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = ItemData.Name;
 		PanelViewInventory.transform.GetChild(1).GetComponent<Text>().text = ItemData.Description;
 
 		// Activate ItemViewer and Set-up with ItemData.
 		ItemViewer.SetActive(true);
 		ItemViewer.GetComponent<MeshFilter>().mesh = ItemData.MeshBase;
 		ItemViewer.GetComponent<MeshRenderer>().material = ItemData.MaterialBase;
+		ItemViewer.transform.eulerAngles = Vector3.zero;
 	}
 }
