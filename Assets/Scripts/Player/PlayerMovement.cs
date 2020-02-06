@@ -85,7 +85,6 @@ public class PlayerMovement : BaseMonoBehaviour
             return;
 
         _isGrounded = Physics.CheckSphere(_groundCheck.position, _groundDistance, _groundMask);
-
         if (_isGrounded && _velocity.y < 0)
         {
             _velocity.y = -2f;
@@ -96,11 +95,16 @@ public class PlayerMovement : BaseMonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
 
+
         float runMultiply = 1;
         if (IsRunning && AmbiantManager.I.IsUsableNow(GameManager.I._data.PlayerRunUsable))
             runMultiply = GameManager.I._data.SpeedMultiplicator;
 
-        _controller.Move(move * _speed * runMultiply * Time.deltaTime);
+        //Debug.DrawRay(CameraManager.I._MainCamera.transform.position + transform.forward * 0.5f, Vector3.down * 3, Color.white);
+        //if (Physics.Raycast(CameraManager.I._MainCamera.transform.position + transform.forward * 0.5f, Vector3.down, 3, _groundMask))
+        //{
+            _controller.Move(move * _speed * runMultiply * Time.deltaTime);
+        //}
 
         //if (Input.GetButtonDown("Jump") && _isGrounded)
         //{

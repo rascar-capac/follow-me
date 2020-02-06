@@ -15,6 +15,10 @@ public class ItemData : ScriptableObject
     public GameObject _itemBasePrefab;
     [Tooltip("Activated prefab of the item")]
     public GameObject _itemActivatedPrefab;
+    [Tooltip("Item to drop here")]
+    public ItemData _itemToDrop;
+    [Tooltip("Position to drop")]
+    public GameObject _PositionToDrop;
     [Tooltip("Item is catchable")]
     public bool IsCatchable = false;
     [Tooltip("Item is Activable")]

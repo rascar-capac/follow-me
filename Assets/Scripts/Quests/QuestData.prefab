@@ -50,6 +50,8 @@ MonoBehaviour:
   TribeZones: []
   Items: []
   TribeCharged: 0
-  ItemsReward: []
+  ItemsReward:
+  - {fileID: 0}
   QuestsReward: []
   ZonesReward: []
+  DocilityPointsReward: 0
