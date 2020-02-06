@@ -56,7 +56,7 @@ public class Tribe : ZoneInteractable
 	Player _Player;
 	PlayerMovement _PlayerMovement;
     PlayerInventory _PlayerInventory;
-    GameObject _Terrain;
+    Terrain _Terrain;
     Animator animator;
 
     [HideInInspector]
@@ -79,7 +79,7 @@ public class Tribe : ZoneInteractable
         _Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
 		_PlayerMovement = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerMovement>();
         _PlayerInventory = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerInventory>();
-        _Terrain = ((GameObject)ObjectsManager.I["Terrain"]);
+        _Terrain = ((GameObject)ObjectsManager.I["Terrain"]).GetComponent<Terrain>();
 
 		Energy = GameManager.I._data.InitialTribeEnergy;
 		CriticalEnergy = (Energy / 100) * GameManager.I._data.PercentEnergyTribeForCritical;
@@ -105,7 +105,7 @@ public class Tribe : ZoneInteractable
 
     void PlayFlip()
     {
-        if (Random.Range(0, 2) == 0) 
+        if (Random.Range(0, 2) == 0)
             animator.Play("@loopingSide");
         else
             animator.Play("@rear");
@@ -145,7 +145,6 @@ public class Tribe : ZoneInteractable
 			}
 		}
 
-		UIManager.I.ShowTribeDocility(true);
 		UIManager.I.SetTribeDocility(_IsIgnoring);
 
 		DebugNavMesh();
@@ -155,7 +154,7 @@ public class Tribe : ZoneInteractable
 			RotateTowards();
 		}
 
-           
+
 	}
 
 	#region Tribe Movements
@@ -205,11 +204,15 @@ public class Tribe : ZoneInteractable
 
 	void TribeFollowPlayer(Vector3 playerPosition)
 	{
-        Debug.Log("follow");
-        Vector3 playerPositionXZ = new Vector3(playerPosition.x, 400, playerPosition.z);
-        if (_TribeNavAgent.destination != playerPositionXZ)
-			_TribeNavAgent.SetDestination(playerPositionXZ);
-		_TribeNavAgent.SetDestination(Vector3.Slerp(transform.position, playerPositionXZ, 5));
+        NavMeshHit hit;
+        Vector3 playerPositionOnNavMesh;
+        if(NavMesh.SamplePosition(playerPosition, out hit, 500, NavMesh.AllAreas))
+        {
+            playerPositionOnNavMesh = hit.position;
+            if (_TribeNavAgent.destination != playerPositionOnNavMesh)
+                _TribeNavAgent.SetDestination(playerPositionOnNavMesh);
+            _TribeNavAgent.SetDestination(Vector3.Slerp(transform.position, playerPositionOnNavMesh, 5));
+        }
 	}
 
     public void ModeGoToBeacon(Vector3 destination)
@@ -218,7 +221,7 @@ public class Tribe : ZoneInteractable
         {
             ModeStopAndWait();
             _TribeMovementsMode = TribeMovementsMode.GoToBeacon;
-            _TribeNavAgent.SetDestination(new Vector3(destination.x, 0, destination.z));
+            _TribeNavAgent.SetDestination(new Vector3(destination.x, _TribeNavAgent.height, destination.z));
         }
 	}
 
@@ -226,7 +229,11 @@ public class Tribe : ZoneInteractable
     {
         ModeStopAndWait();
         _TribeMovementsMode = TribeMovementsMode.BeSpontaneous;
-        _TribeNavAgent.SetDestination(new Vector3(destination.x, 0, destination.y));
+        NavMeshHit hit;
+        if(NavMesh.SamplePosition(new Vector3(destination.x, 0, destination.y), out hit, 500, NavMesh.AllAreas))
+        {
+            _TribeNavAgent.SetDestination(hit.position);
+        }
     }
 
     public void UpdateDocility()
@@ -313,7 +320,7 @@ public class Tribe : ZoneInteractable
         if(Random.Range(0, 1f) < _SpontaneityProbability)
         {
             _SpontaneityCheckTimer = ComputeRandomSpontaneityCheckTimer();
-            Bounds terrainDimensions = _Terrain.GetComponent<MeshCollider>().bounds;
+            Bounds terrainDimensions = _Terrain.terrainData.bounds;
             Vector2 randomDestination = new Vector2(terrainDimensions.center.x, terrainDimensions.center.z)
                     + Random.insideUnitCircle * (terrainDimensions.size / 2);
             ModeBeSpontaneous(randomDestination);
