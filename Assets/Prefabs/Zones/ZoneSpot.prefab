@@ -1,5 +1,33 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!136 &179659371039545679
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3617196721199064581}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.6396961
+  m_Height: 2.800267
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.0137001, z: 0.0035820007}
+--- !u!114 &6860753526414591110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3617196721199064581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 908edb83ea422de4ea397e5bbf433561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemData: {fileID: 11400000, guid: fda3e03f40f48074d82cbe6fe0393997, type: 2}
+  InZone: {fileID: 0}
 --- !u!1 &6845070835772085464
 GameObject:
   m_ObjectHideFlags: 0
@@ -63,8 +91,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: m_Pedestal
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 2b885f61a4e91ed4db25ace012d485a0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b885f61a4e91ed4db25ace012d485a0, type: 3}
+--- !u!1 &3617196721199064581 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 2b885f61a4e91ed4db25ace012d485a0,
+    type: 3}
+  m_PrefabInstance: {fileID: 4689144786165726988}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &317931038121776150 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 2b885f61a4e91ed4db25ace012d485a0,

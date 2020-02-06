@@ -84,6 +84,40 @@ public class PlayerInventory : BaseMonoBehaviour
     {
         Inventory.Add(itemData);
     }
+    void DropItem(ItemData it, Transform Parent = null)
+    {
+        ItemData t = Inventory.Find(i => i.name == it.name);
+        if (!t)
+            return;
+
+        GameObject go = null;
+        if (t._itemBasePrefab)
+            go = Instantiate(t._itemBasePrefab);
+        else
+            return;
+
+        if (Parent)
+        {
+            go.transform.parent = Parent;
+            go.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else
+        {
+            RaycastHit hitInfo = new RaycastHit();
+            if (Physics.Raycast(_mainCamera.transform.position + Vector3.ProjectOnPlane(_mainCamera.transform.forward, Vector3.up).normalized * GameManager.I._data.BeaconPlacementDistance, Vector3.down, out hitInfo, 100.0f, DropableLayers))
+            {
+                go.transform.position = hitInfo.point;
+            }
+        }
+
+        Inventory.Remove(t);
+        Item dropped = go.GetComponent<Item>();
+        if (dropped._itemData.IsActivable)
+        {
+            InteractItem(go.GetComponent<Item>(), true);
+            dropped.ActivateItem();
+        }
+    }
 
 	void PlayerInteract()
 	{
@@ -100,6 +134,10 @@ public class PlayerInventory : BaseMonoBehaviour
                     InteractItem(it);
                 else if (it._itemData.IsCatchable)
                     PickUpItem(it);
+                else if (it._itemData._itemToDrop)
+                {
+                    DropItem(it._itemData._itemToDrop, it._itemData._PositionToDrop.transform);
+                }
             }
             else
             {
@@ -127,21 +165,23 @@ public class PlayerInventory : BaseMonoBehaviour
         Destroy(it.gameObject);
 	}
 
-	void InteractItem(Item it)
+	void InteractItem(Item it, bool force = false)
 	{
-		if (!AmbiantManager.I.IsUsableNow(GameManager.I._data.StonesActivationUsable))
-		{
-			UIManager.I.AlertMessage("Unable to activate the stone now.");
-			return;
-		}
+        ItemData data = it._itemData;
+        if (!force)
+        {
+            if (!AmbiantManager.I.IsUsableNow(GameManager.I._data.StonesActivationUsable))
+            {
+                UIManager.I.AlertMessage("Unable to activate the stone now.");
+                return;
+            }
 
-		ItemData data = it._itemData;
-		if (!(it.InZone && tribe.InZones.Exists(z => z == it.InZone)))
-		{
-			UIManager.I.AlertMessage("Your tribe must be here to activate this Item.");
-			return;
-		}
-
+            if (!(it.InZone && tribe.InZones.Exists(z => z == it.InZone)))
+            {
+                UIManager.I.AlertMessage("Your tribe must be here to activate this Item.");
+                return;
+            }
+        }
 		if (data.IsActivable && !data.IsActivated && data._itemActivatedPrefab != null)
 		{
 			onItemActivated?.Invoke(it);
