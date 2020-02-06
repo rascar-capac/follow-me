@@ -117,13 +117,7 @@ AnimatorController:
   m_PrefabAsset: {fileID: 0}
   m_Name: ac_Tribe
   serializedVersion: 5
-  m_AnimatorParameters:
-  - m_Name: Blend
-    m_Type: 1
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+  m_AnimatorParameters: []
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -196,7 +190,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -6974950008954572343}
-    m_Position: {x: 290, y: -40, z: 0}
+    m_Position: {x: 290, y: -20, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2284414681572037749}
     m_Position: {x: 290, y: 30, z: 0}
