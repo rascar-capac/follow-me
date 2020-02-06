@@ -30,7 +30,7 @@ MonoBehaviour:
   CompassEnergyLowUnusable: 0
   BeaconPlacerUsable: 0000000001000000
   BeaconPlacerEnergyLowUnusable: 0
-  MaximumDistanceOfTribe: 10000
+  MaximumDistanceOfTribe: 100
   BeaconPlacementDistance: 3
   BeaconPlacementCount: 3
   MapUsable: 0000000001000000
@@ -55,32 +55,37 @@ MonoBehaviour:
     MinDistForDeceleration: 70
     CriticalSpeedMultiplicator: 0.5
   InitialDocilityScore: 50
-  IgnoranceProbability0: 0.5
-  IgnoranceDuration0: 25
-  SpontaneityProbability0: 0.5
-  IgnoranceProbability1: 0.3
-  IgnoranceDuration1: 10
-  SpontaneityProbability1: 0.2
-  IgnoranceProbability2: 0.2
-  IgnoranceDuration2: 6
-  SpontaneityProbability2: 0.15
-  IgnoranceProbability3: 0.1
-  IgnoranceDuration3: 3
-  SpontaneityProbability3: 0.1
-  IgnoranceProbability4: 0
-  IgnoranceDuration4: 0
-  SpontaneityProbability4: 0.05
+  Level0Params:
+    IgnoranceProbability: 0.5
+    IgnoranceDuration: 10
+    SpontaneityProbability: 0.5
+  Level1Params:
+    IgnoranceProbability: 0.5
+    IgnoranceDuration: 10
+    SpontaneityProbability: 0.5
+  Level2Params:
+    IgnoranceProbability: 0.5
+    IgnoranceDuration: 10
+    SpontaneityProbability: 0.5
+  Level3Params:
+    IgnoranceProbability: 0.5
+    IgnoranceDuration: 10
+    SpontaneityProbability: 0.5
+  Level4Params:
+    IgnoranceProbability: 0.5
+    IgnoranceDuration: 10
+    SpontaneityProbability: 0.5
   SpontaneityCheckTimerMinDuration: 30
   SpontaneityCheckTimerMaxDuration: 60
   States:
   - State: 0
     DayStateDurationInSecond: 10
     StateHoursCount: 12
-    TimeStateChanged: 259.7783
+    TimeStateChanged: 99.93841
   - State: 1
     DayStateDurationInSecond: 10
     StateHoursCount: 12
-    TimeStateChanged: 249.78398
+    TimeStateChanged: 89.949745
   TurtleRockFinalPosition: {fileID: 0}
   Input_Pause:
     XBox: 10

@@ -30,7 +30,7 @@ MonoBehaviour:
   CompassEnergyLowUnusable: 0
   BeaconPlacerUsable: 0000000001000000
   BeaconPlacerEnergyLowUnusable: 0
-  MaximumDistanceOfTribe: 10000
+  MaximumDistanceOfTribe: 100
   BeaconPlacementDistance: 3
   BeaconPlacementCount: 3
   MapUsable: 0000000001000000
@@ -81,11 +81,11 @@ MonoBehaviour:
   - State: 0
     DayStateDurationInSecond: 120
     StateHoursCount: 12
-    TimeStateChanged: 239.96869
+    TimeStateChanged: 0
   - State: 1
     DayStateDurationInSecond: 120
     StateHoursCount: 12
-    TimeStateChanged: 119.98276
+    TimeStateChanged: 839.9383
   TurtleRockFinalPosition: {fileID: 0}
   Input_Pause:
     XBox: 10
