@@ -15,7 +15,7 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 1
-  m_FogColor: {r: 0.6745098, g: 0.882353, b: 0.9215687, a: 1}
+  m_FogColor: {r: 0.7090981, g: 0.8878432, b: 0.9215687, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.002
   m_LinearFogStart: 0
@@ -4247,19 +4247,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 417154, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.25037104
+      value: -0.36430907
       objectReference: {fileID: 0}
     - target: {fileID: 417154, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.5220465
+      value: 0.39267665
       objectReference: {fileID: 0}
     - target: {fileID: 417154, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.16363691
+      value: -0.17308305
       objectReference: {fileID: 0}
     - target: {fileID: 417154, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.79875207
+      value: -0.82651454
       objectReference: {fileID: 0}
     - target: {fileID: 433102, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4323,11 +4323,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 10897626, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_Color.r
-      value: 0.7165099
+      value: 0.83262753
       objectReference: {fileID: 0}
     - target: {fileID: 10897626, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_Color.g
-      value: 0.88901967
+      value: 0.90745103
       objectReference: {fileID: 0}
     - target: {fileID: 10897626, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_Color.b
@@ -4416,7 +4416,7 @@ PrefabInstance:
     - target: {fileID: 114000012700079142, guid: 2e81469bd87b0e5408ce4fe381ea958f,
         type: 3}
       propertyPath: CycleProgress
-      value: 41.7
+      value: 46.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e81469bd87b0e5408ce4fe381ea958f, type: 3}
