@@ -57,6 +57,7 @@ public class Tribe : ZoneInteractable
 	PlayerMovement _PlayerMovement;
     PlayerInventory _PlayerInventory;
     GameObject _Terrain;
+    Animator animator;
 
     [HideInInspector]
     public int DocilityScore;
@@ -71,7 +72,7 @@ public class Tribe : ZoneInteractable
 	protected override void Start()
     {
         base.Start();
-
+        animator = GetComponentInChildren<Animator>();
 		TribeProperties = GameManager.I._data.TribeProperties;
 
 		_TribeNavAgent = GetComponentInParent<NavMeshAgent>();
@@ -97,7 +98,20 @@ public class Tribe : ZoneInteractable
         _IsIgnoring = false;
         _SpontaneityCheckTimer = ComputeRandomSpontaneityCheckTimer();
 		ModeStopAndWait();
+        Random.InitState(System.DateTime.Now.Millisecond);
+        StartChrono(Random.Range(5, 10), PlayFlip);
+
 	}
+
+    void PlayFlip()
+    {
+        if (Random.Range(0, 2) == 0) 
+            animator.Play("@loopingSide");
+        else
+            animator.Play("@rear");
+
+        StartChrono(Random.Range(30, 100), PlayFlip);
+    }
 
 	protected override void Update()
 	{
@@ -140,6 +154,8 @@ public class Tribe : ZoneInteractable
 		{
 			RotateTowards();
 		}
+
+           
 	}
 
 	#region Tribe Movements
@@ -337,6 +353,8 @@ public class Tribe : ZoneInteractable
         }
         else if (Energy != GameManager.I._data.InitialTribeEnergy)
             EventCalled = false;
+
+        animator.SetFloat("Blend", 1 - Energy / GameManager.I._data.InitialTribeEnergy);
     }
 
     void EnergyCritical()
