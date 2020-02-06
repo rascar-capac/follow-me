@@ -90,8 +90,9 @@ public class Tribe : ZoneInteractable
 		onTribeEnergyEnterCritical.AddListener(TribeInCriticalSpeed);
 		onTribeEnergyExitCritical.AddListener(TribeInDefaultSpeed);
 		InputManager.I.onTribeOrderKeyPressed.AddListener(SwitchModeFollowAndWait);
-        _PlayerInventory.onItemActivated.AddListener(AddItemActivationDocilityBonus);
-        AmbiantManager.I.onDayStateChanged.AddListener(AddNewDayDocilityBonus);
+        _PlayerInventory.onItemActivated.AddListener(AddItemActivationBonus);
+        AmbiantManager.I.onDayStateChanged.AddListener(AddNewDayBonus);
+        _PlayerMovement.onPlayerTooFarFromTribe.AddListener(AddTooFarMalus);
 
         DocilityScore = GameManager.I._data.InitialDocilityScore;
         _DocilityLevel = 1;
@@ -272,32 +273,37 @@ public class Tribe : ZoneInteractable
         }
     }
 
-    public void AddItemActivationDocilityBonus(Item item)
+    public void AddItemActivationBonus(Item item)
     {
-        DocilityScore += 100;
+        DocilityScore += GameManager.I._data.ItemActivationBonus;
+    }
+
+    public void AddNewDayBonus(DayStatesProperties currentDayState, DayStatesProperties nextDayState)
+    {
+        if(currentDayState.State == DayState.Day)
+        {
+            DocilityScore += GameManager.I._data.NewDayBonus;
+        }
+    }
+
+    public void AddTooFarMalus()
+    {
+        DocilityScore -= GameManager.I._data.TooFarFromTribeMalus;
     }
 
     // public void AddObstacleDocilityMalus() {}
 
-    public void AddNewDayDocilityBonus(DayStatesProperties currentDayState, DayStatesProperties nextDayState)
-    {
-        if(currentDayState.State == DayState.Day)
-        {
-            DocilityScore += 10;
-        }
-    }
-
     public int ComputeDocilityLevel()
     {
         int bonusMalus = 0;
-        bonusMalus -= 100 - Mathf.RoundToInt(Energy);
+        bonusMalus -= GameManager.I._data.InitialTribeEnergy - Mathf.RoundToInt(Energy);
         if(IsEnergyCritical)
         {
-            bonusMalus -= 50;
+            bonusMalus -= GameManager.I._data.CriticalEnergyMalus;
         }
         if(AmbiantManager.I.IsNight)
         {
-            bonusMalus += 50;
+            bonusMalus += GameManager.I._data.NightBonus;
         }
 
         int finalScore = DocilityScore + bonusMalus;

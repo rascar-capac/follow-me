@@ -90,7 +90,7 @@ public class GameData : ScriptableObject
 
     [Title("Tribe energy")]
 	[TabGroup("Tribe")][Tooltip("The energy of the tribe when the game starts.")]
-	public float InitialTribeEnergy = 100f;
+	public int InitialTribeEnergy = 100;
 	[TabGroup("Tribe")][Tooltip("Percent of energy for entering in critical state")][Range(0, 100)]
 	public float PercentEnergyTribeForCritical = 5f;
 	[TabGroup("Tribe")][Tooltip("Energy tribe lost per second in the day")]
@@ -110,9 +110,30 @@ public class GameData : ScriptableObject
  //   public float InitialSpeedRotationTribe = 10f;
 
 	[Title("Tribe docility")]
+
 	[TabGroup("Tribe")]
     [Tooltip("Docility score at start up")]
     public int InitialDocilityScore = 50;
+
+    [TabGroup("Tribe")]
+    [Tooltip("Permanent bonus when an item is activated")]
+    public int ItemActivationBonus = 100;
+
+    [TabGroup("Tribe")]
+    [Tooltip("Permanent bonus for each new day")]
+    public int NewDayBonus = 10;
+
+    [TabGroup("Tribe")]
+    [Tooltip("Permanent malus when the player is too far from the tribe")]
+    public int TooFarFromTribeMalus = 10;
+
+    [TabGroup("Tribe")]
+    [Tooltip("Temporary malus when the tribe energy is critical")]
+    public int CriticalEnergyMalus = 50;
+
+    [TabGroup("Tribe")]
+    [Tooltip("Temporary bonus at night")]
+    public int NightBonus = 50;
 
     [TabGroup("Tribe")]
 	[Tooltip("Params at level 0 (score < 0)")]

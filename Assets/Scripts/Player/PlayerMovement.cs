@@ -36,6 +36,7 @@ public class PlayerMovement : BaseMonoBehaviour
 
     public UnityEvent onPlayerRunStaminaNullEnter = new UnityEvent();
     public UnityEvent onPlayerRunStaminaNullExit = new UnityEvent();
+    public UnityEvent onPlayerTooFarFromTribe = new UnityEvent();
 
 	// Event For Tribe
 	public PlayerHasMovedEvent onPlayerHasMoved = new PlayerHasMovedEvent();
@@ -138,6 +139,10 @@ public class PlayerMovement : BaseMonoBehaviour
         Vector3 PlayerPositionProjected = Vector3.ProjectOnPlane(transform.position, Vector3.up);
         TribeDistance = Vector3.Distance(PlayerPositionProjected, TribePositionProjected);
         IsTooFar = TribeDistance > GameManager.I._data.MaximumDistanceOfTribe;
+        if(IsTooFar)
+        {
+            onPlayerTooFarFromTribe?.Invoke();
+        }
 
 		if (TribeDistance > _MinDistForTribeAcceleration)
 			onPlayerHasMoved.Invoke(transform.position);
