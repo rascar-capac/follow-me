@@ -183,10 +183,8 @@ public class Tribe : ZoneInteractable
 	{
         if(!IsIgnoring())
         {
-            float distance = Vector3.Distance(Vector3.ProjectOnPlane(_Player.transform.position, Vector3.up), Vector3.ProjectOnPlane(transform.position, Vector3.up));
-            if (distance > GameManager.I._data.MaximumDistanceOfTribe)
+            if (_PlayerMovement.TribeDistance > GameManager.I._data.MaximumDistanceOfTribe)
             {
-                UIManager.I.AlertMessage("You are too far.");
                 return;
             }
             if (_TribeMovementsMode == TribeMovementsMode.FollowPlayer)

@@ -30,7 +30,7 @@ MonoBehaviour:
   CompassEnergyLowUnusable: 0
   BeaconPlacerUsable: 0000000001000000
   BeaconPlacerEnergyLowUnusable: 0
-  MaximumDistanceOfTribe: 100
+  MaximumDistanceOfTribe: 350
   BeaconPlacementDistance: 3
   BeaconPlacementCount: 3
   MapUsable: 0000000001000000

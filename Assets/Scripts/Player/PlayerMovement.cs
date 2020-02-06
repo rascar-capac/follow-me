@@ -141,6 +141,8 @@ public class PlayerMovement : BaseMonoBehaviour
 
 		if (TribeDistance > _MinDistForTribeAcceleration)
 			onPlayerHasMoved.Invoke(transform.position);
+        UIManager.I.SetTribeDistance();
+
     }
 
     void ResetSpeed()

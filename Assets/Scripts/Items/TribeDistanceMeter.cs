@@ -22,8 +22,8 @@ public class TribeDistanceMeter : Item
 
     private void Update()
     {
-        if (IsEnabled && AmbiantManager.I.IsUsableNow(GameManager.I._data.TribeDistanceMeterUsable))
-            UIManager.I.SetTribeDistance();
+        //if (IsEnabled && AmbiantManager.I.IsUsableNow(GameManager.I._data.TribeDistanceMeterUsable))
+        UIManager.I.SetTribeDistance();
     }
 
     private void OnDestroy()

@@ -121,16 +121,15 @@ public class UIManager : Singleton<UIManager>
 
 		ShowTime(false);
         ShowPlayerEnergy(false);
-        ShowTribeDistance(false);
+        ShowTribeDistance(true);
         ShowPlayerRunStamina(false);
-        ShowTribeDocility(false);
+        ShowTribeDocility(true);
+        ShowTribeEnergy(true);
+        #endregion
 
-		#endregion
-
-		CloseMenu();
+        CloseMenu();
 	}
-
-	#endregion
+    #endregion
 
     #region Hud Functions
 
