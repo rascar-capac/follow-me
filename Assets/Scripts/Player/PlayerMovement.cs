@@ -136,13 +136,12 @@ public class PlayerMovement : BaseMonoBehaviour
     {
         Vector3 TribePositionProjected = Vector3.ProjectOnPlane(Tribe.transform.position, Vector3.up);
         Vector3 PlayerPositionProjected = Vector3.ProjectOnPlane(transform.position, Vector3.up);
-        TribeDistance = Vector3.Distance(TribePositionProjected, PlayerPositionProjected);
+        TribeDistance = Vector3.Distance(PlayerPositionProjected, TribePositionProjected);
         IsTooFar = TribeDistance > GameManager.I._data.MaximumDistanceOfTribe;
 
 		if (TribeDistance > _MinDistForTribeAcceleration)
 			onPlayerHasMoved.Invoke(transform.position);
         UIManager.I.SetTribeDistance();
-
     }
 
     void ResetSpeed()

@@ -212,9 +212,19 @@ public class Tribe : ZoneInteractable
         Debug.Log("follow");
         Vector3 playerPositionXZ = new Vector3(playerPosition.x, 400, playerPosition.z);
         if (_TribeNavAgent.destination != playerPositionXZ)
-			_TribeNavAgent.SetDestination(playerPositionXZ);
-		_TribeNavAgent.SetDestination(Vector3.Slerp(transform.position, playerPositionXZ, 5));
-	}
+            _TribeNavAgent.SetDestination(playerPositionXZ);
+        _TribeNavAgent.SetDestination(Vector3.Slerp(transform.position, playerPositionXZ, 5));
+        //StartCoroutine(TribeMoving(playerPosition));
+    }
+
+    IEnumerator TribeMoving(Vector3 playerPosition)
+    {
+        while (_TribeMovementsMode == TribeMovementsMode.FollowPlayer)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(playerPosition.x, 400, playerPosition.z), 2*Time.deltaTime);
+            yield return null;
+        }
+    }
 
     public void ModeGoToBeacon(Vector3 destination)
 	{
