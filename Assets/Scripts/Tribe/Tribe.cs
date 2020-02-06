@@ -182,6 +182,10 @@ public class Tribe : ZoneInteractable
 	{
         if(!IsIgnoring())
         {
+            if (_PlayerMovement.TribeDistance > GameManager.I._data.MaximumDistanceOfTribe)
+            {
+                return;
+            }
             if (_TribeMovementsMode == TribeMovementsMode.FollowPlayer)
                 ModeStopAndWait();
             else
