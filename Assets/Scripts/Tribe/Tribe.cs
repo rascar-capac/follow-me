@@ -353,13 +353,18 @@ public class Tribe : ZoneInteractable
     bool EventCalled = false;
 	public void UpdateEnergy()
 	{
-		// Lost energy in journey
-		if (AmbiantManager.I.IsDay && !InZones.Exists(z => z.GainEnergySpeed > 0))
-			Energy -= GameManager.I._data.EnergyTribeLostPerSecond * Time.deltaTime;
-
-        // Gain energy in the night
-		if (AmbiantManager.I.IsNight)
-			Energy += GameManager.I._data.EnergyTribeGainPerSecond * Time.deltaTime;
+		// Lost energy
+		if (!InZones.Exists(z => z.GainEnergySpeed > 0))
+        {
+            if(_TribeMovementsMode == TribeMovementsMode.Wait)
+            {
+                Energy -= GameManager.I._data.TribeEnergyLossWaiting * Time.deltaTime;
+            }
+            else
+            {
+			    Energy -= GameManager.I._data.TribeEnergyLossMoving * Time.deltaTime;
+            }
+        }
 
         // Clamp if life is out of range
         Energy = Mathf.Clamp(Energy, 0f, GameManager.I._data.InitialTribeEnergy);

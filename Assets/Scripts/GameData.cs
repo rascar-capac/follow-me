@@ -93,10 +93,10 @@ public class GameData : ScriptableObject
 	public int InitialTribeEnergy = 100;
 	[TabGroup("Tribe")][Tooltip("Percent of energy for entering in critical state")][Range(0, 100)]
 	public float PercentEnergyTribeForCritical = 5f;
-	[TabGroup("Tribe")][Tooltip("Energy tribe lost per second in the day")]
-	public float EnergyTribeLostPerSecond = 1f;
-	[TabGroup("Tribe")][Tooltip("Energy tribe gain per second in the night")]
-	public float EnergyTribeGainPerSecond = 1f;
+	[TabGroup("Tribe")][Tooltip("Energy tribe looses per second when waiting")]
+	public float TribeEnergyLossWaiting = .5f;
+	[TabGroup("Tribe")][Tooltip("Energy tribe looses per second when moving")]
+	public float TribeEnergyLossMoving = 3f;
 
 	[Title("Tribe speed")]
 	[TabGroup("Tribe")]
