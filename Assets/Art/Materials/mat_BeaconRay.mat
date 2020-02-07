@@ -7,10 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mat_Cliff
-  m_Shader: {fileID: 4800000, guid: 52097e902508f5d49a3eae3b71b88fdc, type: 3}
-  m_ShaderKeywords: _NORMALMAP
-  m_LightmapFlags: 4
+  m_Name: mat_BeaconRay
+  m_Shader: {fileID: 4800000, guid: bed6e711580da9a4b8f95f5eb335b69c, type: 3}
+  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION
+  m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -19,12 +19,8 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _Albedo:
-        m_Texture: {fileID: 2800000, guid: 34a523d5ea60dc24d8a5890764b83a24, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: d5e3c7c8985a0a4459c5d5210e061d4d, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -41,42 +37,26 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 6, y: 6}
-        m_Offset: {x: 0, y: 0}
-    - _Grass:
-        m_Texture: {fileID: 2800000, guid: 54c74ddcdb3f6314aa9a654f279ec127, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 34a523d5ea60dc24d8a5890764b83a24, type: 3}
-        m_Scale: {x: 6, y: 6}
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _ModelAO:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ModelNormal:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Normal:
-        m_Texture: {fileID: 2800000, guid: d5e3c7c8985a0a4459c5d5210e061d4d, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _NormalGrass:
-        m_Texture: {fileID: 2800000, guid: d3ba740ef02cfb54d984b4ed124a329c, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: e662cb9107d5805409f843cbf5b36df0, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture:
+        m_Texture: {fileID: 2800000, guid: 4139acd0185a44a4a8ae33575f04da13, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texcoord:
@@ -84,28 +64,39 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _AlbedoIntensity: 2
     - _BumpScale: 1
-    - _CliffNormalScale: 1
+    - _ContrastIntensity: 2.1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DstBlend: 0
+    - _DstBlend: 10
+    - _EmissiveIntensity: 1
+    - _FresnelBias: 0
+    - _FresnelPower: 5
+    - _FresnelScale: 0.99
     - _GlossMapScale: 1
-    - _Glossiness: 0.078
+    - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _GrassNormalScale: 1
+    - _GradientSide: 0
     - _Metallic: 0
-    - _Mode: 0
+    - _Mode: 3
     - _OcclusionStrength: 1
+    - _OpacityFalloff: 1
+    - _OpacityStart: 0
     - _Parallax: 0.02
-    - _Smoothness: 0.123
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _TriplanarFalloff: 1
+    - _TransAmbient: 0.2
+    - _TransDirect: 1
+    - _TransNormalDistortion: 0.1
+    - _TransScattering: 2
+    - _TransShadow: 0.9
+    - _Translucency: 1
     - _UVSec: 0
-    - _ZWrite: 1
+    - _ZWrite: 0
     - __dirty: 1
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
-    - _Tilling: {r: 0.05, g: 0.05, b: 0.05, a: 0}
+    - _Color: {r: 0.990566, g: 0.9876422, b: 0.5747152, a: 1}
+    - _EmissionColor: {r: 0.41306555, g: 0.8018868, b: 0.3063813, a: 1}
+    - _FresnelColor: {r: 0.968945, g: 1, b: 0.4575472, a: 0}

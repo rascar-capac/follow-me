@@ -7,10 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mat_FoliageA3_N
-  m_Shader: {fileID: 4800000, guid: b83f8fd463e305e40a0932f9ac4628bb, type: 3}
-  m_ShaderKeywords: _ALPHATEST_ON
-  m_LightmapFlags: 0
+  m_Name: mat_Cliff_D
+  m_Shader: {fileID: 4800000, guid: 52097e902508f5d49a3eae3b71b88fdc, type: 3}
+  m_ShaderKeywords: _NORMALMAP
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -20,19 +20,19 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Albedo:
-        m_Texture: {fileID: 2800000, guid: 45b18101575414f40a0a48810bc29908, type: 3}
+        m_Texture: {fileID: 2800000, guid: 34a523d5ea60dc24d8a5890764b83a24, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Albedo_Texture:
-        m_Texture: {fileID: 2800000, guid: c25e2cd2e6936124bbfbcdec56176111, type: 3}
+    - _Bottom_Albedo:
+        m_Texture: {fileID: 2800000, guid: 34a523d5ea60dc24d8a5890764b83a24, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _AmbientOcclusion:
-        m_Texture: {fileID: 0}
+    - _Bottom_Normal:
+        m_Texture: {fileID: 2800000, guid: d5e3c7c8985a0a4459c5d5210e061d4d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: d5e3c7c8985a0a4459c5d5210e061d4d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -49,30 +49,58 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 6, y: 6}
         m_Offset: {x: 0, y: 0}
-    - _EmissiveTexture:
-        m_Texture: {fileID: 0}
+    - _Grass:
+        m_Texture: {fileID: 2800000, guid: 54c74ddcdb3f6314aa9a654f279ec127, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 45b18101575414f40a0a48810bc29908, type: 3}
+        m_Texture: {fileID: 2800000, guid: 34a523d5ea60dc24d8a5890764b83a24, type: 3}
+        m_Scale: {x: 6, y: 6}
+        m_Offset: {x: 0, y: 0}
+    - _MeshNormal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Mesh_AO:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Normal:
+    - _ModelAO:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _OcclusionMap:
+    - _ModelNormal:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 2800000, guid: d5e3c7c8985a0a4459c5d5210e061d4d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalGrass:
+        m_Texture: {fileID: 2800000, guid: d3ba740ef02cfb54d984b4ed124a329c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 2800000, guid: e662cb9107d5805409f843cbf5b36df0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Top_Albedo:
+        m_Texture: {fileID: 2800000, guid: 54c74ddcdb3f6314aa9a654f279ec127, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Top_Normal:
+        m_Texture: {fileID: 2800000, guid: d3ba740ef02cfb54d984b4ed124a329c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texcoord:
@@ -80,57 +108,30 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _BlendOp: 0
+    - _Bottom_NormalScale: 1
     - _BumpScale: 1
-    - _CameraFadingEnabled: 0
-    - _CameraFarFadeDistance: 2
-    - _CameraNearFadeDistance: 1
-    - _ColorMode: 0
-    - _Cull: 0
+    - _CliffNormalScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DistortionBlend: 0.5
-    - _DistortionEnabled: 0
-    - _DistortionStrength: 1
-    - _DistortionStrengthScaled: 0
     - _DstBlend: 0
-    - _EmissionEnabled: 0
-    - _FlipbookMode: 0
-    - _FresnelBias: 0
-    - _FresnelPower: 5
-    - _FresnelScale: 0.99
     - _GlossMapScale: 1
-    - _Glossiness: 0
+    - _Glossiness: 0.078
     - _GlossyReflections: 1
-    - _LightingEnabled: 1
+    - _GrassNormalScale: 1
     - _Metallic: 0
-    - _Mode: 1
-    - _NoiseFrequency: 0.01
-    - _NoiseScale: 1
+    - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Smoothness: 0.4
+    - _Smoothness: 0.123
     - _SmoothnessTextureChannel: 0
-    - _SoftParticlesEnabled: 0
-    - _SoftParticlesFarFadeDistance: 1
-    - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _TransAmbient: 0.2
-    - _TransDirect: 1
-    - _TransNormalDistortion: 0.1
-    - _TransScattering: 2
-    - _TransShadow: 0.9
-    - _Translucency: 1
+    - _Top_NormalScale: 1
+    - _TriplanarFalloff: 1
     - _UVSec: 0
     - _ZWrite: 1
     - __dirty: 1
     m_Colors:
-    - _AlbedoColor: {r: 0.6179246, g: 0.74145395, b: 1, a: 0}
-    - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
-    - _Color: {r: 0.61960787, g: 0.93907565, b: 1, a: 1}
-    - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
-    - _EmissiveColor: {r: 0, g: 0, b: 0, a: 0}
-    - _FresnelColor: {r: 0.23921567, g: 0.91103226, b: 1, a: 0}
-    - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
+    - _Tilling: {r: 0.05, g: 0.05, b: 0.05, a: 0}
