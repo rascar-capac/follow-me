@@ -16,8 +16,8 @@ MonoBehaviour:
   InitialPlayerEnergy: 100
   EnergyPlayerLostPerSecond: 0
   EnergyPlayerGainPerSecond: 0
-  InitialPlayerSpeed: 3
-  SpeedMultiplicator: 4
+  InitialPlayerSpeed: 10
+  SpeedMultiplicator: 3
   PlayerRunUsable: 0000000001000000
   PlayerRunEnergyLowUnusable: 0
   PlayerRunStamina: 1
