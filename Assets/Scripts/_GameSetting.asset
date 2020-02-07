@@ -30,7 +30,7 @@ MonoBehaviour:
   CompassEnergyLowUnusable: 0
   BeaconPlacerUsable: 0000000001000000
   BeaconPlacerEnergyLowUnusable: 0
-  MaximumDistanceOfTribe: 350
+  MaximumDistanceOfTribe: 800
   BeaconPlacementDistance: 3
   BeaconPlacementCount: 3
   MapUsable: 0000000001000000
@@ -61,16 +61,16 @@ MonoBehaviour:
   CriticalEnergyMalus: 50
   NightBonus: 50
   Level0Params:
-    IgnoranceProbability: 0.4
-    IgnoranceDuration: 25
+    IgnoranceProbability: 0.3
+    IgnoranceDuration: 3
     SpontaneityProbability: 0.5
   Level1Params:
     IgnoranceProbability: 0.2
-    IgnoranceDuration: 10
+    IgnoranceDuration: 3
     SpontaneityProbability: 0.3
   Level2Params:
     IgnoranceProbability: 0.15
-    IgnoranceDuration: 6
+    IgnoranceDuration: 3
     SpontaneityProbability: 0.2
   Level3Params:
     IgnoranceProbability: 0.1

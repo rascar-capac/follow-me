@@ -213,17 +213,17 @@ PrefabInstance:
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
       propertyPath: QuestTitle
-      value: Activate the second stone
+      value: Activate the fourth stone
       objectReference: {fileID: 0}
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
       propertyPath: QuestDescription
-      value: The second stone must be activated to get an arteface
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
       propertyPath: QuestCompletedDescription
-      value: Second stone activated
+      value: Fourth stone activated
       objectReference: {fileID: 0}
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
@@ -873,17 +873,17 @@ PrefabInstance:
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
       propertyPath: QuestTitle
-      value: Activate the second stone
+      value: Activate the fifth stone
       objectReference: {fileID: 0}
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
       propertyPath: QuestDescription
-      value: The second stone must be activated to get an arteface
+      value: Find the fifth stone and activate it
       objectReference: {fileID: 0}
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
       propertyPath: QuestCompletedDescription
-      value: Second stone activated
+      value: The last stone has been activated
       objectReference: {fileID: 0}
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
@@ -1032,17 +1032,17 @@ PrefabInstance:
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
       propertyPath: QuestTitle
-      value: Activate the stones.
+      value: Activate the stones
       objectReference: {fileID: 0}
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
       propertyPath: QuestDescription
-      value: Find the elementary stones and activates them
+      value: Find the first four stones and activate them
       objectReference: {fileID: 0}
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
       propertyPath: QuestCompletedDescription
-      value: All stones have been activated
+      value: The first four stones have been activated
       objectReference: {fileID: 0}
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
@@ -2323,17 +2323,17 @@ PrefabInstance:
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
       propertyPath: QuestTitle
-      value: Activate the second stone
+      value: Activate the third stone
       objectReference: {fileID: 0}
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
       propertyPath: QuestDescription
-      value: The second stone must be activated to get an arteface
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
       propertyPath: QuestCompletedDescription
-      value: Second stone activated
+      value: Third stone activated
       objectReference: {fileID: 0}
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
@@ -3488,17 +3488,17 @@ PrefabInstance:
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
       propertyPath: QuestTitle
-      value: Activate the second stone
+      value: Activate the first stone
       objectReference: {fileID: 0}
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
       propertyPath: QuestDescription
-      value: The second stone must be activated to get an arteface
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
       propertyPath: QuestCompletedDescription
-      value: Second stone activated
+      value: First stone activated
       objectReference: {fileID: 0}
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
@@ -5729,8 +5729,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
+      propertyPath: ItemsReward.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
+        type: 3}
       propertyPath: QuestTitle
-      value: Find the artefact
+      value: Get the artefact
       objectReference: {fileID: 0}
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
@@ -5740,7 +5745,7 @@ PrefabInstance:
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
       propertyPath: QuestCompletedDescription
-      value: You found the first artefact
+      value: You found an artefact
       objectReference: {fileID: 0}
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
@@ -7640,17 +7645,17 @@ PrefabInstance:
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
       propertyPath: QuestTitle
-      value: Find promised land and guide tribe to it.
+      value: Go to the Turtle Rock
       objectReference: {fileID: 0}
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
       propertyPath: QuestDescription
-      value: Find the promised land
+      value: Go to the Turtle Rock and activate it
       objectReference: {fileID: 0}
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
       propertyPath: QuestCompletedDescription
-      value: You found the promised land
+      value: You found the Promised Land
       objectReference: {fileID: 0}
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
@@ -9228,7 +9233,7 @@ PrefabInstance:
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
       propertyPath: QuestDescription
-      value: The second stone must be activated to get an arteface
+      value: The second stone must be activated to get an artefact
       objectReference: {fileID: 0}
     - target: {fileID: 3694912664239024880, guid: 26a09bc5c82e6cd4ca148b73b5719e4b,
         type: 3}
@@ -10191,7 +10196,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _data
       value: 
-      objectReference: {fileID: 11400000, guid: dd99d47a1e0c7f740a1dc50ba6e5ac0f,
+      objectReference: {fileID: 11400000, guid: 8688b016710d3f046a851197047646b0,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9b410500b58d5b48b57463459068a64, type: 3}
