@@ -77,7 +77,7 @@ public class UIManager : Singleton<UIManager>
     protected override void Start()
 	{
 		base.Start();
-        
+
         _Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
 		_PlayerMovement = _Player.GetComponent<PlayerMovement>();
 		_PlayerInventory = _Player.GetComponent<PlayerInventory>();
@@ -250,7 +250,7 @@ public class UIManager : Singleton<UIManager>
 			CameraMain.gameObject.SetActive(false);
 			CameraUI.gameObject.SetActive(true);
 			OpenQuestPanel();
-			_PlayerMovement.AllowMove = false;
+			_PlayerMovement.InGame = false;
 			_PlayerLook.AllowLook = false;
 		}
 		else
@@ -259,7 +259,7 @@ public class UIManager : Singleton<UIManager>
 			CameraUI.gameObject.SetActive(false);
 
 			CloseMenu();
-			_PlayerMovement.AllowMove = true;
+			_PlayerMovement.InGame = true;
 			_PlayerLook.AllowLook = true;
 		}
 	}

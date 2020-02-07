@@ -25,14 +25,15 @@ public class PlayerMovement : BaseMonoBehaviour
     public float PlayerRunStamina = 100f;
     bool IsRunStaminaNull => PlayerRunStamina == 0;
     bool PlayerMayRun = true;
-
+    bool _isMoveAllowed = true;
+    Vector3 _move;
     Vector3 _velocity;
     public bool _isGrounded;
     public bool IsTooFar = false;
     public float TribeDistance = 0.1f;
     GameObject Tribe;
     Player _player;
-    public bool AllowMove = true;
+    public bool InGame = true;
 
     public UnityEvent onPlayerRunStaminaNullEnter = new UnityEvent();
     public UnityEvent onPlayerRunStaminaNullExit = new UnityEvent();
@@ -59,8 +60,8 @@ public class PlayerMovement : BaseMonoBehaviour
         InputManager.I.onMoveInputAxisEvent.AddListener(Move);
         InputManager.I.onStopMoveInputAxisEvent.AddListener(Wait);
         InputManager.I.onPlayerJumpPressed.AddListener(Jump);
-        UIManager.I.onToolsInventoryClosedEvent.AddListener((hand) => { AllowMove = true; });
-        UIManager.I.onToolsInventoryOpenedEvent.AddListener((hand) => { AllowMove = false; });
+        UIManager.I.onToolsInventoryClosedEvent.AddListener((hand) => { InGame = true; });
+        UIManager.I.onToolsInventoryOpenedEvent.AddListener((hand) => { InGame = false; });
 
 
     }
@@ -80,9 +81,21 @@ public class PlayerMovement : BaseMonoBehaviour
         RunStaminaCritical();
     }
 
+    private void FixedUpdate()
+    {
+        Debug.DrawRay(CameraManager.I._MainCamera.transform.position + _move * 0.5f, Vector3.down * 5, Color.white);
+        RaycastHit hit;
+        if (Physics.Raycast(CameraManager.I._MainCamera.transform.position + _move * 0.5f, Vector3.down, out hit, 5, _groundMask))
+        {
+            float groundAngle = Vector3.Angle(Vector3.up, hit.normal);
+            Debug.Log(groundAngle);
+            _isMoveAllowed  = groundAngle <= _controller.slopeLimit;
+        }
+    }
+
     public void Move(InputAxisUnityEventArg axis)
     {
-        if (!AllowMove)
+        if (!InGame)
             return;
 
         _isGrounded = Physics.CheckSphere(_groundCheck.position, _groundDistance, _groundMask);
@@ -94,23 +107,22 @@ public class PlayerMovement : BaseMonoBehaviour
         float x = axis.XValue;
         float z = axis.YValue;
 
-        Vector3 move = transform.right * x + transform.forward * z;
+        _move = transform.right * x + transform.forward * z;
 
 
         float runMultiply = 1;
         if (IsRunning && AmbiantManager.I.IsUsableNow(GameManager.I._data.PlayerRunUsable))
             runMultiply = GameManager.I._data.SpeedMultiplicator;
 
-        //Debug.DrawRay(CameraManager.I._MainCamera.transform.position + transform.forward * 0.5f, Vector3.down * 3, Color.white);
-        //if (Physics.Raycast(CameraManager.I._MainCamera.transform.position + transform.forward * 0.5f, Vector3.down, 3, _groundMask))
-        //{
-            _controller.Move(move * _speed * runMultiply * Time.deltaTime);
-        //}
+        if(_isMoveAllowed)
+        {
+        _controller.Move(_move * _speed * runMultiply * Time.deltaTime);
+        }
 
-        //if (Input.GetButtonDown("Jump") && _isGrounded)
-        //{
-        //    _velocity.y = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
-        //}
+        if (Input.GetButtonDown("Jump") && _isGrounded)
+        {
+           _velocity.y = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
+        }
 
         _velocity.y += _gravity * Time.deltaTime;
 
