@@ -10,12 +10,17 @@ ModelImporter:
       74: -8349061647896228597
     second: '@loopingSide'
   - first:
-      74: 5307410022738590009
-    second: '@idle'
-  - first:
       74: 3285283361143600941
     second: '@idleTired'
-  externalObjects: {}
+  - first:
+      74: 5307410022738590009
+    second: '@idle'
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_Tribe
+    second: {fileID: 2100000, guid: ea2febec2e07fec46a26c6768700b7e4, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -26,7 +31,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
-    motionNodeName: 
+    motionNodeName: Rig/Root
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
@@ -102,8 +107,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: '@idle'
-      takeName: '@idle'
+      name: '@idleTired'
+      takeName: '@idleTired'
       internalID: 0
       firstFrame: 0
       lastFrame: 100
@@ -131,8 +136,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: '@idleTired'
-      takeName: '@idleTired'
+      name: '@idle'
+      takeName: '@idle'
       internalID: 0
       firstFrame: 0
       lastFrame: 100
