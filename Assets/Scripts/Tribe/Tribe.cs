@@ -32,6 +32,7 @@ public class Tribe : ZoneInteractable
 {
 	public TribeProperties TribeProperties;
     public UnityEvent onEnergyFull = new UnityEvent();
+    public Color IgnoringEmissionColor;
 
 	[ShowInInspector][ReadOnly]
 	TribeMovementsMode _TribeMovementsMode;
@@ -68,6 +69,7 @@ public class Tribe : ZoneInteractable
     float _IgnoranceTimer;
     float _SpontaneityProbability;
     float _SpontaneityCheckTimer;
+    Color _DefaultEmissionColor;
 
 	protected override void Start()
     {
@@ -102,6 +104,7 @@ public class Tribe : ZoneInteractable
         Random.InitState(System.DateTime.Now.Millisecond);
         StartChrono(Random.Range(5, 10), PlayFlip);
 
+        _DefaultEmissionColor = transform.GetChild(0).GetChild(0).GetComponent<SkinnedMeshRenderer>().material.GetColor("_EmissionColor");
 	}
 
     void PlayFlip()
@@ -133,6 +136,7 @@ public class Tribe : ZoneInteractable
 			_IgnoranceTimer -= Time.deltaTime;
 			if (_IgnoranceTimer <= 0)
 			{
+                ChangeEmissive(_DefaultEmissionColor);
 				_IsIgnoring = false;
 			}
 		}
@@ -319,6 +323,7 @@ public class Tribe : ZoneInteractable
     {
         if(!_IsIgnoring && Random.Range(0, 1f) < _IgnoranceProbability)
         {
+            ChangeEmissive(IgnoringEmissionColor);
             _IsIgnoring = true;
             _IgnoranceTimer = _IgnoranceDuration;
         }
@@ -334,6 +339,7 @@ public class Tribe : ZoneInteractable
             Vector2 randomDestination = new Vector2(terrainDimensions.center.x, terrainDimensions.center.z)
                     + Random.insideUnitCircle * (terrainDimensions.size / 2);
             ModeBeSpontaneous(randomDestination);
+            ChangeEmissive(IgnoringEmissionColor);
             _IsIgnoring = true;
             _IgnoranceTimer = _IgnoranceDuration;
             return true;
@@ -344,6 +350,11 @@ public class Tribe : ZoneInteractable
     public int ComputeRandomSpontaneityCheckTimer()
     {
         return Random.Range(GameManager.I._data.SpontaneityCheckTimerMinDuration, GameManager.I._data.SpontaneityCheckTimerMaxDuration);
+    }
+
+    public void ChangeEmissive(Color emissionColor)
+    {
+        transform.GetChild(0).GetChild(0).GetComponent<SkinnedMeshRenderer>().material.SetColor("_EmissionColor", emissionColor);
     }
 
     #endregion
@@ -376,7 +387,14 @@ public class Tribe : ZoneInteractable
         else if (Energy != GameManager.I._data.InitialTribeEnergy)
             EventCalled = false;
 
-        animator.SetFloat("Blend", 1 - Energy / GameManager.I._data.InitialTribeEnergy);
+        if(IsEnergyCritical)
+        {
+            animator.SetFloat("Blend", 1);
+        }
+        else
+        {
+            animator.SetFloat("Blend", 1 - (Energy / GameManager.I._data.InitialTribeEnergy * 2));
+        }
     }
 
     void EnergyCritical()

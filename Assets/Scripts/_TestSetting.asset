@@ -17,7 +17,7 @@ MonoBehaviour:
   EnergyPlayerLostPerSecond: 0
   EnergyPlayerGainPerSecond: 0
   InitialPlayerSpeed: 10
-  SpeedMultiplicator: 10
+  SpeedMultiplicator: 4
   PlayerRunUsable: 0000000001000000
   PlayerRunEnergyLowUnusable: 0
   PlayerRunStamina: 0
@@ -44,8 +44,8 @@ MonoBehaviour:
   TribeDistanceMeterEnergyLowUnusable: 0
   InitialTribeEnergy: 100
   PercentEnergyTribeForCritical: 10
-  EnergyTribeLostPerSecond: 1
-  EnergyTribeGainPerSecond: 3
+  TribeEnergyLossWaiting: 5
+  TribeEnergyLossMoving: 3
   TribeProperties:
     MaxSpeed: 50
     MaxAngularSpeed: 30
@@ -55,6 +55,11 @@ MonoBehaviour:
     MinDistForDeceleration: 50
     CriticalSpeedMultiplicator: 0.5
   InitialDocilityScore: 50
+  ItemActivationBonus: 100
+  NewDayBonus: 10
+  TooFarFromTribeMalus: 10
+  CriticalEnergyMalus: 50
+  NightBonus: 50
   Level0Params:
     IgnoranceProbability: 0.4
     IgnoranceDuration: 25
@@ -85,7 +90,7 @@ MonoBehaviour:
   - State: 1
     DayStateDurationInSecond: 120
     StateHoursCount: 12
-    TimeStateChanged: 839.9383
+    TimeStateChanged: 120
   TurtleRockFinalPosition: {fileID: 0}
   Input_Pause:
     XBox: 10

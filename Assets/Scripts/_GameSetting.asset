@@ -20,10 +20,10 @@ MonoBehaviour:
   SpeedMultiplicator: 4
   PlayerRunUsable: 0000000001000000
   PlayerRunEnergyLowUnusable: 0
-  PlayerRunStamina: 0
+  PlayerRunStamina: 1
   PlayerRunStaminaMax: 100
-  PlayerRunCostBySecond: 1
-  PlayerRunGainBySecond: 0.1
+  PlayerRunCostBySecond: 30
+  PlayerRunGainBySecond: 5
   PlayerItemDistanceInteraction: 2
   StonesActivationUsable: 0000000001000000
   CompassUsable: 0000000001000000
@@ -44,48 +44,53 @@ MonoBehaviour:
   TribeDistanceMeterEnergyLowUnusable: 0
   InitialTribeEnergy: 100
   PercentEnergyTribeForCritical: 10
-  EnergyTribeLostPerSecond: 0.3
-  EnergyTribeGainPerSecond: 5
+  TribeEnergyLossWaiting: 0.5
+  TribeEnergyLossMoving: 3
   TribeProperties:
     MaxSpeed: 20
     MaxAngularSpeed: 30
-    AccelerationForce: 8
+    AccelerationForce: 5
     DecelerationForce: 1.2
     MinDistForAcceleration: 30
     MinDistForDeceleration: 70
     CriticalSpeedMultiplicator: 0.5
   InitialDocilityScore: 50
+  ItemActivationBonus: 100
+  NewDayBonus: 10
+  TooFarFromTribeMalus: 10
+  CriticalEnergyMalus: 50
+  NightBonus: 50
   Level0Params:
-    IgnoranceProbability: 0.5
-    IgnoranceDuration: 10
+    IgnoranceProbability: 0.4
+    IgnoranceDuration: 25
     SpontaneityProbability: 0.5
   Level1Params:
-    IgnoranceProbability: 0.5
+    IgnoranceProbability: 0.2
     IgnoranceDuration: 10
-    SpontaneityProbability: 0.5
+    SpontaneityProbability: 0.3
   Level2Params:
-    IgnoranceProbability: 0.5
-    IgnoranceDuration: 10
-    SpontaneityProbability: 0.5
+    IgnoranceProbability: 0.15
+    IgnoranceDuration: 6
+    SpontaneityProbability: 0.2
   Level3Params:
-    IgnoranceProbability: 0.5
-    IgnoranceDuration: 10
-    SpontaneityProbability: 0.5
+    IgnoranceProbability: 0.1
+    IgnoranceDuration: 3
+    SpontaneityProbability: 0.1
   Level4Params:
-    IgnoranceProbability: 0.5
-    IgnoranceDuration: 10
-    SpontaneityProbability: 0.5
+    IgnoranceProbability: 0
+    IgnoranceDuration: 0
+    SpontaneityProbability: 0.05
   SpontaneityCheckTimerMinDuration: 30
   SpontaneityCheckTimerMaxDuration: 60
   States:
   - State: 0
-    DayStateDurationInSecond: 10
+    DayStateDurationInSecond: 120
     StateHoursCount: 12
-    TimeStateChanged: 99.93841
+    TimeStateChanged: 0
   - State: 1
-    DayStateDurationInSecond: 10
+    DayStateDurationInSecond: 120
     StateHoursCount: 12
-    TimeStateChanged: 89.949745
+    TimeStateChanged: 120
   TurtleRockFinalPosition: {fileID: 0}
   Input_Pause:
     XBox: 10
