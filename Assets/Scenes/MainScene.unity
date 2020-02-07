@@ -1638,7 +1638,7 @@ GameObject:
   - component: {fileID: 315446573}
   - component: {fileID: 315446572}
   - component: {fileID: 315446571}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bridge1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8090,7 +8090,7 @@ GameObject:
   - component: {fileID: 1658398562}
   - component: {fileID: 1658398561}
   - component: {fileID: 1658398560}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bridge2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

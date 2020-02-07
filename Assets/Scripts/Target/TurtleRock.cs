@@ -30,8 +30,8 @@ public class TurtleRock : Zone
     {
         while (true)
         {
-            transform.position = Vector3.MoveTowards(transform.position, GameManager.I._data.TurtleRockFinalPosition.transform.position, 1 * Time.deltaTime);
-            
+            transform.position = Vector3.MoveTowards(transform.position, GameManager.I._data.TurtleRockFinalPosition.transform.position, 10 * Time.deltaTime);
+
             if (Vector3.Distance(transform.position, GameManager.I._data.TurtleRockFinalPosition.transform.position) <= 0.01f)
                 break;
 
