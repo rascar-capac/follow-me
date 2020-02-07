@@ -10221,7 +10221,6 @@ MonoBehaviour:
   QuestsData:
   - {fileID: 244900767}
   - {fileID: 706392246}
-  - {fileID: 1626843705}
 --- !u!1001 &2324262420306108307
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -230,7 +230,11 @@ public class Tribe : ZoneInteractable
         {
             ModeStopAndWait();
             _TribeMovementsMode = TribeMovementsMode.GoToBeacon;
-            _TribeNavAgent.SetDestination(new Vector3(destination.x, _TribeNavAgent.height, destination.z));
+            NavMeshHit hit;
+            if(NavMesh.SamplePosition(destination, out hit, 500, NavMesh.AllAreas))
+            {
+                _TribeNavAgent.SetDestination(hit.position);
+            }
         }
 	}
 
