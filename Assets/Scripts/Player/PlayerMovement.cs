@@ -48,7 +48,8 @@ public class PlayerMovement : BaseMonoBehaviour
     {
         base.Start();
         _controller = GetComponent<CharacterController>();
-        Tribe = (GameObject)ObjectsManager.I["TribeGroundPosition"];
+        //Tribe = (GameObject)ObjectsManager.I["TribeGroundPosition"];
+		Tribe = (GameObject)ObjectsManager.I["Tribe"];
 		_MinDistForTribeAcceleration = GameManager.I._data.TribeProperties.MinDistForAcceleration;
         _speed = GameManager.I._data.InitialPlayerSpeed;
         _player = GetComponent<Player>();

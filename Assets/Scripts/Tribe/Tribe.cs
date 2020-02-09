@@ -23,9 +23,6 @@ public struct TribeProperties
 	public float MinDistForAcceleration;
 	public float MinDistForDeceleration;
 	public float CriticalSpeedMultiplicator;
-	//[TabGroup("Tribe")]
-	//[Tooltip("Critical (energy low) speed multiplicator of Tribe (speed * multiplicator = new speed)")]
-
 }
 
 public class Tribe : ZoneInteractable
@@ -36,6 +33,7 @@ public class Tribe : ZoneInteractable
 
 	[ShowInInspector][ReadOnly]
 	TribeMovementsMode _TribeMovementsMode;
+
 	#region Tribe Energy
 
 	[Header("Current Tribe energy")]
@@ -53,7 +51,7 @@ public class Tribe : ZoneInteractable
 
 	#endregion
 
-	NavMeshAgent _TribeNavAgent;
+	//NavMeshAgent _TribeNavAgent;
 	Player _Player;
 	PlayerMovement _PlayerMovement;
     PlayerInventory _PlayerInventory;
@@ -74,10 +72,11 @@ public class Tribe : ZoneInteractable
 	protected override void Start()
     {
         base.Start();
-        animator = GetComponentInChildren<Animator>();
+		animator = GetComponentInChildren<Animator>();
+
 		TribeProperties = GameManager.I._data.TribeProperties;
 
-		_TribeNavAgent = GetComponentInParent<NavMeshAgent>();
+		//_TribeNavAgent = GetComponentInParent<NavMeshAgent>();
         _Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
 		_PlayerMovement = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerMovement>();
         _PlayerInventory = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerInventory>();
@@ -86,8 +85,8 @@ public class Tribe : ZoneInteractable
 		Energy = GameManager.I._data.InitialTribeEnergy;
 		CriticalEnergy = (Energy / 100) * GameManager.I._data.PercentEnergyTribeForCritical;
 
-		//TribeInDefaultSpeed();
-		SetNavMeshAgent();
+		TribeInDefaultSpeed();
+		//SetNavMeshAgent();
 
 		onTribeEnergyEnterCritical.AddListener(TribeInCriticalSpeed);
 		onTribeEnergyExitCritical.AddListener(TribeInDefaultSpeed);
@@ -127,9 +126,9 @@ public class Tribe : ZoneInteractable
 		// à changer quand l’énergie du convoi sera affichée autrement que par du texte
 		UIManager.I.SetTribeEnergy();
 
-		// Acceleration and deceleration controls of Tribe
-		if (_TribeNavAgent.hasPath)
-			_TribeNavAgent.acceleration = (_TribeNavAgent.remainingDistance < TribeProperties.MinDistForDeceleration) ? TribeProperties.DecelerationForce : TribeProperties.AccelerationForce;
+		//// Acceleration and deceleration controls of Tribe
+		//if (_TribeNavAgent.hasPath)
+		//	_TribeNavAgent.acceleration = (_TribeNavAgent.remainingDistance < TribeProperties.MinDistForDeceleration) ? TribeProperties.DecelerationForce : TribeProperties.AccelerationForce;
 
 		if (_IsIgnoring)
 		{
@@ -152,24 +151,19 @@ public class Tribe : ZoneInteractable
 
 		UIManager.I.SetTribeDocility(_IsIgnoring);
 
-		DebugNavMesh();
-
 		if (IsInMeleeRangeOf())
 		{
 			RotateTowards();
 		}
-
-
 	}
 
 	#region Tribe Movements
-	// Renock Test
-	void SetNavMeshAgent()
-	{
-		_TribeNavAgent.acceleration = TribeProperties.AccelerationForce;
-		_TribeNavAgent.stoppingDistance = TribeProperties.MinDistForAcceleration;
-		TribeInDefaultSpeed();
-	}
+	//void SetNavMeshAgent()
+	//{
+	//	_TribeNavAgent.acceleration = TribeProperties.AccelerationForce;
+	//	_TribeNavAgent.stoppingDistance = TribeProperties.MinDistForAcceleration;
+	//	TribeInDefaultSpeed();
+	//}
 	bool IsInMeleeRangeOf()
 	{
 		float distance = Vector3.Distance(transform.position, _Player.transform.position);
@@ -181,7 +175,6 @@ public class Tribe : ZoneInteractable
 		Quaternion lookRotation = Quaternion.LookRotation(direction);
 		transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * TribeProperties.MaxAngularSpeed);
 	}
-	// Fin Test
 
 	public void SwitchModeFollowAndWait()
 	{
@@ -202,7 +195,7 @@ public class Tribe : ZoneInteractable
 	{
         _TribeMovementsMode = TribeMovementsMode.Wait;
         _PlayerMovement.onPlayerHasMoved.RemoveListener(TribeFollowPlayer);
-        _TribeNavAgent.ResetPath();
+        //_TribeNavAgent.ResetPath();
 	}
 
 	public void ModeFollowPlayer()
@@ -213,15 +206,15 @@ public class Tribe : ZoneInteractable
 
 	void TribeFollowPlayer(Vector3 playerPosition)
 	{
-        NavMeshHit hit;
-        Vector3 playerPositionOnNavMesh;
-        if(NavMesh.SamplePosition(playerPosition, out hit, 500, NavMesh.AllAreas))
-        {
-            playerPositionOnNavMesh = hit.position;
-            if (_TribeNavAgent.destination != playerPositionOnNavMesh)
-                _TribeNavAgent.SetDestination(playerPositionOnNavMesh);
-            _TribeNavAgent.SetDestination(Vector3.Slerp(transform.position, playerPositionOnNavMesh, 5));
-        }
+        //NavMeshHit hit;
+        //Vector3 playerPositionOnNavMesh;
+        //if(NavMesh.SamplePosition(playerPosition, out hit, 500, NavMesh.AllAreas))
+        //{
+        //    playerPositionOnNavMesh = hit.position;
+        //    if (_TribeNavAgent.destination != playerPositionOnNavMesh)
+        //        _TribeNavAgent.SetDestination(playerPositionOnNavMesh);
+        //    _TribeNavAgent.SetDestination(Vector3.Slerp(transform.position, playerPositionOnNavMesh, 5));
+        //}
 	}
 
     public void ModeGoToBeacon(Vector3 destination)
@@ -230,11 +223,11 @@ public class Tribe : ZoneInteractable
         {
             ModeStopAndWait();
             _TribeMovementsMode = TribeMovementsMode.GoToBeacon;
-            NavMeshHit hit;
-            if(NavMesh.SamplePosition(destination, out hit, 500, NavMesh.AllAreas))
-            {
-                _TribeNavAgent.SetDestination(hit.position);
-            }
+            //NavMeshHit hit;
+            //if(NavMesh.SamplePosition(destination, out hit, 500, NavMesh.AllAreas))
+            //{
+            //    _TribeNavAgent.SetDestination(hit.position);
+            //}
         }
 	}
 
@@ -242,11 +235,11 @@ public class Tribe : ZoneInteractable
     {
         ModeStopAndWait();
         _TribeMovementsMode = TribeMovementsMode.BeSpontaneous;
-        NavMeshHit hit;
-        if(NavMesh.SamplePosition(new Vector3(destination.x, 0, destination.y), out hit, 500, NavMesh.AllAreas))
-        {
-            _TribeNavAgent.SetDestination(hit.position);
-        }
+        //NavMeshHit hit;
+        //if(NavMesh.SamplePosition(new Vector3(destination.x, 0, destination.y), out hit, 500, NavMesh.AllAreas))
+        //{
+        //    _TribeNavAgent.SetDestination(hit.position);
+        //}
     }
 
     public void UpdateDocility()
@@ -363,6 +356,20 @@ public class Tribe : ZoneInteractable
 
     #endregion
 
+	#region Tribe speed
+
+	void TribeInDefaultSpeed()
+	{
+		//_TribeNavAgent.speed = GameManager.I._data.TribeProperties.MaxSpeed;
+		//_TribeNavAgent.angularSpeed = GameManager.I._data.TribeProperties.MaxAngularSpeed;
+	}
+
+	void TribeInCriticalSpeed()
+	{
+		//_TribeNavAgent.speed = GameManager.I._data.TribeProperties.MaxSpeed * GameManager.I._data.TribeProperties.CriticalSpeedMultiplicator;
+	}
+
+	#endregion
 
     #region Tribe energy
     bool EventCalled = false;
@@ -417,26 +424,6 @@ public class Tribe : ZoneInteractable
 
 	#endregion
 
-
-	#region Tribe speed
-
-	void TribeInDefaultSpeed()
-	{
-		//_TribeNavAgent.speed = GameManager.I._data.InitialSpeedTribe;
-		//_TribeNavAgent.angularSpeed = GameManager.I._data.InitialSpeedRotationTribe;
-		_TribeNavAgent.speed = GameManager.I._data.TribeProperties.MaxSpeed;
-		_TribeNavAgent.angularSpeed = GameManager.I._data.TribeProperties.MaxAngularSpeed;
-	}
-
-	void TribeInCriticalSpeed()
-	{
-		//_TribeNavAgent.speed = GameManager.I._data.InitialSpeedTribe * GameManager.I._data.CriticalSpeedTribeMultiplicator;
-		_TribeNavAgent.speed = GameManager.I._data.TribeProperties.MaxSpeed * GameManager.I._data.TribeProperties.CriticalSpeedMultiplicator;
-	}
-
-	#endregion
-
-
 	#region Tribe in zone
 
 	public override void ApplyZoneEffect(Zone zone)
@@ -457,48 +444,6 @@ public class Tribe : ZoneInteractable
         Energy += zone.LooseEnergySpeed * Time.deltaTime;
         Energy = Mathf.Clamp(Energy, 0f, GameManager.I._data.InitialTribeEnergy);
     }
-
-	#endregion
-
-
-	#region Debug NavMesh
-
-	//NavMeshPath path = new NavMeshPath();
-	//_TribeNavAgent.CalculatePath(new Vector3(_Player.transform.position.x, 0, _Player.transform.position.z), path);
-	//_TribeNavAgent.SetPath(path);
-
-	void DebugNavMesh()
-	{
-		//Debug.Log("Speed = " + _TribeNavAgent.speed);
-		//Debug.Log("Acceleration = " + _TribeNavAgent.acceleration);
-		//Debug.Log("Angular speed = " + _TribeNavAgent.angularSpeed);
-		//Debug.Log("Velocity = " + _TribeNavAgent.velocity);
-		//Debug.Log("Desired Velocity = " + _TribeNavAgent.desiredVelocity);
-		//Debug.Log("Destination = " + _TribeNavAgent.destination);
-		//Debug.Log("Remaining Distance = " + _TribeNavAgent.remainingDistance);
-		//Debug.Log("Stopping Distance = " + _TribeNavAgent.stoppingDistance);
-		//Debug.Log("Steering Target = " + _TribeNavAgent.steeringTarget);
-		//Debug.Log("Next Position = " + _TribeNavAgent.nextPosition);
-		//Debug.Log("Update Position = " + _TribeNavAgent.updatePosition);
-		//Debug.Log("Update Rotation = " + _TribeNavAgent.updateRotation);
-		//Debug.Log("Auto Braking = " + _TribeNavAgent.autoBraking);
-		//Debug.Log("Auro Repath = " + _TribeNavAgent.autoRepath);
-		//Debug.Log("Has Path = " + _TribeNavAgent.hasPath);
-		//Debug.Log("Is Stopped = " + _TribeNavAgent.isStopped);
-		//Debug.Log("Path Status = " + _TribeNavAgent.path.status);
-		//Debug.Log("Path Status = " + _TribeNavAgent.pathStatus);
-		//Debug.Log("PathPending = " + _TribeNavAgent.pathPending);
-		//Debug.Log("**********************************************");
-		//Debug.Log("**********************************************");
-	}
-
-	private void OnDrawGizmos()
-	{
-		Gizmos.color = Color.green;
-		Gizmos.DrawWireSphere(transform.position, TribeProperties.MinDistForAcceleration);
-		Gizmos.color = Color.red;
-		Gizmos.DrawWireSphere(transform.position, TribeProperties.MinDistForDeceleration);
-	}
 
 	#endregion
 }

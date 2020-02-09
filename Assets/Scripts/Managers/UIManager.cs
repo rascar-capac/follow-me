@@ -301,21 +301,10 @@ public class UIManager : Singleton<UIManager>
 		Cursor.lockState = CursorLockMode.Locked;
 	}
 
-	public void OpenPlayerPanel()
-	{
-		ItemViewer.SetActive(false);
-		OpenMenu("PlayerPanel");
-	}
-	public void OpenTribePanel()
-	{
-		ItemViewer.SetActive(false);
-		OpenMenu("TribePanel");
-	}
 	public void OpenInventoryPanel()
 	{
         if (!AllowOpenInventory)
             return;
-
 
 		ItemViewer.SetActive(false);
 		OpenMenu("InventoryPanel");
@@ -326,11 +315,6 @@ public class UIManager : Singleton<UIManager>
 		ItemViewer.SetActive(false);
 		OpenMenu("QuestPanel");
 		GenerateCellsQuest();
-	}
-	public void OpenMapPanel()
-	{
-		ItemViewer.SetActive(false);
-		OpenMenu("MapPanel");
 	}
 	public void OpenOptionsPanel()
 	{
