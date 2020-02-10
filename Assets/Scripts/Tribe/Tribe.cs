@@ -69,6 +69,7 @@ public class Tribe : ZoneInteractable
     float _SpontaneityCheckTimer;
     Color _DefaultEmissionColor;
 
+
 	protected override void Start()
     {
         base.Start();
@@ -90,7 +91,7 @@ public class Tribe : ZoneInteractable
 
 		onTribeEnergyEnterCritical.AddListener(TribeInCriticalSpeed);
 		onTribeEnergyExitCritical.AddListener(TribeInDefaultSpeed);
-		InputManager.I.onTribeOrderKeyPressed.AddListener(SwitchModeFollowAndWait);
+		//InputManager.I.onTribeOrderKeyPressed.AddListener(SwitchModeFollowAndWait);
         _PlayerInventory.onItemActivated.AddListener(AddItemActivationBonus);
         AmbiantManager.I.onDayStateChanged.AddListener(AddNewDayBonus);
         _PlayerMovement.onPlayerTooFarFromTribe.AddListener(AddTooFarMalus);
@@ -104,67 +105,350 @@ public class Tribe : ZoneInteractable
         StartChrono(Random.Range(5, 10), PlayFlip);
 
         _DefaultEmissionColor = transform.GetChild(0).GetChild(0).GetComponent<SkinnedMeshRenderer>().material.GetColor("_EmissionColor");
+        CurrentAction = StartCoroutine(Live());
 	}
-
-    void PlayFlip()
-    {
-        if (Random.Range(0, 2) == 0)
-            animator.Play("@loopingSide");
-        else
-            animator.Play("@rear");
-
-        StartChrono(Random.Range(30, 100), PlayFlip);
-    }
 
 	protected override void Update()
 	{
 		base.Update();
-
+        Random.InitState(System.DateTime.Now.Millisecond);
 		UpdateEnergy();
 		EnergyCritical();
 
 		// à changer quand l’énergie du convoi sera affichée autrement que par du texte
 		UIManager.I.SetTribeEnergy();
 
-		//// Acceleration and deceleration controls of Tribe
-		//if (_TribeNavAgent.hasPath)
-		//	_TribeNavAgent.acceleration = (_TribeNavAgent.remainingDistance < TribeProperties.MinDistForDeceleration) ? TribeProperties.DecelerationForce : TribeProperties.AccelerationForce;
+        //// Acceleration and deceleration controls of Tribe
+        //if (_TribeNavAgent.hasPath)
+        //	_TribeNavAgent.acceleration = (_TribeNavAgent.remainingDistance < TribeProperties.MinDistForDeceleration) ? TribeProperties.DecelerationForce : TribeProperties.AccelerationForce;
 
-		if (_IsIgnoring)
-		{
-			_IgnoranceTimer -= Time.deltaTime;
-			if (_IgnoranceTimer <= 0)
-			{
-                ChangeEmissive(_DefaultEmissionColor);
-				_IsIgnoring = false;
-			}
-		}
-		else
-		{
-			UpdateDocility();
-			_SpontaneityCheckTimer -= Time.deltaTime;
-			if (_SpontaneityCheckTimer <= 0)
-			{
-				CheckSpontaneity();
-			}
-		}
+        //if (_IsIgnoring)
+        //{
+        //	_IgnoranceTimer -= Time.deltaTime;
+        //	if (_IgnoranceTimer <= 0)
+        //	{
+        //              ChangeEmissive(_DefaultEmissionColor);
+        //		_IsIgnoring = false;
+        //	}
+        //}
+        //else
+        //{
+        //	UpdateDocility();
+        //	_SpontaneityCheckTimer -= Time.deltaTime;
+        //	if (_SpontaneityCheckTimer <= 0)
+        //	{
+        //		CheckSpontaneity();
+        //	}
+        //}
 
-		UIManager.I.SetTribeDocility(_IsIgnoring);
+        //UIManager.I.SetTribeDocility(_IsIgnoring);
 
-		if (IsInMeleeRangeOf())
-		{
-			RotateTowards();
-		}
-	}
+        //if (IsInMeleeRangeOf())
+        //{
+        //	RotateTowards();
+        //}
 
-	#region Tribe Movements
-	//void SetNavMeshAgent()
-	//{
-	//	_TribeNavAgent.acceleration = TribeProperties.AccelerationForce;
-	//	_TribeNavAgent.stoppingDistance = TribeProperties.MinDistForAcceleration;
-	//	TribeInDefaultSpeed();
-	//}
-	bool IsInMeleeRangeOf()
+        //if (Input.GetKeyDown(KeyCode.M))
+        //    GoToPosition(new Vector3(_Player.transform.position.x, transform.position.y, _Player.transform.position.z), WaitAndComeBackSeconds: 2.0f);
+        //if (Input.GetKeyDown(KeyCode.L))
+        //    FollowPath(AroundIslandPath);
+        //if (Input.GetKeyDown(KeyCode.K))
+        //    GoToRandomPosition();
+        //if (Input.GetKeyDown(KeyCode.J))
+        //    DiveTo(_Player.transform.position);
+        //if (Input.GetKeyDown(KeyCode.H))
+        //    FollowTransform(_Player.transform, 5);
+        //if (Input.GetKeyDown(KeyCode.N))
+        //    LookTransform(_Player.transform, 5);
+        //if (Input.GetKeyDown(KeyCode.B))
+        //    GoDownUp(-300, true);
+        //if (Input.GetKeyDown(KeyCode.V))
+        //    GoDownUp(+300, true);
+        //if (Input.GetKeyDown(KeyCode.C))
+        //    ResetOrientation(true);
+        _Player.onZoneEnter.AddListener(PlayerEnterDangerousZone);
+        _Player.onZoneExit.AddListener(PlayerExitDangerousZone);
+
+    }
+
+    #region Tribe behaviour
+    /* Glaucus Actions
+    1. Move from A to B
+    2. Follow a path
+    3. Turn around the island.
+    4. Sleep
+    5. Flight quick
+    6. Flight very slowly
+    7. Drop shit
+    8. Attracted by something
+    9. Angry
+    10. Happy
+    11. Sad
+    12. Disappear
+    13. Stay above the player (turning ?)
+    14. falls
+    */
+    Coroutine CurrentAction = null;
+    bool StopCurrentAction = false;
+    public float speed = 100.0f;
+    public float AngularSpeed = 1.0f;
+    public GameObject AroundIslandPath;
+    [Range(0, 1)]
+    public float Angryness = 0.2f;
+    [Range(0, 1)]
+    public float Happyness = 0.0005f;
+    //[Range(0, 1)]
+    //public float Sadness = 1.0f;
+    //[Range(0, 1)]
+    //public float Fear = 0.0f;
+    public List<Zone> DangerousZones;
+
+    // Triggers of complex actions
+    void PlayerEnterDangerousZone(ZoneInteractable who, Zone zone)
+    {
+        if (DangerousZones == null)
+            return;
+
+        if (DangerousZones.Exists(z => z == zone))
+        {
+            StopCoroutine(CurrentAction);
+            CurrentAction = StartCoroutine(AggressPlayer());
+        }
+    }
+    void PlayerExitDangerousZone(ZoneInteractable who, Zone zone)
+    {
+        if (DangerousZones == null)
+            return;
+
+        if (DangerousZones.Exists(z => z == zone))
+        {
+            StopCoroutine(CurrentAction);
+            CurrentAction = StartCoroutine(Live());
+        }
+    }
+
+    // Complex Actions
+    IEnumerator AggressPlayer()
+    {
+        Debug.Log("aggress");
+        List<IEnumerator> cos = new List<IEnumerator>();
+        cos.Add(DiveTo(_Player.transform.position));
+        cos.Add(LookTransform(_Player.transform, 10f));
+        while (true)
+        {
+            yield return StartCoroutine(cos[(int)Random.Range(0, cos.Count)]);
+        }
+    }
+    IEnumerator Live()
+    {
+        Debug.Log("live");
+        Random.InitState(System.DateTime.Now.Millisecond);
+        Bounds terrainDimensions = _Terrain.terrainData.bounds;
+        Vector2 randomDestination = new Vector2(terrainDimensions.center.x, terrainDimensions.center.z)
+                                    + Random.insideUnitCircle * (terrainDimensions.size / 2);
+
+        List<IEnumerator> cos = new List<IEnumerator>();
+        cos.Add(GoToRandomPosition());
+        cos.Add(FollowTransform(_Player.transform, 3f));
+        cos.Add(FollowPath(AroundIslandPath));
+        while (true)
+        {
+            yield return StartCoroutine(cos[(int)Random.Range(0, cos.Count)]);
+        }
+    }
+
+    // Primitive actions
+    public void TurnAround(Transform t, bool Force = false)
+    {
+        if (CurrentAction != null && !Force)
+            return;
+        else if (CurrentAction != null)
+            StopCoroutine(CurrentAction);
+
+        CurrentAction = StartCoroutine(RotatingAround(t));
+    }
+    public void ResetOrientation(bool Force = false)
+    {
+        if (CurrentAction != null && !Force)
+            return;
+        else if (CurrentAction != null)
+            StopCoroutine(CurrentAction);
+
+        CurrentAction = StartCoroutine(Rotating(Quaternion.LookRotation(Vector3.forward, Vector3.up)));
+    }
+    public void GoDownUp(float delta, bool Force = false)
+    {
+        if (CurrentAction != null && !Force)
+            return;
+        else if (CurrentAction != null)
+            StopCoroutine(CurrentAction);
+
+        CurrentAction = StartCoroutine(GoingToPosition(new Vector3(transform.position.x, transform.position.y + delta, transform.position.z), ResetAction: true, ChangeRotation: false));
+    }
+    public IEnumerator GoToRandomPosition()
+    {
+        Bounds terrainDimensions = _Terrain.terrainData.bounds;
+        Vector2 randomDestination = new Vector2(terrainDimensions.center.x, terrainDimensions.center.z)
+                                    + Random.insideUnitCircle * (terrainDimensions.size / 2);
+
+        yield return StartCoroutine(GoingToPosition(new Vector3(randomDestination.x, transform.position.y, randomDestination.y), ResetAction: true));
+    }
+    public void GoToPosition(Vector3 position, bool Force = false, float WaitAndComeBackSeconds=0f, bool ChangeRotation = true)
+    {
+        if (CurrentAction != null && !Force)
+            return;
+        else if (CurrentAction != null)
+            StopCoroutine(CurrentAction);
+
+        CurrentAction = StartCoroutine(GoingToPosition(position, WaitAndComeBackSeconds, true));
+    }
+    public IEnumerator FollowPath(GameObject Path, int LoopCount = 0)
+    {
+        yield return StartCoroutine(Following(Path, LoopCount));
+    }
+    public IEnumerator DiveTo(Vector3 Target, bool force = false)
+    {
+        yield return StartCoroutine(Diving(Target));
+    }
+    public IEnumerator FollowTransform(Transform target, float duration = 0.0f, bool force = false)
+    {
+        yield return StartCoroutine(FollowingTransform(target, duration));
+    }
+    public IEnumerator LookTransform(Transform target, float duration, bool force = false)
+    {
+        yield return StartCoroutine(LookingTransform(target, duration));
+    }
+
+    // Technical Methods 
+    IEnumerator RotatingAround(Transform transform)
+    {
+        while (true)
+        {
+            
+            yield return null;
+        }
+        CurrentAction = null;
+    }
+    IEnumerator LookingTransform(Transform target, float duration = 0.0f)
+    {
+        float StartedTime = Time.time;
+        Quaternion InitialRotation = transform.rotation;
+        while (true)
+        {
+            RotateTowards(target.position);
+            if (duration > 0 && Time.time - StartedTime > duration)
+                break;
+            yield return null;
+        }
+        while (true)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, InitialRotation, Time.deltaTime * AngularSpeed);
+            if (transform.rotation == InitialRotation)
+                break;
+            yield return null;
+        }
+        CurrentAction = null;
+    }
+    IEnumerator FollowingTransform(Transform target, float duration = 0.0f)
+    {
+        float StartedTime = Time.time;
+        while (true)
+        {
+            yield return GoingToPosition(new Vector3(target.position.x, transform.position.y, target.position.z), ResetAction: false);
+            if (duration > 0 && Time.time - StartedTime > duration)
+                break;
+            yield return null;
+        }
+        CurrentAction = null;
+    }
+    IEnumerator Diving(Vector3 Target)
+    {
+        Vector3 Direction = new Vector3(Target.x - transform.position.x, transform.position.y, Target.z- transform.position.z);
+        Vector3 FinalPosition = new Vector3(Target.x, 0, Target.z) + Direction;
+        yield return GoingToPosition(new Vector3(Target.x, Target.y + 100f, Target.z));
+        yield return GoingToPosition(FinalPosition);
+        CurrentAction = null;
+    }
+    IEnumerator GoingToPosition(Vector3 position, float WaitAndComeBackSeconds = 0f, bool ResetAction = false, bool ChangeRotation = true)
+    {
+        Vector3 initialPosition = transform.position;
+        while (Vector3.Distance(transform.position, position) > 0.1f)
+        {
+            if (ChangeRotation)
+                RotateTowards(position);
+            transform.position = Vector3.MoveTowards(transform.position, position, speed * Time.deltaTime);
+            yield return null;
+        }
+        if (WaitAndComeBackSeconds > 0)
+        {
+            yield return new WaitForSeconds(WaitAndComeBackSeconds);
+            while (Vector3.Distance(transform.position, initialPosition) > 0.1f)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, initialPosition, speed * Time.deltaTime);
+                yield return null;
+                if (ChangeRotation)
+                    RotateTowards(initialPosition);
+            }
+        }
+        if (ResetAction)
+            CurrentAction = null;
+    }
+    public void RotateTowards(Vector3 direction)
+    {
+        Vector3 Direction = (direction - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(Direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * AngularSpeed);
+    }
+    IEnumerator Rotating(Quaternion rotation)
+    {
+        while (transform.rotation != rotation)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * AngularSpeed);
+            yield return null;
+        }
+
+    }
+    IEnumerator Following(GameObject path, int LoopCount = 0)
+    {
+        Transform[] Checkpoints = new Transform[path.transform.childCount];
+        int i = 0;
+        int loops = 0;
+        while (i < Checkpoints.Length)
+        {
+            Checkpoints[i] = path.transform.GetChild(i);
+            yield return StartCoroutine(GoingToPosition(new Vector3(Checkpoints[i].position.x, transform.position.y, Checkpoints[i].position.z)));
+
+            if (LoopCount > 0)
+            {
+                i = (int)Mathf.Repeat(i + 1, Checkpoints.Length);
+                if (i == 0)
+                {
+                    loops++;
+                    if (loops > LoopCount)
+                        break;
+                }
+            }
+            else
+                i++;
+
+        }
+        CurrentAction = null;
+    }
+    #endregion
+
+
+
+
+
+
+    #region Tribe Movements
+    //void SetNavMeshAgent()
+    //{
+    //	_TribeNavAgent.acceleration = TribeProperties.AccelerationForce;
+    //	_TribeNavAgent.stoppingDistance = TribeProperties.MinDistForAcceleration;
+    //	TribeInDefaultSpeed();
+    //}
+    bool IsInMeleeRangeOf()
 	{
 		float distance = Vector3.Distance(transform.position, _Player.transform.position);
 		return distance < TribeProperties.MinDistForAcceleration;
@@ -175,6 +459,15 @@ public class Tribe : ZoneInteractable
 		Quaternion lookRotation = Quaternion.LookRotation(direction);
 		transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * TribeProperties.MaxAngularSpeed);
 	}
+    void PlayFlip()
+    {
+        if (Random.Range(0, 2) == 0)
+            animator.Play("@loopingSide");
+        else
+            animator.Play("@rear");
+
+        StartChrono(Random.Range(30, 100), PlayFlip);
+    }
 
 	public void SwitchModeFollowAndWait()
 	{
@@ -362,6 +655,7 @@ public class Tribe : ZoneInteractable
 	{
 		//_TribeNavAgent.speed = GameManager.I._data.TribeProperties.MaxSpeed;
 		//_TribeNavAgent.angularSpeed = GameManager.I._data.TribeProperties.MaxAngularSpeed;
+        
 	}
 
 	void TribeInCriticalSpeed()

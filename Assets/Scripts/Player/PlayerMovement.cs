@@ -87,7 +87,7 @@ public class PlayerMovement : BaseMonoBehaviour
         if (Physics.Raycast(CameraManager.I._MainCamera.transform.position + _move * 0.5f, Vector3.down, out hit, 5, _groundMask))
         {
             float groundAngle = Vector3.Angle(Vector3.up, hit.normal);
-            Debug.Log(groundAngle);
+
             _isMoveAllowed  = groundAngle <= _controller.slopeLimit;
         }
     }
