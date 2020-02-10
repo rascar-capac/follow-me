@@ -97,8 +97,8 @@ Material:
     - _EmissionEnabled: 0
     - _FlipbookMode: 0
     - _FresnelBias: 0
-    - _FresnelPower: 5
-    - _FresnelScale: 0.99
+    - _FresnelPower: 0.4
+    - _FresnelScale: 0.271
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
@@ -118,19 +118,19 @@ Material:
     - _SrcBlend: 1
     - _TransAmbient: 0.2
     - _TransDirect: 1
-    - _TransNormalDistortion: 0.1
-    - _TransScattering: 2
+    - _TransNormalDistortion: 0.016
+    - _TransScattering: 3.7
     - _TransShadow: 0.9
-    - _Translucency: 1
+    - _Translucency: 5.4
     - _UVSec: 0
     - _ZWrite: 1
     - __dirty: 1
     m_Colors:
-    - _AlbedoColor: {r: 0.6179246, g: 0.74145395, b: 1, a: 0}
+    - _AlbedoColor: {r: 0.13501245, g: 0.31497252, b: 0.6981132, a: 0}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
     - _Color: {r: 0.61960787, g: 0.93907565, b: 1, a: 1}
     - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 0}
-    - _FresnelColor: {r: 0.23921567, g: 0.91103226, b: 1, a: 0}
+    - _FresnelColor: {r: 0.41037738, g: 0.93009615, b: 1, a: 0}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
