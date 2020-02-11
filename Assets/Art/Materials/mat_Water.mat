@@ -24,17 +24,17 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SurfaceNoise:
-        m_Texture: {fileID: 2800000, guid: 666e37773c337ea428315dbabbcf71c7, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Texture: {fileID: 2800000, guid: bd916b355f53ab144901eeb862a0be0b, type: 3}
+        m_Scale: {x: 2, y: 2}
+        m_Offset: {x: 0.63, y: 0}
     m_Floats:
     - _DepthMaxDistance: 100
-    - _FoamMaxDistance: 100
-    - _FoamMinDistance: 100
-    - _SurfaceDistortionAmount: 0.767
-    - _SurfaceNoiseCutoff: 0.888
+    - _FoamMaxDistance: 60
+    - _FoamMinDistance: 30
+    - _SurfaceDistortionAmount: 0.642
+    - _SurfaceNoiseCutoff: 0.172
     m_Colors:
-    - _DepthGradientDeep: {r: 0.086, g: 0.407, b: 1, a: 0.749}
+    - _DepthGradientDeep: {r: 0.086274505, g: 0.6679918, b: 1, a: 0.749}
     - _DepthGradientShallow: {r: 0.325, g: 0.807, b: 0.971, a: 0.725}
-    - _FoamColor: {r: 0.68369526, g: 0.7868297, b: 0.8679245, a: 1}
+    - _FoamColor: {r: 0.7028302, g: 0.87354475, b: 1, a: 1}
     - _SurfaceNoiseScroll: {r: 0.01, g: 0.01, b: 0.01, a: 0}
