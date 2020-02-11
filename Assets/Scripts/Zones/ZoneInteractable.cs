@@ -32,6 +32,7 @@ public class ZoneInteractable : BaseMonoBehaviour
 
     public virtual void EnterZone(Zone zone)
     {
+        Debug.Log(gameObject.name + " enter zone");
         InZones.Add(zone);
         onZoneEnter.Invoke(this, zone);
     }

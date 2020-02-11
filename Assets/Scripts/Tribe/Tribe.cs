@@ -105,6 +105,10 @@ public class Tribe : ZoneInteractable
         StartChrono(Random.Range(5, 10), PlayFlip);
 
         _DefaultEmissionColor = transform.GetChild(0).GetChild(0).GetComponent<SkinnedMeshRenderer>().material.GetColor("_EmissionColor");
+
+        _Player.onZoneEnter.AddListener(PlayerEnterDangerousZone);
+        _Player.onZoneExit.AddListener(PlayerExitDangerousZone);
+
         CurrentAction = StartCoroutine(Live());
 	}
 
@@ -166,8 +170,7 @@ public class Tribe : ZoneInteractable
         //    GoDownUp(+300, true);
         //if (Input.GetKeyDown(KeyCode.C))
         //    ResetOrientation(true);
-        _Player.onZoneEnter.AddListener(PlayerEnterDangerousZone);
-        _Player.onZoneExit.AddListener(PlayerExitDangerousZone);
+
 
     }
 
@@ -206,23 +209,26 @@ public class Tribe : ZoneInteractable
     // Triggers of complex actions
     void PlayerEnterDangerousZone(ZoneInteractable who, Zone zone)
     {
+        Debug.Log("Enter zone");
         if (DangerousZones == null)
             return;
 
         if (DangerousZones.Exists(z => z == zone))
         {
-            StopCoroutine(CurrentAction);
+            StopAllCoroutines();
             CurrentAction = StartCoroutine(AggressPlayer());
         }
     }
     void PlayerExitDangerousZone(ZoneInteractable who, Zone zone)
     {
+        Debug.Log("Exit zone");
+
         if (DangerousZones == null)
             return;
 
         if (DangerousZones.Exists(z => z == zone))
         {
-            StopCoroutine(CurrentAction);
+            StopAllCoroutines();
             CurrentAction = StartCoroutine(Live());
         }
     }
@@ -232,8 +238,9 @@ public class Tribe : ZoneInteractable
     {
         Debug.Log("aggress");
         List<IEnumerator> cos = new List<IEnumerator>();
+        yield return GoToPosition(new Vector3(_Player.transform.position.x-100, transform.position.y, _Player.transform.position.z-100));
         cos.Add(DiveTo(_Player.transform.position));
-        cos.Add(LookTransform(_Player.transform, 10f));
+        cos.Add(LookTransform(_Player.transform, 3f));
         while (true)
         {
             yield return StartCoroutine(cos[(int)Random.Range(0, cos.Count)]);
@@ -243,18 +250,20 @@ public class Tribe : ZoneInteractable
     {
         Debug.Log("live");
         Random.InitState(System.DateTime.Now.Millisecond);
-        Bounds terrainDimensions = _Terrain.terrainData.bounds;
-        Vector2 randomDestination = new Vector2(terrainDimensions.center.x, terrainDimensions.center.z)
-                                    + Random.insideUnitCircle * (terrainDimensions.size / 2);
 
         List<IEnumerator> cos = new List<IEnumerator>();
         cos.Add(GoToRandomPosition());
-        cos.Add(FollowTransform(_Player.transform, 3f));
-        cos.Add(FollowPath(AroundIslandPath));
+        cos.Add(FollowingTransform(_Player.transform, 1));
+        cos.Add(Following(AroundIslandPath));
         while (true)
         {
-            yield return StartCoroutine(cos[(int)Random.Range(0, cos.Count)]);
+            int index = (int)Random.Range(0, cos.Count);
+            Debug.Log(index);
+            IEnumerator cu = cos[index];
+            yield return StartCoroutine(cu);
+            Debug.Log("Next coroutine");
         }
+
     }
 
     // Primitive actions
@@ -287,32 +296,22 @@ public class Tribe : ZoneInteractable
     }
     public IEnumerator GoToRandomPosition()
     {
+        Debug.Log("GoToRandomPosition");
+
         Bounds terrainDimensions = _Terrain.terrainData.bounds;
         Vector2 randomDestination = new Vector2(terrainDimensions.center.x, terrainDimensions.center.z)
                                     + Random.insideUnitCircle * (terrainDimensions.size / 2);
 
         yield return StartCoroutine(GoingToPosition(new Vector3(randomDestination.x, transform.position.y, randomDestination.y), ResetAction: true));
+        Debug.Log("GoToRandomPosition end");
     }
-    public void GoToPosition(Vector3 position, bool Force = false, float WaitAndComeBackSeconds=0f, bool ChangeRotation = true)
+    public IEnumerator GoToPosition(Vector3 position, bool Force = false, float WaitAndComeBackSeconds=0f, bool ChangeRotation = true)
     {
-        if (CurrentAction != null && !Force)
-            return;
-        else if (CurrentAction != null)
-            StopCoroutine(CurrentAction);
-
-        CurrentAction = StartCoroutine(GoingToPosition(position, WaitAndComeBackSeconds, true));
-    }
-    public IEnumerator FollowPath(GameObject Path, int LoopCount = 0)
-    {
-        yield return StartCoroutine(Following(Path, LoopCount));
+        yield return StartCoroutine(GoingToPosition(position, WaitAndComeBackSeconds, true));
     }
     public IEnumerator DiveTo(Vector3 Target, bool force = false)
     {
         yield return StartCoroutine(Diving(Target));
-    }
-    public IEnumerator FollowTransform(Transform target, float duration = 0.0f, bool force = false)
-    {
-        yield return StartCoroutine(FollowingTransform(target, duration));
     }
     public IEnumerator LookTransform(Transform target, float duration, bool force = false)
     {
@@ -327,7 +326,6 @@ public class Tribe : ZoneInteractable
             
             yield return null;
         }
-        CurrentAction = null;
     }
     IEnumerator LookingTransform(Transform target, float duration = 0.0f)
     {
@@ -343,14 +341,14 @@ public class Tribe : ZoneInteractable
         while (true)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, InitialRotation, Time.deltaTime * AngularSpeed);
-            if (transform.rotation == InitialRotation)
+            if (Mathf.Abs(Quaternion.Angle(transform.rotation, InitialRotation)) <= 1)
                 break;
             yield return null;
         }
-        CurrentAction = null;
     }
     IEnumerator FollowingTransform(Transform target, float duration = 0.0f)
     {
+        Debug.Log("FollowingTransform");
         float StartedTime = Time.time;
         while (true)
         {
@@ -359,7 +357,7 @@ public class Tribe : ZoneInteractable
                 break;
             yield return null;
         }
-        CurrentAction = null;
+        Debug.Log("FollowingTransform end");
     }
     IEnumerator Diving(Vector3 Target)
     {
@@ -367,10 +365,11 @@ public class Tribe : ZoneInteractable
         Vector3 FinalPosition = new Vector3(Target.x, 0, Target.z) + Direction;
         yield return GoingToPosition(new Vector3(Target.x, Target.y + 100f, Target.z));
         yield return GoingToPosition(FinalPosition);
-        CurrentAction = null;
     }
     IEnumerator GoingToPosition(Vector3 position, float WaitAndComeBackSeconds = 0f, bool ResetAction = false, bool ChangeRotation = true)
     {
+        Debug.Log("GoingToPosition");
+
         Vector3 initialPosition = transform.position;
         while (Vector3.Distance(transform.position, position) > 0.1f)
         {
@@ -390,8 +389,7 @@ public class Tribe : ZoneInteractable
                     RotateTowards(initialPosition);
             }
         }
-        if (ResetAction)
-            CurrentAction = null;
+        Debug.Log("GoingToPosition end");
     }
     public void RotateTowards(Vector3 direction)
     {
@@ -410,6 +408,7 @@ public class Tribe : ZoneInteractable
     }
     IEnumerator Following(GameObject path, int LoopCount = 0)
     {
+        Debug.Log("FollowPath");
         Transform[] Checkpoints = new Transform[path.transform.childCount];
         int i = 0;
         int loops = 0;
@@ -432,12 +431,9 @@ public class Tribe : ZoneInteractable
                 i++;
 
         }
-        CurrentAction = null;
+        Debug.Log("FollowPath End");
     }
     #endregion
-
-
-
 
 
 

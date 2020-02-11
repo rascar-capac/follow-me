@@ -204,7 +204,7 @@ public class UIManager : Singleton<UIManager>
 
     public void AlertMessage(string message, float duration = 3f, MessageOrigin WhoTalks = MessageOrigin.System)
     {
-        Debug.Log("Alert message");
+
         Message m = new Message() { Text = message, Duration = duration, Origin = WhoTalks };
         Messages[(int)WhoTalks].Add(m);
         if (MessageText[(int)WhoTalks].gameObject.activeSelf)

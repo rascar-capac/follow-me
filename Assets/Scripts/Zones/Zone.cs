@@ -39,7 +39,6 @@ public class Zone : BaseMonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collide " + other.name);
         if (Layers == (Layers | (1 << other.gameObject.layer)))
         {
             other.gameObject.GetComponent<ZoneInteractable>().EnterZone(this);
