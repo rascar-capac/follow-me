@@ -11115,6 +11115,18 @@ MonoBehaviour:
   QuestsData:
   - {fileID: 244900767}
   - {fileID: 706392246}
+--- !u!114 &1555734748883854534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555734748883854532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b299c8aa127142442a45d6feef9fffa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2324262420306108307
 PrefabInstance:
   m_ObjectHideFlags: 0
