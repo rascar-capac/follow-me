@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using Borodar.FarlandSkies.LowPoly;
 
 public class ToolsInventoryEvent : UnityEvent<Hand> { }
 public class UIManager : Singleton<UIManager>
@@ -119,7 +120,7 @@ public class UIManager : Singleton<UIManager>
 
 		#region Hud Messages
 
-		ShowTime(false);
+		ShowTime(true);
         ShowPlayerEnergy(false);
         ShowTribeDistance(true);
         ShowPlayerRunStamina(false);
@@ -160,7 +161,7 @@ public class UIManager : Singleton<UIManager>
 
     public void SetTimeOfDay()
     {
-        _HudCurrentTimeText.text = $"Current time " + (int)AmbiantManager.I.CurrentTimeOfDay + " h (" + AmbiantManager.I.CurrentDayState.State.ToString() + ")";
+        _HudCurrentTimeText.text = $"Current time " + Mathf.Round(SkyboxDayNightCycle.Instance.TimeOfDay) + " h (" + AmbiantManager.I.currentStateOfDay.ToString() + ")";
     }
 	public void SetPlayerEnergy()
 	{

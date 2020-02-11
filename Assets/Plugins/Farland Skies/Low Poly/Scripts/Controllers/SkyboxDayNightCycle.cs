@@ -10,6 +10,9 @@ namespace Borodar.FarlandSkies.LowPoly
     [HelpURL("http://www.borodar.com/stuff/farlandskies/lowpoly/docs/QuickStart_v2.5.1.pdf")]
     public class SkyboxDayNightCycle : Borodar.FarlandSkies.Core.Helpers.Singleton<SkyboxDayNightCycle>
     {
+        public Color DayMultiplier = Color.white;
+        public Color NightMultiplier = Color.white;
+
         // Sky
 
         [SerializeField]
@@ -24,11 +27,11 @@ namespace Borodar.FarlandSkies.LowPoly
 
         [SerializeField]
         [Range(0, 100)]
-        private float _sunrise = 6f;
+        public float _sunrise = 6f;
 
         [SerializeField]
         [Range(0, 100)]
-        private float _sunset = 20f;
+        public float _sunset = 20f;
 
         [SerializeField]
         private float _sunAltitude = 45f;
@@ -48,11 +51,11 @@ namespace Borodar.FarlandSkies.LowPoly
 
         [SerializeField]
         [Range(0, 100)]
-        private float _moonrise = 22f;
+        public float _moonrise = 22f;
 
         [SerializeField]
         [Range(0, 100)]
-        private float _moonset = 5f;
+        public float _moonset = 5f;
 
         [SerializeField]
         [Tooltip("Max angle between the horizon and the center of moon’s disk")]
@@ -242,8 +245,16 @@ namespace Borodar.FarlandSkies.LowPoly
             // colors
             CurrentSunParam = _sunParamsList.GetParamPerTime(TimeOfDay);
 
-            _skyboxController.SunTint = CurrentSunParam.TintColor;
-            _skyboxController.SunLight.color = CurrentSunParam.LightColor;
+            if (DayMultiplier != Color.white)
+            {
+                _skyboxController.SunLight.color = DayMultiplier;
+                _skyboxController.SunTint = DayMultiplier;
+            }
+            else
+            {
+                _skyboxController.SunLight.color = CurrentSunParam.LightColor;
+                _skyboxController.SunTint = CurrentSunParam.TintColor;
+            }
             _skyboxController.SunLight.intensity = CurrentSunParam.LightIntencity;
         }
 
@@ -265,8 +276,18 @@ namespace Borodar.FarlandSkies.LowPoly
             // colors
             CurrentMoonParam = _moonParamsList.GetParamPerTime(TimeOfDay);
 
-            _skyboxController.MoonTint = CurrentMoonParam.TintColor;
-            _skyboxController.MoonLight.color = CurrentMoonParam.LightColor;
+
+            if (NightMultiplier != Color.white)
+            {
+                _skyboxController.MoonLight.color = NightMultiplier;
+                _skyboxController.MoonTint = NightMultiplier;
+            }
+            else
+            {
+                _skyboxController.MoonTint = CurrentMoonParam.TintColor;
+                _skyboxController.MoonLight.color = CurrentMoonParam.LightColor;
+            }
+
             _skyboxController.MoonLight.intensity = CurrentMoonParam.LightIntencity;
         }
 
