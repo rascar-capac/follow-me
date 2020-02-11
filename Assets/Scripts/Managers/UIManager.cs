@@ -161,7 +161,8 @@ public class UIManager : Singleton<UIManager>
 
     public void SetTimeOfDay()
     {
-        _HudCurrentTimeText.text = $"Current time " + Mathf.Round(SkyboxDayNightCycle.Instance.TimeOfDay) + " h (" + AmbiantManager.I.currentStateOfDay.ToString() + ")";
+        float hour = SkyboxDayNightCycle.Instance.TimeOfDay / 100 * 24; 
+        _HudCurrentTimeText.text = $"Current time " + Mathf.Round(hour) + " h (" + AmbiantManager.I.currentStateOfDay.ToString() + ")";
     }
 	public void SetPlayerEnergy()
 	{

@@ -55,6 +55,8 @@ public class AmbiantManager : Singleton<AmbiantManager>
             currentStateOfDay = DayState.Night;
             onDayStateHasChanged.Invoke(currentStateOfDay);
         }
+        SkyboxController.Instance.CloudsRotation = 360 * SkyboxDayNightCycle.Instance.TimeOfDay / 100;
+        //SkyboxController.Instance.CloudsHeight = Mathf.Sin(Time.time);
     }
 
     void ChangeMaterial(DayStatesProperties currentDayStateProperties, DayStatesProperties nextDayStateProperties)

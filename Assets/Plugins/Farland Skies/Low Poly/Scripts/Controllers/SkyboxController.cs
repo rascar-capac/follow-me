@@ -127,12 +127,12 @@ namespace Borodar.FarlandSkies.LowPoly
         [SerializeField]
         [Range(-0.75f, 0.75f)]
         [Tooltip("Height of the clouds relative to the horizon.")]
-        private float _cloudsHeight = 0f;
+        public float _cloudsHeight = 0f;
 
         [SerializeField]
         [Range(0, 360f)]
         [Tooltip("Rotation of the clouds around the positive y axis.")]
-        private float _cloudsRotation = 0f;
+        public float _cloudsRotation = 0f;
 
         // General
 
