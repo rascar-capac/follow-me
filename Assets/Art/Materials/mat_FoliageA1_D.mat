@@ -101,8 +101,8 @@ Material:
     - _EmissionEnabled: 0
     - _FlipbookMode: 0
     - _FresnelBias: 0
-    - _FresnelPower: 5
-    - _FresnelScale: 0.99
+    - _FresnelPower: 0.9
+    - _FresnelScale: 1.174
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
@@ -122,10 +122,10 @@ Material:
     - _SrcBlend: 1
     - _TransAmbient: 0.2
     - _TransDirect: 1
-    - _TransNormalDistortion: 0.1
-    - _TransScattering: 4.8
+    - _TransNormalDistortion: 0.025
+    - _TransScattering: 2.7
     - _TransShadow: 0.9
-    - _Translucency: 0.1
+    - _Translucency: 3
     - _UVSec: 0
     - _ZWrite: 1
     - __dirty: 1

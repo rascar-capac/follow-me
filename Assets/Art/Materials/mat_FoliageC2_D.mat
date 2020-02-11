@@ -100,9 +100,9 @@ Material:
     - _DstBlend: 0
     - _EmissionEnabled: 0
     - _FlipbookMode: 0
-    - _FresnelBias: 0
-    - _FresnelPower: 5
-    - _FresnelScale: 0.99
+    - _FresnelBias: 0.25
+    - _FresnelPower: 0.9
+    - _FresnelScale: 2
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
@@ -121,11 +121,11 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _TransAmbient: 0.2
-    - _TransDirect: 1
-    - _TransNormalDistortion: 0.1
-    - _TransScattering: 2
+    - _TransDirect: 0.741
+    - _TransNormalDistortion: 0
+    - _TransScattering: 6.6
     - _TransShadow: 0.9
-    - _Translucency: 1
+    - _Translucency: 15.9
     - _UVSec: 0
     - _ZWrite: 1
     - __dirty: 1
@@ -136,5 +136,5 @@ Material:
     - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 0}
-    - _FresnelColor: {r: 0.4448009, g: 1, b: 0.23921567, a: 0}
+    - _FresnelColor: {r: 0.54509807, g: 1, b: 0.7111001, a: 0}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
