@@ -11,12 +11,18 @@ public class DetectEndCollision : MonoBehaviour
         parent = transform.GetComponentInParent<ArksPortal>();
     }
 
-    private void OnTriggerStay()
+    private void OnTriggerEnter(Collider other)
     {
-        if(parent.IsBeingActivated)
+        if(other.gameObject.layer != LayerMask.NameToLayer("Player"))
+        {
+            return;
+        }
+
+        if(parent.IsInside && parent.IsBeingActivated)
         {
             parent.IsBeingActivated = false;
             parent.IsActivated = true;
         }
+        parent.IsInside = !parent.IsInside;
     }
 }

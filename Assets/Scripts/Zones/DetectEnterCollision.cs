@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DetectEnterCollision : MonoBehaviour
 {
+
     private ArksPortal parent;
 
     private void Start()
@@ -11,12 +12,13 @@ public class DetectEnterCollision : MonoBehaviour
         parent = transform.GetComponentInParent<ArksPortal>();
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        //if(other)
-        if(!parent.IsBeingActivated)
+        if(other.gameObject.layer != LayerMask.NameToLayer("Player"))
         {
-            parent.IsBeingActivated = true;
+            return;
         }
+
+        parent.IsBeingActivated = parent.IsInside = !parent.IsInside;
     }
 }

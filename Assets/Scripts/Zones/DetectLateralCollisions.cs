@@ -12,11 +12,17 @@ public class DetectLateralCollisions : MonoBehaviour
         parent = transform.GetComponentInParent<ArksPortal>();
     }
 
-    private void OnTriggerStay()
+    private void OnTriggerEnter(Collider other)
     {
+        if(other.gameObject.layer != LayerMask.NameToLayer("Player"))
+        {
+            return;
+        }
+
         if(parent.IsBeingActivated)
         {
             parent.IsBeingActivated = false;
         }
+        parent.IsInside = !parent.IsInside;
     }
 }
