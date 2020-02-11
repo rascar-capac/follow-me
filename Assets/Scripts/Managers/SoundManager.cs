@@ -14,6 +14,9 @@ public class SoundManager : Singleton<SoundManager>
     }
     public void Play(string name)
     {
+        if (!CreatureSource)
+            CreatureSource = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<AudioSource>();
+
         AudioClip found = CreatureClips.Find(a => a.name == name);
         if (found)
         {

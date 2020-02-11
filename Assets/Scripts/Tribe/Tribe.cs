@@ -184,7 +184,11 @@ public class Tribe : ZoneInteractable
             StopAllCoroutines();
             StartCoroutine(Live());
         }
-
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            StopAllCoroutines();
+            StartCoroutine(Fear());
+        }
     }
 
     #region Tribe behaviour
@@ -207,7 +211,7 @@ public class Tribe : ZoneInteractable
     Coroutine CurrentAction = null;
     bool StopCurrentAction = false;
     public float speed = 100.0f;
-    public float AngularSpeed = 1.0f;
+    public float AngularSpeed = 0.5f;
     public GameObject AroundIslandPath;
     [Range(0, 1)]
     public float Angryness = 0.2f;
@@ -253,16 +257,16 @@ public class Tribe : ZoneInteractable
 
         //SkyboxDayNightCycle.Instance.DayMultiplier = new Color(203/255, 57/255, 26/255);
         //SkyboxDayNightCycle.Instance.NightMultiplier = new Color(99/255, 28/255, 108/255);
+
         RedLight.gameObject.SetActive(true);
         RedLight.color = Color.red;
         SoundManager.I.Play("Angry2");
 
         List<IEnumerable> cos = new List<IEnumerable>();
-        yield return GoToPosition(new Vector3(_Player.transform.position.x-100, transform.position.y, _Player.transform.position.z-100));
-        cos.Add(Diving(_Player.transform.position));
+        yield return GoToPosition(new Vector3(_Player.transform.position.x-300, transform.position.y, _Player.transform.position.z-300));
+        cos.Add(Diving(_Player.transform.position, 300f));
         cos.Add(LookingTransform(_Player.transform, 3f));
-        cos.Add(RotatingAround(_Player.transform, 3f));
-        speed = 150f;
+        cos.Add(RotatingAround(_Player.transform, 3f, 300f));
         while (true)
         {
             yield return StartCoroutine(cos[(int)Random.Range(0, cos.Count)].GetEnumerator());
@@ -271,6 +275,7 @@ public class Tribe : ZoneInteractable
     IEnumerator Live()
     {
         Debug.Log("live");
+
         SoundManager.I.Play("Normal");
         //SkyboxDayNightCycle.Instance.DayMultiplier = Color.white;
         //SkyboxDayNightCycle.Instance.NightMultiplier = Color.white;
@@ -280,9 +285,10 @@ public class Tribe : ZoneInteractable
         Random.InitState(System.DateTime.Now.Millisecond);
 
         List<IEnumerable> cos = new List<IEnumerable>();
-        cos.Add(GoToRandomPosition());
-        cos.Add(FollowingTransform(_Player.transform, 1));
-        cos.Add(Following(AroundIslandPath));
+        cos.Add(GoToRandomPosition(100f));
+        cos.Add(FollowingTransform(_Player.transform, 1, 50f));
+        cos.Add(Following(AroundIslandPath, speedMove: 200f));
+        yield return StartCoroutine(ResetCreature());
         speed = 100f;
         while (true)
         {
@@ -301,10 +307,26 @@ public class Tribe : ZoneInteractable
         Random.InitState(System.DateTime.Now.Millisecond);
 
         List<IEnumerable> cos = new List<IEnumerable>();
-        cos.Add(GoDownUp(500));
-        cos.Add(GoToRandomPosition());
-        cos.Add(FollowingTransform(_Player.transform, 2));
-        speed = 300;
+        cos.Add(GoDownUp(1000, speedMove: 400));
+        cos.Add(GoToRandomPosition(speedMove: 500));
+        cos.Add(FollowingTransform(_Player.transform, 2, speedMove: 50f));
+        while (true)
+        {
+            yield return StartCoroutine(cos[(int)Random.Range(0, cos.Count)].GetEnumerator());
+        }
+    }
+    IEnumerator Fear()
+    {
+        Debug.Log("Fear");
+        SoundManager.I.Play("Angry");
+
+        RedLight.gameObject.SetActive(true);
+        RedLight.color = Color.blue;
+
+        Random.InitState(System.DateTime.Now.Millisecond);
+
+        List<IEnumerable> cos = new List<IEnumerable>();
+        cos.Add(FollowingTransform(_Player.transform, 2, speedMove: 200f));
         while (true)
         {
             yield return StartCoroutine(cos[(int)Random.Range(0, cos.Count)].GetEnumerator());
@@ -312,28 +334,26 @@ public class Tribe : ZoneInteractable
     }
 
     // Primitive actions
-    public void ResetOrientation(bool Force = false)
+    public IEnumerator ResetCreature()
     {
-        if (CurrentAction != null && !Force)
-            return;
-        else if (CurrentAction != null)
-            StopCoroutine(CurrentAction);
-
-        CurrentAction = StartCoroutine(Rotating(Quaternion.LookRotation(Vector3.forward, Vector3.up)));
+        yield return StartCoroutine(Rotating(Quaternion.LookRotation(Vector3.forward, Vector3.up)));
+        yield return StartCoroutine(GoingToPosition(new Vector3(transform.position.x, 400, transform.position.z), ChangeRotation:false));
+        speed = 100f;
     }
-    public IEnumerable GoDownUp(float delta, bool LookAt = true)
+    public IEnumerable GoDownUp(float delta, bool LookAt = true, float speedMove = 0)
     {
-        yield return StartCoroutine(GoingToPosition(new Vector3(transform.position.x, transform.position.y + delta, transform.position.z), ResetAction: true, ChangeRotation: LookAt));
-        yield return StartCoroutine(GoingToPosition(new Vector3(transform.position.x, transform.position.y - delta, transform.position.z), ResetAction: true, ChangeRotation: LookAt));
+        yield return StartCoroutine(GoingToPosition(new Vector3(transform.position.x, transform.position.y + delta, transform.position.z), speedMove: speedMove, ChangeRotation: LookAt));
+        yield return StartCoroutine(GoingToPosition(new Vector3(transform.position.x, transform.position.y - delta, transform.position.z), speedMove: speedMove, ChangeRotation: LookAt));
     }
-    public IEnumerable GoToRandomPosition()
+    public IEnumerable GoToRandomPosition(float speedMove = 0)
     {
+        speedMove = speedMove == 0 ? speed : speedMove;
 
         Bounds terrainDimensions = _Terrain.terrainData.bounds;
         Vector2 randomDestination = new Vector2(terrainDimensions.center.x, terrainDimensions.center.z)
                                     + Random.insideUnitCircle * (terrainDimensions.size / 2);
 
-        yield return StartCoroutine(GoingToPosition(new Vector3(randomDestination.x, transform.position.y, randomDestination.y), ResetAction: true));
+        yield return StartCoroutine(GoingToPosition(new Vector3(randomDestination.x, transform.position.y, randomDestination.y), speedMove: speedMove));
     }
     public IEnumerator GoToPosition(Vector3 position, bool Force = false, float WaitAndComeBackSeconds=0f, bool ChangeRotation = true)
     {
@@ -341,16 +361,17 @@ public class Tribe : ZoneInteractable
     }
 
     // Technical Methods 
-    IEnumerable RotatingAround(Transform t, float duration = 0f)
+    IEnumerable RotatingAround(Transform t, float duration = 0f, float speedMove = 0)
     {
-        yield return StartCoroutine(GoingToPosition(new Vector3(t.position.x + 200, t.position.y + 200, t.position.z + 200)));
+        speedMove = speedMove == 0 ? speed : speedMove;
+        yield return StartCoroutine(GoingToPosition(new Vector3(t.position.x + 200, t.position.y + 200, t.position.z + 200), speedMove: speedMove));
         float starttime = Time.time;
         while (true)
         {
             if (duration > 0 && Time.time - starttime > duration)
                 break;
             transform.RotateAround(t.position, Vector3.up, 10 * Time.deltaTime);
-            transform.LookAt(t);
+            RotateTowards(t.position);
             yield return null;
         }
     }
@@ -365,42 +386,42 @@ public class Tribe : ZoneInteractable
                 break;
             yield return null;
         }
-        while (true)
+        while (Mathf.Abs(Quaternion.Angle(transform.rotation, InitialRotation)) > 1)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, InitialRotation, Time.deltaTime * AngularSpeed);
-            if (Mathf.Abs(Quaternion.Angle(transform.rotation, InitialRotation)) <= 1)
-                break;
             yield return null;
         }
     }
-    IEnumerable FollowingTransform(Transform target, float duration = 0.0f)
+    IEnumerable FollowingTransform(Transform target, float duration = 0.0f, float speedMove=0)
     {
+        speedMove = speedMove == 0 ? speed : speedMove;
+
         float StartedTime = Time.time;
         while (true)
         {
-            yield return GoingToPosition(new Vector3(target.position.x, transform.position.y, target.position.z), ResetAction: false);
+            yield return GoingToPosition(new Vector3(target.position.x, transform.position.y, target.position.z), speedMove: speedMove);
             if (duration > 0 && Time.time - StartedTime > duration)
                 break;
             yield return null;
         }
     }
-    IEnumerable Diving(Vector3 Target)
+    IEnumerable Diving(Vector3 Target, float speedMove = 0)
     {
+        speedMove = speedMove == 0 ? speed : speedMove;
         Vector3 Direction = new Vector3(Target.x - transform.position.x, transform.position.y, Target.z- transform.position.z);
         Vector3 FinalPosition = new Vector3(Target.x, 0, Target.z) + Direction;
-        yield return GoingToPosition(new Vector3(Target.x, Target.y + 100f, Target.z));
-        yield return GoingToPosition(FinalPosition);
+        yield return GoingToPosition(new Vector3(Target.x, Target.y + 100f, Target.z), speedMove: speedMove);
+        yield return GoingToPosition(FinalPosition, speedMove: speedMove);
     }
-    IEnumerator GoingToPosition(Vector3 position, float WaitAndComeBackSeconds = 0f, bool ResetAction = false, bool ChangeRotation = true)
+    IEnumerator GoingToPosition(Vector3 position, float WaitAndComeBackSeconds = 0f, bool ChangeRotation = true, float speedMove = 0f)
     {
-
-
+        speedMove = speedMove == 0 ? speed : speedMove;
         Vector3 initialPosition = transform.position;
         while (Vector3.Distance(transform.position, position) > 0.1f)
         {
             if (ChangeRotation)
                 RotateTowards(position);
-            transform.position = Vector3.MoveTowards(transform.position, position, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, position, speedMove * Time.deltaTime);
             yield return null;
         }
         if (WaitAndComeBackSeconds > 0)
@@ -408,7 +429,7 @@ public class Tribe : ZoneInteractable
             yield return new WaitForSeconds(WaitAndComeBackSeconds);
             while (Vector3.Distance(transform.position, initialPosition) > 0.1f)
             {
-                transform.position = Vector3.MoveTowards(transform.position, initialPosition, speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, initialPosition, speedMove * Time.deltaTime);
                 yield return null;
                 if (ChangeRotation)
                     RotateTowards(initialPosition);
@@ -423,15 +444,16 @@ public class Tribe : ZoneInteractable
     }
     IEnumerator Rotating(Quaternion rotation)
     {
-        while (transform.rotation != rotation)
+        while (Mathf.Abs(Quaternion.Angle(transform.rotation, rotation)) > 1.0f)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * AngularSpeed);
             yield return null;
         }
 
     }
-    IEnumerable Following(GameObject path, int LoopCount = 0)
+    IEnumerable Following(GameObject path, int LoopCount = 0, float speedMove= 0)
     {
+        speedMove = speedMove == 0 ? speed : speedMove;
         Transform[] Checkpoints = new Transform[path.transform.childCount];
         int i = 0;
         int loops = 0;
