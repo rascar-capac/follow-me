@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.AI;
 using Sirenix.OdinInspector;
+using Borodar.FarlandSkies.LowPoly;
 
 public enum TribeMovementsMode
 {
@@ -232,50 +233,49 @@ public class Tribe : ZoneInteractable
             CurrentAction = StartCoroutine(Live());
         }
     }
-
+    public Light RedLight;
     // Complex Actions
     IEnumerator AggressPlayer()
     {
         Debug.Log("aggress");
-        List<IEnumerator> cos = new List<IEnumerator>();
+
+        //SkyboxDayNightCycle.Instance.DayMultiplier = new Color(203/255, 57/255, 26/255);
+        //SkyboxDayNightCycle.Instance.NightMultiplier = new Color(99/255, 28/255, 108/255);
+        RedLight.gameObject.SetActive(true);
+
+        List<IEnumerable> cos = new List<IEnumerable>();
         yield return GoToPosition(new Vector3(_Player.transform.position.x-100, transform.position.y, _Player.transform.position.z-100));
-        cos.Add(DiveTo(_Player.transform.position));
-        cos.Add(LookTransform(_Player.transform, 3f));
+        cos.Add(Diving(_Player.transform.position));
+        cos.Add(LookingTransform(_Player.transform, 3f));
+        cos.Add(RotatingAround(_Player.transform, 3f));
         while (true)
         {
-            yield return StartCoroutine(cos[(int)Random.Range(0, cos.Count)]);
+            yield return StartCoroutine(cos[(int)Random.Range(0, cos.Count)].GetEnumerator());
         }
     }
     IEnumerator Live()
     {
         Debug.Log("live");
+        //SkyboxDayNightCycle.Instance.DayMultiplier = Color.white;
+        //SkyboxDayNightCycle.Instance.NightMultiplier = Color.white;
+
+        RedLight.gameObject.SetActive(false);
+
         Random.InitState(System.DateTime.Now.Millisecond);
 
-        List<IEnumerator> cos = new List<IEnumerator>();
+        List<IEnumerable> cos = new List<IEnumerable>();
         cos.Add(GoToRandomPosition());
         cos.Add(FollowingTransform(_Player.transform, 1));
         cos.Add(Following(AroundIslandPath));
         while (true)
         {
-            int index = (int)Random.Range(0, cos.Count);
-            Debug.Log(index);
-            IEnumerator cu = cos[index];
-            yield return StartCoroutine(cu);
+            yield return StartCoroutine(cos[(int)Random.Range(0, cos.Count)].GetEnumerator());
             Debug.Log("Next coroutine");
         }
 
     }
 
     // Primitive actions
-    public void TurnAround(Transform t, bool Force = false)
-    {
-        if (CurrentAction != null && !Force)
-            return;
-        else if (CurrentAction != null)
-            StopCoroutine(CurrentAction);
-
-        CurrentAction = StartCoroutine(RotatingAround(t));
-    }
     public void ResetOrientation(bool Force = false)
     {
         if (CurrentAction != null && !Force)
@@ -294,7 +294,7 @@ public class Tribe : ZoneInteractable
 
         CurrentAction = StartCoroutine(GoingToPosition(new Vector3(transform.position.x, transform.position.y + delta, transform.position.z), ResetAction: true, ChangeRotation: false));
     }
-    public IEnumerator GoToRandomPosition()
+    public IEnumerable GoToRandomPosition()
     {
         Debug.Log("GoToRandomPosition");
 
@@ -309,25 +309,22 @@ public class Tribe : ZoneInteractable
     {
         yield return StartCoroutine(GoingToPosition(position, WaitAndComeBackSeconds, true));
     }
-    public IEnumerator DiveTo(Vector3 Target, bool force = false)
-    {
-        yield return StartCoroutine(Diving(Target));
-    }
-    public IEnumerator LookTransform(Transform target, float duration, bool force = false)
-    {
-        yield return StartCoroutine(LookingTransform(target, duration));
-    }
 
     // Technical Methods 
-    IEnumerator RotatingAround(Transform transform)
+    IEnumerable RotatingAround(Transform t, float duration = 0f)
     {
+        yield return StartCoroutine(GoingToPosition(new Vector3(t.position.x + 200, t.position.y + 200, t.position.z + 200)));
+        float starttime = Time.time;
         while (true)
         {
-            
+            if (duration > 0 && Time.time - starttime > duration)
+                break;
+            transform.RotateAround(t.position, Vector3.up, 10 * Time.deltaTime);
+            transform.LookAt(t);
             yield return null;
         }
     }
-    IEnumerator LookingTransform(Transform target, float duration = 0.0f)
+    IEnumerable LookingTransform(Transform target, float duration = 0.0f)
     {
         float StartedTime = Time.time;
         Quaternion InitialRotation = transform.rotation;
@@ -346,7 +343,7 @@ public class Tribe : ZoneInteractable
             yield return null;
         }
     }
-    IEnumerator FollowingTransform(Transform target, float duration = 0.0f)
+    IEnumerable FollowingTransform(Transform target, float duration = 0.0f)
     {
         Debug.Log("FollowingTransform");
         float StartedTime = Time.time;
@@ -359,7 +356,7 @@ public class Tribe : ZoneInteractable
         }
         Debug.Log("FollowingTransform end");
     }
-    IEnumerator Diving(Vector3 Target)
+    IEnumerable Diving(Vector3 Target)
     {
         Vector3 Direction = new Vector3(Target.x - transform.position.x, transform.position.y, Target.z- transform.position.z);
         Vector3 FinalPosition = new Vector3(Target.x, 0, Target.z) + Direction;
@@ -406,7 +403,7 @@ public class Tribe : ZoneInteractable
         }
 
     }
-    IEnumerator Following(GameObject path, int LoopCount = 0)
+    IEnumerable Following(GameObject path, int LoopCount = 0)
     {
         Debug.Log("FollowPath");
         Transform[] Checkpoints = new Transform[path.transform.childCount];

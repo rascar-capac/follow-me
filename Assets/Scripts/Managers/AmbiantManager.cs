@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
+using Borodar.FarlandSkies.LowPoly;
 
 public class AmbiantManager : Singleton<AmbiantManager>
 {
     public MaterialData Materials;
 	public HourChangedEvent onHourChanged = new HourChangedEvent();
-	public float _LastHour;
+    public DayStateHasChanged onDayStateHasChanged = new DayStateHasChanged();
+    public float _LastHour;
     GameObject Terrain;
 
     protected override void Start()
@@ -21,28 +22,40 @@ public class AmbiantManager : Singleton<AmbiantManager>
         Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
         Terrain = (GameObject)ObjectsManager.I["Terrain"];
 
-        InitDaysStates();
-        ChangeDayState();
+  //      InitDaysStates();
+  //      ChangeDayState();
 
-		ResetLastHour(CurrentDayState, NextDayState);
-		onDayStateChanged.AddListener(ResetLastHour);
+		//ResetLastHour(CurrentDayState, NextDayState);
+		//onDayStateChanged.AddListener(ResetLastHour);
         //onDayStateChanged.AddListener(ChangeMaterial);
 
         //StartChrono(GameManager.I._data.MinimumTimeBetweenFog, StartFog);
     }
 
+    public DayState currentStateOfDay = DayState.Day;
     private void Update()
 	{
-		#region Hour Management
+        //#region Hour Management
 
-		if (CurrentTimeOfDay >= _LastHour + 1)
-		{
-			_LastHour = CurrentTimeOfDay;
-			onHourChanged.Invoke(Mathf.RoundToInt(_LastHour), CurrentDayState.State);
-		}
+        //if (CurrentTimeOfDay >= _LastHour + 1)
+        //{
+        //	_LastHour = CurrentTimeOfDay;
+        //	onHourChanged.Invoke(Mathf.RoundToInt(_LastHour), CurrentDayState.State);
+        //}
 
-		#endregion
-	}
+        //#endregion
+        UIManager.I.SetTimeOfDay();
+        if (SkyboxDayNightCycle.Instance.TimeOfDay >= SkyboxDayNightCycle.Instance._sunrise && SkyboxDayNightCycle.Instance.TimeOfDay <= SkyboxDayNightCycle.Instance._sunset && currentStateOfDay != DayState.Day)
+        {
+            currentStateOfDay = DayState.Day;
+            onDayStateHasChanged.Invoke(currentStateOfDay);
+        }
+        else if ((SkyboxDayNightCycle.Instance.TimeOfDay >= SkyboxDayNightCycle.Instance._moonrise || SkyboxDayNightCycle.Instance.TimeOfDay <= SkyboxDayNightCycle.Instance._moonset) && currentStateOfDay != DayState.Night)
+        {
+            currentStateOfDay = DayState.Night;
+            onDayStateHasChanged.Invoke(currentStateOfDay);
+        }
+    }
 
     void ChangeMaterial(DayStatesProperties currentDayStateProperties, DayStatesProperties nextDayStateProperties)
     {
@@ -186,3 +199,4 @@ public class AmbiantManager : Singleton<AmbiantManager>
 }
 public class DayStateChangedEvent : UnityEvent<DayStatesProperties, DayStatesProperties> { }
 public class HourChangedEvent : UnityEvent<int, DayState> { }
+public class DayStateHasChanged : UnityEvent<DayState> { }
