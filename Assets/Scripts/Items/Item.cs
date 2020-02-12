@@ -26,7 +26,6 @@ public class Item : BaseMonoBehaviour
     }
     public Zone InZone;
 
-	GameObject _currentItemPrefabDisplay;
 	//public bool ItemIsActivated = false; // Déplacer dans _ItemData
 
 	protected override void Start()
@@ -41,8 +40,8 @@ public class Item : BaseMonoBehaviour
 		_itemData.IsActivated = true;
         if (_itemData._itemActivatedPrefab)
         {
-            Instantiate(_itemData._itemActivatedPrefab, transform.position, Quaternion.identity, transform);
-            Destroy(_currentItemPrefabDisplay);
+            Instantiate(_itemData._itemActivatedPrefab, transform.parent);
+            Destroy(this.gameObject);
         }
         UIManager.I.AlertMessage($"{_itemData.Name} has been activated...");
     }

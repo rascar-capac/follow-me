@@ -18,28 +18,28 @@ public class Pedestals : BaseMonoBehaviour
         _PlayerInventory.onItemSwaped.AddListener(SwapStones);
     }
 
-    private void SwapStones(Item item)
+    private void SwapStones(Item focusedPedestal)
     {
         Item focusedStone = null;
-        if(item.transform.childCount > 0)
+        if(focusedPedestal.transform.childCount > 0)
         {
-            focusedStone = item.transform.GetChild(0).GetComponent<Item>();
+            focusedStone = focusedPedestal.transform.GetChild(0).GetComponent<Item>();
         }
-        if(_StoneInHand && _StoneInHand._itemBasePrefab)
+        if(_StoneInHand)
         {
             if(focusedStone)
             {
                 focusedStone.transform.SetPositionAndRotation(_StoneInHandPedestal.position, _StoneInHandPedestal.rotation);
                 focusedStone.transform.SetParent(_StoneInHandPedestal);
             }
-            Instantiate(_StoneInHand._itemBasePrefab, item.transform);
+            Instantiate(_StoneInHand._itemBasePrefab, focusedPedestal.transform);
             _StoneInHand = null;
             CheckMatching();
         }
         else if(focusedStone)
         {
             _StoneInHand = focusedStone._itemData;
-            _StoneInHandPedestal = item.transform;
+            _StoneInHandPedestal = focusedPedestal.transform;
             Destroy(focusedStone.gameObject);
         }
     }
@@ -49,7 +49,9 @@ public class Pedestals : BaseMonoBehaviour
         _IsMatching = true;
         foreach(PedestalStoneMatch match in PedestalStoneMatches)
         {
-            if(match.Pedestal.transform.GetChild(0).GetComponent<Item>()._itemData._itemBasePrefab != match.Stone._itemData._itemBasePrefab)
+            GameObject currentStonePrefab = match.Pedestal.transform.GetChild(0).GetComponent<Item>()._itemData._itemBasePrefab;
+            GameObject matchingStonePrefab = match.Stone._itemBasePrefab;
+            if(currentStonePrefab != matchingStonePrefab)
             {
                 _IsMatching = false;
                 break;
@@ -59,7 +61,7 @@ public class Pedestals : BaseMonoBehaviour
         {
             foreach(PedestalStoneMatch match in PedestalStoneMatches)
             {
-                match.Stone.ActivateItem();
+                match.Pedestal.transform.GetChild(0).GetComponent<Item>().ActivateItem();
             }
         }
     }
@@ -69,5 +71,5 @@ public class Pedestals : BaseMonoBehaviour
 public class PedestalStoneMatch
 {
     public Item Pedestal;
-    public Item Stone;
+    public ItemData Stone;
 }
