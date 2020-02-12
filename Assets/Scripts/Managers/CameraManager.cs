@@ -59,9 +59,12 @@ public class CameraManager : Singleton<CameraManager>
         if (TribeCameraTarget)
         {
             Renderer r = TribeCameraTarget.GetComponent<Renderer>();
-            foreach (Material m in r.materials)
+            if (r)
             {
-                m.SetColor("_Color", Color.yellow);
+                foreach (Material m in r.materials)
+                {
+                    m.SetColor("_Color", Color.yellow);
+                }
             }
             StartCoroutine(GoToTarget());
         }
