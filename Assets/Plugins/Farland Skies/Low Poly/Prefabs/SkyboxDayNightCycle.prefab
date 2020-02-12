@@ -43,46 +43,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7ff1d209b5bcba4590ee6fcae61b403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DayMultiplier: {r: 1, g: 1, b: 1, a: 1}
+  NightMultiplier: {r: 1, g: 1, b: 1, a: 1}
   _skyParamsList:
     Params:
     - Time: 5
       TopColor: {r: 0.027450982, g: 0.04705883, b: 0.20000002, a: 1}
-      MiddleColor: {r: 0, g: 0.20392159, b: 0.5019608, a: 1}
+      MiddleColor: {r: 0.34755546, g: 0.5943396, b: 0.32800817, a: 1}
       BottomColor: {r: 0, g: 0, b: 0.007843138, a: 1}
       CloudsTint: {r: 0, g: 0, b: 0, a: 0}
-    - Time: 20
+    - Time: 8
+      TopColor: {r: 0.027450982, g: 0.04705883, b: 0.20000002, a: 1}
+      MiddleColor: {r: 0.32941177, g: 0.59607846, b: 0.5711114, a: 1}
+      BottomColor: {r: 0, g: 0, b: 0.007843138, a: 1}
+      CloudsTint: {r: 0, g: 0, b: 0, a: 0}
+    - Time: 10
       TopColor: {r: 0.027450982, g: 0.04705883, b: 0.20000002, a: 1}
       MiddleColor: {r: 0.007843138, g: 0.3019608, b: 0.54509807, a: 1}
       BottomColor: {r: 0, g: 0, b: 0.007843138, a: 1}
       CloudsTint: {r: 0, g: 0, b: 0, a: 0}
     - Time: 25
       TopColor: {r: 0.03137255, g: 0.04705883, b: 0.20392159, a: 1}
-      MiddleColor: {r: 0.9803922, g: 0.6392157, b: 0.37647063, a: 1}
+      MiddleColor: {r: 0.98039216, g: 0.37647066, b: 0.5116586, a: 1}
       BottomColor: {r: 0, g: 0, b: 0.007843138, a: 1}
       CloudsTint: {r: 0, g: 0, b: 0, a: 0}
     - Time: 30
       TopColor: {r: 0.24705884, g: 0.32156864, b: 0.56078434, a: 1}
-      MiddleColor: {r: 0.9686275, g: 0.63529414, b: 0.37647063, a: 1}
+      MiddleColor: {r: 0.9803922, g: 0.42352945, b: 0.37647063, a: 1}
       BottomColor: {r: 0.16078432, g: 0.20784315, b: 0.3647059, a: 1}
       CloudsTint: {r: 0, g: 0, b: 0, a: 0}
     - Time: 35
       TopColor: {r: 0.015686275, g: 0.41960788, b: 0.59607846, a: 1}
-      MiddleColor: {r: 0.9686275, g: 0.63529414, b: 0.37647063, a: 1}
+      MiddleColor: {r: 0.9803922, g: 0.42352945, b: 0.37647063, a: 1}
       BottomColor: {r: 0.011764707, g: 0.28235295, b: 0.40000004, a: 1}
       CloudsTint: {r: 0, g: 0, b: 0, a: 0}
     - Time: 40
       TopColor: {r: 0.015686275, g: 0.41960788, b: 0.59607846, a: 1}
-      MiddleColor: {r: 0.6745098, g: 0.882353, b: 0.9215687, a: 1}
+      MiddleColor: {r: 1, g: 0.89728427, b: 0.4669811, a: 1}
       BottomColor: {r: 0.011764707, g: 0.28235295, b: 0.40000004, a: 1}
       CloudsTint: {r: 0, g: 0, b: 0, a: 0}
     - Time: 45
       TopColor: {r: 0, g: 0.79215693, b: 0.98823535, a: 1}
-      MiddleColor: {r: 0.6745098, g: 0.882353, b: 0.9215687, a: 1}
+      MiddleColor: {r: 1, g: 0.9966892, b: 0.9009434, a: 1}
       BottomColor: {r: 0, g: 0.63529414, b: 0.79215693, a: 1}
       CloudsTint: {r: 0, g: 0, b: 0, a: 0}
     - Time: 55
       TopColor: {r: 0, g: 0.79215693, b: 0.98823535, a: 1}
-      MiddleColor: {r: 0.9215687, g: 0.9215687, b: 0.9215687, a: 1}
+      MiddleColor: {r: 1, g: 0.9960785, b: 0.90196085, a: 1}
       BottomColor: {r: 0, g: 0.63529414, b: 0.79215693, a: 1}
       CloudsTint: {r: 0, g: 0, b: 0, a: 0}
     - Time: 65
