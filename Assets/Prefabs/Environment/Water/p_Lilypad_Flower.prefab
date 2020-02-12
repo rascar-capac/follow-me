@@ -247,7 +247,7 @@ GameObject:
   - component: {fileID: 4806616689770379031}
   - component: {fileID: 3002127935112436417}
   m_Layer: 0
-  m_Name: m_Lilypad_Flower_LOD0
+  m_Name: p_Lilypad_Flower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -324,21 +324,21 @@ LODGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6523567848544535499}
   serializedVersion: 2
-  m_LocalReferencePoint: {x: -0.0019184351, y: 0.36651102, z: 0.0002616644}
-  m_Size: 1.419523
+  m_LocalReferencePoint: {x: -0.0057554245, y: 1.0995331, z: 0.00078487396}
+  m_Size: 4.258569
   m_FadeMode: 1
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
+  - screenRelativeHeight: 0.40296012
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 3002127934364677389}
-  - screenRelativeHeight: 0.3
+  - screenRelativeHeight: 0.15001076
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 3002127934259778137}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.016229397
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 3002127933149095544}
