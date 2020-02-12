@@ -110,6 +110,7 @@ Material:
     - _Cutoff: 0.5
     - _DayNightAlbedo: 1
     - _DayNightEmissive: 0
+    - _DayNightFresnel: 1
     - _DetailNormalMapScale: 1
     - _DistortionBlend: 0.5
     - _DistortionEnabled: 0
@@ -118,6 +119,9 @@ Material:
     - _DstBlend: 0
     - _EmissionEnabled: 0
     - _FlipbookMode: 0
+    - _Float0: 0
+    - _Float1: 1
+    - _Float2: 2
     - _FresnelBias: 0.25
     - _FresnelPower: 1.6
     - _FresnelScale: 2
@@ -131,7 +135,7 @@ Material:
     - _NoiseScale: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Smoothness: 0.4
+    - _Smoothness: 0.2
     - _SmoothnessTextureChannel: 0
     - _SoftParticlesEnabled: 0
     - _SoftParticlesFarFadeDistance: 1
@@ -154,9 +158,11 @@ Material:
     - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _DayColor: {r: 1, g: 1, b: 1, a: 0}
     - _Day_EmissiveColor: {r: 0, g: 0, b: 0, a: 0}
+    - _Day_FresnelColor: {r: 0.8226063, g: 1, b: 0.240566, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 0}
     - _FresnelColor: {r: 0.98128825, g: 1, b: 0.759434, a: 0}
-    - _NightColor: {r: 0.8968397, g: 0.48584908, b: 1, a: 0}
+    - _NightColor: {r: 0.99859196, g: 0.48627448, b: 1, a: 0}
     - _Night_EmissiveColor: {r: 0, g: 0, b: 0, a: 0}
+    - _Night_FresnelColor: {r: 0.7896493, g: 0.8961519, b: 0.990566, a: 0}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
