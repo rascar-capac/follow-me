@@ -69,11 +69,11 @@ public class CameraManager : Singleton<CameraManager>
             StartCoroutine(GoToTarget());
         }
         if (duration > 0)
-       
             StartChrono(duration, () => {
                 SwitchCamera(CameraMode.ModePlayer);
+                tribe.PauseRandom(true, true);
                 tribe.PauseRandom(false);
-                tribe.SetMode(TribeEmotionMode.Normal);
+                TribeCameraTarget = null;
                 StartCoroutine(tribe.Live());
             });
     }
