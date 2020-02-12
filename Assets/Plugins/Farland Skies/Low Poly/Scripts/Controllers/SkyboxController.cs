@@ -83,35 +83,65 @@ namespace Borodar.FarlandSkies.LowPoly
         [Tooltip("Actual flare brightness depends on sun tint alpha, and this property is just a coefficient for that value")]
         private float _sunFlareBrightness = 0.3f;
 
-        // Moon
+        // Moon 1
 
         [SerializeField]
-        private bool _moonEnabled = true;
+        private bool _moon1Enabled = true;
 
         [SerializeField]
-        private Texture2D _moonTexture;
+        private Texture2D _moon1Texture;
 
         [SerializeField]
-        private Light _moonLight;
+        private Light _moon1Light;
 
         [SerializeField]
-        private Color _moonTint = Color.gray;
+        private Color _moon1Tint = Color.gray;
 
         [SerializeField]
         [Range(0.1f, 3f)]
-        private float _moonSize = 1f;
+        private float _moon1Size = 1f;
 
         [SerializeField]
         [Range(0f, 2f)]
-        private float _moonHalo = 1f;
+        private float _moon1Halo = 1f;
 
         [SerializeField]
-        private bool _moonFlare = true;
+        private bool _moon1Flare = true;
 
         [SerializeField]
         [Range(0.01f, 2f)]
         [Tooltip("Actual flare brightness depends on moon tint alpha, and this property is just a coefficient for that value")]
-        private float _moonFlareBrightness = 0.3f;
+        private float _moon1FlareBrightness = 0.3f;
+
+        // Moon 2
+
+        [SerializeField]
+        private bool _moon2Enabled = true;
+
+        [SerializeField]
+        private Texture2D _moon2Texture;
+
+        [SerializeField]
+        private Light _moon2Light;
+
+        [SerializeField]
+        private Color _moon2Tint = Color.gray;
+
+        [SerializeField]
+        [Range(0.1f, 3f)]
+        private float _moon2Size = 1f;
+
+        [SerializeField]
+        [Range(0f, 2f)]
+        private float _moon2Halo = 1f;
+
+        [SerializeField]
+        private bool _moon2Flare = true;
+
+        [SerializeField]
+        [Range(0.01f, 2f)]
+        [Tooltip("Actual flare brightness depends on moon tint alpha, and this property is just a coefficient for that value")]
+        private float _moon2FlareBrightness = 0.3f;
 
         // Clouds
 
@@ -147,7 +177,8 @@ namespace Borodar.FarlandSkies.LowPoly
         // Private
 
         private LensFlare _sunFlareComponent;
-        private LensFlare _moonFlareComponent;
+        private LensFlare _moon1FlareComponent;
+        private LensFlare _moon2FlareComponent;
 
         //---------------------------------------------------------------------
         // Properties
@@ -324,76 +355,148 @@ namespace Borodar.FarlandSkies.LowPoly
             set { _sunFlareBrightness = value; }
         }
 
-        // Moon
+        // Moon 1
 
-        public bool MoonEnabled
+        public bool Moon1Enabled
         {
-            get { return _moonEnabled; }
+            get { return _moon1Enabled; }
         }
 
-        public Texture2D MoonTexture
+        public Texture2D Moon1Texture
         {
-            get { return _moonTexture; }
+            get { return _moon1Texture; }
             set
             {
-                _moonTexture = value;
-                SkyboxMaterial.SetTexture("_MoonTex", _moonTexture);
+                _moon1Texture = value;
+                SkyboxMaterial.SetTexture("_Moon1Tex", _moon1Texture);
             }
         }
 
-        public float MoonSize
+        public float Moon1Size
         {
-            get { return _moonSize; }
+            get { return _moon1Size; }
             set
             {
-                _moonSize = value;
-                SkyboxMaterial.SetFloat("_MoonSize", _moonSize);
+                _moon1Size = value;
+                SkyboxMaterial.SetFloat("_Moon1Size", _moon1Size);
             }
         }
 
-        public float MoonHalo
+        public float Moon1Halo
         {
-            get { return _moonHalo; }
+            get { return _moon1Halo; }
             set
             {
-                _moonHalo = value;
-                SkyboxMaterial.SetFloat("_MoonHalo", _moonHalo);
+                _moon1Halo = value;
+                SkyboxMaterial.SetFloat("_Moon1Halo", _moon1Halo);
             }
         }
 
-        public Color MoonTint
+        public Color Moon1Tint
         {
-            get { return _moonTint; }
+            get { return _moon1Tint; }
             set
             {
-                _moonTint = value;
-                SkyboxMaterial.SetColor("_MoonTint", _moonTint);
+                _moon1Tint = value;
+                SkyboxMaterial.SetColor("_Moon1Tint", _moon1Tint);
             }
         }
 
-        public Light MoonLight
+        public Light Moon1Light
         {
-            get { return _moonLight; }
+            get { return _moon1Light; }
             set
             {
-                _moonLight = value;
+                _moon1Light = value;
             }
         }
 
-        public bool MoonFlare
+        public bool Moon1Flare
         {
-            get { return _moonFlare; }
+            get { return _moon1Flare; }
             set
             {
-                _moonFlare = value;
-                if (_moonFlareComponent) _moonFlareComponent.enabled = value;
+                _moon1Flare = value;
+                if (_moon1FlareComponent) _moon1FlareComponent.enabled = value;
             }
         }
 
-        public float MoonFlareBrightness
+        public float Moon1FlareBrightness
         {
-            get { return _moonFlareBrightness; }
-            set { _moonFlareBrightness = value; }
+            get { return _moon1FlareBrightness; }
+            set { _moon1FlareBrightness = value; }
+        }
+
+        // Moon 2
+
+        public bool Moon2Enabled
+        {
+            get { return _moon2Enabled; }
+        }
+
+        public Texture2D Moon2Texture
+        {
+            get { return _moon2Texture; }
+            set
+            {
+                _moon2Texture = value;
+                SkyboxMaterial.SetTexture("_Moon2Tex", _moon2Texture);
+            }
+        }
+
+        public float Moon2Size
+        {
+            get { return _moon2Size; }
+            set
+            {
+                _moon2Size = value;
+                SkyboxMaterial.SetFloat("_Moon2Size", _moon2Size);
+            }
+        }
+
+        public float Moon2Halo
+        {
+            get { return _moon2Halo; }
+            set
+            {
+                _moon2Halo = value;
+                SkyboxMaterial.SetFloat("_Moon2Halo", _moon2Halo);
+            }
+        }
+
+        public Color Moon2Tint
+        {
+            get { return _moon2Tint; }
+            set
+            {
+                _moon2Tint = value;
+                SkyboxMaterial.SetColor("_Moon2Tint", _moon2Tint);
+            }
+        }
+
+        public Light Moon2Light
+        {
+            get { return _moon2Light; }
+            set
+            {
+                _moon2Light = value;
+            }
+        }
+
+        public bool Moon2Flare
+        {
+            get { return _moon2Flare; }
+            set
+            {
+                _moon2Flare = value;
+                if (_moon2FlareComponent) _moon2FlareComponent.enabled = value;
+            }
+        }
+
+        public float Moon2FlareBrightness
+        {
+            get { return _moon2FlareBrightness; }
+            set { _moon2FlareBrightness = value; }
         }
 
         // Clouds
@@ -491,10 +594,16 @@ namespace Borodar.FarlandSkies.LowPoly
                 if (_sunFlare && _sunFlareComponent) _sunFlareComponent.brightness = _sunTint.a * _sunFlareBrightness;
             }
 
-            if (_moonEnabled)
+            if (_moon1Enabled)
             {
-                SkyboxMaterial.SetMatrix("moonMatrix", _moonLight.transform.worldToLocalMatrix);
-                if (_moonFlare && _moonFlareComponent) _moonFlareComponent.brightness = _moonTint.a * _moonFlareBrightness;
+                SkyboxMaterial.SetMatrix("moon1Matrix", _moon1Light.transform.worldToLocalMatrix);
+                if (_moon1Flare && _moon1FlareComponent) _moon1FlareComponent.brightness = _moon1Tint.a * _moon1FlareBrightness;
+            }
+
+            if (_moon2Enabled)
+            {
+                SkyboxMaterial.SetMatrix("moon2Matrix", _moon2Light.transform.worldToLocalMatrix);
+                if (_moon2Flare && _moon2FlareComponent) _moon2FlareComponent.brightness = _moon2Tint.a * _moon2FlareBrightness;
             }
         }
 
@@ -561,32 +670,60 @@ namespace Borodar.FarlandSkies.LowPoly
                 if (_sunLight) _sunLight.gameObject.SetActive(false);
             }
 
-            // Moon
+            // Moon 1
 
-            if (_moonEnabled)
+            if (_moon1Enabled)
             {
-                SkyboxMaterial.DisableKeyword("MOON_OFF");
-                SkyboxMaterial.SetTexture("_MoonTex", _moonTexture);
-                SkyboxMaterial.SetFloat("_MoonSize", _moonSize);
-                SkyboxMaterial.SetFloat("_MoonHalo", _moonHalo);
-                SkyboxMaterial.SetColor("_MoonTint", _moonTint);
+                SkyboxMaterial.DisableKeyword("MOON1_OFF");
+                SkyboxMaterial.SetTexture("_Moon1Tex", _moon1Texture);
+                SkyboxMaterial.SetFloat("_Moon1Size", _moon1Size);
+                SkyboxMaterial.SetFloat("_Moon1Halo", _moon1Halo);
+                SkyboxMaterial.SetColor("_Moon1Tint", _moon1Tint);
 
-                if (_moonLight)
+                if (_moon1Light)
                 {
-                    _moonLight.gameObject.SetActive(true);
-                    _moonFlareComponent = _moonLight.GetComponent<LensFlare>();
+                    _moon1Light.gameObject.SetActive(true);
+                    _moon1FlareComponent = _moon1Light.GetComponent<LensFlare>();
                 }
                 else
                 {
-                    Debug.LogWarning("SkyboxController: Moon light object is not assigned.");
+                    Debug.LogWarning("SkyboxController: Moon 1 light object is not assigned.");
                 }
 
-                if (_moonFlareComponent) _moonFlareComponent.enabled = _moonFlare;
+                if (_moon1FlareComponent) _moon1FlareComponent.enabled = _moon1Flare;
             }
             else
             {
-                SkyboxMaterial.EnableKeyword("MOON_OFF");
-                if (_moonLight) _moonLight.gameObject.SetActive(false);
+                SkyboxMaterial.EnableKeyword("MOON1_OFF");
+                if (_moon1Light) _moon1Light.gameObject.SetActive(false);
+            }
+
+            // Moon 2
+
+            if (_moon2Enabled)
+            {
+                SkyboxMaterial.DisableKeyword("MOON2_OFF");
+                SkyboxMaterial.SetTexture("_Moon2Tex", _moon2Texture);
+                SkyboxMaterial.SetFloat("_Moon2Size", _moon2Size);
+                SkyboxMaterial.SetFloat("_Moon2Halo", _moon2Halo);
+                SkyboxMaterial.SetColor("_Moon2Tint", _moon2Tint);
+
+                if (_moon2Light)
+                {
+                    _moon2Light.gameObject.SetActive(true);
+                    _moon2FlareComponent = _moon2Light.GetComponent<LensFlare>();
+                }
+                else
+                {
+                    Debug.LogWarning("SkyboxController: Moon 2 light object is not assigned.");
+                }
+
+                if (_moon2FlareComponent) _moon2FlareComponent.enabled = _moon2Flare;
+            }
+            else
+            {
+                SkyboxMaterial.EnableKeyword("MOON2_OFF");
+                if (_moon2Light) _moon2Light.gameObject.SetActive(false);
             }
 
             // Clouds

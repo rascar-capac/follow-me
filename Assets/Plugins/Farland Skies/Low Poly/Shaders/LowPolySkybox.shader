@@ -1,6 +1,6 @@
 // Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
-Shader "Skybox/Farland Skies/Low Poly" {		
+Shader "Skybox/Farland Skies/Low Poly" {
 
 	Properties{
 		// Sky
@@ -24,12 +24,19 @@ Shader "Skybox/Farland Skies/Low Poly" {
 		[NoScaleOffset]
 		_SunTex("Sun Texture", 2D) = "grey" {}
 
-		// Moon
-		_MoonSize("Moon Size", Range(0.1, 3)) = 1.0
-		_MoonTint("Moon Tint", Color) = (.5, .5, .5, 1.0)
-		_MoonHalo("Moon Halo", Range(0, 2)) = 1.0
+		// Moon 1
+		_Moon1Size("Moon 1 Size", Range(0.1, 3)) = 1.0
+		_Moon1Tint("Moon 1 Tint", Color) = (.5, .5, .5, 1.0)
+		_Moon1Halo("Moon 1 Halo", Range(0, 2)) = 1.0
 		[NoScaleOffset]
-		_MoonTex("Moon Texture", 2D) = "grey" {}
+		_Moon1Tex("Moon 1 Texture", 2D) = "grey" {}
+
+		// Moon 2
+		_Moon2Size("Moon 2 Size", Range(0.1, 3)) = 1.0
+		_Moon2Tint("Moon 2 Tint", Color) = (.5, .5, .5, 1.0)
+		_Moon2Halo("Moon 2 Halo", Range(0, 2)) = 1.0
+		[NoScaleOffset]
+		_Moon2Tex("Moon 2 Texture", 2D) = "grey" {}
 
 		// Clouds
 		_CloudsTint("Clouds Tint", Color) = (.5, .5, .5, 1.0)
@@ -56,7 +63,8 @@ Shader "Skybox/Farland Skies/Low Poly" {
 
 			#pragma shader_feature STARS_OFF
 			#pragma shader_feature SUN_OFF
-			#pragma shader_feature MOON_OFF
+			#pragma shader_feature MOON1_OFF
+			#pragma shader_feature MOON2_OFF
 			#pragma shader_feature CLOUDS_OFF
 
 			#include "UnityCG.cginc"
@@ -67,8 +75,8 @@ Shader "Skybox/Farland Skies/Low Poly" {
 			half3 _BottomColor;
 
 			half _TopExponent;
-			half _BottomExponent;			
-			
+			half _BottomExponent;
+
 			#if !STARS_OFF
 				half4 _StarsTint;
 				half _StarsTwinklingSpeed;
@@ -84,12 +92,20 @@ Shader "Skybox/Farland Skies/Low Poly" {
 				float4x4 sunMatrix;
 			#endif
 
-			#if !MOON_OFF
-				fixed _MoonSize;
-				fixed _MoonHalo;
-				half4 _MoonTint;
-				sampler2D _MoonTex;
-				float4x4 moonMatrix;
+			#if !MOON1_OFF
+				fixed _Moon1Size;
+				fixed _Moon1Halo;
+				half4 _Moon1Tint;
+				sampler2D _Moon1Tex;
+				float4x4 moon1Matrix;
+			#endif
+
+			#if !MOON2_OFF
+				fixed _Moon2Size;
+				fixed _Moon2Halo;
+				half4 _Moon2Tint;
+				sampler2D _Moon2Tex;
+				float4x4 moon2Matrix;
 			#endif
 
 			#if !CLOUDS_OFF
@@ -120,14 +136,17 @@ Shader "Skybox/Farland Skies/Low Poly" {
 				#if !SUN_OFF
 					float3 sunPosition : TEXCOORD1;
 				#endif
-				#if !MOON_OFF
-					float3 moonPosition : TEXCOORD2;
+				#if !MOON1_OFF
+					float3 moon1Position : TEXCOORD2;
+				#endif
+				#if !MOON2_OFF
+					float3 moon2Position : TEXCOORD3;
 				#endif
 				#if !CLOUDS_OFF
-				float3 cloudsPosition : TEXCOORD3;
+				float3 cloudsPosition : TEXCOORD4;
 				#endif
 				#if !STARS_OFF
-					float3 twinklingPosition : TEXCOORD4;
+					float3 twinklingPosition : TEXCOORD5;
 				#endif
 
                 // Single pass instanced rendering
@@ -149,11 +168,11 @@ Shader "Skybox/Farland Skies/Low Poly" {
 				}
 			#endif
 
-			#if !SUN_OFF || !MOON_OFF
+			#if !SUN_OFF || !MOON1_OFF || !MOON2_OFF
 				static const half4 kHaloBase = half4(1.0, 1.0, 1.0, 0);
 
 				half4 CelestialColor(float3 position, sampler2D tex, fixed size, half4 tint, fixed haloCoef) {
-					fixed depthCheck = step(position.z, 0); // equivalent of (position.z < 0)			
+					fixed depthCheck = step(position.z, 0); // equivalent of (position.z < 0)
 					half4 sTex = tex2D(tex, position.xy / (0.5 * size) + float2(0.5, 0.5));
 
 					half4 halo = 1.0 - smoothstep(0, 0.35 * size, length(position.xy));
@@ -180,8 +199,11 @@ Shader "Skybox/Farland Skies/Low Poly" {
 				#if !SUN_OFF
 					OUT.sunPosition = mul(sunMatrix, v.vertex);
 				#endif
-				#if !MOON_OFF
-					OUT.moonPosition = mul(moonMatrix, v.vertex);
+				#if !MOON1_OFF
+					OUT.moon1Position = mul(moon1Matrix, v.vertex);
+				#endif
+				#if !MOON2_OFF
+					OUT.moon2Position = mul(moon2Matrix, v.vertex);
 				#endif
 				#if !CLOUDS_OFF
 					OUT.cloudsPosition = RotateAroundYInDegrees(v.vertex, _CloudsRotation);
@@ -197,7 +219,7 @@ Shader "Skybox/Farland Skies/Low Poly" {
 			{
 				float t1 = max(+IN.vertex.y, 0);
 				float t2 = max(-IN.vertex.y, 0);
-				
+
 				// Gradient
 				half3 color = lerp(lerp(_MiddleColor, _TopColor, pow(t1, _TopExponent)), _BottomColor, pow(t2, _BottomExponent));
 
@@ -216,10 +238,16 @@ Shader "Skybox/Farland Skies/Low Poly" {
 					color = lerp(color, sunColor.rgb, sunColor.a);
 				#endif
 
-				// Moon
-				#if !MOON_OFF
-					half4 moonColor = CelestialColor(IN.moonPosition, _MoonTex, _MoonSize, _MoonTint, _MoonHalo);
-					color = lerp(color, moonColor.rgb, moonColor.a);
+				// Moon 1
+				#if !MOON1_OFF
+					half4 moon1Color = CelestialColor(IN.moon1Position, _Moon1Tex, _Moon1Size, _Moon1Tint, _Moon1Halo);
+					color = lerp(color, moon1Color.rgb, moon1Color.a);
+				#endif
+
+				// Moon 2
+				#if !MOON2_OFF
+					half4 moon2Color = CelestialColor(IN.moon2Position, _Moon2Tex, _Moon2Size, _Moon2Tint, _Moon2Halo);
+					color = lerp(color, moon2Color.rgb, moon2Color.a);
 				#endif
 
 				// Clouds

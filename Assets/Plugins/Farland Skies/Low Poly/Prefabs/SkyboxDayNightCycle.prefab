@@ -47,17 +47,22 @@ MonoBehaviour:
   NightMultiplier: {r: 1, g: 1, b: 1, a: 1}
   _skyParamsList:
     Params:
-    - Time: 5
+    - Time: 4.5
       TopColor: {r: 0.027450982, g: 0.04705883, b: 0.20000002, a: 1}
       MiddleColor: {r: 0.34755546, g: 0.5943396, b: 0.32800817, a: 1}
       BottomColor: {r: 0, g: 0, b: 0.007843138, a: 1}
       CloudsTint: {r: 0, g: 0, b: 0, a: 0}
-    - Time: 8
+    - Time: 5.5
       TopColor: {r: 0.027450982, g: 0.04705883, b: 0.20000002, a: 1}
-      MiddleColor: {r: 0.32941177, g: 0.59607846, b: 0.5711114, a: 1}
+      MiddleColor: {r: 0.34901962, g: 0.59607846, b: 0.32941177, a: 1}
       BottomColor: {r: 0, g: 0, b: 0.007843138, a: 1}
       CloudsTint: {r: 0, g: 0, b: 0, a: 0}
-    - Time: 10
+    - Time: 6
+      TopColor: {r: 0.027450982, g: 0.04705883, b: 0.20000002, a: 1}
+      MiddleColor: {r: 0.007843138, g: 0.3019608, b: 0.54509807, a: 1}
+      BottomColor: {r: 0, g: 0, b: 0.007843138, a: 1}
+      CloudsTint: {r: 0, g: 0, b: 0, a: 0}
+    - Time: 15
       TopColor: {r: 0.027450982, g: 0.04705883, b: 0.20000002, a: 1}
       MiddleColor: {r: 0.007843138, g: 0.3019608, b: 0.54509807, a: 1}
       BottomColor: {r: 0, g: 0, b: 0.007843138, a: 1}
@@ -117,7 +122,12 @@ MonoBehaviour:
       MiddleColor: {r: 0.64705884, g: 0.41960788, b: 0.64705884, a: 1}
       BottomColor: {r: 0, g: 0, b: 0.007843138, a: 1}
       CloudsTint: {r: 0, g: 0, b: 0, a: 0}
-    - Time: 90
+    - Time: 95
+      TopColor: {r: 0.03137255, g: 0.04705883, b: 0.20392159, a: 1}
+      MiddleColor: {r: 0.007843138, g: 0.3019608, b: 0.54509807, a: 1}
+      BottomColor: {r: 0, g: 0, b: 0.007843138, a: 1}
+      CloudsTint: {r: 0, g: 0, b: 0, a: 0}
+    - Time: 4
       TopColor: {r: 0.03137255, g: 0.04705883, b: 0.20392159, a: 1}
       MiddleColor: {r: 0.007843138, g: 0.3019608, b: 0.54509807, a: 1}
       BottomColor: {r: 0, g: 0, b: 0.007843138, a: 1}
@@ -137,7 +147,7 @@ MonoBehaviour:
   _sunrise: 25
   _sunset: 85
   _sunAltitude: 60
-  _sunLongitude: 90
+  _sunLongitude: 105
   _sunOrbit: {x: -20, y: 200}
   _sunParamsList:
     Params:
@@ -173,31 +183,58 @@ MonoBehaviour:
       TintColor: {r: 0.7686275, g: 0.454902, b: 0.6745098, a: 0}
       LightColor: {r: 0.7686275, g: 0.454902, b: 0.6745098, a: 1}
       LightIntencity: 0
-  _moonrise: 90
-  _moonset: 20
-  _moonAltitude: 60
-  _moonLongitude: 90
-  _moonOrbit: {x: -20, y: 200}
-  _moonParamsList:
+  _moonrise1: 95
+  _moonset1: 15
+  _moon1Altitude: 60
+  _moon1Longitude: 0
+  _moon1Orbit: {x: -20, y: 200}
+  _moon1ParamsList:
     Params:
-    - Time: 90
+    - Time: 95
       TintColor: {r: 0.4039216, g: 0.47058827, b: 0.5294118, a: 0}
       LightColor: {r: 0.007843138, g: 0.3019608, b: 0.54509807, a: 1}
       LightIntencity: 0
-    - Time: 92.5
-      TintColor: {r: 0.4039216, g: 0.47450984, b: 0.5294118, a: 1}
+    - Time: 0
+      TintColor: {r: 0.3372549, g: 0.2627451, b: 0.34901962, a: 1}
       LightColor: {r: 0.007843138, g: 0.3254902, b: 0.5882353, a: 1}
       LightIntencity: 1
     - Time: 5
-      TintColor: {r: 0.4901961, g: 0.5529412, b: 0.60784316, a: 1}
+      TintColor: {r: 0.3380811, g: 0.26179245, b: 0.3490566, a: 1}
       LightColor: {r: 0.011764707, g: 0.43529415, b: 0.7843138, a: 1}
       LightIntencity: 1
-    - Time: 17.5
-      TintColor: {r: 0.4039216, g: 0.47450984, b: 0.5294118, a: 1}
+    - Time: 10
+      TintColor: {r: 0.3372549, g: 0.2627451, b: 0.34901962, a: 1}
       LightColor: {r: 0.007843138, g: 0.3254902, b: 0.5882353, a: 1}
       LightIntencity: 1
-    - Time: 20
+    - Time: 15
       TintColor: {r: 0.4039216, g: 0.47058827, b: 0.5294118, a: 0}
+      LightColor: {r: 0.007843138, g: 0.3019608, b: 0.54509807, a: 1}
+      LightIntencity: 0
+  _moonrise2: 100
+  _moonset2: 10
+  _moon2Altitude: 120
+  _moon2Longitude: 180
+  _moon2Orbit: {x: -20, y: 200}
+  _moon2ParamsList:
+    Params:
+    - Time: 95
+      TintColor: {r: 0.20392159, g: 0.39607847, b: 0.2392157, a: 0}
+      LightColor: {r: 0.007843138, g: 0.3019608, b: 0.54509807, a: 1}
+      LightIntencity: 0
+    - Time: 0
+      TintColor: {r: 0.20392159, g: 0.39607847, b: 0.2392157, a: 1}
+      LightColor: {r: 0.007843138, g: 0.3019608, b: 0.54509807, a: 1}
+      LightIntencity: 1
+    - Time: 5
+      TintColor: {r: 0.20392159, g: 0.39607847, b: 0.2392157, a: 1}
+      LightColor: {r: 0.011764707, g: 0.43529415, b: 0.7843138, a: 1}
+      LightIntencity: 1
+    - Time: 10
+      TintColor: {r: 0.20392159, g: 0.39607847, b: 0.2392157, a: 1}
+      LightColor: {r: 0.007843138, g: 0.3254902, b: 0.5882353, a: 1}
+      LightIntencity: 1
+    - Time: 15
+      TintColor: {r: 0.20392159, g: 0.39607847, b: 0.2392157, a: 0}
       LightColor: {r: 0.007843138, g: 0.3019608, b: 0.54509807, a: 1}
       LightIntencity: 0
   _cloudsParamsList:

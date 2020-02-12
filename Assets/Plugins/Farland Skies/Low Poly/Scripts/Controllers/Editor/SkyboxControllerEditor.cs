@@ -31,15 +31,24 @@ namespace Borodar.FarlandSkies.LowPoly
         private SerializedProperty _sunHalo;
         private SerializedProperty _sunFlare;
         private SerializedProperty _sunFlareBrightness;
-        // Moon
-        private SerializedProperty _moonEnabled;
-        private SerializedProperty _moonTexture;
-        private SerializedProperty _moonLight;
-        private SerializedProperty _moonTint;
-        private SerializedProperty _moonSize;
-        private SerializedProperty _moonHalo;
-        private SerializedProperty _moonFlare;
-        private SerializedProperty _moonFlareBrightness;
+        // Moon 1
+        private SerializedProperty _moon1Enabled;
+        private SerializedProperty _moon1Texture;
+        private SerializedProperty _moon1Light;
+        private SerializedProperty _moon1Tint;
+        private SerializedProperty _moon1Size;
+        private SerializedProperty _moon1Halo;
+        private SerializedProperty _moon1Flare;
+        private SerializedProperty _moon1FlareBrightness;
+        // Moon 2
+        private SerializedProperty _moon2Enabled;
+        private SerializedProperty _moon2Texture;
+        private SerializedProperty _moon2Light;
+        private SerializedProperty _moon2Tint;
+        private SerializedProperty _moon2Size;
+        private SerializedProperty _moon2Halo;
+        private SerializedProperty _moon2Flare;
+        private SerializedProperty _moon2FlareBrightness;
         // Clouds
         private SerializedProperty _cloudsEnabled;
         private SerializedProperty _cloudsCubemap;
@@ -61,7 +70,7 @@ namespace Borodar.FarlandSkies.LowPoly
         private GUIContent _generalIcon;
         // Labels
         private GUIContent _emptyGUIContent;
-        
+
         //---------------------------------------------------------------------
         // Public
         //---------------------------------------------------------------------
@@ -102,29 +111,38 @@ namespace Borodar.FarlandSkies.LowPoly
             _sunHalo = serializedObject.FindProperty("_sunHalo");
             _sunFlare = serializedObject.FindProperty("_sunFlare");
             _sunFlareBrightness = serializedObject.FindProperty("_sunFlareBrightness");
-            // Moon
-            _moonEnabled = serializedObject.FindProperty("_moonEnabled");
-            _moonTexture = serializedObject.FindProperty("_moonTexture");
-            _moonLight = serializedObject.FindProperty("_moonLight");
-            _moonTint = serializedObject.FindProperty("_moonTint");
-            _moonSize = serializedObject.FindProperty("_moonSize");
-            _moonHalo = serializedObject.FindProperty("_moonHalo");
-            _moonFlare = serializedObject.FindProperty("_moonFlare");
-            _moonFlareBrightness = serializedObject.FindProperty("_moonFlareBrightness");
+            // Moon 1
+            _moon1Enabled = serializedObject.FindProperty("_moon1Enabled");
+            _moon1Texture = serializedObject.FindProperty("_moon1Texture");
+            _moon1Light = serializedObject.FindProperty("_moon1Light");
+            _moon1Tint = serializedObject.FindProperty("_moon1Tint");
+            _moon1Size = serializedObject.FindProperty("_moon1Size");
+            _moon1Halo = serializedObject.FindProperty("_moon1Halo");
+            _moon1Flare = serializedObject.FindProperty("_moon1Flare");
+            _moon1FlareBrightness = serializedObject.FindProperty("_moon1FlareBrightness");
+            // Moon 2
+            _moon2Enabled = serializedObject.FindProperty("_moon2Enabled");
+            _moon2Texture = serializedObject.FindProperty("_moon2Texture");
+            _moon2Light = serializedObject.FindProperty("_moon2Light");
+            _moon2Tint = serializedObject.FindProperty("_moon2Tint");
+            _moon2Size = serializedObject.FindProperty("_moon2Size");
+            _moon2Halo = serializedObject.FindProperty("_moon2Halo");
+            _moon2Flare = serializedObject.FindProperty("_moon2Flare");
+            _moon2FlareBrightness = serializedObject.FindProperty("_moon2FlareBrightness");
             // Clouds
             _cloudsEnabled = serializedObject.FindProperty("_cloudsEnabled");
             _cloudsCubemap = serializedObject.FindProperty("_cloudsCubemap");
             _cloudsTint = serializedObject.FindProperty("_cloudsTint");
             _cloudsHeight = serializedObject.FindProperty("_cloudsHeight");
-            _cloudsRotation = serializedObject.FindProperty("_cloudsRotation");            
+            _cloudsRotation = serializedObject.FindProperty("_cloudsRotation");
             // General
             _exposure = serializedObject.FindProperty("_exposure");
             _adjustFogColor = serializedObject.FindProperty("_adjustFogColor");
 
             // Presets
             _presets = FarlandSkiesEditorUtility.LoadFromAsset<SkyboxControllerPresets>("Low Poly/Data/SkyboxControllerPresets.asset");
-            
-            // Labels 
+
+            // Labels
             _emptyGUIContent = new GUIContent(" ");
 
             // Icons
@@ -142,7 +160,7 @@ namespace Borodar.FarlandSkies.LowPoly
             _sunIcon = new GUIContent(sunTex);
             _moonIcon = new GUIContent(moonTex);
             _cloudsIcon = new GUIContent(cloudsTex);
-            _generalIcon = new GUIContent(generalTex);            
+            _generalIcon = new GUIContent(generalTex);
         }
 
         //---------------------------------------------------------------------
@@ -151,14 +169,14 @@ namespace Borodar.FarlandSkies.LowPoly
 
         private void CustomGUILayout()
         {
-            // Rate now          
+            // Rate now
             RateMeDialog.DrawRateDialog(AssetInfo.ASSET_NAME, AssetInfo.ASSET_STORE_ID);
 
             // Skybox
             EditorGUILayout.Space();
             EditorGUILayout.PropertyField(_skyboxMaterial);
             EditorGUILayout.Space();
-            
+
             SkyGUILayout();
             EditorGUILayout.Space();
 
@@ -168,7 +186,10 @@ namespace Borodar.FarlandSkies.LowPoly
             SunGUILayout();
             EditorGUILayout.Space();
 
-            MoonGUILayout();
+            Moon1GUILayout();
+            EditorGUILayout.Space();
+
+            Moon2GUILayout();
             EditorGUILayout.Space();
 
             CloudsGUILayout();
@@ -242,29 +263,55 @@ namespace Borodar.FarlandSkies.LowPoly
             }
         }
 
-        private void MoonGUILayout()
+        private void Moon1GUILayout()
         {
             EditorGUILayout.BeginHorizontal("Box");
             EditorGUILayout.LabelField(_moonIcon, GUILayout.Width(16f));
-            EditorGUILayout.LabelField("Moon", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("Moon 1", EditorStyles.boldLabel);
             GUILayout.FlexibleSpace();
-            var enabledBefore = _moonEnabled.boolValue;
-            EditorGUILayout.PropertyField(_moonEnabled, GUIContent.none, GUILayout.Width(16f));
+            var enabledBefore = _moon1Enabled.boolValue;
+            EditorGUILayout.PropertyField(_moon1Enabled, GUIContent.none, GUILayout.Width(16f));
             EditorGUILayout.EndHorizontal();
 
-            if (_moonEnabled.boolValue)
+            if (_moon1Enabled.boolValue)
             {
-                MoonTexturePopup(enabledBefore);
-                EditorGUILayout.PropertyField(_moonLight);
-                EditorGUILayout.PropertyField(_moonTint);
-                EditorGUILayout.PropertyField(_moonSize);
-                EditorGUILayout.PropertyField(_moonHalo);
-                EditorGUILayout.PropertyField(_moonFlare);
-                EditorGUILayout.PropertyField(_moonFlareBrightness);
+                Moon1TexturePopup(enabledBefore);
+                EditorGUILayout.PropertyField(_moon1Light);
+                EditorGUILayout.PropertyField(_moon1Tint);
+                EditorGUILayout.PropertyField(_moon1Size);
+                EditorGUILayout.PropertyField(_moon1Halo);
+                EditorGUILayout.PropertyField(_moon1Flare);
+                EditorGUILayout.PropertyField(_moon1FlareBrightness);
             }
             else
             {
-                SkyboxController.Instance.MoonTexture = null;
+                SkyboxController.Instance.Moon1Texture = null;
+            }
+        }
+
+        private void Moon2GUILayout()
+        {
+            EditorGUILayout.BeginHorizontal("Box");
+            EditorGUILayout.LabelField(_moonIcon, GUILayout.Width(16f));
+            EditorGUILayout.LabelField("Moon 2", EditorStyles.boldLabel);
+            GUILayout.FlexibleSpace();
+            var enabledBefore = _moon2Enabled.boolValue;
+            EditorGUILayout.PropertyField(_moon2Enabled, GUIContent.none, GUILayout.Width(16f));
+            EditorGUILayout.EndHorizontal();
+
+            if (_moon2Enabled.boolValue)
+            {
+                Moon2TexturePopup(enabledBefore);
+                EditorGUILayout.PropertyField(_moon2Light);
+                EditorGUILayout.PropertyField(_moon2Tint);
+                EditorGUILayout.PropertyField(_moon2Size);
+                EditorGUILayout.PropertyField(_moon2Halo);
+                EditorGUILayout.PropertyField(_moon2Flare);
+                EditorGUILayout.PropertyField(_moon2FlareBrightness);
+            }
+            else
+            {
+                SkyboxController.Instance.Moon2Texture = null;
             }
         }
 
@@ -352,27 +399,51 @@ namespace Borodar.FarlandSkies.LowPoly
             }
         }
 
-        private void MoonTexturePopup(bool enabledBefore)
+        private void Moon1TexturePopup(bool enabledBefore)
         {
             var textures = _presets.MoonTextures;
             var textureNames = _presets.MoonTextureNames;
 
-            var currentTexture = _moonTexture.objectReferenceValue as Texture2D;
+            var currentTexture = _moon1Texture.objectReferenceValue as Texture2D;
             if (!enabledBefore && textures.Length > 0) currentTexture = textures[0];
 
             var textureIndex = Array.IndexOf(textures, currentTexture);
             if (textureIndex < 0) textureIndex = textures.Length;
 
-            textureIndex = EditorGUILayout.Popup("Moon Texture", textureIndex, textureNames);
+            textureIndex = EditorGUILayout.Popup("Moon 1 Texture", textureIndex, textureNames);
 
             if (textureIndex < textures.Length)
             {
-                _moonTexture.objectReferenceValue = textures[textureIndex];
+                _moon1Texture.objectReferenceValue = textures[textureIndex];
             }
             else
             {
-                if (ArrayUtility.Contains(textures, currentTexture)) _moonTexture.objectReferenceValue = null;
-                EditorGUILayout.PropertyField(_moonTexture, _emptyGUIContent);
+                if (ArrayUtility.Contains(textures, currentTexture)) _moon1Texture.objectReferenceValue = null;
+                EditorGUILayout.PropertyField(_moon1Texture, _emptyGUIContent);
+            }
+        }
+
+        private void Moon2TexturePopup(bool enabledBefore)
+        {
+            var textures = _presets.MoonTextures;
+            var textureNames = _presets.MoonTextureNames;
+
+            var currentTexture = _moon2Texture.objectReferenceValue as Texture2D;
+            if (!enabledBefore && textures.Length > 0) currentTexture = textures[0];
+
+            var textureIndex = Array.IndexOf(textures, currentTexture);
+            if (textureIndex < 0) textureIndex = textures.Length;
+
+            textureIndex = EditorGUILayout.Popup("Moon 2 Texture", textureIndex, textureNames);
+
+            if (textureIndex < textures.Length)
+            {
+                _moon2Texture.objectReferenceValue = textures[textureIndex];
+            }
+            else
+            {
+                if (ArrayUtility.Contains(textures, currentTexture)) _moon2Texture.objectReferenceValue = null;
+                EditorGUILayout.PropertyField(_moon2Texture, _emptyGUIContent);
             }
         }
 

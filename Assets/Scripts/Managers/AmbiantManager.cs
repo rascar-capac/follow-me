@@ -38,13 +38,18 @@ public class AmbiantManager : Singleton<AmbiantManager>
     private void Update()
     {
         UIManager.I.SetTimeOfDay();
-        if (SkyboxDayNightCycle.Instance.TimeOfDay >= SkyboxDayNightCycle.Instance._sunrise && SkyboxDayNightCycle.Instance.TimeOfDay <= SkyboxDayNightCycle.Instance._sunset && currentStateOfDay != DayState.Day)
+        if (SkyboxDayNightCycle.Instance.TimeOfDay >= SkyboxDayNightCycle.Instance._sunrise && SkyboxDayNightCycle.Instance.TimeOfDay <= SkyboxDayNightCycle.Instance._sunset)
         {
-            currentStateOfDay = DayState.Day;
-            onDayStateHasChanged.Invoke(currentStateOfDay);
+            if (currentStateOfDay != DayState.Day)
+            {
+                Debug.Log("Day");
+                currentStateOfDay = DayState.Day;
+                onDayStateHasChanged.Invoke(currentStateOfDay);
+            }
         }
-        else if ((SkyboxDayNightCycle.Instance.TimeOfDay >= SkyboxDayNightCycle.Instance._moonrise || SkyboxDayNightCycle.Instance.TimeOfDay <= SkyboxDayNightCycle.Instance._moonset) && currentStateOfDay != DayState.Night)
+        else if (currentStateOfDay != DayState.Night)
         {
+            Debug.Log("Night");
             currentStateOfDay = DayState.Night;
             onDayStateHasChanged.Invoke(currentStateOfDay);
         }
@@ -61,7 +66,7 @@ public class AmbiantManager : Singleton<AmbiantManager>
     void ChangeMaterial(DayState state)
     {
         //UIManager.I.AlertMessage("It is " + currentDayStateProperties.State.ToString());
-        
+
 
         //string Suffix = "D";
         //List<Material> SearchList = Materials.DayMaterials;

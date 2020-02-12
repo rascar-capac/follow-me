@@ -47,30 +47,55 @@ namespace Borodar.FarlandSkies.LowPoly
         [SerializeField]
         private CelestialParamsList _sunParamsList = new CelestialParamsList();
 
-        // Moon
+        // Moon 1
 
         [SerializeField]
         [Range(0, 100)]
-        public float _moonrise = 22f;
+        public float _moonrise1 = 22f;
 
         [SerializeField]
         [Range(0, 100)]
-        public float _moonset = 5f;
+        public float _moonset1 = 5f;
 
         [SerializeField]
         [Tooltip("Max angle between the horizon and the center of moon’s disk")]
-        private float _moonAltitude = 45f;
+        private float _moon1Altitude = 45f;
 
         [SerializeField]
         [Tooltip("Angle between z-axis and the center of moon’s disk at moonrise")]
-        private float _moonLongitude = 0f;
+        private float _moon1Longitude = 0f;
 
         [SerializeField]
         [Tooltip("A pair of angles that limit visible orbit of the moon")]
-        private Vector2 _moonOrbit = new Vector2(-20f, 200f);
+        private Vector2 _moon1Orbit = new Vector2(-20f, 200f);
 
         [SerializeField]
-        private CelestialParamsList _moonParamsList = new CelestialParamsList();
+        private CelestialParamsList _moon1ParamsList = new CelestialParamsList();
+
+        // Moon 2
+
+        [SerializeField]
+        [Range(0, 100)]
+        public float _moonrise2 = 22f;
+
+        [SerializeField]
+        [Range(0, 100)]
+        public float _moonset2 = 5f;
+
+        [SerializeField]
+        [Tooltip("Max angle between the horizon and the center of moon’s disk")]
+        private float _moon2Altitude = 45f;
+
+        [SerializeField]
+        [Tooltip("Angle between z-axis and the center of moon’s disk at moonrise")]
+        private float _moon2Longitude = 0f;
+
+        [SerializeField]
+        [Tooltip("A pair of angles that limit visible orbit of the moon")]
+        private Vector2 _moon2Orbit = new Vector2(-20f, 200f);
+
+        [SerializeField]
+        private CelestialParamsList _moon2ParamsList = new CelestialParamsList();
 
         // Clouds
 
@@ -89,8 +114,10 @@ namespace Borodar.FarlandSkies.LowPoly
 
         private float _sunDuration;
         private Vector3 _sunAttitudeVector;
-        private float _moonDuration;
-        private Vector3 _moonAttitudeVector;
+        private float _moon1Duration;
+        private Vector3 _moon1AttitudeVector;
+        private float _moon2Duration;
+        private Vector3 _moon2AttitudeVector;
         private int _framesToSkip;
         private bool _initialized;
 
@@ -111,7 +138,8 @@ namespace Borodar.FarlandSkies.LowPoly
         public SkyParam CurrentSkyParam { get; private set;  }
         public StarsParam CurrentStarsParam { get; private set; }
         public CelestialParam CurrentSunParam { get; private set; }
-        public CelestialParam CurrentMoonParam { get; private set; }
+        public CelestialParam CurrentMoon1Param { get; private set; }
+        public CelestialParam CurrentMoon2Param { get; private set; }
         public CloudsParam CurrentCloudsParam { get; private set; }
 
         //---------------------------------------------------------------------
@@ -126,17 +154,24 @@ namespace Borodar.FarlandSkies.LowPoly
             var radAngle = _sunAltitude * Mathf.Deg2Rad;
             _sunAttitudeVector = new Vector3(Mathf.Sin(radAngle), Mathf.Cos(radAngle));
 
-            // Moon position
-            _moonDuration = (_moonrise < _moonset) ? _moonset - _moonrise : 100f - _moonrise + _moonset;
+            // Moon 1 position
+            _moon1Duration = (_moonrise1 < _moonset1) ? _moonset1 - _moonrise1 : 100f - _moonrise1 + _moonset1;
 
-            radAngle = _moonAltitude * Mathf.Deg2Rad;
-            _moonAttitudeVector = new Vector3(Mathf.Sin(radAngle), Mathf.Cos(radAngle));
+            radAngle = _moon1Altitude * Mathf.Deg2Rad;
+            _moon1AttitudeVector = new Vector3(Mathf.Sin(radAngle), Mathf.Cos(radAngle));
+
+            // Moon 2 position
+            _moon2Duration = (_moonrise2 < _moonset2) ? _moonset2 - _moonrise2 : 100f - _moonrise2 + _moonset2;
+
+            radAngle = _moon2Altitude * Mathf.Deg2Rad;
+            _moon2AttitudeVector = new Vector3(Mathf.Sin(radAngle), Mathf.Cos(radAngle));
 
             // DOT params
             _skyParamsList.Init();
             _starsParamsList.Init();
             _sunParamsList.Init();
-            _moonParamsList.Init();
+            _moon1ParamsList.Init();
+            _moon2ParamsList.Init();
             _cloudsParamsList.Init();
         }
 
@@ -146,7 +181,8 @@ namespace Borodar.FarlandSkies.LowPoly
             CurrentSkyParam = _skyParamsList.GetParamPerTime(TimeOfDay);
             CurrentStarsParam = _starsParamsList.GetParamPerTime(TimeOfDay);
             CurrentSunParam = _sunParamsList.GetParamPerTime(TimeOfDay);
-            CurrentMoonParam = _moonParamsList.GetParamPerTime(TimeOfDay);
+            CurrentMoon1Param = _moon1ParamsList.GetParamPerTime(TimeOfDay);
+            CurrentMoon2Param = _moon2ParamsList.GetParamPerTime(TimeOfDay);
             CurrentCloudsParam = _cloudsParamsList.GetParamPerTime(TimeOfDay);
             _initialized = true;
         }
@@ -159,7 +195,8 @@ namespace Borodar.FarlandSkies.LowPoly
             UpdateSky();
             UpdateStars();
             UpdateSun();
-            UpdateMoon();
+            UpdateMoon1();
+            UpdateMoon2();
             UpdateClouds();
         }
 
@@ -188,15 +225,26 @@ namespace Borodar.FarlandSkies.LowPoly
                 _sunAttitudeVector = new Vector3(Mathf.Sin(radAngle), Mathf.Cos(radAngle));
             }
 
-            // Moon
-            if (_skyboxController.MoonEnabled)
+            // Moon 1
+            if (_skyboxController.Moon1Enabled)
             {
-                _moonParamsList.Update();
+                _moon1ParamsList.Update();
 
                 // position
-                _moonDuration = (_moonrise < _moonset) ? _moonset - _moonrise : 100f - _moonrise + _moonset;
-                var radAngle = _moonAltitude * Mathf.Deg2Rad;
-                _moonAttitudeVector = new Vector3(Mathf.Sin(radAngle), Mathf.Cos(radAngle));
+                _moon1Duration = (_moonrise1 < _moonset1) ? _moonset1 - _moonrise1 : 100f - _moonrise1 + _moonset1;
+                var radAngle = _moon1Altitude * Mathf.Deg2Rad;
+                _moon1AttitudeVector = new Vector3(Mathf.Sin(radAngle), Mathf.Cos(radAngle));
+            }
+
+            // Moon 2
+            if (_skyboxController.Moon2Enabled)
+            {
+                _moon2ParamsList.Update();
+
+                // position
+                _moon2Duration = (_moonrise2 < _moonset2) ? _moonset2 - _moonrise2 : 100f - _moonrise2 + _moonset2;
+                var radAngle = _moon2Altitude * Mathf.Deg2Rad;
+                _moon2AttitudeVector = new Vector3(Mathf.Sin(radAngle), Mathf.Cos(radAngle));
             }
 
             // Clouds
@@ -258,37 +306,70 @@ namespace Borodar.FarlandSkies.LowPoly
             _skyboxController.SunLight.intensity = CurrentSunParam.LightIntencity;
         }
 
-        private void UpdateMoon()
+        private void UpdateMoon1()
         {
-            if (!_skyboxController.MoonEnabled) return;
+            if (!_skyboxController.Moon1Enabled) return;
 
             // rotation
-            if (TimeOfDay > _moonrise || TimeOfDay < _moonset)
+            if (TimeOfDay > _moonrise1 || TimeOfDay < _moonset1)
             {
-                var moonCurrent = (_moonrise < TimeOfDay) ? TimeOfDay - _moonrise : 100f + TimeOfDay - _moonrise;
-                var ty = (moonCurrent < _moonDuration) ? moonCurrent / _moonDuration : (_moonDuration - moonCurrent) / _moonDuration;
-                var dy = Mathf.Lerp(_moonOrbit.x, _moonOrbit.y, ty);
-                var rotation = Quaternion.AngleAxis(_moonLongitude - 180, Vector3.up) * Quaternion.AngleAxis(dy, _moonAttitudeVector);
+                var moonCurrent = (_moonrise1 < TimeOfDay) ? TimeOfDay - _moonrise1 : 100f + TimeOfDay - _moonrise1;
+                var ty = (moonCurrent < _moon1Duration) ? moonCurrent / _moon1Duration : (_moon1Duration - moonCurrent) / _moon1Duration;
+                var dy = Mathf.Lerp(_moon1Orbit.x, _moon1Orbit.y, ty);
+                var rotation = Quaternion.AngleAxis(_moon1Longitude - 180, Vector3.up) * Quaternion.AngleAxis(dy, _moon1AttitudeVector);
                 rotation.eulerAngles = new Vector3(rotation.eulerAngles.x, rotation.eulerAngles.y, 0);
-                _skyboxController.MoonLight.transform.rotation = rotation;
+                _skyboxController.Moon1Light.transform.rotation = rotation;
             }
 
             // colors
-            CurrentMoonParam = _moonParamsList.GetParamPerTime(TimeOfDay);
+            CurrentMoon1Param = _moon1ParamsList.GetParamPerTime(TimeOfDay);
 
 
             if (NightMultiplier != Color.white)
             {
-                _skyboxController.MoonLight.color = NightMultiplier;
-                _skyboxController.MoonTint = NightMultiplier;
+                _skyboxController.Moon1Light.color = NightMultiplier;
+                _skyboxController.Moon1Tint = NightMultiplier;
             }
             else
             {
-                _skyboxController.MoonTint = CurrentMoonParam.TintColor;
-                _skyboxController.MoonLight.color = CurrentMoonParam.LightColor;
+                _skyboxController.Moon1Tint = CurrentMoon1Param.TintColor;
+                _skyboxController.Moon1Light.color = CurrentMoon1Param.LightColor;
             }
 
-            _skyboxController.MoonLight.intensity = CurrentMoonParam.LightIntencity;
+            _skyboxController.Moon1Light.intensity = CurrentMoon1Param.LightIntencity;
+        }
+
+        private void UpdateMoon2()
+        {
+            if (!_skyboxController.Moon2Enabled) return;
+
+            // rotation
+            if (TimeOfDay > _moonrise2 || TimeOfDay < _moonset2)
+            {
+                var moonCurrent = (_moonrise2 < TimeOfDay) ? TimeOfDay - _moonrise2 : 100f + TimeOfDay - _moonrise2;
+                var ty = (moonCurrent < _moon2Duration) ? moonCurrent / _moon2Duration : (_moon2Duration - moonCurrent) / _moon2Duration;
+                var dy = Mathf.Lerp(_moon2Orbit.x, _moon2Orbit.y, ty);
+                var rotation = Quaternion.AngleAxis(_moon2Longitude - 180, Vector3.up) * Quaternion.AngleAxis(dy, _moon2AttitudeVector);
+                rotation.eulerAngles = new Vector3(rotation.eulerAngles.x, rotation.eulerAngles.y, 0);
+                _skyboxController.Moon2Light.transform.rotation = rotation;
+            }
+
+            // colors
+            CurrentMoon2Param = _moon2ParamsList.GetParamPerTime(TimeOfDay);
+
+
+            if (NightMultiplier != Color.white)
+            {
+                _skyboxController.Moon2Light.color = NightMultiplier;
+                _skyboxController.Moon2Tint = NightMultiplier;
+            }
+            else
+            {
+                _skyboxController.Moon2Tint = CurrentMoon2Param.TintColor;
+                _skyboxController.Moon2Light.color = CurrentMoon2Param.LightColor;
+            }
+
+            _skyboxController.Moon2Light.intensity = CurrentMoon2Param.LightIntencity;
         }
 
         private void UpdateClouds()

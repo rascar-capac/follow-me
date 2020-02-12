@@ -21,11 +21,16 @@ public class LowPolyShaderGUI : ShaderGUI
     private MaterialProperty _sunHalo;
     private MaterialProperty _sunTint;
     private MaterialProperty _sunTex;
-    // Moon
-    private MaterialProperty _moonSize;
-    private MaterialProperty _moonHalo;
-    private MaterialProperty _moonTint;
-    private MaterialProperty _moonTex;
+    // Moon 1
+    private MaterialProperty _moon1Size;
+    private MaterialProperty _moon1Halo;
+    private MaterialProperty _moon1Tint;
+    private MaterialProperty _moon1Tex;
+    // Moon 2
+    private MaterialProperty _moon2Size;
+    private MaterialProperty _moon2Halo;
+    private MaterialProperty _moon2Tint;
+    private MaterialProperty _moon2Tex;
     // Clouds
     private MaterialProperty _cloudsTint;
     private MaterialProperty _cloudsRotation;
@@ -66,11 +71,16 @@ public class LowPolyShaderGUI : ShaderGUI
         _sunHalo = FindProperty("_SunHalo", properties);
         _sunTint = FindProperty("_SunTint", properties);
         _sunTex = FindProperty("_SunTex", properties);
-        // Moon
-        _moonSize = FindProperty("_MoonSize", properties);
-        _moonHalo = FindProperty("_MoonHalo", properties);
-        _moonTint = FindProperty("_MoonTint", properties);
-        _moonTex = FindProperty("_MoonTex", properties);
+        // Moon 1
+        _moon1Size = FindProperty("_Moon1Size", properties);
+        _moon1Halo = FindProperty("_Moon1Halo", properties);
+        _moon1Tint = FindProperty("_Moon1Tint", properties);
+        _moon1Tex = FindProperty("_Moon1Tex", properties);
+        // Moon 2
+        _moon2Size = FindProperty("_Moon2Size", properties);
+        _moon2Halo = FindProperty("_Moon2Halo", properties);
+        _moon2Tint = FindProperty("_Moon2Tint", properties);
+        _moon2Tex = FindProperty("_Moon2Tex", properties);
         // Clouds
         _cloudsTint = FindProperty("_CloudsTint", properties);
         _cloudsRotation = FindProperty("_CloudsRotation", properties);
@@ -130,19 +140,35 @@ public class LowPolyShaderGUI : ShaderGUI
         }
         EditorGUILayout.Space();
 
-        // Moon
+        // Moon 1
         EditorGUILayout.BeginHorizontal("Box");
-        EditorGUILayout.LabelField("Moon", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("Moon 1", EditorStyles.boldLabel);
         GUILayout.FlexibleSpace();
-        var moonOn = KeywordCheckbox(targetMat, "MOON_OFF");
+        var moon1On = KeywordCheckbox(targetMat, "MOON1_OFF");
         EditorGUILayout.EndHorizontal();
 
-        if (moonOn)
+        if (moon1On)
         {
-            materialEditor.ShaderProperty(_moonSize, "Moon Size");
-            materialEditor.ShaderProperty(_moonHalo, "Moon Halo");
-            materialEditor.ShaderProperty(_moonTint, "Moon Tint");
-            materialEditor.ShaderProperty(_moonTex, "Moon Texture");
+            materialEditor.ShaderProperty(_moon1Size, "Moon 1 Size");
+            materialEditor.ShaderProperty(_moon1Halo, "Moon 1 Halo");
+            materialEditor.ShaderProperty(_moon1Tint, "Moon 1 Tint");
+            materialEditor.ShaderProperty(_moon1Tex, "Moon 1 Texture");
+        }
+        EditorGUILayout.Space();
+
+        // Moon 2
+        EditorGUILayout.BeginHorizontal("Box");
+        EditorGUILayout.LabelField("Moon 2", EditorStyles.boldLabel);
+        GUILayout.FlexibleSpace();
+        var moon2On = KeywordCheckbox(targetMat, "MOON2_OFF");
+        EditorGUILayout.EndHorizontal();
+
+        if (moon2On)
+        {
+            materialEditor.ShaderProperty(_moon2Size, "Moon 2 Size");
+            materialEditor.ShaderProperty(_moon2Halo, "Moon 2 Halo");
+            materialEditor.ShaderProperty(_moon2Tint, "Moon 2 Tint");
+            materialEditor.ShaderProperty(_moon2Tex, "Moon 2 Texture");
         }
         EditorGUILayout.Space();
 
@@ -178,12 +204,12 @@ public class LowPolyShaderGUI : ShaderGUI
         var keywordValue = Array.IndexOf(material.shaderKeywords, keyword) != -1;
         EditorGUI.BeginChangeCheck();
         var checkboxValue = EditorGUILayout.Toggle(!keywordValue, GUILayout.Width(60f));
-        if (EditorGUI.EndChangeCheck()) 
+        if (EditorGUI.EndChangeCheck())
         {
             if (checkboxValue)
                 material.DisableKeyword(keyword);
             else
-                material.EnableKeyword(keyword);            
+                material.EnableKeyword(keyword);
         }
 
         return checkboxValue;

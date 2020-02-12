@@ -13,7 +13,8 @@ namespace Borodar.FarlandSkies.LowPoly
         public const string TOOLTIP_SKY = "List of sky colors, based on time of day. Each list item contains “time” filed that should be specified in percents (0 - 100)";
         public const string TOOLTIP_STARS = "Allows you to manage stars tint color over time. Each list item contains “time” filed that should be specified in percents (0 - 100)";
         public const string TOOLTIP_SUN = "Sun appearance and light params depending on time of day. Each list item contains “time” filed that should be specified in percents (0 - 100)";
-        public const string TOOLTIP_MOON = "Moon appearance and light params depending on time of day. Each list item contains “time” filed that should be specified in percents (0 - 100)";
+        public const string TOOLTIP_MOON1 = "Moon 1 appearance and light params depending on time of day. Each list item contains “time” filed that should be specified in percents (0 - 100)";
+        public const string TOOLTIP_MOON2 = "Moon 2 appearance and light params depending on time of day. Each list item contains “time” filed that should be specified in percents (0 - 100)";
         public const string TOOLTIP_CLOUDS = "Allows you to manage clouds tint color over time. Each list item contains “time” filed that should be specified in percents (0 - 100)";
 
         private const float LIST_CONTROLS_PAD = 20f;
@@ -30,13 +31,20 @@ namespace Borodar.FarlandSkies.LowPoly
         private SerializedProperty _sunLongitude;
         private SerializedProperty _sunOrbit;
         private SerializedProperty _sunDotParams;
-        // Moon
-        private SerializedProperty _moonrise;
-        private SerializedProperty _moonset;
-        private SerializedProperty _moonAltitude;
-        private SerializedProperty _moonLongitude;
-        private SerializedProperty _moonOrbit;
-        private SerializedProperty _moonDotParams;
+        // Moon 1
+        private SerializedProperty _moonrise1;
+        private SerializedProperty _moonset1;
+        private SerializedProperty _moon1Altitude;
+        private SerializedProperty _moon1Longitude;
+        private SerializedProperty _moon1Orbit;
+        private SerializedProperty _moon1DotParams;
+        // Moon 2
+        private SerializedProperty _moonrise2;
+        private SerializedProperty _moonset2;
+        private SerializedProperty _moon2Altitude;
+        private SerializedProperty _moon2Longitude;
+        private SerializedProperty _moon2Orbit;
+        private SerializedProperty _moon2DotParams;
         // Clouds
         private SerializedProperty _cloudsDotParams;
         // General
@@ -45,7 +53,8 @@ namespace Borodar.FarlandSkies.LowPoly
         private static bool _showSkyDotParams;
         private static bool _showStarsDotParams;
         private static bool _showSunDotParams;
-        private static bool _showMoonDotParams;
+        private static bool _showMoon1DotParams;
+        private static bool _showMoon2DotParams;
         private static bool _showCloudsDotParams;
 
         private GUIContent _guiContent;
@@ -53,7 +62,8 @@ namespace Borodar.FarlandSkies.LowPoly
         private GUIContent _skyParamsLabel;
         private GUIContent _starsParamsLabel;
         private GUIContent _sunParamsLabel;
-        private GUIContent _moonParamsLabel;
+        private GUIContent _moon1ParamsLabel;
+        private GUIContent _moon2ParamsLabel;
         private GUIContent _cloudsParamsLabel;
         private GUIContent _framesIntervalLabel;
         // Icons
@@ -74,7 +84,8 @@ namespace Borodar.FarlandSkies.LowPoly
             _skyParamsLabel = new GUIContent("Sky Dot Params", TOOLTIP_SKY);
             _starsParamsLabel = new GUIContent("Stars Dot Params", TOOLTIP_STARS);
             _sunParamsLabel = new GUIContent("Sun Dot Params", TOOLTIP_SUN);
-            _moonParamsLabel = new GUIContent("Moon Dot Params", TOOLTIP_MOON);
+            _moon1ParamsLabel = new GUIContent("Moon 1 Dot Params", TOOLTIP_MOON1);
+            _moon2ParamsLabel = new GUIContent("Moon 2 Dot Params", TOOLTIP_MOON2);
             _cloudsParamsLabel = new GUIContent("Clouds Dot Params", TOOLTIP_CLOUDS);
             _framesIntervalLabel = new GUIContent("Frames Interval", "Reduce the skybox day-night cycle update to run every \"n\" frames");
 
@@ -89,13 +100,20 @@ namespace Borodar.FarlandSkies.LowPoly
             _sunLongitude = serializedObject.FindProperty("_sunLongitude");
             _sunOrbit = serializedObject.FindProperty("_sunOrbit");
             _sunDotParams = serializedObject.FindProperty("_sunParamsList").FindPropertyRelative("Params");
-            // Moon
-            _moonrise = serializedObject.FindProperty("_moonrise");
-            _moonset = serializedObject.FindProperty("_moonset");
-            _moonAltitude = serializedObject.FindProperty("_moonAltitude");
-            _moonLongitude = serializedObject.FindProperty("_moonLongitude");
-            _moonOrbit = serializedObject.FindProperty("_moonOrbit");
-            _moonDotParams = serializedObject.FindProperty("_moonParamsList").FindPropertyRelative("Params");
+            // Moon 1
+            _moonrise1 = serializedObject.FindProperty("_moonrise1");
+            _moonset1 = serializedObject.FindProperty("_moonset1");
+            _moon1Altitude = serializedObject.FindProperty("_moon1Altitude");
+            _moon1Longitude = serializedObject.FindProperty("_moon1Longitude");
+            _moon1Orbit = serializedObject.FindProperty("_moon1Orbit");
+            _moon1DotParams = serializedObject.FindProperty("_moon1ParamsList").FindPropertyRelative("Params");
+            // Moon 2
+            _moonrise2 = serializedObject.FindProperty("_moonrise2");
+            _moonset2 = serializedObject.FindProperty("_moonset2");
+            _moon2Altitude = serializedObject.FindProperty("_moon2Altitude");
+            _moon2Longitude = serializedObject.FindProperty("_moon2Longitude");
+            _moon2Orbit = serializedObject.FindProperty("_moon2Orbit");
+            _moon2DotParams = serializedObject.FindProperty("_moon2ParamsList").FindPropertyRelative("Params");
             // Clouds
             _cloudsDotParams = serializedObject.FindProperty("_cloudsParamsList").FindPropertyRelative("Params");
             // General
@@ -140,25 +158,26 @@ namespace Borodar.FarlandSkies.LowPoly
                 return;
             }
 
-            // Rate now          
+            // Rate now
             RateMeDialog.DrawRateDialog(AssetInfo.ASSET_NAME, AssetInfo.ASSET_STORE_ID);
 
-            // Settings            
+            // Settings
             SkyGUILayout();
             StarsGUILayout(skyboxController.StarsEnabled);
             SunGUILayout(skyboxController.SunEnabled);
-            MoonGUILayout(skyboxController.MoonEnabled);
+            Moon1GUILayout(skyboxController.Moon1Enabled);
+            Moon2GUILayout(skyboxController.Moon2Enabled);
             CloudsGUILayout(skyboxController.CloudsEnabled);
             GeneralGUILayout();
         }
-        
+
         private void GeneralGUILayout()
         {
             EditorGUILayout.BeginHorizontal("Box");
             EditorGUILayout.LabelField(_generalIcon, GUILayout.Width(16f));
             EditorGUILayout.LabelField("General", EditorStyles.boldLabel);
             EditorGUILayout.EndHorizontal();
-            
+
             _framesInterval.intValue = EditorGUILayout.IntSlider(_framesIntervalLabel, _framesInterval.intValue, 1, 60);
         }
 
@@ -235,29 +254,60 @@ namespace Borodar.FarlandSkies.LowPoly
             }
         }
 
-        private void MoonGUILayout(bool moonEnabled)
+        private void Moon1GUILayout(bool moonEnabled)
         {
             GUI.enabled = moonEnabled;
 
             EditorGUILayout.BeginHorizontal("Box");
             EditorGUILayout.LabelField(_moonIcon, GUILayout.Width(16f));
-            EditorGUILayout.LabelField("Moon", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("Moon 1", EditorStyles.boldLabel);
             EditorGUILayout.EndHorizontal();
 
             if (moonEnabled)
             {
-                EditorGUILayout.PropertyField(_moonrise);
-                EditorGUILayout.PropertyField(_moonset);
-                EditorGUILayout.PropertyField(_moonAltitude);
-                EditorGUILayout.PropertyField(_moonLongitude);
-                EditorGUILayout.PropertyField(_moonOrbit);
+                EditorGUILayout.PropertyField(_moonrise1);
+                EditorGUILayout.PropertyField(_moonset1);
+                EditorGUILayout.PropertyField(_moon1Altitude);
+                EditorGUILayout.PropertyField(_moon1Longitude);
+                EditorGUILayout.PropertyField(_moon1Orbit);
 
-                _showMoonDotParams = EditorGUILayout.Foldout(_showMoonDotParams, _moonParamsLabel);
+                _showMoon1DotParams = EditorGUILayout.Foldout(_showMoon1DotParams, _moon1ParamsLabel);
                 EditorGUILayout.Space();
-                if (_showMoonDotParams)
+                if (_showMoon1DotParams)
                 {
                     CelestialsParamsHeader();
-                    ReorderableListGUI.ListField(_moonDotParams);
+                    ReorderableListGUI.ListField(_moon1DotParams);
+                }
+            }
+            else
+            {
+                EditorGUILayout.Space();
+            }
+        }
+
+        private void Moon2GUILayout(bool moonEnabled)
+        {
+            GUI.enabled = moonEnabled;
+
+            EditorGUILayout.BeginHorizontal("Box");
+            EditorGUILayout.LabelField(_moonIcon, GUILayout.Width(16f));
+            EditorGUILayout.LabelField("Moon 2", EditorStyles.boldLabel);
+            EditorGUILayout.EndHorizontal();
+
+            if (moonEnabled)
+            {
+                EditorGUILayout.PropertyField(_moonrise2);
+                EditorGUILayout.PropertyField(_moonset2);
+                EditorGUILayout.PropertyField(_moon2Altitude);
+                EditorGUILayout.PropertyField(_moon2Longitude);
+                EditorGUILayout.PropertyField(_moon2Orbit);
+
+                _showMoon2DotParams = EditorGUILayout.Foldout(_showMoon2DotParams, _moon2ParamsLabel);
+                EditorGUILayout.Space();
+                if (_showMoon2DotParams)
+                {
+                    CelestialsParamsHeader();
+                    ReorderableListGUI.ListField(_moon2DotParams);
                 }
             }
             else
