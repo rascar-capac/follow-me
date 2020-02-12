@@ -262,7 +262,6 @@ public class Tribe : ZoneInteractable
     // Complex Actions
     public IEnumerator AggressPlayer()
     {
-
         SetMode(TribeEmotionMode.Aggress);
 
         List<IEnumerable> cos = new List<IEnumerable>();

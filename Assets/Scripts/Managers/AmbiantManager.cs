@@ -6,7 +6,9 @@ using Borodar.FarlandSkies.LowPoly;
 
 public class AmbiantManager : Singleton<AmbiantManager>
 {
-    public MaterialData Materials;
+    public Material MaterialReference;
+
+
 	public HourChangedEvent onHourChanged = new HourChangedEvent();
     public DayStateHasChanged onDayStateHasChanged = new DayStateHasChanged();
     public float _LastHour;
@@ -21,12 +23,12 @@ public class AmbiantManager : Singleton<AmbiantManager>
         //FogZone = Fog.GetComponentInChildren<Zone>();
         Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
         Terrain = (GameObject)ObjectsManager.I["Terrain"];
-
+        //onDayStateHasChanged.AddListener(ChangeMaterial);
   //      InitDaysStates();
   //      ChangeDayState();
 
-		//ResetLastHour(CurrentDayState, NextDayState);
-		//onDayStateChanged.AddListener(ResetLastHour);
+        //ResetLastHour(CurrentDayState, NextDayState);
+        //onDayStateChanged.AddListener(ResetLastHour);
         //onDayStateChanged.AddListener(ChangeMaterial);
 
         //StartChrono(GameManager.I._data.MinimumTimeBetweenFog, StartFog);
@@ -34,16 +36,7 @@ public class AmbiantManager : Singleton<AmbiantManager>
 
     public DayState currentStateOfDay = DayState.Day;
     private void Update()
-	{
-        //#region Hour Management
-
-        //if (CurrentTimeOfDay >= _LastHour + 1)
-        //{
-        //	_LastHour = CurrentTimeOfDay;
-        //	onHourChanged.Invoke(Mathf.RoundToInt(_LastHour), CurrentDayState.State);
-        //}
-
-        //#endregion
+    {
         UIManager.I.SetTimeOfDay();
         if (SkyboxDayNightCycle.Instance.TimeOfDay >= SkyboxDayNightCycle.Instance._sunrise && SkyboxDayNightCycle.Instance.TimeOfDay <= SkyboxDayNightCycle.Instance._sunset && currentStateOfDay != DayState.Day)
         {
@@ -56,39 +49,44 @@ public class AmbiantManager : Singleton<AmbiantManager>
             onDayStateHasChanged.Invoke(currentStateOfDay);
         }
         SkyboxController.Instance.CloudsRotation = 360 * SkyboxDayNightCycle.Instance.TimeOfDay / 100;
-        //SkyboxController.Instance.CloudsHeight = Mathf.Sin(Time.time);
+        if (MaterialReference)
+        {
+
+            MaterialReference.SetFloat("_DayNightEmissive", SkyboxDayNightCycle.Instance.TimeOfDay / 100);
+            MaterialReference.SetFloat("_DayNightFresnel", SkyboxDayNightCycle.Instance.TimeOfDay / 100);
+            MaterialReference.SetFloat("_DayNightAlbedo", SkyboxDayNightCycle.Instance.TimeOfDay / 100);
+        }
     }
 
-    void ChangeMaterial(DayStatesProperties currentDayStateProperties, DayStatesProperties nextDayStateProperties)
+    void ChangeMaterial(DayState state)
     {
         //UIManager.I.AlertMessage("It is " + currentDayStateProperties.State.ToString());
-        if (!Materials)
-            return;
+        
 
-        string Suffix = "D";
-        List<Material> SearchList = Materials.DayMaterials;
-        if (currentDayStateProperties.State == DayState.Night)
-        {
-            Suffix = "N";
-            SearchList = Materials.NightMaterials;
-        }
+        //string Suffix = "D";
+        //List<Material> SearchList = Materials.DayMaterials;
+        //if (currentDayStateProperties.State == DayState.Night)
+        //{
+        //    Suffix = "N";
+        //    SearchList = Materials.NightMaterials;
+        //}
 
-        Renderer childRenderer = Terrain.transform.GetComponent<Renderer>();
-        Material TerrainMaterial = GetTargetMaterial(childRenderer, Suffix, SearchList);
-        if (TerrainMaterial)
-        {
-            childRenderer.material.SetTexture("_MainTex", TerrainMaterial.GetTexture("_MainTex"));
-            childRenderer.material.SetTexture("_BaseBump", TerrainMaterial.GetTexture("_BaseBump"));
-            childRenderer.material.SetTexture("_Texture1", TerrainMaterial.GetTexture("_Texture1"));
-            childRenderer.material.SetTexture("_Texture2", TerrainMaterial.GetTexture("_Texture2"));
-            childRenderer.material.SetTexture("_Texture3", TerrainMaterial.GetTexture("_Texture3"));
-        }
+        //Renderer childRenderer = Terrain.transform.GetComponent<Renderer>();
+        //Material TerrainMaterial = GetTargetMaterial(childRenderer, Suffix, SearchList);
+        //if (TerrainMaterial)
+        //{
+        //    childRenderer.material.SetTexture("_MainTex", TerrainMaterial.GetTexture("_MainTex"));
+        //    childRenderer.material.SetTexture("_BaseBump", TerrainMaterial.GetTexture("_BaseBump"));
+        //    childRenderer.material.SetTexture("_Texture1", TerrainMaterial.GetTexture("_Texture1"));
+        //    childRenderer.material.SetTexture("_Texture2", TerrainMaterial.GetTexture("_Texture2"));
+        //    childRenderer.material.SetTexture("_Texture3", TerrainMaterial.GetTexture("_Texture3"));
+        //}
 
-        for (int i = 0; i < Terrain.transform.childCount; i++)
-        {
-            childRenderer = Terrain.transform.GetChild(i).GetComponent<Renderer>();
-            ChangeMaterialSettings(childRenderer, GetTargetMaterial(childRenderer, Suffix, SearchList));
-        }
+        //for (int i = 0; i < Terrain.transform.childCount; i++)
+        //{
+        //    childRenderer = Terrain.transform.GetChild(i).GetComponent<Renderer>();
+        //    ChangeMaterialSettings(childRenderer, GetTargetMaterial(childRenderer, Suffix, SearchList));
+        //}
     }
 
     Material GetTargetMaterial(Renderer renderer, string Suffix, List<Material> SearchList)
