@@ -20,6 +20,7 @@ MonoBehaviour:
   _itemToDrop: {fileID: 0}
   _PositionToDrop: {fileID: 0}
   IsCatchable: 0
+  IsSwapable: 1
   IsActivable: 0
   IsActivated: 0
   MeshBase: {fileID: 0}

@@ -19,7 +19,10 @@ MonoBehaviour:
     type: 3}
   _itemActivatedPrefab: {fileID: 3856021470283854715, guid: efc95f2e727ac7a4a90acb7a621b0a5d,
     type: 3}
+  _itemToDrop: {fileID: 0}
+  _PositionToDrop: {fileID: 0}
   IsCatchable: 0
+  IsSwapable: 0
   IsActivable: 1
   IsActivated: 0
   MeshBase: {fileID: 0}

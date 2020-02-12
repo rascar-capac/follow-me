@@ -42,6 +42,8 @@ public class PlayerInventory : BaseMonoBehaviour
 
     public ItemActivatedEvent onItemActivated = new ItemActivatedEvent();
     public ItemActivatedEvent onItemPickedUp = new ItemActivatedEvent();
+    public ItemTouchedEvent onItemSwaped = new ItemTouchedEvent();
+
     float xPixels = 300;
     float yPixels = 300;
 
@@ -134,9 +136,13 @@ public class PlayerInventory : BaseMonoBehaviour
                     InteractItem(it);
                 else if (it._itemData.IsCatchable)
                     PickUpItem(it);
-                else if (it._itemData._itemToDrop)
+                // else if (it._itemData._itemToDrop)
+                // {
+                //     DropItem(it._itemData._itemToDrop, it._itemData._PositionToDrop.transform);
+                // }
+                else if (it._itemData.IsSwapable)
                 {
-                    DropItem(it._itemData._itemToDrop, it._itemData._PositionToDrop.transform);
+                    onItemSwaped?.Invoke(it);
                 }
             }
             else
@@ -168,21 +174,21 @@ public class PlayerInventory : BaseMonoBehaviour
 	void InteractItem(Item it, bool force = false)
 	{
         ItemData data = it._itemData;
-        if (!force)
-        {
-            if (!AmbiantManager.I.IsUsableNow(GameManager.I._data.StonesActivationUsable))
-            {
-                UIManager.I.AlertMessage("Unable to activate the stone now.");
-                return;
-            }
+        // if (!force)
+        // {
+        //     if (!AmbiantManager.I.IsUsableNow(GameManager.I._data.StonesActivationUsable))
+        //     {
+        //         UIManager.I.AlertMessage("Unable to activate the stone now.");
+        //         return;
+        //     }
 
-            if (!(it.InZone && tribe.InZones.Exists(z => z == it.InZone)))
-            {
-                UIManager.I.AlertMessage("Your tribe must be here to activate this Item.");
-                return;
-            }
-        }
-		if (data.IsActivable && !data.IsActivated && data._itemActivatedPrefab != null)
+        //     if (!(it.InZone && tribe.InZones.Exists(z => z == it.InZone)))
+        //     {
+        //         UIManager.I.AlertMessage("Your tribe must be here to activate this Item.");
+        //         return;
+        //     }
+        // }
+		if (!data.IsActivated && data._itemActivatedPrefab != null)
 		{
 			onItemActivated?.Invoke(it);
 		}
@@ -294,6 +300,8 @@ public class PlayerInventory : BaseMonoBehaviour
 }
 
 public class ItemActivatedEvent : UnityEvent<Item> { }
+
+public class ItemTouchedEvent : UnityEvent<Item> { }
 public enum Hand
 {
     Left,

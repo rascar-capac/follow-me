@@ -21,7 +21,9 @@ public class ItemData : ScriptableObject
     public GameObject _PositionToDrop;
     [Tooltip("Item is catchable")]
     public bool IsCatchable = false;
-    [Tooltip("Item is Activable")]
+    [Tooltip("Item is swapable")]
+    public bool IsSwapable = false;
+    [Tooltip("Item is activable")]
     public bool IsActivable = false;
 	[HideInInspector]
 	public bool IsActivated = false;
