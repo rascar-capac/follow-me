@@ -100,7 +100,7 @@ Material:
     - _DstBlend: 0
     - _EmissionEnabled: 0
     - _FlipbookMode: 0
-    - _FresnelBias: 0.25
+    - _FresnelBias: -0.12
     - _FresnelPower: 0
     - _FresnelScale: 0
     - _GlossMapScale: 1

@@ -26,6 +26,14 @@ public struct TribeProperties
 	public float CriticalSpeedMultiplicator;
 }
 
+public enum TribeEmotionMode
+{
+    Normal,
+    Aggress,
+    Fear,
+    Happy
+}
+
 public class Tribe : ZoneInteractable
 {
 	public TribeProperties TribeProperties;
@@ -222,6 +230,7 @@ public class Tribe : ZoneInteractable
     //[Range(0, 1)]
     //public float Fear = 0.0f;
     public List<Zone> DangerousZones;
+    bool PauseRandomMove = false;
 
     // Triggers of complex actions
     void PlayerEnterDangerousZone(ZoneInteractable who, Zone zone)
@@ -251,16 +260,10 @@ public class Tribe : ZoneInteractable
     }
     public Light RedLight;
     // Complex Actions
-    IEnumerator AggressPlayer()
+    public IEnumerator AggressPlayer()
     {
-        Debug.Log("aggress");
 
-        //SkyboxDayNightCycle.Instance.DayMultiplier = new Color(203/255, 57/255, 26/255);
-        //SkyboxDayNightCycle.Instance.NightMultiplier = new Color(99/255, 28/255, 108/255);
-
-        RedLight.gameObject.SetActive(true);
-        RedLight.color = Color.red;
-        SoundManager.I.Play("Angry2");
+        SetMode(TribeEmotionMode.Aggress);
 
         List<IEnumerable> cos = new List<IEnumerable>();
         yield return GoToPosition(new Vector3(_Player.transform.position.x-300, transform.position.y, _Player.transform.position.z-300));
@@ -269,20 +272,17 @@ public class Tribe : ZoneInteractable
         cos.Add(RotatingAround(_Player.transform, 3f, 300f));
         while (true)
         {
+            while (PauseRandomMove)
+                yield return null;
+
             yield return StartCoroutine(cos[(int)Random.Range(0, cos.Count)].GetEnumerator());
         }
     }
-    IEnumerator Live()
+    public IEnumerator Live()
     {
-        Debug.Log("live");
+       
+        SetMode(TribeEmotionMode.Normal);
 
-        SoundManager.I.Play("Normal");
-        //SkyboxDayNightCycle.Instance.DayMultiplier = Color.white;
-        //SkyboxDayNightCycle.Instance.NightMultiplier = Color.white;
-
-        RedLight.gameObject.SetActive(false);
-
-        Random.InitState(System.DateTime.Now.Millisecond);
 
         List<IEnumerable> cos = new List<IEnumerable>();
         cos.Add(GoToRandomPosition(100f));
@@ -292,19 +292,17 @@ public class Tribe : ZoneInteractable
         speed = 100f;
         while (true)
         {
+            while (PauseRandomMove)
+                yield return null;
             yield return StartCoroutine(cos[(int)Random.Range(0, cos.Count)].GetEnumerator());
         }
 
     }
-    IEnumerator Happy()
+    public IEnumerator Happy()
     {
-        Debug.Log("Happy");
-        SoundManager.I.Play("Happy");
+        
+        SetMode(TribeEmotionMode.Happy);
 
-        RedLight.gameObject.SetActive(true);
-        RedLight.color = Color.yellow;
-
-        Random.InitState(System.DateTime.Now.Millisecond);
 
         List<IEnumerable> cos = new List<IEnumerable>();
         cos.Add(GoDownUp(1000, speedMove: 400));
@@ -312,25 +310,66 @@ public class Tribe : ZoneInteractable
         cos.Add(FollowingTransform(_Player.transform, 2, speedMove: 50f));
         while (true)
         {
+            while (PauseRandomMove)
+                yield return null;
             yield return StartCoroutine(cos[(int)Random.Range(0, cos.Count)].GetEnumerator());
         }
     }
-    IEnumerator Fear()
+    public IEnumerator Fear()
     {
-        Debug.Log("Fear");
-        SoundManager.I.Play("Angry");
+        SetMode(TribeEmotionMode.Fear);
 
-        RedLight.gameObject.SetActive(true);
-        RedLight.color = Color.blue;
-
-        Random.InitState(System.DateTime.Now.Millisecond);
 
         List<IEnumerable> cos = new List<IEnumerable>();
         cos.Add(FollowingTransform(_Player.transform, 2, speedMove: 200f));
         while (true)
         {
+            while (PauseRandomMove)
+                yield return null;
             yield return StartCoroutine(cos[(int)Random.Range(0, cos.Count)].GetEnumerator());
         }
+    }
+
+    public void SetMode(TribeEmotionMode mode = TribeEmotionMode.Normal)
+    {
+        switch (mode)
+        {
+            case TribeEmotionMode.Normal:
+                Debug.Log("live");
+
+                SoundManager.I.Play("Normal");
+
+                RedLight.gameObject.SetActive(false);
+                break;
+            case TribeEmotionMode.Aggress:
+                Debug.Log("aggress");
+                RedLight.gameObject.SetActive(true);
+                RedLight.color = Color.red;
+                SoundManager.I.Play("Angry2");
+
+                break;
+            case TribeEmotionMode.Fear:
+                Debug.Log("Fear");
+                SoundManager.I.Play("Angry");
+
+                RedLight.gameObject.SetActive(true);
+                RedLight.color = Color.blue;
+                break;
+            case TribeEmotionMode.Happy:
+                Debug.Log("Happy");
+                SoundManager.I.Play("Happy");
+                RedLight.gameObject.SetActive(true);
+                RedLight.color = Color.yellow;
+                break;
+        }
+    }
+    
+    // Pause current random movement
+    public void PauseRandom(bool pause = false, bool StopCoroutines = false)
+    {
+        PauseRandomMove = pause;
+        if (StopCoroutines)
+            StopAllCoroutines();
     }
 
     // Primitive actions
@@ -361,7 +400,7 @@ public class Tribe : ZoneInteractable
     }
 
     // Technical Methods 
-    IEnumerable RotatingAround(Transform t, float duration = 0f, float speedMove = 0)
+    public IEnumerable RotatingAround(Transform t, float duration = 0f, float speedMove = 0)
     {
         speedMove = speedMove == 0 ? speed : speedMove;
         yield return StartCoroutine(GoingToPosition(new Vector3(t.position.x + 200, t.position.y + 200, t.position.z + 200), speedMove: speedMove));
@@ -375,7 +414,7 @@ public class Tribe : ZoneInteractable
             yield return null;
         }
     }
-    IEnumerable LookingTransform(Transform target, float duration = 0.0f)
+    public IEnumerable LookingTransform(Transform target, float duration = 0.0f)
     {
         float StartedTime = Time.time;
         Quaternion InitialRotation = transform.rotation;
@@ -392,7 +431,7 @@ public class Tribe : ZoneInteractable
             yield return null;
         }
     }
-    IEnumerable FollowingTransform(Transform target, float duration = 0.0f, float speedMove=0)
+    public IEnumerable FollowingTransform(Transform target, float duration = 0.0f, float speedMove=0)
     {
         speedMove = speedMove == 0 ? speed : speedMove;
 
@@ -405,7 +444,7 @@ public class Tribe : ZoneInteractable
             yield return null;
         }
     }
-    IEnumerable Diving(Vector3 Target, float speedMove = 0)
+    public IEnumerable Diving(Vector3 Target, float speedMove = 0)
     {
         speedMove = speedMove == 0 ? speed : speedMove;
         Vector3 Direction = new Vector3(Target.x - transform.position.x, transform.position.y, Target.z- transform.position.z);
@@ -413,7 +452,7 @@ public class Tribe : ZoneInteractable
         yield return GoingToPosition(new Vector3(Target.x, Target.y + 100f, Target.z), speedMove: speedMove);
         yield return GoingToPosition(FinalPosition, speedMove: speedMove);
     }
-    IEnumerator GoingToPosition(Vector3 position, float WaitAndComeBackSeconds = 0f, bool ChangeRotation = true, float speedMove = 0f)
+    public IEnumerator GoingToPosition(Vector3 position, float WaitAndComeBackSeconds = 0f, bool ChangeRotation = true, float speedMove = 0f)
     {
         speedMove = speedMove == 0 ? speed : speedMove;
         Vector3 initialPosition = transform.position;
@@ -442,7 +481,7 @@ public class Tribe : ZoneInteractable
         Quaternion lookRotation = Quaternion.LookRotation(Direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * AngularSpeed);
     }
-    IEnumerator Rotating(Quaternion rotation)
+    public IEnumerator Rotating(Quaternion rotation)
     {
         while (Mathf.Abs(Quaternion.Angle(transform.rotation, rotation)) > 1.0f)
         {
@@ -451,7 +490,7 @@ public class Tribe : ZoneInteractable
         }
 
     }
-    IEnumerable Following(GameObject path, int LoopCount = 0, float speedMove= 0)
+    public IEnumerable Following(GameObject path, int LoopCount = 0, float speedMove= 0)
     {
         speedMove = speedMove == 0 ? speed : speedMove;
         Transform[] Checkpoints = new Transform[path.transform.childCount];
@@ -756,11 +795,11 @@ public class Tribe : ZoneInteractable
 		}
 	}
 
-	#endregion
+    #endregion
 
-	#region Tribe in zone
+    #region Tribe in zone
 
-	public override void ApplyZoneEffect(Zone zone)
+    public override void ApplyZoneEffect(Zone zone)
     {
         base.ApplyZoneEffect(zone);
         GainTribeEnergy(zone);
@@ -779,5 +818,5 @@ public class Tribe : ZoneInteractable
         Energy = Mathf.Clamp(Energy, 0f, GameManager.I._data.InitialTribeEnergy);
     }
 
-	#endregion
+    #endregion
 }
