@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 2683170850849480363}
   - component: {fileID: 4179266370044018856}
   m_Layer: 0
-  m_Name: TreeHigh3
+  m_Name: p_TreeHigh3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -388,21 +388,21 @@ LODGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8562557762193215676}
   serializedVersion: 2
-  m_LocalReferencePoint: {x: -0.7401314, y: 15.890783, z: -0.61972713}
-  m_Size: 32.515217
+  m_LocalReferencePoint: {x: -1.1101971, y: 23.836172, z: -0.92959213}
+  m_Size: 48.772823
   m_FadeMode: 1
-  m_AnimateCrossFading: 0
+  m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.50026405
+  - screenRelativeHeight: 0.3975563
     fadeTransitionWidth: 0.25
     renderers:
     - renderer: {fileID: 6610499993597316905}
-  - screenRelativeHeight: 0.245016
+  - screenRelativeHeight: 0.09810836
     fadeTransitionWidth: 0.25
     renderers:
     - renderer: {fileID: 7163860746068324659}
-  - screenRelativeHeight: 0.096344
+  - screenRelativeHeight: 0.028486785
     fadeTransitionWidth: 0.25
     renderers:
     - renderer: {fileID: 8618668445165356890}
