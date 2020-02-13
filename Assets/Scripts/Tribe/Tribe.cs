@@ -527,6 +527,10 @@ public class Tribe : ZoneInteractable
     {
         StartCoroutine(Live());
     }
+    public void StartAggress()
+    {
+        StartCoroutine(AggressPlayer());
+    }
     #endregion
 
 
