@@ -164,8 +164,13 @@ public class GameData : ScriptableObject
     public int SpontaneityCheckTimerMaxDuration = 60;
 
     [Title("Ambience parameters")]
-	[TabGroup("Ambience")][Tooltip("Day states (night and day)")]
+    [TabGroup("Ambience")]
+    [Tooltip("Phases colors")]
+    public List<Color> PhasesColors;
+    [TabGroup("Ambience")][Tooltip("Day states (night and day)")]
     public DayStatesProperties[] States;
+
+
 
     [Title("Scene parameters")]
     [TabGroup("Zones")]

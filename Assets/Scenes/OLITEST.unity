@@ -7157,6 +7157,11 @@ PrefabInstance:
       propertyPath: Egg
       value: 
       objectReference: {fileID: 1119677610}
+    - target: {fileID: -8872264109839437841, guid: c89c6c41d0570e94e8efdca14a586de4,
+        type: 3}
+      propertyPath: ColorIndex
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1210575905902104904, guid: c89c6c41d0570e94e8efdca14a586de4,
         type: 3}
       propertyPath: m_LocalPosition.x

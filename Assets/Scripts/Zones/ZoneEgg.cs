@@ -6,6 +6,8 @@ public class ZoneEgg : Zone
 {
     public GameObject Egg;
     public GameObject Ray;
+    public int ColorIndex;
+    public bool AllowActivate = false;
 
     Player player;
     Tribe tribe;
@@ -16,15 +18,18 @@ public class ZoneEgg : Zone
         player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
         player.onZoneEnter.AddListener(EnteredZone);
         tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
+        Ray.GetComponent<Renderer>().material.SetColor("_Color", GameManager.I._data.PhasesColors[ColorIndex]);
     }
 
     public void EnteredZone(ZoneInteractable who, Zone zone)
     {
-        if (zone == this)
+        if (zone == this && AllowActivate)
         {
             tribe.StopAll();
             Ray.gameObject.SetActive(true);
             tribe.StartLive();
         }
+        else
+        { }
     }
 }
