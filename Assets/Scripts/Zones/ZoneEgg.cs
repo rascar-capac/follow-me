@@ -30,7 +30,7 @@ public class ZoneEgg : Zone
             Ray.gameObject.SetActive(true);
             tribe.StartLive();
         }
-        else
+        else if (zone == this)
         {
             tribe.StopAll();
             tribe.StartAggress();
