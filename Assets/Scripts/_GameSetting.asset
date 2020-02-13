@@ -16,13 +16,13 @@ MonoBehaviour:
   InitialPlayerEnergy: 100
   EnergyPlayerLostPerSecond: 0
   EnergyPlayerGainPerSecond: 0
-  InitialPlayerSpeed: 20
+  InitialPlayerSpeed: 15
   SpeedMultiplicator: 3
   PlayerRunUsable: 0000000001000000
   PlayerRunEnergyLowUnusable: 0
   PlayerRunStamina: 1
   PlayerRunStaminaMax: 100
-  PlayerRunCostBySecond: 30
+  PlayerRunCostBySecond: 1
   PlayerRunGainBySecond: 5
   PlayerItemDistanceInteraction: 2
   StonesActivationUsable: 0000000001000000
@@ -102,38 +102,38 @@ MonoBehaviour:
     XBox: 10
     Keyboard: 27
   Input_PlayerJump:
-    XBox: 10
-    Keyboard: 32
+    XBox: 0
+    Keyboard: 0
   Input_PlayerRun:
     XBox: 11
     Keyboard: 308
   Input_TribeOrder:
-    XBox: 12
-    Keyboard: 97
+    XBox: 0
+    Keyboard: 0
   Input_LeftHand_SelectTool:
-    XBox: 5
-    Keyboard: 306
+    XBox: 0
+    Keyboard: 0
   Input_RightHand_SelectTool:
-    XBox: 6
-    Keyboard: 305
+    XBox: 0
+    Keyboard: 0
   Input_LeftHand_ShowHide:
-    XBox: 7
-    Keyboard: 304
+    XBox: 0
+    Keyboard: 0
   Input_RightHand_ShowHide:
-    XBox: 8
-    Keyboard: 303
+    XBox: 0
+    Keyboard: 0
   Input_BeaconPlace:
     XBox: 4
     Keyboard: 102
   Input_BeaconActivate:
-    XBox: 2
-    Keyboard: 103
+    XBox: 0
+    Keyboard: 0
   Input_Interaction:
     XBox: 3
     Keyboard: 101
   Input_InventoryOpenClose:
-    XBox: 9
-    Keyboard: 282
+    XBox: 0
+    Keyboard: 0
   Input_InventorySelect:
     XBox: 1
     Keyboard: 13

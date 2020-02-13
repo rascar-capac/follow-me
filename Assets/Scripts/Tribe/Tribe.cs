@@ -219,12 +219,9 @@ public class Tribe : ZoneInteractable
     Coroutine CurrentAction = null;
     bool StopCurrentAction = false;
     public float speed = 100.0f;
-    public float AngularSpeed = 0.5f;
+    public float AngularSpeed = 0.05f;
     public GameObject AroundIslandPath;
-    [Range(0, 1)]
-    public float Angryness = 0.2f;
-    [Range(0, 1)]
-    public float Happyness = 0.0005f;
+
     //[Range(0, 1)]
     //public float Sadness = 1.0f;
     //[Range(0, 1)]
@@ -285,8 +282,8 @@ public class Tribe : ZoneInteractable
 
         List<IEnumerable> cos = new List<IEnumerable>();
         cos.Add(GoToRandomPosition(100f));
-        cos.Add(FollowingTransform(_Player.transform, 1, 50f));
-        cos.Add(Following(AroundIslandPath, speedMove: 200f));
+        //cos.Add(FollowingTransform(_Player.transform, 1, 50f));
+        //cos.Add(Following(AroundIslandPath, speedMove: 200f));
         yield return StartCoroutine(ResetCreature());
         speed = 100f;
         while (true)

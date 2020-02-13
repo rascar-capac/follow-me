@@ -120,12 +120,13 @@ public class UIManager : Singleton<UIManager>
 
 		#region Hud Messages
 
-		ShowTime(true);
+		ShowTime(false);
         ShowPlayerEnergy(false);
-        ShowTribeDistance(true);
+        ShowTribeDistance(false);
         ShowPlayerRunStamina(false);
-        ShowTribeDocility(true);
-        ShowTribeEnergy(true);
+        ShowTribeDocility(false);
+        ShowTribeEnergy(false);
+        ShowPlayerRunStamina(false);
         #endregion
 
         CloseMenu();

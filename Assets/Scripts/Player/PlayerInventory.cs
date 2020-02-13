@@ -65,7 +65,7 @@ public class PlayerInventory : BaseMonoBehaviour
         UIManager.I.onToolsInventoryOpenedEvent.AddListener((hand) => { isInteractionAllowed = false; });
 
 
-        ToolsInventoryManager.I.onToolSelected.AddListener(PutItemInHand);
+        //ToolsInventoryManager.I.onToolSelected.AddListener(PutItemInHand);
 
         Hands = new HandWrapper[2];
         Hands[0] = new HandWrapper() { hand = Hand.Left };
