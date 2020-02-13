@@ -61,8 +61,8 @@ public class PlayerInventory : BaseMonoBehaviour
 		InputManager.I.onBeaconPlaceButtonPressed.AddListener(PlaceBeacon);
         InputManager.I.onBeaconActivateKeyPressed.AddListener(BeaconActivation);
 
-        UIManager.I.onToolsInventoryClosedEvent.AddListener((hand) => { isInteractionAllowed = true; });
-        UIManager.I.onToolsInventoryOpenedEvent.AddListener((hand) => { isInteractionAllowed = false; });
+        //UIManager.I.onToolsInventoryClosedEvent.AddListener((hand) => { isInteractionAllowed = true; });
+        //UIManager.I.onToolsInventoryOpenedEvent.AddListener((hand) => { isInteractionAllowed = false; });
 
 
         //ToolsInventoryManager.I.onToolSelected.AddListener(PutItemInHand);

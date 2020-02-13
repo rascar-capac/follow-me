@@ -23,17 +23,17 @@ public class InputManager : Singleton<InputManager>
 
 	// Main Events
 
-    //public UnityEvent onToolInventoryButtonPressed = new UnityEvent();
-    //public UnityEvent onToolInventoryButtonReleased = new UnityEvent();
+	//public UnityEvent onToolInventoryButtonPressed = new UnityEvent();
+	//public UnityEvent onToolInventoryButtonReleased = new UnityEvent();
 
-    // UI Events
- //   public UnityEvent onUIPlayerKeyPressed = new UnityEvent();
+	// UI Events
+	//public UnityEvent onUIPlayerKeyPressed = new UnityEvent();
 	//public UnityEvent onUITribeKeyPressed = new UnityEvent();
 	//public UnityEvent onUIQuestKeyPressed = new UnityEvent();
 	//public UnityEvent onUIMapKeyPressed = new UnityEvent();
-	//public UnityEvent onUIOptionsKeyPressed = new UnityEvent();
+	public UnityEvent onUIOptionsKeyPressed = new UnityEvent();
 
-    float lastLTRT = 0;
+	float lastLTRT = 0;
 
 	// Player Events
 	public InputAxisUnityEvent onMoveInputAxisEvent = new InputAxisUnityEvent();
@@ -169,8 +169,8 @@ public class InputManager : Singleton<InputManager>
 		//	onUIQuestKeyPressed?.Invoke();
 		//if (Input.GetKeyDown(UIMapKey))
 		//	onUIMapKeyPressed?.Invoke();
-		//if (Input.GetKeyDown(UIOptionsKey))
-		//	onUIOptionsKeyPressed?.Invoke();
+		if (Input.GetKeyDown(UIOptionsKey))
+			onUIOptionsKeyPressed?.Invoke();
 	}
 }
 

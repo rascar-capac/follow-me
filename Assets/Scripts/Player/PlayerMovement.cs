@@ -61,8 +61,8 @@ public class PlayerMovement : BaseMonoBehaviour
         InputManager.I.onMoveInputAxisEvent.AddListener(Move);
         InputManager.I.onStopMoveInputAxisEvent.AddListener(Wait);
         InputManager.I.onPlayerJumpPressed.AddListener(Jump);
-        UIManager.I.onToolsInventoryClosedEvent.AddListener((hand) => { InGame = true; });
-        UIManager.I.onToolsInventoryOpenedEvent.AddListener((hand) => { InGame = false; });
+        //UIManager.I.onToolsInventoryClosedEvent.AddListener((hand) => { InGame = true; });
+        //UIManager.I.onToolsInventoryOpenedEvent.AddListener((hand) => { InGame = false; });
     }
 
     void SwitchRun()

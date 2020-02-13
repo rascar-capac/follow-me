@@ -16,8 +16,8 @@ public class PlayerLook : BaseMonoBehaviour
         playerBody = ((GameObject)ObjectsManager.I["Player"]).transform;
         transform.SetParent(playerBody);
         InputManager.I.onLookInputAxisEvent.AddListener(RotateCamera);
-        UIManager.I.onToolsInventoryOpenedEvent.AddListener((hand) => { AllowLook = false; });
-        UIManager.I.onToolsInventoryClosedEvent.AddListener((hand) => { AllowLook = true; });
+        //UIManager.I.onToolsInventoryOpenedEvent.AddListener((hand) => { AllowLook = false; });
+        //UIManager.I.onToolsInventoryClosedEvent.AddListener((hand) => { AllowLook = true; });
     }
 
     void RotateCamera(InputAxisUnityEventArg axis)

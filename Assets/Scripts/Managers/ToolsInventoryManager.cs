@@ -46,14 +46,14 @@ public class ToolsInventoryManager : Singleton<ToolsInventoryManager>
         //InputManager.I.onUIOpenCloseInventoryKeyPressed.AddListener(SelectObjectRight);
 
         InputManager.I.onLookInputAxisEvent.AddListener(PointObject);
-        UIManager.I.onToolsInventoryOpenedEvent.AddListener(Init);
-        UIManager.I.onToolsInventoryClosedEvent.AddListener(SelectObject);
+        //UIManager.I.onToolsInventoryOpenedEvent.AddListener(Init);
+        //UIManager.I.onToolsInventoryClosedEvent.AddListener(SelectObject);
     }
 
     public void Init(Hand hand)
     {
-        if (!UIManager.I.ToolsInvetoryOpened)
-            return;
+        //if (!UIManager.I.ToolsInvetoryOpened)
+        //    return;
 
         CurrentHand = hand;
 
@@ -65,8 +65,8 @@ public class ToolsInventoryManager : Singleton<ToolsInventoryManager>
 
     public void PointObject(InputAxisUnityEventArg axis)
     {
-        if (!UIManager.I.ToolsInvetoryOpened)
-            return;
+        //if (!UIManager.I.ToolsInvetoryOpened)
+        //    return;
 
         Vector3 vAxis = new Vector3(axis.XValue, axis.YValue, 0);
         if (vAxis.sqrMagnitude < 0.81f)
@@ -86,8 +86,8 @@ public class ToolsInventoryManager : Singleton<ToolsInventoryManager>
 
     public void SelectObject(Hand hand)
     {
-        if (!UIManager.I.ToolsInvetoryOpened)
-            return;
+        //if (!UIManager.I.ToolsInvetoryOpened)
+        //    return;
         onToolSelected?.Invoke(ToolItems[CurrentIndex].Prefab, hand);
     }
 
