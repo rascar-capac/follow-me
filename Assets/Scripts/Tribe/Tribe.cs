@@ -219,7 +219,7 @@ public class Tribe : ZoneInteractable
     Coroutine CurrentAction = null;
     bool StopCurrentAction = false;
     public float speed = 100.0f;
-    public float AngularSpeed = 0.05f;
+    public float AngularSpeed = 0.00005f;
     public GameObject AroundIslandPath;
 
     //[Range(0, 1)]
@@ -276,14 +276,12 @@ public class Tribe : ZoneInteractable
     }
     public IEnumerator Live()
     {
-       
         SetMode(TribeEmotionMode.Normal);
 
-
         List<IEnumerable> cos = new List<IEnumerable>();
-        cos.Add(GoToRandomPosition(100f));
-        //cos.Add(FollowingTransform(_Player.transform, 1, 50f));
-        //cos.Add(Following(AroundIslandPath, speedMove: 200f));
+        cos.Add(GoToRandomPosition(200f));
+        cos.Add(FollowingTransform(_Player.transform, 1, 50f));
+        cos.Add(Following(AroundIslandPath, speedMove: 200f));
         yield return StartCoroutine(ResetCreature());
         speed = 100f;
         while (true)
@@ -374,14 +372,15 @@ public class Tribe : ZoneInteractable
     // Primitive actions
     public IEnumerator ResetCreature()
     {
-        yield return StartCoroutine(Rotating(Quaternion.LookRotation(Vector3.forward, Vector3.up)));
-        yield return StartCoroutine(GoingToPosition(new Vector3(transform.position.x, 400, transform.position.z), ChangeRotation:false));
+        yield return StartCoroutine(Rotating(Quaternion.LookRotation(transform.forward, Vector3.up)));
+        yield return StartCoroutine(GoDownUp(400 - transform.position.y, ComeBack: false).GetEnumerator());
         speed = 100f;
     }
-    public IEnumerable GoDownUp(float delta, bool LookAt = true, float speedMove = 0)
+    public IEnumerable GoDownUp(float delta, bool LookAt = true, float speedMove = 0, bool ComeBack = true)
     {
         yield return StartCoroutine(GoingToPosition(new Vector3(transform.position.x, transform.position.y + delta, transform.position.z), speedMove: speedMove, ChangeRotation: LookAt));
-        yield return StartCoroutine(GoingToPosition(new Vector3(transform.position.x, transform.position.y - delta, transform.position.z), speedMove: speedMove, ChangeRotation: LookAt));
+        if (ComeBack) 
+            yield return StartCoroutine(GoingToPosition(new Vector3(transform.position.x, transform.position.y - delta, transform.position.z), speedMove: speedMove, ChangeRotation: LookAt));
     }
     public IEnumerable GoToRandomPosition(float speedMove = 0)
     {
@@ -390,7 +389,6 @@ public class Tribe : ZoneInteractable
         Bounds terrainDimensions = _Terrain.terrainData.bounds;
         Vector2 randomDestination = new Vector2(terrainDimensions.center.x, terrainDimensions.center.z)
                                     + Random.insideUnitCircle * (terrainDimensions.size / 2);
-
         yield return StartCoroutine(GoingToPosition(new Vector3(randomDestination.x, transform.position.y, randomDestination.y), speedMove: speedMove));
     }
     public IEnumerator GoToPosition(Vector3 position, bool Force = false, float WaitAndComeBackSeconds=0f, bool ChangeRotation = true)
@@ -455,11 +453,13 @@ public class Tribe : ZoneInteractable
     {
         speedMove = speedMove == 0 ? speed : speedMove;
         Vector3 initialPosition = transform.position;
-        while (Vector3.Distance(transform.position, position) > 0.1f)
+        while (Vector3.Distance(transform.position, position) > 50f)
         {
+            Debug.Log(Vector3.Distance(transform.position, position));
             if (ChangeRotation)
                 RotateTowards(position);
-            transform.position = Vector3.MoveTowards(transform.position, position, speedMove * Time.deltaTime);
+            transform.position += transform.forward * speedMove * Time.deltaTime;//Vector3.MoveTowards(transform.position, position, speedMove * Time.deltaTime);
+
             yield return null;
         }
         if (WaitAndComeBackSeconds > 0)
