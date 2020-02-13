@@ -165,8 +165,9 @@ public class GameData : ScriptableObject
 
     [Title("Ambience parameters")]
     [TabGroup("Ambience")]
-    [Tooltip("Phases colors")]
-    public List<Color> PhasesColors;
+    [Tooltip("Phase durations and colors")]
+    public List<TimePhase> Phases;
+
     [TabGroup("Ambience")][Tooltip("Day states (night and day)")]
     public DayStatesProperties[] States;
 
@@ -277,4 +278,11 @@ public struct DayStatesProperties
 	//public Color StateColor;
 	//public Vector3 EnterSunRotation;
 	//public Vector3 ExitSunRotation;
+}
+
+[System.Serializable]
+public struct TimePhase
+{
+    [Range(0, 100f)] public float endingPercentage;
+    public Color color;
 }

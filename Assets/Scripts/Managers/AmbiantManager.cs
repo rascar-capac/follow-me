@@ -11,8 +11,10 @@ public class AmbiantManager : Singleton<AmbiantManager>
 
 	public HourChangedEvent onHourChanged = new HourChangedEvent();
     public DayStateHasChanged onDayStateHasChanged = new DayStateHasChanged();
+    public TimePhaseChangedEvent onTimePhaseChanged = new TimePhaseChangedEvent();
     public float _LastHour;
     GameObject Terrain;
+    private int PhaseIndex = -1;
 
     protected override void Start()
     {
@@ -25,6 +27,32 @@ public class AmbiantManager : Singleton<AmbiantManager>
     private void Update()
     {
         UIManager.I.SetTimeOfDay();
+
+        List<TimePhase> phases = GameManager.I._data.Phases;
+        float time = SkyboxDayNightCycle.Instance.TimeOfDay;
+        for (int i = 0 ; i < phases.Count ; i++)
+        {
+            int previousIndex = (int) Mathf.Repeat(i - 1, phases.Count);
+            if (phases[i].endingPercentage > phases[previousIndex].endingPercentage)
+            {
+                if (time > phases[i].endingPercentage)
+                {
+                    continue;
+                }
+            }
+            if (time > phases[i].endingPercentage && time < phases[previousIndex].endingPercentage)
+            {
+                continue;
+            }
+
+            if (i != PhaseIndex)
+            {
+                PhaseIndex = i;
+                onTimePhaseChanged.Invoke(PhaseIndex);
+            }
+            break;
+        }
+
         if (SkyboxDayNightCycle.Instance.TimeOfDay >= SkyboxDayNightCycle.Instance._sunrise && SkyboxDayNightCycle.Instance.TimeOfDay <= SkyboxDayNightCycle.Instance._sunset)
         {
             if (currentStateOfDay != DayState.Day)
@@ -191,3 +219,5 @@ public class AmbiantManager : Singleton<AmbiantManager>
 public class DayStateChangedEvent : UnityEvent<DayStatesProperties, DayStatesProperties> { }
 public class HourChangedEvent : UnityEvent<int, DayState> { }
 public class DayStateHasChanged : UnityEvent<DayState> { }
+
+public class TimePhaseChangedEvent : UnityEvent<int> { }
