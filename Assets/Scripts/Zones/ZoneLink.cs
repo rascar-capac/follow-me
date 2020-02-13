@@ -24,6 +24,7 @@ public class ZoneLink : Zone
             tribe.StopAll();
             LinkedZone.gameObject.SetActive(true);
             LinkedZone.Ray.gameObject.SetActive(false);
+            LinkedZone.AllowActivate = true;
             tribe.SetMode(TribeEmotionMode.Happy);
             tribe.StartRotating(LinkedZone.Egg.transform);
         }
