@@ -370,7 +370,10 @@ public class Tribe : ZoneInteractable
         if (StopCoroutines)
             StopAllCoroutines();
     }
-
+    public void StopAll()
+    {
+        StopAllCoroutines();
+    }
     // Primitive actions
     public IEnumerator ResetCreature()
     {
@@ -402,7 +405,7 @@ public class Tribe : ZoneInteractable
     public IEnumerable RotatingAround(Transform t, float duration = 0f, float speedMove = 0)
     {
         speedMove = speedMove == 0 ? speed : speedMove;
-        yield return StartCoroutine(GoingToPosition(new Vector3(t.position.x + 200, t.position.y + 200, t.position.z + 200), speedMove: speedMove));
+        yield return StartCoroutine(GoingToPosition(new Vector3(t.position.x + 100, t.position.y + 200, t.position.z + 100), speedMove: speedMove));
         float starttime = Time.time;
         while (true)
         {
@@ -514,6 +517,15 @@ public class Tribe : ZoneInteractable
                 i++;
 
         }
+    }
+
+    public void StartRotating(Transform t, float duration = 0f, float speedMove = 0)
+    {
+        StartCoroutine(RotatingAround(t, duration, speedMove).GetEnumerator());
+    }
+    public void StartLive()
+    {
+        StartCoroutine(Live());
     }
     #endregion
 

@@ -20,9 +20,12 @@ public class ZoneLink : Zone
     {
         if (zone == this)
         {
+            //LinkedZone.gameObject.SetActive(true);
+            tribe.StopAll();
             LinkedZone.gameObject.SetActive(true);
+            LinkedZone.Ray.gameObject.SetActive(false);
             tribe.SetMode(TribeEmotionMode.Happy);
-            StartCoroutine(tribe.RotatingAround(LinkedZone.Egg.transform).GetEnumerator());
+            tribe.StartRotating(LinkedZone.Egg.transform);
         }
     }
 }
