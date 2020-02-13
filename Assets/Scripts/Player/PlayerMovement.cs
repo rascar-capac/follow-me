@@ -80,17 +80,17 @@ public class PlayerMovement : BaseMonoBehaviour
         RunStaminaCritical();
     }
 
-    private void FixedUpdate()
-    {
-        Debug.DrawRay(CameraManager.I._MainCamera.transform.position + _move * 0.5f, Vector3.down * 5, Color.white);
-        RaycastHit hit;
-        if (Physics.Raycast(CameraManager.I._MainCamera.transform.position + _move * 0.5f, Vector3.down, out hit, 5, _groundMask))
-        {
-            float groundAngle = Vector3.Angle(Vector3.up, hit.normal);
+    //private void FixedUpdate()
+    //{
+    //    Debug.DrawRay(CameraManager.I._MainCamera.transform.position + _move * 0.5f, Vector3.down * 5, Color.white);
+    //    RaycastHit hit;
+    //    if (Physics.Raycast(CameraManager.I._MainCamera.transform.position + _move * 0.5f, Vector3.down, out hit, 5, _groundMask))
+    //    {
+    //        float groundAngle = Vector3.Angle(Vector3.up, hit.normal);
 
-            _isMoveAllowed  = groundAngle <= _controller.slopeLimit;
-        }
-    }
+    //        _isMoveAllowed  = groundAngle <= _controller.slopeLimit;
+    //    }
+    //}
 
     public void Move(InputAxisUnityEventArg axis)
     {
@@ -106,8 +106,26 @@ public class PlayerMovement : BaseMonoBehaviour
         float x = axis.XValue;
         float z = axis.YValue;
 
-        _move = transform.right * x + transform.forward * z;
+        Vector3 right = transform.right * x;
+        Vector3 forward = transform.forward * z;
+        RaycastHit hit;
+        _move = Vector3.zero;
+        if (Physics.Raycast(CameraManager.I._MainCamera.transform.position + right * 0.5f, Vector3.down, out hit, 5, _groundMask))
+        {
+            float groundAngle = Vector3.Angle(Vector3.up, hit.normal);
+            if (groundAngle <= _controller.slopeLimit - 0.1f)
+                _move += right;
+            //_isMoveAllowed = groundAngle <= _controller.slopeLimit;
+        }
+        if (Physics.Raycast(CameraManager.I._MainCamera.transform.position + forward * 0.5f, Vector3.down, out hit, 5, _groundMask))
+        {
+            float groundAngle = Vector3.Angle(Vector3.up, hit.normal);
+            if (groundAngle <= _controller.slopeLimit - 0.1f)
+                _move += forward;
+            //_isMoveAllowed = groundAngle <= _controller.slopeLimit;
+        }
 
+        //_move = transform.right * x + transform.forward * z;
 
         float runMultiply = 1;
         if (IsRunning && AmbiantManager.I.IsUsableNow(GameManager.I._data.PlayerRunUsable))
@@ -176,7 +194,6 @@ public class PlayerMovement : BaseMonoBehaviour
 
             PlayerRunStamina = Mathf.Clamp(PlayerRunStamina, 0, GameManager.I._data.PlayerRunStaminaMax);
 
-            UIManager.I.ShowPlayerRunStamina(true);
             UIManager.I.SetRunStamina(PlayerRunStamina);
         }
     }

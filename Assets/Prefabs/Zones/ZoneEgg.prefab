@@ -24,6 +24,8 @@ MonoBehaviour:
   Dialogs: []
   Egg: {fileID: 0}
   Ray: {fileID: 3670039341459253438}
+  ColorIndex: 0
+  AllowActivate: 0
 --- !u!1 &3670039341459253438
 GameObject:
   m_ObjectHideFlags: 0
@@ -35,7 +37,6 @@ GameObject:
   - component: {fileID: 7062117775331752168}
   - component: {fileID: 8573995540828128061}
   - component: {fileID: 1964500875764153627}
-  - component: {fileID: 5560826062907717284}
   m_Layer: 11
   m_Name: Ray
   m_TagString: Untagged
@@ -51,8 +52,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3670039341459253438}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 25, y: 1000, z: 25}
+  m_LocalPosition: {x: 0, y: 1000, z: 0}
+  m_LocalScale: {x: 75, y: 1000, z: 75}
   m_Children: []
   m_Father: {fileID: 1210575905902104904}
   m_RootOrder: 1
@@ -103,20 +104,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &5560826062907717284
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3670039341459253438}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1001 &1900075645417006773
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -178,6 +165,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1202357022856976546, guid: ec7384ee67dab194196a9aca6817867c,
+        type: 3}
+      propertyPath: m_Radius
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5115865157762039468, guid: ec7384ee67dab194196a9aca6817867c,
         type: 3}
