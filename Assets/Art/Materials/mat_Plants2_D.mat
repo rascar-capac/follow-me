@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: mat_Plants2_D
-  m_Shader: {fileID: 4800000, guid: ecd06e3ee4cf2d84ba8461e14d1a7b8b, type: 3}
+  m_Shader: {fileID: 4800000, guid: d9260ff5349985d4ba6185d03fbe2ae7, type: 3}
   m_ShaderKeywords: _ALPHATEST_ON _NORMALMAP
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
@@ -23,12 +23,24 @@ Material:
         m_Texture: {fileID: 2800000, guid: 3ae1e58f764224f48a8a23a02d259a70, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _AmbientOcclusion:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _AmbientOcclusion1:
         m_Texture: {fileID: 2800000, guid: 51855dcef666d874884b314a421a0a74, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: 51855dcef666d874884b314a421a0a74, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Day_EmissiveTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Day_Texture:
+        m_Texture: {fileID: 2800000, guid: 3ae1e58f764224f48a8a23a02d259a70, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -59,6 +71,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Night_EmissiveTexture:
+        m_Texture: {fileID: 2800000, guid: d1b5cd8c1628ac0458eeb2e7b5b3071b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Night_Texture:
+        m_Texture: {fileID: 2800000, guid: fd59af3d609e85c45a245a815e81d4a1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Normal:
         m_Texture: {fileID: 2800000, guid: 51855dcef666d874884b314a421a0a74, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -83,6 +103,9 @@ Material:
     - _CameraNearFadeDistance: 1
     - _Cull: 0
     - _Cutoff: 0.5
+    - _DayNightAlbedo: 0
+    - _DayNightEmissive: 0
+    - _DayNightFresnel: 0
     - _DetailNormalMapScale: 1
     - _DistortionBlend: 0.5
     - _DistortionEnabled: 0
@@ -91,6 +114,9 @@ Material:
     - _DstBlend: 0
     - _EmissionEnabled: 0
     - _FlipbookMode: 0
+    - _Float0: 0
+    - _Float1: 1
+    - _Float2: 2
     - _FresnelBias: 0
     - _FresnelPower: 5
     - _FresnelScale: 0.99
@@ -104,6 +130,7 @@ Material:
     - _NoiseScale: 0.5
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _Smoothness: 0.2
     - _Smoothness1: 0.2
     - _SmoothnessTextureChannel: 0
     - _SoftParticlesEnabled: 0
@@ -124,7 +151,13 @@ Material:
     m_Colors:
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DayColor: {r: 1, g: 1, b: 1, a: 0}
+    - _Day_EmissiveColor: {r: 0, g: 0, b: 0, a: 0}
+    - _Day_FresnelColor: {r: 0.8226063, g: 1, b: 0.240566, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 0}
     - _FresnelColor: {r: 0.8226063, g: 1, b: 0.240566, a: 0}
+    - _NightColor: {r: 1, g: 1, b: 1, a: 0}
+    - _Night_EmissiveColor: {r: 1, g: 1, b: 1, a: 0}
+    - _Night_FresnelColor: {r: 0.3191082, g: 0.9391559, b: 0.9528302, a: 0}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
