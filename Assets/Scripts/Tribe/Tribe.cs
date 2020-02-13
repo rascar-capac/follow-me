@@ -456,7 +456,6 @@ public class Tribe : ZoneInteractable
         Vector3 initialPosition = transform.position;
         while (Vector3.Distance(transform.position, position) > 50f)
         {
-            Debug.Log(Vector3.Distance(transform.position, position));
             if (ChangeRotation)
                 RotateTowards(position);
             transform.position += transform.forward * speedMove * Time.deltaTime;//Vector3.MoveTowards(transform.position, position, speedMove * Time.deltaTime);
