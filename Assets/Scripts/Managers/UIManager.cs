@@ -27,8 +27,7 @@ public class UIManager : Singleton<UIManager>
 	public GameObject HudPanel;
 	[Header("Main Menu")]
 	public GameObject MainMenu;
-	//[Header("Tout les Panels du Menu (sauf MainMenu)")]
-	//public List<GameObject> MenuPanels;
+
 
 	[Header("HUD Components")]
     public Text _HudTribeDistanceText;
@@ -39,9 +38,19 @@ public class UIManager : Singleton<UIManager>
     public Text _HudTribeDocilityText;
 
 
-    //public Text _HudAlertMessageText;
-    //public Text _HudTribeSaysText;
-    //public Text _HudPlayerSaysText;
+
+	#endregion
+
+	#region Archives
+
+	#region References UI Prefabs
+
+	//[Header("Tout les Panels du Menu (sauf MainMenu)")]
+	//public List<GameObject> MenuPanels;
+
+	//public Text _HudAlertMessageText;
+	//public Text _HudTribeSaysText;
+	//public Text _HudPlayerSaysText;
 
 	//[Header("Inventory Prefabs")]
 	//public Transform _inventoryContent;
@@ -54,11 +63,10 @@ public class UIManager : Singleton<UIManager>
 	//public GameObject _questCellAsset;
 	//public GameObject PanelViewQuest;
 
-    //[Header("Tools Inventory gameobject")]
-    //public GameObject ToolsInventory;
-	#endregion
+	//[Header("Tools Inventory gameobject")]
+	//public GameObject ToolsInventory;
 
-	#region Archives
+	#endregion
 
 	//#region Quest Variables
 
@@ -288,13 +296,20 @@ public class UIManager : Singleton<UIManager>
 		Cursor.lockState = CursorLockMode.Locked;
 	}
 
+	#endregion
+
+
+	#region Archives
+
+	//#region Menu Functions
+
 	//public void OpenCloseMainMenu()
 	//{
 	//	if (MainMenu.activeSelf == false)
 	//	{
 	//		CameraMain.gameObject.SetActive(false);
 	//		CameraUI.gameObject.SetActive(true);
-	//		//OpenQuestPanel();
+	//		OpenQuestPanel();
 	//		_PlayerMovement.InGame = false;
 	//		_PlayerLook.AllowLook = false;
 	//	}
@@ -308,25 +323,27 @@ public class UIManager : Singleton<UIManager>
 	//		_PlayerLook.AllowLook = true;
 	//	}
 	//}
-	//   void OpenMenu(string MenuName, bool CloseOthers = true)
-	//   {
-	//       if (MainMenu == null || MenuPanels == null)
-	//           return;
+
+	//void OpenMenu(string MenuName, bool CloseOthers = true)
+	//{
+	//	if (MainMenu == null || MenuPanels == null)
+	//		return;
 
 	//	MainMenu.SetActive(true);
 	//	HudPanel.SetActive(false);
 
-	//       for (int i = 0; i < MenuPanels.Count; i++)
-	//       {
-	//           if (CloseOthers && MenuName != MenuPanels[i].name)
-	//               MenuPanels[i].SetActive(false);
-	//           if (MenuPanels[i].name == MenuName)
-	//               MenuPanels[i].SetActive(true);
-	//       }
+	//	for (int i = 0; i < MenuPanels.Count; i++)
+	//	{
+	//		if (CloseOthers && MenuName != MenuPanels[i].name)
+	//			MenuPanels[i].SetActive(false);
+	//		if (MenuPanels[i].name == MenuName)
+	//			MenuPanels[i].SetActive(true);
+	//	}
 
 	//	Cursor.visible = true;
 	//	Cursor.lockState = CursorLockMode.None;
 	//}
+
 	//void CloseMenu()
 	//{
 	//	if (MainMenu == null || MenuPanels == null)
@@ -338,9 +355,9 @@ public class UIManager : Singleton<UIManager>
 	//	for (int i = 0; i < MenuPanels.Count; i++)
 	//		MenuPanels[i].SetActive(false);
 
-	//	//CleanCellsInventory();
-	//	//CleanCellsQuest();
-	//	//ItemViewer.SetActive(false);
+	//	CleanCellsInventory();
+	//	CleanCellsQuest();
+	//	ItemViewer.SetActive(false);
 
 	//	Cursor.visible = false;
 	//	Cursor.lockState = CursorLockMode.Locked;
@@ -348,8 +365,8 @@ public class UIManager : Singleton<UIManager>
 
 	//public void OpenInventoryPanel()
 	//{
-	//       if (!AllowOpenInventory)
-	//           return;
+	//	if (!AllowOpenInventory)
+	//		return;
 
 	//	ItemViewer.SetActive(false);
 	//	OpenMenu("InventoryPanel");
@@ -369,23 +386,21 @@ public class UIManager : Singleton<UIManager>
 
 	//public void OpenToolsInventory(Hand hand)
 	//{
-	//    ToolsInventory.gameObject.SetActive(true);
-	//    ToolsInventory.transform.position = CameraManager.I._MainCamera.transform.position + CameraManager.I._MainCamera.transform.forward * 7f;
-	//    ToolsInventory.transform.rotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, -CameraManager.I._MainCamera.transform.forward);
-	//    ToolsInvetoryOpened = true;
-	//    onToolsInventoryOpenedEvent?.Invoke(hand);
+	//	ToolsInventory.gameObject.SetActive(true);
+	//	ToolsInventory.transform.position = CameraManager.I._MainCamera.transform.position + CameraManager.I._MainCamera.transform.forward * 7f;
+	//	ToolsInventory.transform.rotation = Quaternion.LookRotation(CameraManager.I._MainCamera.transform.up, -CameraManager.I._MainCamera.transform.forward);
+	//	ToolsInvetoryOpened = true;
+	//	onToolsInventoryOpenedEvent?.Invoke(hand);
 	//}
 	//public void CloseToolsInventory(Hand hand)
 	//{
-	//    onToolsInventoryClosedEvent?.Invoke(hand);
-	//    ToolsInventory.gameObject.SetActive(false);
-	//    ToolsInvetoryOpened = false;
+	//	onToolsInventoryClosedEvent?.Invoke(hand);
+	//	ToolsInventory.gameObject.SetActive(false);
+	//	ToolsInvetoryOpened = false;
 	//}
 
-	#endregion
+	//#endregion
 
-
-	#region Archives
 
 	//#region Quest Functions
 
