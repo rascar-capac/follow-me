@@ -17,12 +17,12 @@ public class SunDial : Item
     public override void Init()
     {
         base.Init();
-        UIManager.I.ShowTime(IsEnabled);
+        //UIManager.I.ShowTime(IsEnabled);
     }
 
     private void Update()
     {
-        if (IsEnabled && AmbiantManager.I.IsUsableNow(GameManager.I._data.SundialUsable))
-            UIManager.I.SetTimeOfDay();
+        //if (IsEnabled && AmbiantManager.I.IsUsableNow(GameManager.I._data.SundialUsable))
+        //    UIManager.I.SetTimeOfDay();
     }
 }

@@ -43,7 +43,7 @@ public class Item : BaseMonoBehaviour
             Instantiate(_itemData._itemActivatedPrefab, transform.parent);
             Destroy(this.gameObject);
         }
-        UIManager.I.AlertMessage($"{_itemData.Name} has been activated...");
+        //UIManager.I.AlertMessage($"{_itemData.Name} has been activated...");
     }
 
 }

@@ -166,7 +166,7 @@ public class PlayerInventory : BaseMonoBehaviour
 			Inventory.Add(it._itemData);
 
 		onItemPickedUp.Invoke(it);
-        UIManager.I.AlertMessage(it._itemData.Description, WhoTalks: MessageOrigin.Player);
+        //UIManager.I.AlertMessage(it._itemData.Description, WhoTalks: MessageOrigin.Player);
 
         Destroy(it.gameObject);
 	}
@@ -245,19 +245,19 @@ public class PlayerInventory : BaseMonoBehaviour
 	{
         if (GameManager.I._data.BeaconPlacementCount > 0 && player.PlacedBeacon.Count >= GameManager.I._data.BeaconPlacementCount)
         {
-            UIManager.I.AlertMessage("The maximum beacon count has been reached.");
+            //UIManager.I.AlertMessage("The maximum beacon count has been reached.");
             return;
         }
 
         if (!AmbiantManager.I.IsUsableNow(GameManager.I._data.BeaconPlacerUsable))
         {
-            UIManager.I.AlertMessage("Unable to place beacon now.");
+            //UIManager.I.AlertMessage("Unable to place beacon now.");
             return;
         }
 
         if (playerMovement.IsTooFar)
         {
-            UIManager.I.AlertMessage("You are too far from tribe.");
+            //UIManager.I.AlertMessage("You are too far from tribe.");
             return;
         }
 

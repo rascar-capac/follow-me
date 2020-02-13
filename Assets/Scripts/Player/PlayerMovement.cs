@@ -175,7 +175,7 @@ public class PlayerMovement : BaseMonoBehaviour
 
 		if (TribeDistance > _MinDistForTribeAcceleration)
 			onPlayerHasMoved.Invoke(transform.position);
-        UIManager.I.SetTribeDistance();
+        //UIManager.I.SetTribeDistance();
     }
 
     void ResetSpeed()
@@ -194,7 +194,7 @@ public class PlayerMovement : BaseMonoBehaviour
 
             PlayerRunStamina = Mathf.Clamp(PlayerRunStamina, 0, GameManager.I._data.PlayerRunStaminaMax);
 
-            UIManager.I.SetRunStamina(PlayerRunStamina);
+            //UIManager.I.SetRunStamina(PlayerRunStamina);
         }
     }
 

@@ -17,18 +17,18 @@ public class TribeDistanceMeter : Item
     public override void Init()
     {
         base.Init();
-        UIManager.I.ShowTribeDistance(IsEnabled);
+        //UIManager.I.ShowTribeDistance(IsEnabled);
     }
 
     private void Update()
     {
         //if (IsEnabled && AmbiantManager.I.IsUsableNow(GameManager.I._data.TribeDistanceMeterUsable))
-        UIManager.I.SetTribeDistance();
+        //UIManager.I.SetTribeDistance();
     }
 
     private void OnDestroy()
     {
-        if (UIManager.I)
-            UIManager.I.ShowTribeDistance(false);
+        //if (UIManager.I)
+        //    UIManager.I.ShowTribeDistance(false);
     }
 }

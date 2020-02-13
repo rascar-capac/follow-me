@@ -44,11 +44,11 @@ public class Zone : BaseMonoBehaviour
             other.gameObject.GetComponent<ZoneInteractable>().EnterZone(this);
             if (Dialogs != null && other.gameObject.GetComponent<ZoneInteractable>() is Player)
             {
-                foreach (TribePlayerDialog dialog in Dialogs)
-                {
-                    UIManager.I.AlertMessage(dialog.Message, WhoTalks: dialog.Who);
-                }
-            }
+				foreach (TribePlayerDialog dialog in Dialogs)
+				{
+					//UIManager.I.AlertMessage(dialog.Message, WhoTalks: dialog.Who);
+				}
+			}
         }
     }
 

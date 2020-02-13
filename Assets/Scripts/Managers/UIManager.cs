@@ -28,17 +28,6 @@ public class UIManager : Singleton<UIManager>
 	[Header("Main Menu")]
 	public GameObject MainMenu;
 
-
-	[Header("HUD Components")]
-    public Text _HudTribeDistanceText;
-    public Text _HudTribeEnergyText;
-    public Text _HudCurrentTimeText;
-    public Text _HudPlayerEnergyText;
-    public Text _HudPlayerRunStaminaText;
-    public Text _HudTribeDocilityText;
-
-
-
 	#endregion
 
 	#region Archives
@@ -47,6 +36,14 @@ public class UIManager : Singleton<UIManager>
 
 	//[Header("Tout les Panels du Menu (sauf MainMenu)")]
 	//public List<GameObject> MenuPanels;
+
+	//[Header("HUD Components")]
+	//   public Text _HudTribeDistanceText;
+	//   public Text _HudTribeEnergyText;
+	//   public Text _HudCurrentTimeText;
+	//   public Text _HudPlayerEnergyText;
+	//   public Text _HudPlayerRunStaminaText;
+	//   public Text _HudTribeDocilityText;
 
 	//public Text _HudAlertMessageText;
 	//public Text _HudTribeSaysText;
@@ -67,15 +64,12 @@ public class UIManager : Singleton<UIManager>
 	//public GameObject ToolsInventory;
 
 	#endregion
-
-	//#region Quest Variables
+	#region Quest Variables
 
 	//List<GameObject> _QuestCellList = new List<GameObject>();
 
-	//#endregion
-
-
-	//#region Inventory Variables
+	#endregion
+	#region Inventory Variables
 
 	//List<GameObject> _InventoryCellList = new List<GameObject>();
 	//   public ToolsInventoryEvent onToolsInventoryOpenedEvent = new ToolsInventoryEvent();
@@ -83,14 +77,11 @@ public class UIManager : Singleton<UIManager>
 	//   public bool ToolsInvetoryOpened = false;
 	//   bool AllowOpenInventory = true;
 
-	//#endregion
+	#endregion
 
 	#endregion
 
 	Hand CurrentOpenedHand;
-
-
-    #region start, update, awake...
 
     protected override void Start()
 	{
@@ -102,163 +93,55 @@ public class UIManager : Singleton<UIManager>
 		_PlayerLook = _Player.transform.GetChild(0).GetComponent<PlayerLook>();
 		_Tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
 
-		_Tribe.onTribeEnergyEnterCritical.AddListener(AlertTribeEnergyCritical);
 		InputManager.I.onUIOptionsKeyPressed.AddListener(OpenCloseMainMenu);
+
+        CloseMenu();
+
+
+		#region Archives
+
+		//_Tribe.onTribeEnergyEnterCritical.AddListener(AlertTribeEnergyCritical);
 
 		#region Messages System
 
-		Callbacks = new List<System.Action>();
-        Messages[(int)MessageOrigin.System] = new List<Message>();
-        MessageText[(int)MessageOrigin.System].gameObject.SetActive(false);
-        Callbacks.Add(DisableMessageSystem);
+		//Callbacks = new List<System.Action>();
+		//      Messages[(int)MessageOrigin.System] = new List<Message>();
+		//      MessageText[(int)MessageOrigin.System].gameObject.SetActive(false);
+		//      Callbacks.Add(DisableMessageSystem);
 
-        Messages[(int)MessageOrigin.Tribe] = new List<Message>();
-        MessageText[(int)MessageOrigin.Tribe].gameObject.SetActive(false);
-        Callbacks.Add(DisableMessageTribe);
+		//      Messages[(int)MessageOrigin.Tribe] = new List<Message>();
+		//      MessageText[(int)MessageOrigin.Tribe].gameObject.SetActive(false);
+		//      Callbacks.Add(DisableMessageTribe);
 
-        Messages[(int)MessageOrigin.Player] = new List<Message>();
-        MessageText[(int)MessageOrigin.Player].gameObject.SetActive(false);
-        Callbacks.Add(DisableMessagePlayer);
+		//      Messages[(int)MessageOrigin.Player] = new List<Message>();
+		//      MessageText[(int)MessageOrigin.Player].gameObject.SetActive(false);
+		//      Callbacks.Add(DisableMessagePlayer);
 
 		#endregion
 
 		#region Hud Messages
 
-		ShowTime(false);
-        ShowPlayerEnergy(false);
-        ShowTribeDistance(false);
-        ShowPlayerRunStamina(false);
-        ShowTribeDocility(false);
-        ShowTribeEnergy(false);
-        ShowPlayerRunStamina(false);
-        #endregion
+		//ShowTime(false);
+		//      ShowPlayerEnergy(false);
+		//      ShowTribeDistance(false);
+		//      ShowPlayerRunStamina(false);
+		//      ShowTribeDocility(false);
+		//      ShowTribeEnergy(false);
+		//      ShowPlayerRunStamina(false);
 
-        CloseMenu();
+		#endregion
 
 		//InputManager.I.onUIOpenCloseInventoryKeyPressed.AddListener(OpenCloseMainMenu);
-        //InputManager.I.onLeftHandOpenToolInventory.AddListener(() => { OpenToolsInventory(Hand.Left); }) ;
-        //InputManager.I.onLeftHandCloseToolInventory.AddListener(() => { CloseToolsInventory(Hand.Left); });
-        //InputManager.I.onRightHandOpenToolInventory.AddListener(() => { OpenToolsInventory(Hand.Right); });
-        //InputManager.I.onRightHandCloseToolInventory.AddListener(() => { CloseToolsInventory(Hand.Right); });
+		//InputManager.I.onLeftHandOpenToolInventory.AddListener(() => { OpenToolsInventory(Hand.Left); }) ;
+		//InputManager.I.onLeftHandCloseToolInventory.AddListener(() => { CloseToolsInventory(Hand.Left); });
+		//InputManager.I.onRightHandOpenToolInventory.AddListener(() => { OpenToolsInventory(Hand.Right); });
+		//InputManager.I.onRightHandCloseToolInventory.AddListener(() => { CloseToolsInventory(Hand.Right); });
 
-        //onToolsInventoryOpenedEvent.AddListener((hand) => { AllowOpenInventory = false; });
-        //onToolsInventoryClosedEvent.AddListener((hand) => { AllowOpenInventory = true; });
+		//onToolsInventoryOpenedEvent.AddListener((hand) => { AllowOpenInventory = false; });
+		//onToolsInventoryClosedEvent.AddListener((hand) => { AllowOpenInventory = true; });
+
+		#endregion
 	}
-
-    #endregion
-
-
-    #region Hud Functions
-
-    public void ShowTime(bool show)
-    {
-        _HudCurrentTimeText.gameObject.SetActive(show);
-    }
-    public void ShowPlayerEnergy(bool show)
-    {
-        _HudPlayerEnergyText.gameObject.SetActive(show);
-    }
-    public void ShowPlayerRunStamina(bool show)
-    {
-        _HudPlayerRunStaminaText.gameObject.SetActive(show);
-    }
-    public void ShowTribeEnergy(bool show)
-    {
-        _HudTribeEnergyText.gameObject.SetActive(show);
-    }
-    public void ShowTribeDistance(bool show)
-    {
-        _HudTribeDistanceText.gameObject.SetActive(show);
-    }
-    public void ShowTribeDocility(bool show)
-    {
-        _HudTribeDocilityText.gameObject.SetActive(show);
-    }
-
-    public void SetTimeOfDay()
-    {
-        float hour = SkyboxDayNightCycle.Instance.TimeOfDay / 100 * 24; 
-        _HudCurrentTimeText.text = $"Current time " + Mathf.Round(hour) + " h (" + AmbiantManager.I.currentStateOfDay.ToString() + ")";
-    }
-	public void SetPlayerEnergy()
-	{
-	    _HudPlayerEnergyText.text = $"Player Energy " + Mathf.Floor(_Player.Energy);
-	}
-    public void SetRunStamina(float runStamina)
-    {
-        _HudPlayerRunStaminaText.text = $"Run Stamina " + Mathf.Floor(runStamina);
-    }
-	public void SetTribeEnergy()
-    {
-	    _HudTribeEnergyText.text = $"Glaucus Energy " + Mathf.Floor(_Tribe.Energy);
-    }
-    public void SetTribeDistance()
-    {
-        _HudTribeDistanceText.text = $"Tribe distance " + Mathf.Floor(_PlayerMovement.TribeDistance) + " m";
-        if (_PlayerMovement.IsTooFar)
-            _HudTribeDistanceText.text += " - Too far.";
-    }
-    public void SetTribeDocility(bool isIgnoring)
-    {
-        if(isIgnoring)
-        {
-            _HudTribeDocilityText.text = "Glaucus is ignoring you";
-        }
-        else
-        {
-            _HudTribeDocilityText.text = "";
-        }
-    }
-
-	public void AlertTribeEnergyCritical()
-	{
-		AlertMessage("Danger : Tribe energy is critical.", 3f);
-	}
-
-	List<Message>[] Messages = new List<Message>[3];
-    List<System.Action> Callbacks = new List<System.Action>();
-    [Header("0 : System, 1 : Tribe, 2 : Player")]
-    public Text[] MessageText;
-
-    public void AlertMessage(string message, float duration = 3f, MessageOrigin WhoTalks = MessageOrigin.System)
-    {
-
-        Message m = new Message() { Text = message, Duration = duration, Origin = WhoTalks };
-        Messages[(int)WhoTalks].Add(m);
-        if (MessageText[(int)WhoTalks].gameObject.activeSelf)
-            return;
-        AlertMessageShow(WhoTalks);
-    }
-    void AlertMessageShow(MessageOrigin WhoTalks = MessageOrigin.System)
-    {
-        Message m = Messages[(int)WhoTalks][0];
-        Messages[(int)WhoTalks].RemoveAt(0);
-        MessageText[(int)WhoTalks].text = m.Text;
-        MessageText[(int)WhoTalks].gameObject.SetActive(true);
-        StartChrono(m.Duration, Callbacks[(int)WhoTalks]);
-    }
-
-    void DisableMessageSystem()
-    {
-        MessageText[(int)MessageOrigin.System].gameObject.SetActive(false);
-        if (Messages[(int)MessageOrigin.System].Count > 0)
-            AlertMessageShow(MessageOrigin.System);
-    }
-    void DisableMessageTribe()
-    {
-        MessageText[(int)MessageOrigin.Tribe].gameObject.SetActive(false);
-        if (Messages[(int)MessageOrigin.Tribe].Count > 0)
-            AlertMessageShow(MessageOrigin.Tribe);
-    }
-    void DisableMessagePlayer()
-    {
-        MessageText[(int)MessageOrigin.Player].gameObject.SetActive(false);
-        if (Messages[(int)MessageOrigin.Player].Count > 0)
-            AlertMessageShow(MessageOrigin.Player);
-    }
-
-	#endregion
-
 
 	#region Menu Functions
 
@@ -301,7 +184,117 @@ public class UIManager : Singleton<UIManager>
 
 	#region Archives
 
-	//#region Menu Functions
+    #region Hud Functions
+
+ //   public void ShowTime(bool show)
+ //   {
+ //       _HudCurrentTimeText.gameObject.SetActive(show);
+ //   }
+ //   public void ShowPlayerEnergy(bool show)
+ //   {
+ //       _HudPlayerEnergyText.gameObject.SetActive(show);
+ //   }
+ //   public void ShowPlayerRunStamina(bool show)
+ //   {
+ //       _HudPlayerRunStaminaText.gameObject.SetActive(show);
+ //   }
+ //   public void ShowTribeEnergy(bool show)
+ //   {
+ //       _HudTribeEnergyText.gameObject.SetActive(show);
+ //   }
+ //   public void ShowTribeDistance(bool show)
+ //   {
+ //       _HudTribeDistanceText.gameObject.SetActive(show);
+ //   }
+ //   public void ShowTribeDocility(bool show)
+ //   {
+ //       _HudTribeDocilityText.gameObject.SetActive(show);
+ //   }
+
+ //   public void SetTimeOfDay()
+ //   {
+ //       float hour = SkyboxDayNightCycle.Instance.TimeOfDay / 100 * 24; 
+ //       _HudCurrentTimeText.text = $"Current time " + Mathf.Round(hour) + " h (" + AmbiantManager.I.currentStateOfDay.ToString() + ")";
+ //   }
+	//public void SetPlayerEnergy()
+	//{
+	//    _HudPlayerEnergyText.text = $"Player Energy " + Mathf.Floor(_Player.Energy);
+	//}
+ //   public void SetRunStamina(float runStamina)
+ //   {
+ //       _HudPlayerRunStaminaText.text = $"Run Stamina " + Mathf.Floor(runStamina);
+ //   }
+	//public void SetTribeEnergy()
+ //   {
+	//    _HudTribeEnergyText.text = $"Glaucus Energy " + Mathf.Floor(_Tribe.Energy);
+ //   }
+ //   public void SetTribeDistance()
+ //   {
+ //       _HudTribeDistanceText.text = $"Tribe distance " + Mathf.Floor(_PlayerMovement.TribeDistance) + " m";
+ //       if (_PlayerMovement.IsTooFar)
+ //           _HudTribeDistanceText.text += " - Too far.";
+ //   }
+ //   public void SetTribeDocility(bool isIgnoring)
+ //   {
+ //       if(isIgnoring)
+ //       {
+ //           _HudTribeDocilityText.text = "Glaucus is ignoring you";
+ //       }
+ //       else
+ //       {
+ //           _HudTribeDocilityText.text = "";
+ //       }
+ //   }
+
+	//public void AlertTribeEnergyCritical()
+	//{
+	//	AlertMessage("Danger : Tribe energy is critical.", 3f);
+	//}
+
+	//List<Message>[] Messages = new List<Message>[3];
+ //   List<System.Action> Callbacks = new List<System.Action>();
+ //   [Header("0 : System, 1 : Tribe, 2 : Player")]
+ //   public Text[] MessageText;
+
+ //   public void AlertMessage(string message, float duration = 3f, MessageOrigin WhoTalks = MessageOrigin.System)
+ //   {
+
+ //       Message m = new Message() { Text = message, Duration = duration, Origin = WhoTalks };
+ //       Messages[(int)WhoTalks].Add(m);
+ //       if (MessageText[(int)WhoTalks].gameObject.activeSelf)
+ //           return;
+ //       AlertMessageShow(WhoTalks);
+ //   }
+ //   void AlertMessageShow(MessageOrigin WhoTalks = MessageOrigin.System)
+ //   {
+ //       Message m = Messages[(int)WhoTalks][0];
+ //       Messages[(int)WhoTalks].RemoveAt(0);
+ //       MessageText[(int)WhoTalks].text = m.Text;
+ //       MessageText[(int)WhoTalks].gameObject.SetActive(true);
+ //       StartChrono(m.Duration, Callbacks[(int)WhoTalks]);
+ //   }
+
+ //   void DisableMessageSystem()
+ //   {
+ //       MessageText[(int)MessageOrigin.System].gameObject.SetActive(false);
+ //       if (Messages[(int)MessageOrigin.System].Count > 0)
+ //           AlertMessageShow(MessageOrigin.System);
+ //   }
+ //   void DisableMessageTribe()
+ //   {
+ //       MessageText[(int)MessageOrigin.Tribe].gameObject.SetActive(false);
+ //       if (Messages[(int)MessageOrigin.Tribe].Count > 0)
+ //           AlertMessageShow(MessageOrigin.Tribe);
+ //   }
+ //   void DisableMessagePlayer()
+ //   {
+ //       MessageText[(int)MessageOrigin.Player].gameObject.SetActive(false);
+ //       if (Messages[(int)MessageOrigin.Player].Count > 0)
+ //           AlertMessageShow(MessageOrigin.Player);
+ //   }
+
+	#endregion
+	#region Menu Functions
 
 	//public void OpenCloseMainMenu()
 	//{
@@ -399,10 +392,8 @@ public class UIManager : Singleton<UIManager>
 	//	ToolsInvetoryOpened = false;
 	//}
 
-	//#endregion
-
-
-	//#region Quest Functions
+	#endregion
+	#region Quest Functions
 
 	//void GenerateCellsQuest()
 	//{
@@ -438,10 +429,8 @@ public class UIManager : Singleton<UIManager>
 	//	PanelViewQuest.SetActive(false);
 	//}
 
-	//#endregion
-
-
-	//   #region Inventory Functions
+	#endregion
+	#region Inventory Functions
 
 	//   void GenerateCellsInventory()
 	//{
@@ -477,7 +466,7 @@ public class UIManager : Singleton<UIManager>
 	//	PanelViewInventory.SetActive(false);
 	//}
 
-	//#endregion
+	#endregion
 
 	#endregion
 }

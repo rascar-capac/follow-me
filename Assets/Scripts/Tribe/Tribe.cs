@@ -130,7 +130,7 @@ public class Tribe : ZoneInteractable
 		EnergyCritical();
 
 		// à changer quand l’énergie du convoi sera affichée autrement que par du texte
-		UIManager.I.SetTribeEnergy();
+		//UIManager.I.SetTribeEnergy();
 
         //// Acceleration and deceleration controls of Tribe
         //if (_TribeNavAgent.hasPath)

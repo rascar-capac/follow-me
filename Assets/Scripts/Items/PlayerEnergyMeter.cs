@@ -17,18 +17,18 @@ public class PlayerEnergyMeter : Item
     public override void Init()
     {
         base.Init();
-        UIManager.I.ShowPlayerEnergy(IsEnabled);
+		//UIManager.I.ShowPlayerEnergy(IsEnabled);
     }
 
-    private void Update()
-    {
-        if (IsEnabled && AmbiantManager.I.IsUsableNow(GameManager.I._data.PlayerEnergyMeterUsable))
-            UIManager.I.SetPlayerEnergy();
-    }
+	private void Update()
+	{
+		//if (IsEnabled && AmbiantManager.I.IsUsableNow(GameManager.I._data.PlayerEnergyMeterUsable))
+		//	UIManager.I.SetPlayerEnergy();
+	}
 
-    private void OnDestroy()
-    {
-        if (UIManager.I)
-            UIManager.I.ShowPlayerEnergy(false);
-    }
+	private void OnDestroy()
+	{
+		//if (UIManager.I)
+		//	UIManager.I.ShowPlayerEnergy(false);
+	}
 }

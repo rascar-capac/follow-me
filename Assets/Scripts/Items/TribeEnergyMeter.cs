@@ -16,18 +16,18 @@ public class TribeEnergyMeter : Item
     public override void Init()
     {
         base.Init();
-        UIManager.I.ShowTribeEnergy(IsEnabled);
+        //UIManager.I.ShowTribeEnergy(IsEnabled);
     }
 
     private void Update()
     {
-        if (IsEnabled && AmbiantManager.I.IsUsableNow(GameManager.I._data.TribeEnergyMeterUsable))
-            UIManager.I.SetTribeEnergy();
+        //if (IsEnabled && AmbiantManager.I.IsUsableNow(GameManager.I._data.TribeEnergyMeterUsable))
+        //    UIManager.I.SetTribeEnergy();
     }
 
     private void OnDestroy()
     {
-        if (UIManager.I)
-            UIManager.I.ShowTribeEnergy(false);
+        //if (UIManager.I)
+        //    UIManager.I.ShowTribeEnergy(false);
     }
 }
