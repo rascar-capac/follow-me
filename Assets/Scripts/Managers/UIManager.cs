@@ -8,8 +8,8 @@ using Borodar.FarlandSkies.LowPoly;
 public class ToolsInventoryEvent : UnityEvent<Hand> { }
 public class UIManager : Singleton<UIManager>
 {
-	public Camera CameraMain;
-	public Camera CameraUI;
+	//public Camera CameraMain;
+	//public Camera CameraUI;
 
     #region References Player
     Player _Player;
@@ -92,24 +92,10 @@ public class UIManager : Singleton<UIManager>
 		_PlayerMovement = _Player.GetComponent<PlayerMovement>();
 		_PlayerInventory = _Player.GetComponent<PlayerInventory>();
 		_PlayerLook = _Player.transform.GetChild(0).GetComponent<PlayerLook>();
-
 		_Tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
 
-		#region Event Listeners
-
 		_Tribe.onTribeEnergyEnterCritical.AddListener(AlertTribeEnergyCritical);
-
 		InputManager.I.onUIOptionsKeyPressed.AddListener(OpenCloseMainMenu);
-		//InputManager.I.onUIOpenCloseInventoryKeyPressed.AddListener(OpenCloseMainMenu);
-        //InputManager.I.onLeftHandOpenToolInventory.AddListener(() => { OpenToolsInventory(Hand.Left); }) ;
-        //InputManager.I.onLeftHandCloseToolInventory.AddListener(() => { CloseToolsInventory(Hand.Left); });
-        //InputManager.I.onRightHandOpenToolInventory.AddListener(() => { OpenToolsInventory(Hand.Right); });
-        //InputManager.I.onRightHandCloseToolInventory.AddListener(() => { CloseToolsInventory(Hand.Right); });
-
-        //onToolsInventoryOpenedEvent.AddListener((hand) => { AllowOpenInventory = false; });
-        //onToolsInventoryClosedEvent.AddListener((hand) => { AllowOpenInventory = true; });
-
-		#endregion
 
 		#region Messages System
 
@@ -140,8 +126,19 @@ public class UIManager : Singleton<UIManager>
         #endregion
 
         CloseMenu();
+
+		//InputManager.I.onUIOpenCloseInventoryKeyPressed.AddListener(OpenCloseMainMenu);
+        //InputManager.I.onLeftHandOpenToolInventory.AddListener(() => { OpenToolsInventory(Hand.Left); }) ;
+        //InputManager.I.onLeftHandCloseToolInventory.AddListener(() => { CloseToolsInventory(Hand.Left); });
+        //InputManager.I.onRightHandOpenToolInventory.AddListener(() => { OpenToolsInventory(Hand.Right); });
+        //InputManager.I.onRightHandCloseToolInventory.AddListener(() => { CloseToolsInventory(Hand.Right); });
+
+        //onToolsInventoryOpenedEvent.AddListener((hand) => { AllowOpenInventory = false; });
+        //onToolsInventoryClosedEvent.AddListener((hand) => { AllowOpenInventory = true; });
 	}
+
     #endregion
+
 
     #region Hud Functions
 
@@ -254,6 +251,7 @@ public class UIManager : Singleton<UIManager>
 
 	#endregion
 
+
 	#region Menu Functions
 
 	public void OpenCloseMainMenu()
@@ -270,6 +268,10 @@ public class UIManager : Singleton<UIManager>
 	void OpenMenu()
 	{
 		MainMenu.SetActive(true);
+		HudPanel.SetActive(false);
+
+		_PlayerMovement.InGame = false;
+		_PlayerLook.AllowLook = false;
 
 		Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
@@ -277,6 +279,10 @@ public class UIManager : Singleton<UIManager>
 	void CloseMenu()
 	{
 		MainMenu.SetActive(false);
+		HudPanel.SetActive(false);
+
+		_PlayerMovement.InGame = true;
+		_PlayerLook.AllowLook = true;
 
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
@@ -460,13 +466,13 @@ public class UIManager : Singleton<UIManager>
 
 	#endregion
 }
+
 public struct Message
 {
     public string Text;
     public float Duration;
     public MessageOrigin Origin;
 }
-
 public enum MessageOrigin
 {
     System,

@@ -11,15 +11,16 @@ public struct EventToggle
 }
 public class InputManager : Singleton<InputManager>
 {
-
-	[Header("Key for open Tribe Menu")]
-	public KeyCode UITribeKey = KeyCode.T;
-	[Header("Key for open Quest Menu")]
-	public KeyCode UIQuestKey = KeyCode.O;
-	[Header("Key for open Map Menu")]
-	public KeyCode UIMapKey = KeyCode.M;
 	[Header("Key for open Options Menu")]
 	public KeyCode UIOptionsKey = KeyCode.F1;
+	public UnityEvent onUIOptionsKeyPressed = new UnityEvent();
+
+	//[Header("Key for open Tribe Menu")]
+	//public KeyCode UITribeKey = KeyCode.T;
+	//[Header("Key for open Quest Menu")]
+	//public KeyCode UIQuestKey = KeyCode.O;
+	//[Header("Key for open Map Menu")]
+	//public KeyCode UIMapKey = KeyCode.M;
 
 	// Main Events
 
@@ -31,7 +32,6 @@ public class InputManager : Singleton<InputManager>
 	//public UnityEvent onUITribeKeyPressed = new UnityEvent();
 	//public UnityEvent onUIQuestKeyPressed = new UnityEvent();
 	//public UnityEvent onUIMapKeyPressed = new UnityEvent();
-	public UnityEvent onUIOptionsKeyPressed = new UnityEvent();
 
 	float lastLTRT = 0;
 
@@ -163,14 +163,15 @@ public class InputManager : Singleton<InputManager>
                 pair.Value.Released.ForEach(e => e.Invoke());
         }
 
+		if (Input.GetKeyDown(UIOptionsKey))
+			onUIOptionsKeyPressed?.Invoke();
+
 		//if (Input.GetKeyDown(UITribeKey))
 		//	onUITribeKeyPressed?.Invoke();
 		//if (Input.GetKeyDown(UIQuestKey))
 		//	onUIQuestKeyPressed?.Invoke();
 		//if (Input.GetKeyDown(UIMapKey))
 		//	onUIMapKeyPressed?.Invoke();
-		if (Input.GetKeyDown(UIOptionsKey))
-			onUIOptionsKeyPressed?.Invoke();
 	}
 }
 
