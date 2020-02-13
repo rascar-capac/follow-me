@@ -103,6 +103,7 @@ public class Tribe : ZoneInteractable
 		//InputManager.I.onTribeOrderKeyPressed.AddListener(SwitchModeFollowAndWait);
         _PlayerInventory.onItemActivated.AddListener(AddItemActivationBonus);
         AmbiantManager.I.onDayStateChanged.AddListener(AddNewDayBonus);
+        AmbiantManager.I.onTimePhaseChanged.AddListener(ChangeColor);
         _PlayerMovement.onPlayerTooFarFromTribe.AddListener(AddTooFarMalus);
 
         DocilityScore = GameManager.I._data.InitialDocilityScore;
@@ -199,6 +200,13 @@ public class Tribe : ZoneInteractable
         }
     }
 
+    public void ChangeColor(int phaseIndex)
+    {
+        Color emissionColor = GameManager.I._data.Phases[phaseIndex].color;
+        Debug.Log(emissionColor.ToString());
+        ChangeEmissive(emissionColor);
+    }
+
     #region Tribe behaviour
     /* Glaucus Actions
     1. Move from A to B
@@ -279,7 +287,7 @@ public class Tribe : ZoneInteractable
     }
     public IEnumerator Live()
     {
-       
+
         SetMode(TribeEmotionMode.Normal);
 
 
@@ -299,7 +307,7 @@ public class Tribe : ZoneInteractable
     }
     public IEnumerator Happy()
     {
-        
+
         SetMode(TribeEmotionMode.Happy);
 
 
@@ -362,7 +370,7 @@ public class Tribe : ZoneInteractable
                 break;
         }
     }
-    
+
     // Pause current random movement
     public void PauseRandom(bool pause = false, bool StopCoroutines = false)
     {
@@ -401,7 +409,7 @@ public class Tribe : ZoneInteractable
         yield return StartCoroutine(GoingToPosition(position, WaitAndComeBackSeconds, true));
     }
 
-    // Technical Methods 
+    // Technical Methods
     public IEnumerable RotatingAround(Transform t, float duration = 0f, float speedMove = 0)
     {
         speedMove = speedMove == 0 ? speed : speedMove;
@@ -749,7 +757,7 @@ public class Tribe : ZoneInteractable
 	{
 		//_TribeNavAgent.speed = GameManager.I._data.TribeProperties.MaxSpeed;
 		//_TribeNavAgent.angularSpeed = GameManager.I._data.TribeProperties.MaxAngularSpeed;
-        
+
 	}
 
 	void TribeInCriticalSpeed()

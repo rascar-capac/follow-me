@@ -19,7 +19,7 @@ public class ZoneEgg : Zone
         player.onZoneEnter.AddListener(EnteredZone);
         player.onZoneExit.AddListener(ExitedZone);
         tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
-        Ray.GetComponent<Renderer>().material.SetColor("_Color", GameManager.I._data.PhasesColors[ColorIndex]);
+        Ray.GetComponent<Renderer>().material.SetColor("_Color", GameManager.I._data.Phases[ColorIndex].color);
     }
 
     public void EnteredZone(ZoneInteractable who, Zone zone)
