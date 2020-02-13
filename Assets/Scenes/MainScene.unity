@@ -37,8 +37,8 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_Sun: {fileID: 1676529212}
+  m_IndirectSpecularColor: {r: 0.46727943, g: 0.34817278, b: 0.5439179, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -51,7 +51,7 @@ LightmapSettings:
     m_IndirectOutputScale: 1
     m_AlbedoBoost: 1
     m_EnvironmentLightingMode: 0
-    m_EnableBakedLightmaps: 1
+    m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
     serializedVersion: 12
@@ -96,7 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
-  m_LightingDataAsset: {fileID: 112000000, guid: f1b35bb648f921944ba4fc42a4b45e1c,
+  m_LightingDataAsset: {fileID: 112000000, guid: 7ee9327f7110d904ca9b96dba7fa5635,
     type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -16673,6 +16673,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
+--- !u!108 &1676529212 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 10897626, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf,
+    type: 3}
+  m_PrefabInstance: {fileID: 1676529211}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1686927595
 PrefabInstance:
   m_ObjectHideFlags: 0
