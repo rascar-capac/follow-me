@@ -17,21 +17,8 @@ public class AmbiantManager : Singleton<AmbiantManager>
     protected override void Start()
     {
         base.Start();
-        //Fog = (GameObject)ObjectsManager.I["Fog"];
-        //FogParticles = Fog.GetComponentInChildren<ParticleSystem>();
-        //Fog.SetActive(false);
-        //FogZone = Fog.GetComponentInChildren<Zone>();
         Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
         Terrain = (GameObject)ObjectsManager.I["Terrain"];
-        //onDayStateHasChanged.AddListener(ChangeMaterial);
-  //      InitDaysStates();
-  //      ChangeDayState();
-
-        //ResetLastHour(CurrentDayState, NextDayState);
-        //onDayStateChanged.AddListener(ResetLastHour);
-        //onDayStateChanged.AddListener(ChangeMaterial);
-
-        //StartChrono(GameManager.I._data.MinimumTimeBetweenFog, StartFog);
     }
 
     public DayState currentStateOfDay = DayState.Day;
@@ -56,7 +43,6 @@ public class AmbiantManager : Singleton<AmbiantManager>
         SkyboxController.Instance.CloudsRotation = 360 * SkyboxDayNightCycle.Instance.TimeOfDay / 100;
         if (MaterialReference)
         {
-
             MaterialReference.SetFloat("_DayNightEmissive", SkyboxDayNightCycle.Instance.TimeOfDay / 100);
             MaterialReference.SetFloat("_DayNightFresnel", SkyboxDayNightCycle.Instance.TimeOfDay / 100);
             MaterialReference.SetFloat("_DayNightAlbedo", SkyboxDayNightCycle.Instance.TimeOfDay / 100);

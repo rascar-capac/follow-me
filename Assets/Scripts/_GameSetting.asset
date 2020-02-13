@@ -82,6 +82,12 @@ MonoBehaviour:
     SpontaneityProbability: 0.05
   SpontaneityCheckTimerMinDuration: 30
   SpontaneityCheckTimerMaxDuration: 60
+  PhasesColors:
+  - {r: 0.21867211, g: 0.5631644, b: 0.735849, a: 0.48235294}
+  - {r: 0.28324133, g: 0.6320754, b: 0.3338489, a: 0.59607846}
+  - {r: 0.6886792, g: 0.46035597, b: 0.21764861, a: 0.6627451}
+  - {r: 0.6698113, g: 0.6617484, b: 0.23696156, a: 0.6509804}
+  - {r: 0.54840225, g: 0.25013348, b: 0.7264151, a: 0.60784316}
   States:
   - State: 0
     DayStateDurationInSecond: 120
