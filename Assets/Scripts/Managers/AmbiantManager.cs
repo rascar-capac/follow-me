@@ -73,9 +73,9 @@ public class AmbiantManager : Singleton<AmbiantManager>
         {
             for (int i = 0; i < MaterialReferences.Count ; i++)
             {
-                MaterialReferences[i].SetFloat("_DayNightEmissive", SkyboxDayNightCycle.Instance.TimeOfDay / 100);
-                MaterialReferences[i].SetFloat("_DayNightFresnel", SkyboxDayNightCycle.Instance.TimeOfDay / 100);
-                MaterialReferences[i].SetFloat("_DayNightAlbedo", SkyboxDayNightCycle.Instance.TimeOfDay / 100);
+                MaterialReferences[i].SetFloat("_DayNightEmissive", 1- SkyboxDayNightCycle.Instance.TimeOfDay / 100);
+                MaterialReferences[i].SetFloat("_DayNightFresnel", 1- SkyboxDayNightCycle.Instance.TimeOfDay / 100);
+                MaterialReferences[i].SetFloat("_DayNightAlbedo", 1- SkyboxDayNightCycle.Instance.TimeOfDay / 100);
 
             }
         }
