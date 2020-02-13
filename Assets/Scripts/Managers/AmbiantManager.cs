@@ -7,8 +7,6 @@ using Borodar.FarlandSkies.LowPoly;
 public class AmbiantManager : Singleton<AmbiantManager>
 {
     public List<Material> MaterialReferences;
-
-
 	public HourChangedEvent onHourChanged = new HourChangedEvent();
     public DayStateHasChanged onDayStateHasChanged = new DayStateHasChanged();
     public TimePhaseChangedEvent onTimePhaseChanged = new TimePhaseChangedEvent();

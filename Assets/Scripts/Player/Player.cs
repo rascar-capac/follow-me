@@ -33,8 +33,8 @@ public class Player : ZoneInteractable
     protected override void Update()
     {
         base.Update();
-		UpdateEnergy();
-		EnergyCritical();
+        //UpdateEnergy();
+        //EnergyCritical();
     }
 
     public void UpdateEnergy()
@@ -67,8 +67,8 @@ public class Player : ZoneInteractable
     public override void ApplyZoneEffect(Zone zone)
     {
         base.ApplyZoneEffect(zone);
-		GainEnergy(zone);
-        LooseEnergy(zone);
+		//GainEnergy(zone);
+  //      LooseEnergy(zone);
     }
 
 	public void GainEnergy(Zone zone)

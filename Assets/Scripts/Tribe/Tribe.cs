@@ -84,7 +84,7 @@ public class Tribe : ZoneInteractable
         base.Start();
 		animator = GetComponentInChildren<Animator>();
 
-		TribeProperties = GameManager.I._data.TribeProperties;
+		//TribeProperties = GameManager.I._data.TribeProperties;
 
 		//_TribeNavAgent = GetComponentInParent<NavMeshAgent>();
         _Player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
@@ -92,25 +92,25 @@ public class Tribe : ZoneInteractable
         _PlayerInventory = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerInventory>();
         _Terrain = ((GameObject)ObjectsManager.I["Terrain"]).GetComponent<Terrain>();
 
-		Energy = GameManager.I._data.InitialTribeEnergy;
-		CriticalEnergy = (Energy / 100) * GameManager.I._data.PercentEnergyTribeForCritical;
+		//Energy = GameManager.I._data.InitialTribeEnergy;
+		//CriticalEnergy = (Energy / 100) * GameManager.I._data.PercentEnergyTribeForCritical;
 
-		TribeInDefaultSpeed();
+		//TribeInDefaultSpeed();
 		//SetNavMeshAgent();
 
-		onTribeEnergyEnterCritical.AddListener(TribeInCriticalSpeed);
-		onTribeEnergyExitCritical.AddListener(TribeInDefaultSpeed);
+		//onTribeEnergyEnterCritical.AddListener(TribeInCriticalSpeed);
+		//onTribeEnergyExitCritical.AddListener(TribeInDefaultSpeed);
 		//InputManager.I.onTribeOrderKeyPressed.AddListener(SwitchModeFollowAndWait);
-        _PlayerInventory.onItemActivated.AddListener(AddItemActivationBonus);
-        AmbiantManager.I.onDayStateChanged.AddListener(AddNewDayBonus);
-        _PlayerMovement.onPlayerTooFarFromTribe.AddListener(AddTooFarMalus);
-        AmbiantManager.I.onTimePhaseChanged.AddListener(ChangeColor);
+        //_PlayerInventory.onItemActivated.AddListener(AddItemActivationBonus);
+        //AmbiantManager.I.onDayStateChanged.AddListener(AddNewDayBonus);
+        //_PlayerMovement.onPlayerTooFarFromTribe.AddListener(AddTooFarMalus);
+        //AmbiantManager.I.onTimePhaseChanged.AddListener(ChangeColor);
 
-        DocilityScore = GameManager.I._data.InitialDocilityScore;
-        _DocilityLevel = 1;
-        _IsIgnoring = false;
-        _SpontaneityCheckTimer = ComputeRandomSpontaneityCheckTimer();
-		ModeStopAndWait();
+  //      DocilityScore = GameManager.I._data.InitialDocilityScore;
+  //      _DocilityLevel = 1;
+  //      _IsIgnoring = false;
+  //      _SpontaneityCheckTimer = ComputeRandomSpontaneityCheckTimer();
+		//ModeStopAndWait();
         Random.InitState(System.DateTime.Now.Millisecond);
         StartChrono(Random.Range(5, 10), PlayFlip);
 
@@ -126,8 +126,8 @@ public class Tribe : ZoneInteractable
 	{
 		base.Update();
         Random.InitState(System.DateTime.Now.Millisecond);
-		UpdateEnergy();
-		EnergyCritical();
+		//UpdateEnergy();
+		//EnergyCritical();
 
 		// à changer quand l’énergie du convoi sera affichée autrement que par du texte
 		//UIManager.I.SetTribeEnergy();

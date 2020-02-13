@@ -50,12 +50,12 @@ public class PlayerMovement : BaseMonoBehaviour
         _controller = GetComponent<CharacterController>();
         //Tribe = (GameObject)ObjectsManager.I["TribeGroundPosition"];
 		Tribe = (GameObject)ObjectsManager.I["Tribe"];
-		_MinDistForTribeAcceleration = GameManager.I._data.TribeProperties.MinDistForAcceleration;
+		//_MinDistForTribeAcceleration = GameManager.I._data.TribeProperties.MinDistForAcceleration;
         _speed = GameManager.I._data.InitialPlayerSpeed;
         _player = GetComponent<Player>();
-        PlayerRunStamina = GameManager.I._data.PlayerRunStaminaMax;
-        onPlayerRunStaminaNullEnter.AddListener(() => { PlayerMayRun = false; });
-        onPlayerRunStaminaNullExit.AddListener(() => {  PlayerMayRun = true; });
+        //PlayerRunStamina = GameManager.I._data.PlayerRunStaminaMax;
+        //onPlayerRunStaminaNullEnter.AddListener(() => { PlayerMayRun = false; });
+        //onPlayerRunStaminaNullExit.AddListener(() => {  PlayerMayRun = true; });
 
         InputManager.I.onRunButtonPressed.AddListener(SwitchRun);
         InputManager.I.onMoveInputAxisEvent.AddListener(Move);
@@ -75,9 +75,9 @@ public class PlayerMovement : BaseMonoBehaviour
 
     private void Update()
     {
-        ComputeTribeDistance();
-        UpdateRunStamina();
-        RunStaminaCritical();
+        //ComputeTribeDistance();
+        //UpdateRunStamina();
+        //RunStaminaCritical();
     }
 
     //private void FixedUpdate()
@@ -120,7 +120,7 @@ public class PlayerMovement : BaseMonoBehaviour
         if (Physics.Raycast(CameraManager.I._MainCamera.transform.position + forward * 0.5f, Vector3.down, out hit, 5, _groundMask))
         {
             float groundAngle = Vector3.Angle(Vector3.up, hit.normal);
-            if (groundAngle <= _controller.slopeLimit - 0.1f)
+            if (groundAngle <= _controller.slopeLimit)
                 _move += forward;
             //_isMoveAllowed = groundAngle <= _controller.slopeLimit;
         }
