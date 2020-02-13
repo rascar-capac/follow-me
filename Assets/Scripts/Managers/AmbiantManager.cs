@@ -6,7 +6,7 @@ using Borodar.FarlandSkies.LowPoly;
 
 public class AmbiantManager : Singleton<AmbiantManager>
 {
-    public Material MaterialReference;
+    public List<Material> MaterialReferences;
 
 
 	public HourChangedEvent onHourChanged = new HourChangedEvent();
@@ -69,11 +69,15 @@ public class AmbiantManager : Singleton<AmbiantManager>
             onDayStateHasChanged.Invoke(currentStateOfDay);
         }
         SkyboxController.Instance.CloudsRotation = 360 * SkyboxDayNightCycle.Instance.TimeOfDay / 100;
-        if (MaterialReference)
+        if (MaterialReferences != null  && MaterialReferences.Count > 0)
         {
-            MaterialReference.SetFloat("_DayNightEmissive", SkyboxDayNightCycle.Instance.TimeOfDay / 100);
-            MaterialReference.SetFloat("_DayNightFresnel", SkyboxDayNightCycle.Instance.TimeOfDay / 100);
-            MaterialReference.SetFloat("_DayNightAlbedo", SkyboxDayNightCycle.Instance.TimeOfDay / 100);
+            for (int i = 0; i < MaterialReferences.Count ; i++)
+            {
+                MaterialReferences[i].SetFloat("_DayNightEmissive", SkyboxDayNightCycle.Instance.TimeOfDay / 100);
+                MaterialReferences[i].SetFloat("_DayNightFresnel", SkyboxDayNightCycle.Instance.TimeOfDay / 100);
+                MaterialReferences[i].SetFloat("_DayNightAlbedo", SkyboxDayNightCycle.Instance.TimeOfDay / 100);
+
+            }
         }
     }
 

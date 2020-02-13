@@ -104,6 +104,7 @@ public class Tribe : ZoneInteractable
         _PlayerInventory.onItemActivated.AddListener(AddItemActivationBonus);
         AmbiantManager.I.onDayStateChanged.AddListener(AddNewDayBonus);
         _PlayerMovement.onPlayerTooFarFromTribe.AddListener(AddTooFarMalus);
+        AmbiantManager.I.onTimePhaseChanged.AddListener(ChangeColor);
 
         DocilityScore = GameManager.I._data.InitialDocilityScore;
         _DocilityLevel = 1;
@@ -530,7 +531,12 @@ public class Tribe : ZoneInteractable
     }
     #endregion
 
-
+    public void ChangeColor(int phaseIndex)
+    {
+        Color emissionColor = GameManager.I._data.Phases[phaseIndex].color;
+        Debug.Log(emissionColor.ToString());
+        ChangeEmissive(emissionColor);
+    }
 
     #region Tribe Movements
     //void SetNavMeshAgent()
