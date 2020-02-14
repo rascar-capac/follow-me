@@ -8,7 +8,7 @@ public class ZoneEgg : Zone
     public GameObject Ray;
     public int ColorIndex;
     public bool AllowActivate = false;
-
+    public bool IsActivate => Ray.activeSelf;
     Player player;
     Tribe tribe;
 
