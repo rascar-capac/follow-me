@@ -26,7 +26,7 @@ public class ZoneLink : Zone
             LinkedZone.IsTileActivated = true;
             LinkedZone.Ray.gameObject.SetActive(false);
             tribe.SetMode(TribeEmotionMode.Happy);
-            tribe.StartRotating(LinkedZone.Egg.transform);
+            tribe.StartRotating(LinkedZone.Egg.transform, speedMove: 200f);
             AmbiantManager.I.SkipDayTimeToPhase(LinkedZone.PhaseIndex);
             IsActivated = true;
         }
