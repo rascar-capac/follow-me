@@ -46,7 +46,7 @@ namespace Borodar.FarlandSkies.LowPoly
         // Helpers
         //---------------------------------------------------------------------
 
-        private void UpdateTimeOfDay()
+        public void UpdateTimeOfDay()
         {
             if (_dayNightCycle != null)
                 _dayNightCycle.TimeOfDay = CycleProgress;

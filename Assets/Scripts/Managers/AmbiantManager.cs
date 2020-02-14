@@ -7,6 +7,7 @@ using Borodar.FarlandSkies.LowPoly;
 public class AmbiantManager : Singleton<AmbiantManager>
 {
     public List<Material> MaterialReferences;
+    public float DayTimeTransitionDuration = 3f;
 	public HourChangedEvent onHourChanged = new HourChangedEvent();
     public DayStateHasChanged onDayStateHasChanged = new DayStateHasChanged();
     public TimePhaseChangedEvent onTimePhaseChanged = new TimePhaseChangedEvent();
@@ -26,43 +27,44 @@ public class AmbiantManager : Singleton<AmbiantManager>
     {
         //UIManager.I.SetTimeOfDay();
 
-        List<TimePhase> phases = GameManager.I._data.Phases;
-        float time = SkyboxDayNightCycle.Instance.TimeOfDay;
-        for (int i = 0 ; i < phases.Count ; i++)
+        float dayTime = SkyboxDayNightCycle.Instance.TimeOfDay;
+        List<DayTimePhase> phases = GameManager.I._data.Phases;
+
+        if(dayTime >= GameManager.I._data.SpecialPhase.startingPercentage &&
+                dayTime < GameManager.I._data.SpecialPhase.endingPercentage &&
+                PhaseIndex!= phases.Count)
         {
-            int previousIndex = (int) Mathf.Repeat(i - 1, phases.Count);
-            if (phases[i].endingPercentage > phases[previousIndex].endingPercentage)
+            PhaseIndex = phases.Count;
+            onTimePhaseChanged.Invoke(PhaseIndex);
+        }
+        else
+        {
+            for (int i = 0 ; i < phases.Count ; i++)
             {
-                if (time > phases[i].endingPercentage)
+                int nextIndex = (int) Mathf.Repeat(i + 1, phases.Count);
+                float phaseEndingPercentage = (phases[nextIndex].startingPercentage == 0 ? 100 : phases[nextIndex].startingPercentage);
+                if(dayTime < phaseEndingPercentage)
                 {
-                    continue;
+                    if(PhaseIndex != i)
+                    {
+                        PhaseIndex = i;
+                        onTimePhaseChanged.Invoke(PhaseIndex);
+                    }
+                    break;
                 }
             }
-            if (time > phases[i].endingPercentage && time < phases[previousIndex].endingPercentage)
-            {
-                continue;
-            }
-
-            if (i != PhaseIndex)
-            {
-                PhaseIndex = i;
-                onTimePhaseChanged.Invoke(PhaseIndex);
-            }
-            break;
         }
 
         if (SkyboxDayNightCycle.Instance.TimeOfDay >= SkyboxDayNightCycle.Instance._sunrise && SkyboxDayNightCycle.Instance.TimeOfDay <= SkyboxDayNightCycle.Instance._sunset)
         {
             if (currentStateOfDay != DayState.Day)
             {
-                Debug.Log("Day");
                 currentStateOfDay = DayState.Day;
                 onDayStateHasChanged.Invoke(currentStateOfDay);
             }
         }
         else if (currentStateOfDay != DayState.Night)
         {
-            Debug.Log("Night");
             currentStateOfDay = DayState.Night;
             onDayStateHasChanged.Invoke(currentStateOfDay);
         }
@@ -155,6 +157,40 @@ public class AmbiantManager : Singleton<AmbiantManager>
                 return false;
         }
         return true;
+    }
+
+    public void SkipDayTimeToPhase(int targetPhaseIndex)
+    {
+        StartCoroutine(ModifyCycleProgress(targetPhaseIndex));
+    }
+
+    public IEnumerator ModifyCycleProgress(int targetPhaseIndex)
+    {
+        bool IsAlreadyInTargetPhase = targetPhaseIndex == PhaseIndex;
+
+        float dayTime = SkyboxDayNightCycle.Instance.TimeOfDay;
+        float targetDayTime = GameManager.I._data.Phases[targetPhaseIndex].startingPercentage;
+        float durationToSkip = targetDayTime > dayTime ?
+                targetDayTime - dayTime :
+                100 - dayTime + targetDayTime;
+        Debug.Log(targetDayTime);
+        Debug.Log(durationToSkip);
+        SkyboxCycleManager.Instance.Paused = true;
+        while(PhaseIndex != targetPhaseIndex || IsAlreadyInTargetPhase)
+        {
+            if(Application.isPlaying)
+            {
+                if(IsAlreadyInTargetPhase)
+                {
+                    IsAlreadyInTargetPhase = targetPhaseIndex == PhaseIndex;
+                }
+                SkyboxCycleManager.Instance.CycleProgress += durationToSkip * Time.deltaTime / DayTimeTransitionDuration;
+                SkyboxCycleManager.Instance.CycleProgress %= 100f;
+            }
+            SkyboxCycleManager.Instance.UpdateTimeOfDay();
+            yield return null;
+        }
+        SkyboxCycleManager.Instance.Paused = false;
     }
 
 	#region Fog

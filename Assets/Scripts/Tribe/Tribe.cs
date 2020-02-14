@@ -104,7 +104,7 @@ public class Tribe : ZoneInteractable
         //_PlayerInventory.onItemActivated.AddListener(AddItemActivationBonus);
         //AmbiantManager.I.onDayStateChanged.AddListener(AddNewDayBonus);
         //_PlayerMovement.onPlayerTooFarFromTribe.AddListener(AddTooFarMalus);
-        //AmbiantManager.I.onTimePhaseChanged.AddListener(ChangeColor);
+        AmbiantManager.I.onTimePhaseChanged.AddListener(ChangeColor);
 
   //      DocilityScore = GameManager.I._data.InitialDocilityScore;
   //      _DocilityLevel = 1;
@@ -295,7 +295,7 @@ public class Tribe : ZoneInteractable
     }
     public IEnumerator Happy()
     {
-        
+
         SetMode(TribeEmotionMode.Happy);
 
 
@@ -334,12 +334,12 @@ public class Tribe : ZoneInteractable
 
                 SoundManager.I.Play("Normal");
 
-                RedLight.gameObject.SetActive(false);
+                //RedLight.gameObject.SetActive(false);
                 break;
             case TribeEmotionMode.Aggress:
                 Debug.Log("aggress");
-                RedLight.gameObject.SetActive(true);
-                RedLight.color = Color.red;
+                //RedLight.gameObject.SetActive(true);
+                //RedLight.color = Color.red;
                 SoundManager.I.Play("Angry2");
 
                 break;
@@ -347,18 +347,18 @@ public class Tribe : ZoneInteractable
                 Debug.Log("Fear");
                 SoundManager.I.Play("Angry");
 
-                RedLight.gameObject.SetActive(true);
-                RedLight.color = Color.blue;
+                //RedLight.gameObject.SetActive(true);
+                //RedLight.color = Color.blue;
                 break;
             case TribeEmotionMode.Happy:
                 Debug.Log("Happy");
                 SoundManager.I.Play("Happy");
-                RedLight.gameObject.SetActive(true);
-                RedLight.color = Color.yellow;
+                //RedLight.gameObject.SetActive(true);
+                //RedLight.color = Color.yellow;
                 break;
         }
     }
-    
+
     // Pause current random movement
     public void PauseRandom(bool pause = false, bool StopCoroutines = false)
     {
@@ -380,7 +380,7 @@ public class Tribe : ZoneInteractable
     public IEnumerable GoDownUp(float delta, bool LookAt = true, float speedMove = 0, bool ComeBack = true)
     {
         yield return StartCoroutine(GoingToPosition(new Vector3(transform.position.x, transform.position.y + delta, transform.position.z), speedMove: speedMove, ChangeRotation: LookAt));
-        if (ComeBack) 
+        if (ComeBack)
             yield return StartCoroutine(GoingToPosition(new Vector3(transform.position.x, transform.position.y - delta, transform.position.z), speedMove: speedMove, ChangeRotation: LookAt));
     }
     public IEnumerable GoToRandomPosition(float speedMove = 0)
@@ -397,7 +397,7 @@ public class Tribe : ZoneInteractable
         yield return StartCoroutine(GoingToPosition(position, WaitAndComeBackSeconds, true));
     }
 
-    // Technical Methods 
+    // Technical Methods
     public IEnumerable RotatingAround(Transform t, float duration = 0f, float speedMove = 0)
     {
         speedMove = speedMove == 0 ? speed : speedMove;
@@ -532,8 +532,8 @@ public class Tribe : ZoneInteractable
 
     public void ChangeColor(int phaseIndex)
     {
-        Color emissionColor = GameManager.I._data.Phases[phaseIndex].color;
-        Debug.Log(emissionColor.ToString());
+        GameData gd = GameManager.I._data;
+        Color emissionColor = phaseIndex == gd.Phases.Count ? gd.SpecialPhase.color : gd.Phases[phaseIndex].color;
         ChangeEmissive(emissionColor);
     }
 
@@ -751,7 +751,7 @@ public class Tribe : ZoneInteractable
 	{
 		//_TribeNavAgent.speed = GameManager.I._data.TribeProperties.MaxSpeed;
 		//_TribeNavAgent.angularSpeed = GameManager.I._data.TribeProperties.MaxAngularSpeed;
-        
+
 	}
 
 	void TribeInCriticalSpeed()

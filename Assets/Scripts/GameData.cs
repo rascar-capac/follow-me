@@ -165,8 +165,11 @@ public class GameData : ScriptableObject
 
     [Title("Ambience parameters")]
     [TabGroup("Ambience")]
-    [Tooltip("Phase durations and colors")]
-    public List<TimePhase> Phases;
+    [Tooltip("Phase durations and colors. The first starting percentage has to be 0")]
+    public List<DayTimePhase> Phases;
+    [TabGroup("Ambience")]
+    [Tooltip("Special phase duration and color. The ending percentage is excluded")]
+    public DayTimeSpecialPhase SpecialPhase;
 
     [TabGroup("Ambience")][Tooltip("Day states (night and day)")]
     public DayStatesProperties[] States;
@@ -281,8 +284,17 @@ public struct DayStatesProperties
 }
 
 [System.Serializable]
-public struct TimePhase
+public struct DayTimePhase
 {
+    [Range(0, 99f)] public float startingPercentage;
+    public Color color;
+}
+
+[System.Serializable]
+public struct DayTimeSpecialPhase
+{
+    [Range(0, 99f)] public float startingPercentage;
     [Range(0, 100f)] public float endingPercentage;
     public Color color;
 }
+

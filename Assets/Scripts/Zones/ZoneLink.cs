@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class ZoneLink : Zone
 {
     public ZoneEgg LinkedZone;
     Player player;
     Tribe tribe;
+    bool IsActivated = false;
 
     protected override void Start()
     {
@@ -18,7 +20,7 @@ public class ZoneLink : Zone
 
     public void EnteredZone(ZoneInteractable who, Zone zone)
     {
-        if (zone == this)
+        if (zone == this && !IsActivated)
         {
             //LinkedZone.gameObject.SetActive(true);
             tribe.StopAll();
@@ -27,6 +29,8 @@ public class ZoneLink : Zone
             LinkedZone.AllowActivate = true;
             tribe.SetMode(TribeEmotionMode.Happy);
             tribe.StartRotating(LinkedZone.Egg.transform);
+            //AmbiantManager.I.SkipDayTimeToPhase(LinkedZone.ColorIndex);
+            IsActivated = true;
         }
     }
 }
