@@ -1629,7 +1629,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Music
       value: 
-      objectReference: {fileID: 8300000, guid: 7a72532181d295847b3fd316cd08f1f1, type: 3}
+      objectReference: {fileID: 8300000, guid: 39c6eb0bfea285543a655d1bee0b4c9b, type: 3}
     - target: {fileID: 968838890444336318, guid: 58e00a52122fad44f91238d6b6b7e2dd,
         type: 3}
       propertyPath: Layers.m_Bits
@@ -14957,7 +14957,7 @@ PrefabInstance:
     - target: {fileID: 3888259315700407448, guid: 5d3cba6ec4ec1f54a9e83a1243fb67b7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 963.89
+      value: 681
       objectReference: {fileID: 0}
     - target: {fileID: 3888259315700407448, guid: 5d3cba6ec4ec1f54a9e83a1243fb67b7,
         type: 3}
@@ -14967,7 +14967,7 @@ PrefabInstance:
     - target: {fileID: 3888259315700407448, guid: 5d3cba6ec4ec1f54a9e83a1243fb67b7,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1001.51
+      value: 1060
       objectReference: {fileID: 0}
     - target: {fileID: 3888259315700407448, guid: 5d3cba6ec4ec1f54a9e83a1243fb67b7,
         type: 3}
