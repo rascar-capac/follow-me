@@ -12,12 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd87958864f503d478f5c177edbbd4c3, type: 3}
   m_Name: FirstArtefact
   m_EditorClassIdentifier: 
-  _itemName: Stones Story
-  _itemDescription: The original stones have been lost. Nobody knows where these are
-    located.
-  _itemIcon: {fileID: 0}
+  Name: 
+  Description: 
+  Icon: {fileID: 0}
   _itemBasePrefab: {fileID: 0}
-  _itemActivatedPrefab: {fileID: 0}
+  _ItemActivatedMaterial: {fileID: 0}
+  _itemToDrop: {fileID: 0}
+  _PositionToDrop: {fileID: 0}
   IsCatchable: 1
+  IsSwapable: 0
   IsActivable: 0
   IsActivated: 0
+  MeshBase: {fileID: 0}
+  MaterialBase: {fileID: 0}
+  MeshActivated: {fileID: 0}
+  MaterialActivated: {fileID: 0}
