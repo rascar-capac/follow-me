@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class ZoneEgg : Zone
 {
-    public GameObject Egg;
-    public Material ActivatedMaterial;
+    public Item Egg;
     public GameObject Ray;
     public int PhaseIndex;
     public bool HasActivationAllowed = false;
@@ -35,7 +34,7 @@ public class ZoneEgg : Zone
             tribe.StopAll();
             Ray.gameObject.SetActive(true);
             tribe.StartLive();
-            Egg.GetComponent<MeshRenderer>().material = ActivatedMaterial;
+            Egg.ActivateItem();
         }
         else if (zone == this)
         {
