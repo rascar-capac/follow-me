@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 625b7ba844cb8724b8b22c34db55cf4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Music: {fileID: 0}
   Ressources: 
   LooseEnergySpeed: 0
   GainEnergySpeed: 0
@@ -88,7 +89,7 @@ PrefabInstance:
     - target: {fileID: 5115865157762039468, guid: ec7384ee67dab194196a9aca6817867c,
         type: 3}
       propertyPath: m_Name
-      value: Zone Link
+      value: ZoneTile
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8640311679168677487, guid: ec7384ee67dab194196a9aca6817867c, type: 3}

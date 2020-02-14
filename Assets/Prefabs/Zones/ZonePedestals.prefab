@@ -119,6 +119,9 @@ MonoBehaviour:
     Stone: {fileID: 11400000, guid: 27d69a89d0e4e714db910f1bbd890e63, type: 2}
   - Pedestal: {fileID: 1937467011328535618}
     Stone: {fileID: 11400000, guid: 134e2c73002e06d4c979d14a59879496, type: 2}
+  onGameFinished:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &117337850
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -129,7 +132,7 @@ PrefabInstance:
     - target: {fileID: 797680724774964905, guid: 40e7c495b924c2344abec29f2b2359d7,
         type: 3}
       propertyPath: m_Name
-      value: Pedestal5
+      value: Pedestal4
       objectReference: {fileID: 0}
     - target: {fileID: 5619952238945178206, guid: 40e7c495b924c2344abec29f2b2359d7,
         type: 3}
@@ -169,7 +172,7 @@ PrefabInstance:
     - target: {fileID: 5619952238945178206, guid: 40e7c495b924c2344abec29f2b2359d7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5619952238945178206, guid: 40e7c495b924c2344abec29f2b2359d7,
         type: 3}
@@ -211,7 +214,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1948306341988298877}
+    m_TransformParent: {fileID: 8173079625518899857}
     m_Modifications:
     - target: {fileID: 3856021470283854688, guid: fc7400d8969650f4b94ab6baa4434732,
         type: 3}
@@ -271,7 +274,7 @@ PrefabInstance:
     - target: {fileID: 3856021470283854715, guid: fc7400d8969650f4b94ab6baa4434732,
         type: 3}
       propertyPath: m_Name
-      value: Stone4Deactivated
+      value: StonePurpleDeactivated
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc7400d8969650f4b94ab6baa4434732, type: 3}
@@ -340,7 +343,7 @@ PrefabInstance:
     - target: {fileID: 5567018428341922266, guid: e715f48f86f96fe4db96d938ff2093f6,
         type: 3}
       propertyPath: m_Name
-      value: Stone3Deactivated
+      value: StoneWhiteDeactivated
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e715f48f86f96fe4db96d938ff2093f6, type: 3}
@@ -409,7 +412,7 @@ PrefabInstance:
     - target: {fileID: 6347550121490034333, guid: 403b730778fda7949b51d87672956ba8,
         type: 3}
       propertyPath: m_Name
-      value: Stone1Deactivated
+      value: StoneOrangeDeactivated
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 403b730778fda7949b51d87672956ba8, type: 3}
@@ -418,8 +421,13 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1050228751384033086}
+    m_TransformParent: {fileID: 1948306341988298877}
     m_Modifications:
+    - target: {fileID: 5159957169047448232, guid: ebd181a5d64d98f489d002c1f99f784c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6792408480724433832, guid: ebd181a5d64d98f489d002c1f99f784c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -478,7 +486,7 @@ PrefabInstance:
     - target: {fileID: 6792408480724433843, guid: ebd181a5d64d98f489d002c1f99f784c,
         type: 3}
       propertyPath: m_Name
-      value: Stone2Deactivated
+      value: StoneBlueDeactivated
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebd181a5d64d98f489d002c1f99f784c, type: 3}
@@ -487,7 +495,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 8173079625518899857}
+    m_TransformParent: {fileID: 1050228751384033086}
     m_Modifications:
     - target: {fileID: 3856021470283854688, guid: 308564947960f5740becf00c178dfccf,
         type: 3}
@@ -547,7 +555,7 @@ PrefabInstance:
     - target: {fileID: 3856021470283854715, guid: 308564947960f5740becf00c178dfccf,
         type: 3}
       propertyPath: m_Name
-      value: Stone5Deactivated
+      value: StoneGreenDeactivated
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 308564947960f5740becf00c178dfccf, type: 3}
@@ -822,7 +830,7 @@ PrefabInstance:
     - target: {fileID: 797680724774964905, guid: 40e7c495b924c2344abec29f2b2359d7,
         type: 3}
       propertyPath: m_Name
-      value: Pedestal4
+      value: Pedestal5
       objectReference: {fileID: 0}
     - target: {fileID: 5619952238945178206, guid: 40e7c495b924c2344abec29f2b2359d7,
         type: 3}
@@ -862,7 +870,7 @@ PrefabInstance:
     - target: {fileID: 5619952238945178206, guid: 40e7c495b924c2344abec29f2b2359d7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5619952238945178206, guid: 40e7c495b924c2344abec29f2b2359d7,
         type: 3}

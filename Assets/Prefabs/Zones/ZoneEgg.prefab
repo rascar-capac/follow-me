@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fee769b3431856439a3e6a3ad90fd72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Music: {fileID: 0}
   Ressources: 
   LooseEnergySpeed: 0
   GainEnergySpeed: 0
@@ -24,8 +25,8 @@ MonoBehaviour:
   Dialogs: []
   Egg: {fileID: 0}
   Ray: {fileID: 3670039341459253438}
-  ColorIndex: 0
-  AllowActivate: 0
+  PhaseIndex: 0
+  HasActivationAllowed: 0
 --- !u!1 &3670039341459253438
 GameObject:
   m_ObjectHideFlags: 0

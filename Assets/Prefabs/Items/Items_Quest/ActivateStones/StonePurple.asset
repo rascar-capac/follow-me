@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd87958864f503d478f5c177edbbd4c3, type: 3}
-  m_Name: Stone2
+  m_Name: StonePurple
   m_EditorClassIdentifier: 
   Name: 
   Description: 
   Icon: {fileID: 0}
-  _itemBasePrefab: {fileID: 6792408480724433843, guid: ebd181a5d64d98f489d002c1f99f784c,
+  _itemBasePrefab: {fileID: 3856021470283854715, guid: fc7400d8969650f4b94ab6baa4434732,
     type: 3}
-  _itemActivatedPrefab: {fileID: 6792408480724433843, guid: 37981fe23581fa948a58cd5cb705fd27,
+  _itemActivatedPrefab: {fileID: 3856021470283854715, guid: 24d59716f418c114eb8a08c5877a4e98,
     type: 3}
   _itemToDrop: {fileID: 0}
   _PositionToDrop: {fileID: 0}
   IsCatchable: 0
   IsSwapable: 0
   IsActivable: 1
-  IsActivated: 1
+  IsActivated: 0
   MeshBase: {fileID: 0}
   MaterialBase: {fileID: 0}
   MeshActivated: {fileID: 0}

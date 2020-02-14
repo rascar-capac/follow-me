@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd87958864f503d478f5c177edbbd4c3, type: 3}
-  m_Name: Stone1
+  m_Name: StoneWhite
   m_EditorClassIdentifier: 
   Name: 
   Description: 
   Icon: {fileID: 0}
-  _itemBasePrefab: {fileID: 6347550121490034333, guid: 403b730778fda7949b51d87672956ba8,
+  _itemBasePrefab: {fileID: 5567018428341922266, guid: e715f48f86f96fe4db96d938ff2093f6,
     type: 3}
-  _itemActivatedPrefab: {fileID: 6347550121490034333, guid: 3821555024045084caa4d8abc76c9d2a,
+  _itemActivatedPrefab: {fileID: 5567018428341922266, guid: 01c3501e2ef79e942ad5aa13f9c4bf04,
     type: 3}
   _itemToDrop: {fileID: 0}
   _PositionToDrop: {fileID: 0}

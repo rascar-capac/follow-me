@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd87958864f503d478f5c177edbbd4c3, type: 3}
-  m_Name: Stone5
+  m_Name: StoneOrange
   m_EditorClassIdentifier: 
   Name: 
   Description: 
   Icon: {fileID: 0}
-  _itemBasePrefab: {fileID: 3856021470283854715, guid: 308564947960f5740becf00c178dfccf,
+  _itemBasePrefab: {fileID: 6347550121490034333, guid: 403b730778fda7949b51d87672956ba8,
     type: 3}
-  _itemActivatedPrefab: {fileID: 3856021470283854715, guid: efc95f2e727ac7a4a90acb7a621b0a5d,
+  _itemActivatedPrefab: {fileID: 6347550121490034333, guid: 3821555024045084caa4d8abc76c9d2a,
     type: 3}
   _itemToDrop: {fileID: 0}
   _PositionToDrop: {fileID: 0}
