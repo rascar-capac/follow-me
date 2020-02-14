@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using Borodar.FarlandSkies.LowPoly;
 
 public class ToolsInventoryEvent : UnityEvent<Hand> { }
@@ -25,7 +26,7 @@ public class UIManager : Singleton<UIManager>
     #region References UI Prefabs
     [Header("HUD Panel")]
 	public GameObject HudPanel;
-	[Header("Main Menu")]
+	[Header("Main Menu Panel")]
 	public GameObject MainMenu;
 
 	#endregion
@@ -156,6 +157,7 @@ public class UIManager : Singleton<UIManager>
 			CloseMenu();
 		}
 	}
+
 	void OpenMenu()
 	{
 		MainMenu.SetActive(true);
@@ -167,6 +169,7 @@ public class UIManager : Singleton<UIManager>
 		Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
 	}
+
 	void CloseMenu()
 	{
 		MainMenu.SetActive(false);
@@ -177,6 +180,16 @@ public class UIManager : Singleton<UIManager>
 
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
+	}
+
+	public void RestartGame()
+	{
+		SceneManager.LoadScene("MainScene");
+	}
+
+	public void QuitApplication()
+	{
+		Application.Quit();
 	}
 
 	#endregion
