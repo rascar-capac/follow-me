@@ -533,6 +533,10 @@ public class Tribe : ZoneInteractable
     {
         StartCoroutine(Live());
     }
+    public void StartHappy()
+    {
+        StartCoroutine(Happy());
+    }
     public void StartAggress()
     {
         StartCoroutine(AggressPlayer());

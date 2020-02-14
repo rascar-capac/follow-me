@@ -64,6 +64,7 @@ public class Pedestals : BaseMonoBehaviour
                 break;
             }
         }
+        _IsMatching = true;
         if (_IsMatching)
         {
             foreach(PedestalStoneMatch match in PedestalStoneMatches)
