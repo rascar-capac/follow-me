@@ -24,11 +24,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Moon1Tex:
-        m_Texture: {fileID: 2800000, guid: 9f42eda02e710ff49b1ba615b31ee896, type: 3}
+        m_Texture: {fileID: 2800000, guid: 243c02b8d5443a945a91d3667be45210, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Moon2Tex:
-        m_Texture: {fileID: 2800000, guid: 9f42eda02e710ff49b1ba615b31ee896, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9e1c8edab15aa844082fcd05ad8b5d9f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MoonTex:
@@ -36,7 +36,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _StarsTex:
-        m_Texture: {fileID: 8900000, guid: 0b891b1d885eb654ab18d7a3a5fc87e1, type: 3}
+        m_Texture: {fileID: 8900000, guid: 4d9b59a5208099541b49b0a8fcd22323, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _StarsTwinklingTex:
@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SunTex:
-        m_Texture: {fileID: 2800000, guid: bec1a30e00a480146aef8d1d037a846c, type: 3}
+        m_Texture: {fileID: 2800000, guid: eb1e18ae3dbe9f348a7bc0d71a5cc811, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -53,23 +53,23 @@ Material:
     - _CloudsRotation: 0
     - _Exponent: 1
     - _Exposure: 1.5
-    - _Moon1Halo: 1
-    - _Moon1Size: 1
-    - _Moon2Halo: 1
-    - _Moon2Size: 0.6
+    - _Moon1Halo: 0.414
+    - _Moon1Size: 2.45
+    - _Moon2Halo: 0.356
+    - _Moon2Size: 0.86
     - _MoonHalo: 1
     - _MoonSize: 0.75
-    - _StarsExtinction: 2
-    - _StarsTwinklingSpeed: 10
+    - _StarsExtinction: 5.4
+    - _StarsTwinklingSpeed: 7.05
     - _SunHalo: 1
-    - _SunSize: 0.75
+    - _SunSize: 0.5
     - _TopExponent: 1
     m_Colors:
-    - _BottomColor: {r: 0.011764707, g: 0.28235295, b: 0.40000004, a: 1}
-    - _CloudsTint: {r: 0, g: 0, b: 0, a: 0}
-    - _MiddleColor: {r: 0.7896477, g: 0.49356842, b: 0.5523132, a: 1}
-    - _Moon1Tint: {r: 0.36072153, g: 0.33590567, b: 0.41251746, a: 0.6480011}
-    - _Moon2Tint: {r: 0.20392159, g: 0.39607847, b: 0.2392157, a: 0}
+    - _BottomColor: {r: 0, g: 0, b: 0.007843138, a: 1}
+    - _CloudsTint: {r: 0.5987451, g: 0.48674512, b: 0.7930982, a: 1}
+    - _MiddleColor: {r: 0.27961403, g: 0.5358647, b: 0.37142548, a: 1}
+    - _Moon1Tint: {r: 0.33798194, g: 0.26190677, b: 0.34905216, a: 1}
+    - _Moon2Tint: {r: 0.20392159, g: 0.39607847, b: 0.2392157, a: 1}
     - _MoonTint: {r: 0.4556863, g: 0.52156866, b: 0.5764706, a: 1}
     - _SkyBottomColor: {r: 0.016868481, g: 0, b: 0.47794116, a: 0}
     - _SkyColor: {r: 0.03529412, g: 0.41960788, b: 0.59607846, a: 1}
@@ -78,6 +78,6 @@ Material:
     - _SkyMiddleColor: {r: 1, g: 0.61764705, b: 0.9578093, a: 0}
     - _SkyTint: {r: 0.034482475, g: 0, b: 1, a: 1}
     - _SkyTopColor: {r: 0.2794118, g: 0.6421905, b: 1, a: 0}
-    - _StarsTint: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 0.8100006}
-    - _SunTint: {r: 0.7359216, g: 0.56705874, b: 0.43564695, a: 1}
-    - _TopColor: {r: 0.015686275, g: 0.41960788, b: 0.59607846, a: 1}
+    - _StarsTint: {r: 0.44507194, g: 0.44507194, b: 0.44507194, a: 0}
+    - _SunTint: {r: 0.7343922, g: 0.45680395, b: 0.47860783, a: 0}
+    - _TopColor: {r: 0.028235285, g: 0.04705883, b: 0.20078433, a: 1}
