@@ -94,7 +94,7 @@ public class UIManager : Singleton<UIManager>
 		_PlayerLook = _Player.transform.GetChild(0).GetComponent<PlayerLook>();
 		_Tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
 
-		InputManager.I.onUIOptionsKeyPressed.AddListener(OpenCloseMainMenu);
+		InputManager.I.onPauseKeyPressed.AddListener(OpenCloseMainMenu);
 
         CloseMenu();
 
@@ -226,7 +226,7 @@ public class UIManager : Singleton<UIManager>
 
  //   public void SetTimeOfDay()
  //   {
- //       float hour = SkyboxDayNightCycle.Instance.TimeOfDay / 100 * 24; 
+ //       float hour = SkyboxDayNightCycle.Instance.TimeOfDay / 100 * 24;
  //       _HudCurrentTimeText.text = $"Current time " + Mathf.Round(hour) + " h (" + AmbiantManager.I.currentStateOfDay.ToString() + ")";
  //   }
 	//public void SetPlayerEnergy()

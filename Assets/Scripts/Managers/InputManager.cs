@@ -11,10 +11,6 @@ public struct EventToggle
 }
 public class InputManager : Singleton<InputManager>
 {
-	[Header("Key for open Options Menu")]
-	public KeyCode UIOptionsKey = KeyCode.F1;
-	public UnityEvent onUIOptionsKeyPressed = new UnityEvent();
-
 	//[Header("Key for open Tribe Menu")]
 	//public KeyCode UITribeKey = KeyCode.T;
 	//[Header("Key for open Quest Menu")]
@@ -162,9 +158,6 @@ public class InputManager : Singleton<InputManager>
             if (released && pair.Value.Released != null)
                 pair.Value.Released.ForEach(e => e.Invoke());
         }
-
-		if (Input.GetKeyDown(UIOptionsKey))
-			onUIOptionsKeyPressed?.Invoke();
 
 		//if (Input.GetKeyDown(UITribeKey))
 		//	onUITribeKeyPressed?.Invoke();
