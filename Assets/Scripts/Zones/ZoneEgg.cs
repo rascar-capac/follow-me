@@ -24,7 +24,7 @@ public class ZoneEgg : Zone
         tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
         GameData gd = GameManager.I._data;
         Color rayColor = PhaseIndex == gd.Phases.Count ? gd.SpecialPhase.color : gd.Phases[PhaseIndex].color;
-        Ray.GetComponent<Renderer>().material.SetColor("_Color", rayColor);
+        Ray.transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_Color", rayColor);
     }
 
     public void EnteredZone(ZoneInteractable who, Zone zone)

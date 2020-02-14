@@ -485,10 +485,15 @@ public class Tribe : ZoneInteractable
         Vector3 Direction = Vector3.zero;
 
         Direction = (direction - transform.position).normalized;
-
         Quaternion lookRotation = Quaternion.LookRotation(Direction);
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * AngularSpeed);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * AngularSpeed);
+        if (Mathf.Abs(Quaternion.Angle(transform.rotation, lookRotation)) <= 5)
+            return;
+        if (Rdirection == RotationDirection.Left)
+            transform.Rotate(lookRotation.eulerAngles * Time.deltaTime * -1 * AngularSpeed, Space.Self);
+        else
+            transform.Rotate(lookRotation.eulerAngles * Time.deltaTime * AngularSpeed, Space.Self);
 
     }
     public IEnumerator Rotating(Quaternion rotation)
