@@ -31,11 +31,13 @@ public class AmbiantManager : Singleton<AmbiantManager>
         List<DayTimePhase> phases = GameManager.I._data.Phases;
 
         if(dayTime >= GameManager.I._data.SpecialPhase.startingPercentage &&
-                dayTime < GameManager.I._data.SpecialPhase.endingPercentage &&
-                PhaseIndex!= phases.Count)
+                dayTime < GameManager.I._data.SpecialPhase.endingPercentage)
         {
-            PhaseIndex = phases.Count;
-            onTimePhaseChanged.Invoke(PhaseIndex);
+            if(PhaseIndex != phases.Count)
+            {
+                PhaseIndex = phases.Count;
+                onTimePhaseChanged.Invoke(PhaseIndex);
+            }
         }
         else
         {
@@ -76,7 +78,19 @@ public class AmbiantManager : Singleton<AmbiantManager>
                 MaterialReferences[i].SetFloat("_DayNightEmissive", 1- SkyboxDayNightCycle.Instance.TimeOfDay / 100);
                 MaterialReferences[i].SetFloat("_DayNightFresnel", 1- SkyboxDayNightCycle.Instance.TimeOfDay / 100);
                 MaterialReferences[i].SetFloat("_DayNightAlbedo", 1- SkyboxDayNightCycle.Instance.TimeOfDay / 100);
+            }
+        }
+    }
 
+    private void OnDestroy()
+    {
+        if (MaterialReferences != null  && MaterialReferences.Count > 0)
+        {
+            for (int i = 0; i < MaterialReferences.Count ; i++)
+            {
+                MaterialReferences[i].SetFloat("_DayNightEmissive", 0);
+                MaterialReferences[i].SetFloat("_DayNightFresnel", 0);
+                MaterialReferences[i].SetFloat("_DayNightAlbedo", 0);
             }
         }
     }
@@ -169,12 +183,11 @@ public class AmbiantManager : Singleton<AmbiantManager>
         bool IsAlreadyInTargetPhase = targetPhaseIndex == PhaseIndex;
 
         float dayTime = SkyboxDayNightCycle.Instance.TimeOfDay;
-        float targetDayTime = GameManager.I._data.Phases[targetPhaseIndex].startingPercentage;
+        GameData gd = GameManager.I._data;
+        float targetDayTime = targetPhaseIndex == gd.Phases.Count ? gd.SpecialPhase.startingPercentage : gd.Phases[targetPhaseIndex].startingPercentage;
         float durationToSkip = targetDayTime > dayTime ?
                 targetDayTime - dayTime :
                 100 - dayTime + targetDayTime;
-        Debug.Log(targetDayTime);
-        Debug.Log(durationToSkip);
         SkyboxCycleManager.Instance.Paused = true;
         while(PhaseIndex != targetPhaseIndex || IsAlreadyInTargetPhase)
         {

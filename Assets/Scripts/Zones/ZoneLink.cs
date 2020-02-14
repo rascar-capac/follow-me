@@ -29,7 +29,7 @@ public class ZoneLink : Zone
             LinkedZone.AllowActivate = true;
             tribe.SetMode(TribeEmotionMode.Happy);
             tribe.StartRotating(LinkedZone.Egg.transform);
-            //AmbiantManager.I.SkipDayTimeToPhase(LinkedZone.ColorIndex);
+            AmbiantManager.I.SkipDayTimeToPhase(LinkedZone.ColorIndex);
             IsActivated = true;
         }
     }
