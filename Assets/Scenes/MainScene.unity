@@ -14802,9 +14802,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0b120da3cf241a04f805229fa5994100, type: 3}
   - {fileID: 8300000, guid: f61b2ed4fbdb42b43a0ab4a5e9ee7b2a, type: 3}
   - {fileID: 8300000, guid: d842e219f502d7a428cfe389dd0fb500, type: 3}
-  PedestalsClips: []
-  PlayerClips: []
-  PlayerSteps: []
+  PedestalsClips:
+  - {fileID: 8300000, guid: c6482391cbe00ed478c0d592667dcfac, type: 3}
+  - {fileID: 8300000, guid: 711e34fb8c47f164ba6a6499fc40b3b1, type: 3}
+  - {fileID: 8300000, guid: 24ce21c65392d174db81018a15b2bbbd, type: 3}
+  PlayerClips:
+  - {fileID: 8300000, guid: 9baa18059dcad4b4ab489197a3872825, type: 3}
+  PlayerSteps:
+  - {fileID: 8300000, guid: 4000f869baa693f44b9d32ea8c6f9bed, type: 3}
+  - {fileID: 8300000, guid: a94e05335dc98334bac768d74287d696, type: 3}
+  - {fileID: 8300000, guid: c156be58fdc9dc0419b192406a39e148, type: 3}
+  - {fileID: 8300000, guid: dd09609b67c17f4418f9d01939203c04, type: 3}
+  - {fileID: 8300000, guid: 16311f80bebb9a44e8f92cbea1bcb02c, type: 3}
 --- !u!1001 &7354173736692978563
 PrefabInstance:
   m_ObjectHideFlags: 0
