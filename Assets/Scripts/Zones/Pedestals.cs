@@ -5,7 +5,7 @@ using UnityEngine.Events;
 public class Pedestals : BaseMonoBehaviour
 {
     public List<PedestalStoneMatch> PedestalStoneMatches = null;
-
+    public Material ActivatedStoneMaterial;
     private PlayerInventory _PlayerInventory;
     private bool _IsMatching;
     private ItemData _StoneInHand;

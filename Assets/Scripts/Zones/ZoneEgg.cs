@@ -5,6 +5,7 @@ using UnityEngine;
 public class ZoneEgg : Zone
 {
     public GameObject Egg;
+    public Material ActivatedMaterial;
     public GameObject Ray;
     public int PhaseIndex;
     public bool HasActivationAllowed = false;
@@ -24,7 +25,7 @@ public class ZoneEgg : Zone
         tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
         GameData gd = GameManager.I._data;
         Color rayColor = PhaseIndex == gd.Phases.Count ? gd.SpecialPhase.color : gd.Phases[PhaseIndex].color;
-        Ray.transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_Color", rayColor);
+        Ray.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material.SetColor("_AlbedoColor", rayColor);
     }
 
     public void EnteredZone(ZoneInteractable who, Zone zone)
@@ -34,6 +35,7 @@ public class ZoneEgg : Zone
             tribe.StopAll();
             Ray.gameObject.SetActive(true);
             tribe.StartLive();
+            Egg.GetComponent<MeshRenderer>().material = ActivatedMaterial;
         }
         else if (zone == this)
         {

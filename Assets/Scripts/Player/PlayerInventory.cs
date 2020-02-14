@@ -188,7 +188,7 @@ public class PlayerInventory : BaseMonoBehaviour
         //         return;
         //     }
         // }
-		if (!data.IsActivated && data._itemActivatedPrefab != null)
+		if (!data.IsActivated && data._ItemActivatedMaterial != null)
 		{
 			onItemActivated?.Invoke(it);
 		}

@@ -38,10 +38,9 @@ public class Item : BaseMonoBehaviour
 	public void ActivateItem()
 	{
 		_itemData.IsActivated = true;
-        if (_itemData._itemActivatedPrefab)
+        if (_itemData._ItemActivatedMaterial)
         {
-            Instantiate(_itemData._itemActivatedPrefab, transform.parent);
-            Destroy(this.gameObject);
+            GetComponentInChildren<Renderer>().material = _itemData._ItemActivatedMaterial;
         }
         //UIManager.I.AlertMessage($"{_itemData.Name} has been activated...");
     }

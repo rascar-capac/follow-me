@@ -17,8 +17,8 @@ MonoBehaviour:
   Icon: {fileID: 0}
   _itemBasePrefab: {fileID: 6347550121490034333, guid: 403b730778fda7949b51d87672956ba8,
     type: 3}
-  _itemActivatedPrefab: {fileID: 6347550121490034333, guid: 3821555024045084caa4d8abc76c9d2a,
-    type: 3}
+  _ItemActivatedMaterial: {fileID: 2100000, guid: 5470c565ea3395f42845580b0d719dac,
+    type: 2}
   _itemToDrop: {fileID: 0}
   _PositionToDrop: {fileID: 0}
   IsCatchable: 0

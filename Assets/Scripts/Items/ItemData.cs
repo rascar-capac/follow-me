@@ -13,8 +13,8 @@ public class ItemData : ScriptableObject
     public Sprite Icon;
     [Tooltip("Base prefab of the item")]
     public GameObject _itemBasePrefab;
-    [Tooltip("Activated prefab of the item")]
-    public GameObject _itemActivatedPrefab;
+    [Tooltip("Activated material of the item")]
+    public Material _ItemActivatedMaterial;
     [Tooltip("Item to drop here")]
     public ItemData _itemToDrop;
     [Tooltip("Position to drop")]
