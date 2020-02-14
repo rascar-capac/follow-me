@@ -87,7 +87,7 @@ Material:
     - _BumpScale: 6.47
     - _Cutoff: 0.5
     - _DayNightAlbedo: 0
-    - _DayNightEmissive: 1
+    - _DayNightEmissive: 0
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1

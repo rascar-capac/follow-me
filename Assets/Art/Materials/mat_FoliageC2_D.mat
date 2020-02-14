@@ -108,7 +108,7 @@ Material:
     - _ColorMode: 0
     - _Cull: 0
     - _Cutoff: 0.5
-    - _DayNightAlbedo: 1
+    - _DayNightAlbedo: 0
     - _DayNightEmissive: 0
     - _DayNightFresnel: 0
     - _DetailNormalMapScale: 1

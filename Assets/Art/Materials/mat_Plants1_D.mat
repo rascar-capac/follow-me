@@ -111,9 +111,9 @@ Material:
     - _CameraNearFadeDistance: 1
     - _Cull: 0
     - _Cutoff: 0.5
-    - _DayNightAlbedo: 0.26758826
-    - _DayNightEmissive: 0.26758826
-    - _DayNightFresnel: 0.26758826
+    - _DayNightAlbedo: 0
+    - _DayNightEmissive: 0
+    - _DayNightFresnel: 0
     - _DetailNormalMapScale: 1
     - _DistortionBlend: 0.5
     - _DistortionEnabled: 0
