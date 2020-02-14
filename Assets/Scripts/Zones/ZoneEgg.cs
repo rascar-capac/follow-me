@@ -8,6 +8,8 @@ public class ZoneEgg : Zone
     public GameObject Ray;
     public int PhaseIndex;
     public bool HasActivationAllowed = false;
+    public bool IsTileActivated = false;
+
     public bool IsActivate => Ray.activeSelf;
     Player player;
     Tribe tribe;
@@ -22,7 +24,7 @@ public class ZoneEgg : Zone
         tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
         GameData gd = GameManager.I._data;
         Color rayColor = PhaseIndex == gd.Phases.Count ? gd.SpecialPhase.color : gd.Phases[PhaseIndex].color;
-        Ray.GetComponent<Renderer>().material.SetColor("_Color", rayColor);
+        Ray.transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_Color", rayColor);
     }
 
     public void EnteredZone(ZoneInteractable who, Zone zone)
@@ -51,6 +53,6 @@ public class ZoneEgg : Zone
 
     public void AllowActivation(int currentPhaseIndex)
     {
-        HasActivationAllowed = currentPhaseIndex == PhaseIndex;
+        HasActivationAllowed = currentPhaseIndex == PhaseIndex && IsTileActivated;
     }
 }

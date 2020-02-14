@@ -227,7 +227,7 @@ public class Tribe : ZoneInteractable
     public float speed = 100.0f;
     public float AngularSpeed = 0.00005f;
     public GameObject AroundIslandPath;
-
+    public float NormalHeight = 400f;
     //[Range(0, 1)]
     //public float Sadness = 1.0f;
     //[Range(0, 1)]
@@ -286,8 +286,8 @@ public class Tribe : ZoneInteractable
 
         List<IEnumerable> cos = new List<IEnumerable>();
         cos.Add(GoToRandomPosition(200f));
-        cos.Add(FollowingTransform(_Player.transform, 1, 50f));
-        cos.Add(Following(AroundIslandPath, speedMove: 200f));
+        //cos.Add(FollowingTransform(_Player.transform, 1, 50f));
+        //cos.Add(Following(AroundIslandPath, speedMove: 200f));
         yield return StartCoroutine(ResetCreature());
         speed = 100f;
         while (true)
@@ -395,7 +395,7 @@ public class Tribe : ZoneInteractable
         Bounds terrainDimensions = _Terrain.terrainData.bounds;
         Vector2 randomDestination = new Vector2(terrainDimensions.center.x, terrainDimensions.center.z)
                                     + Random.insideUnitCircle * (terrainDimensions.size / 2);
-        yield return StartCoroutine(GoingToPosition(new Vector3(randomDestination.x, transform.position.y, randomDestination.y), speedMove: speedMove));
+        yield return StartCoroutine(GoingToPosition(new Vector3(randomDestination.x, transform.position.y, randomDestination.y), speedMove: speedMove, dir: (RotationDirection)Random.Range(0, 2)));
     }
     public IEnumerator GoToPosition(Vector3 position, bool Force = false, float WaitAndComeBackSeconds=0f, bool ChangeRotation = true)
     {
@@ -429,11 +429,11 @@ public class Tribe : ZoneInteractable
                 break;
             yield return null;
         }
-        //while (Mathf.Abs(Quaternion.Angle(transform.rotation, InitialRotation)) > 1)
-        //{
-        //    transform.rotation = Quaternion.Slerp(transform.rotation, InitialRotation, Time.deltaTime * AngularSpeed);
-        //    yield return null;
-        //}
+        while (Mathf.Abs(Quaternion.Angle(transform.rotation, InitialRotation)) > 1)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, InitialRotation, Time.deltaTime * AngularSpeed);
+            yield return null;
+        }
     }
     public IEnumerable FollowingTransform(Transform target, float duration = 0.0f, float speedMove=0)
     {
@@ -482,12 +482,19 @@ public class Tribe : ZoneInteractable
     }
     public void RotateTowards(Vector3 direction, RotationDirection Rdirection = RotationDirection.Left)
     {
-        Vector3 Direction = (direction - transform.position).normalized;
+        Vector3 Direction = Vector3.zero;
+
+        Direction = (direction - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(Direction);
-        if (Rdirection == RotationDirection.Right )
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * AngularSpeed);
+
+        //transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * AngularSpeed);
+        if (Mathf.Abs(Quaternion.Angle(transform.rotation, lookRotation)) <= 5)
+            return;
+        if (Rdirection == RotationDirection.Left)
+            transform.Rotate(lookRotation.eulerAngles * Time.deltaTime * -1 * AngularSpeed, Space.Self);
         else
-            transform.rotation = Quaternion.Slerp(lookRotation, transform.rotation, Time.deltaTime * AngularSpeed);
+            transform.Rotate(lookRotation.eulerAngles * Time.deltaTime * AngularSpeed, Space.Self);
+
     }
     public IEnumerator Rotating(Quaternion rotation)
     {
