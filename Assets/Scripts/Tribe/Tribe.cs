@@ -271,7 +271,7 @@ public class Tribe : ZoneInteractable
         yield return GoToPosition(new Vector3(_Player.transform.position.x-300, transform.position.y, _Player.transform.position.z-300));
         //cos.Add(Diving(_Player.transform.position, 300f));
         //cos.Add(LookingTransform(_Player.transform, 3f));
-        cos.Add(RotatingAround(_Player.transform, 3f, 300f));
+        cos.Add(RotatingAround(_Player.transform, 10f, 300f));
         while (true)
         {
             while (PauseRandomMove)
@@ -337,7 +337,7 @@ public class Tribe : ZoneInteractable
             case TribeEmotionMode.Normal:
                 Debug.Log("live");
 
-                SoundManager.I.Play("Normal");
+                SoundManager.I.PlayCreature("Normal");
 
                 //RedLight.gameObject.SetActive(false);
                 break;
@@ -345,19 +345,19 @@ public class Tribe : ZoneInteractable
                 Debug.Log("aggress");
                 //RedLight.gameObject.SetActive(true);
                 //RedLight.color = Color.red;
-                SoundManager.I.Play("Angry2");
+                SoundManager.I.PlayCreature("Angry2");
 
                 break;
             case TribeEmotionMode.Fear:
                 Debug.Log("Fear");
-                SoundManager.I.Play("Angry");
+                SoundManager.I.PlayCreature("Angry");
 
                 //RedLight.gameObject.SetActive(true);
                 //RedLight.color = Color.blue;
                 break;
             case TribeEmotionMode.Happy:
                 Debug.Log("Happy");
-                SoundManager.I.Play("Happy");
+                SoundManager.I.PlayCreature("Happy");
                 //RedLight.gameObject.SetActive(true);
                 //RedLight.color = Color.yellow;
                 break;
@@ -407,7 +407,7 @@ public class Tribe : ZoneInteractable
     {
         speedMove = speedMove == 0 ? speed : speedMove;
         RotationDirection dir = (RotationDirection)Random.Range(0, 2);
-        yield return StartCoroutine(GoingToPosition(new Vector3(t.position.x + 100, t.position.y + 200, t.position.z + 100), speedMove: speedMove));
+        yield return StartCoroutine(GoingToPosition(new Vector3(t.position.x + 100, t.position.y + 200, t.position.z + 100), speedMove: speedMove, dir: dir));
         float starttime = Time.time;
         while (true)
         {
@@ -456,14 +456,14 @@ public class Tribe : ZoneInteractable
         yield return GoingToPosition(new Vector3(Target.x, Target.y + 100f, Target.z), speedMove: speedMove);
         yield return GoingToPosition(FinalPosition, speedMove: speedMove);
     }
-    public IEnumerator GoingToPosition(Vector3 position, float WaitAndComeBackSeconds = 0f, bool ChangeRotation = true, float speedMove = 0f)
+    public IEnumerator GoingToPosition(Vector3 position, float WaitAndComeBackSeconds = 0f, bool ChangeRotation = true, float speedMove = 0f, RotationDirection dir = RotationDirection.Left)
     {
         speedMove = speedMove == 0 ? speed : speedMove;
         Vector3 initialPosition = transform.position;
         while (Vector3.Distance(transform.position, position) > 50f)
         {
             if (ChangeRotation)
-                RotateTowards(position);
+                RotateTowards(position, dir);
             transform.position += transform.forward * speedMove * Time.deltaTime;//Vector3.MoveTowards(transform.position, position, speedMove * Time.deltaTime);
 
             yield return null;
@@ -476,7 +476,7 @@ public class Tribe : ZoneInteractable
                 transform.position = Vector3.MoveTowards(transform.position, initialPosition, speedMove * Time.deltaTime);
                 yield return null;
                 if (ChangeRotation)
-                    RotateTowards(initialPosition);
+                    RotateTowards(initialPosition, dir);
             }
         }
     }
