@@ -24,7 +24,7 @@ MonoBehaviour:
   _itemOnCoaster: 0
   Dialogs: []
   Egg: {fileID: 0}
-  Ray: {fileID: 0}
+  Ray: {fileID: 2389241993411342138}
   PhaseIndex: 0
   HasActivationAllowed: 0
   IsTileActivated: 0
@@ -187,5 +187,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: m_StoneRay2
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 3f7d82f505e4dd7448127c5cd842ba5f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f7d82f505e4dd7448127c5cd842ba5f, type: 3}
+--- !u!1 &2389241993411342138 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 3f7d82f505e4dd7448127c5cd842ba5f,
+    type: 3}
+  m_PrefabInstance: {fileID: 5911440674958734899}
+  m_PrefabAsset: {fileID: 0}
