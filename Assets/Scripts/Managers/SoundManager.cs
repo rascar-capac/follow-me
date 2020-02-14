@@ -10,11 +10,18 @@ public class SoundManager : Singleton<SoundManager>
     public List<AudioClip> PedestalsClips;
     protected AudioSource PedestalsSource;
 
+    public List<AudioClip> PlayerClips;
+    public List<AudioClip> PlayerSteps;
+    protected AudioSource PlayerSource;
+
+
+
     protected override void Start()
     {
         base.Start();
         CreatureSource = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<AudioSource>();
         PedestalsSource = ((GameObject)ObjectsManager.I["ZonePedestals"]).GetComponent<AudioSource>();
+        PlayerSource = ((GameObject)ObjectsManager.I["Player"]).GetComponent<AudioSource>();
     }
     public void PlayCreature(string name)
     {
@@ -32,12 +39,49 @@ public class SoundManager : Singleton<SoundManager>
     {
         if (!PedestalsSource)
             PedestalsSource = ((GameObject)ObjectsManager.I["ZonePedestals"]).GetComponent<AudioSource>();
-
         AudioClip found = PedestalsClips.Find(a => a.name == name);
         if (found)
         {
             PedestalsSource.Stop();
             PedestalsSource.PlayOneShot(found);
         }
+    }
+    public void PlayPlayer(string name)
+    {
+        if (!PlayerSource)
+            PlayerSource = ((GameObject)ObjectsManager.I["Player"]).GetComponent<AudioSource>();
+        AudioClip found = PlayerClips.Find(a => a.name == name);
+        if (found)
+        {
+            if (PlayerSource.isPlaying && PlayerSource.clip == found)
+                return;
+            StopPlayerSound();
+            PlayerSource.clip = found;
+            PlayerSource.loop = true;
+            PlayerSource.Play();
+        }
+    }
+
+    public void PlayerWalk()
+    {
+        if (!PlayerSource)
+            PlayerSource = ((GameObject)ObjectsManager.I["Player"]).GetComponent<AudioSource>();
+        if (PlayerSource.isPlaying)
+            return;
+
+        AudioClip found = PlayerSteps[Random.Range(0, PlayerSteps.Count)];
+        while (PlayerSource.clip == found)
+        {
+            found = PlayerSteps[Random.Range(0, PlayerSteps.Count)];
+        }
+        PlayerSource.clip = found;
+        PlayerSource.loop = false;
+        PlayerSource.Play();
+
+    }
+
+    public void StopPlayerSound()
+    {
+        PlayerSource.Stop();
     }
 }

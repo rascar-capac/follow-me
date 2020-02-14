@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
 public class Pedestals : BaseMonoBehaviour
 {
     public List<PedestalStoneMatch> PedestalStoneMatches = null;
@@ -10,6 +10,7 @@ public class Pedestals : BaseMonoBehaviour
     private bool _IsMatching;
     private ItemData _StoneInHand;
     private Transform _StoneInHandPedestal;
+    public UnityEvent onGameFinished = new UnityEvent();
 
     protected override void Start()
     {
@@ -27,10 +28,15 @@ public class Pedestals : BaseMonoBehaviour
         }
         if(_StoneInHand)
         {
-            if(focusedStone)
+            if (focusedStone)
             {
                 focusedStone.transform.SetPositionAndRotation(_StoneInHandPedestal.position, _StoneInHandPedestal.rotation);
                 focusedStone.transform.SetParent(_StoneInHandPedestal);
+                SoundManager.I.PlayPedestals("Swap2");
+            }
+            else
+            {
+                SoundManager.I.PlayPedestals("Drop");
             }
             Instantiate(_StoneInHand._itemBasePrefab, focusedPedestal.transform);
             _StoneInHand = null;
@@ -41,8 +47,8 @@ public class Pedestals : BaseMonoBehaviour
             _StoneInHand = focusedStone._itemData;
             _StoneInHandPedestal = focusedPedestal.transform;
             Destroy(focusedStone.gameObject);
+            SoundManager.I.PlayPedestals("PickUp1");
         }
-        SoundManager.I.PlayPedestals("Swap");
     }
 
     private void CheckMatching()
@@ -58,12 +64,13 @@ public class Pedestals : BaseMonoBehaviour
                 break;
             }
         }
-        if(_IsMatching)
+        if (_IsMatching)
         {
             foreach(PedestalStoneMatch match in PedestalStoneMatches)
             {
                 match.Pedestal.transform.GetChild(0).GetComponent<Item>().ActivateItem();
             }
+            onGameFinished.Invoke();
         }
     }
 }
