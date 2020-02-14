@@ -33,6 +33,11 @@ public enum TribeEmotionMode
     Fear,
     Happy
 }
+public enum RotationDirection
+{
+    Left,
+    Right
+}
 
 public class Tribe : ZoneInteractable
 {
@@ -264,8 +269,8 @@ public class Tribe : ZoneInteractable
 
         List<IEnumerable> cos = new List<IEnumerable>();
         yield return GoToPosition(new Vector3(_Player.transform.position.x-300, transform.position.y, _Player.transform.position.z-300));
-        cos.Add(Diving(_Player.transform.position, 300f));
-        cos.Add(LookingTransform(_Player.transform, 3f));
+        //cos.Add(Diving(_Player.transform.position, 300f));
+        //cos.Add(LookingTransform(_Player.transform, 3f));
         cos.Add(RotatingAround(_Player.transform, 3f, 300f));
         while (true)
         {
@@ -401,6 +406,7 @@ public class Tribe : ZoneInteractable
     public IEnumerable RotatingAround(Transform t, float duration = 0f, float speedMove = 0)
     {
         speedMove = speedMove == 0 ? speed : speedMove;
+        RotationDirection dir = (RotationDirection)Random.Range(0, 2);
         yield return StartCoroutine(GoingToPosition(new Vector3(t.position.x + 100, t.position.y + 200, t.position.z + 100), speedMove: speedMove));
         float starttime = Time.time;
         while (true)
@@ -408,7 +414,7 @@ public class Tribe : ZoneInteractable
             if (duration > 0 && Time.time - starttime > duration)
                 break;
             transform.RotateAround(t.position, Vector3.up, 10 * Time.deltaTime);
-            RotateTowards(t.position);
+            RotateTowards(t.position, dir);
             yield return null;
         }
     }
@@ -423,11 +429,11 @@ public class Tribe : ZoneInteractable
                 break;
             yield return null;
         }
-        while (Mathf.Abs(Quaternion.Angle(transform.rotation, InitialRotation)) > 1)
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, InitialRotation, Time.deltaTime * AngularSpeed);
-            yield return null;
-        }
+        //while (Mathf.Abs(Quaternion.Angle(transform.rotation, InitialRotation)) > 1)
+        //{
+        //    transform.rotation = Quaternion.Slerp(transform.rotation, InitialRotation, Time.deltaTime * AngularSpeed);
+        //    yield return null;
+        //}
     }
     public IEnumerable FollowingTransform(Transform target, float duration = 0.0f, float speedMove=0)
     {
@@ -474,11 +480,14 @@ public class Tribe : ZoneInteractable
             }
         }
     }
-    public void RotateTowards(Vector3 direction)
+    public void RotateTowards(Vector3 direction, RotationDirection Rdirection = RotationDirection.Left)
     {
         Vector3 Direction = (direction - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(Direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * AngularSpeed);
+        if (Rdirection == RotationDirection.Right )
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * AngularSpeed);
+        else
+            transform.rotation = Quaternion.Slerp(lookRotation, transform.rotation, Time.deltaTime * AngularSpeed);
     }
     public IEnumerator Rotating(Quaternion rotation)
     {
