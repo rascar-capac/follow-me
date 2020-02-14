@@ -6,8 +6,8 @@ public class ZoneEgg : Zone
 {
     public GameObject Egg;
     public GameObject Ray;
-    public int ColorIndex;
-    public bool AllowActivate = false;
+    public int PhaseIndex;
+    public bool HasActivationAllowed = false;
     public bool IsActivate => Ray.activeSelf;
     Player player;
     Tribe tribe;
@@ -18,15 +18,16 @@ public class ZoneEgg : Zone
         player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
         player.onZoneEnter.AddListener(EnteredZone);
         player.onZoneExit.AddListener(ExitedZone);
+        AmbiantManager.I.onTimePhaseChanged.AddListener(AllowActivation);
         tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
         GameData gd = GameManager.I._data;
-        Color rayColor = ColorIndex == gd.Phases.Count ? gd.SpecialPhase.color : gd.Phases[ColorIndex].color;
+        Color rayColor = PhaseIndex == gd.Phases.Count ? gd.SpecialPhase.color : gd.Phases[PhaseIndex].color;
         Ray.GetComponent<Renderer>().material.SetColor("_Color", rayColor);
     }
 
     public void EnteredZone(ZoneInteractable who, Zone zone)
     {
-        if (zone == this && AllowActivate)
+        if (zone == this && HasActivationAllowed)
         {
             tribe.StopAll();
             Ray.gameObject.SetActive(true);
@@ -41,10 +42,15 @@ public class ZoneEgg : Zone
 
     public void ExitedZone(ZoneInteractable who, Zone zone)
     {
-        if (zone == this && !AllowActivate)
+        if (zone == this && !HasActivationAllowed)
         {
             tribe.StopAll();
             tribe.StartLive();
         }
+    }
+
+    public void AllowActivation(int currentPhaseIndex)
+    {
+        HasActivationAllowed = currentPhaseIndex == PhaseIndex;
     }
 }
