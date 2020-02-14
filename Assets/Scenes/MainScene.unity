@@ -1625,6 +1625,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 968838890444336318, guid: 58e00a52122fad44f91238d6b6b7e2dd,
+        type: 3}
+      propertyPath: Music
+      value: 
+      objectReference: {fileID: 8300000, guid: 7a72532181d295847b3fd316cd08f1f1, type: 3}
+    - target: {fileID: 968838890444336318, guid: 58e00a52122fad44f91238d6b6b7e2dd,
+        type: 3}
+      propertyPath: Layers.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 4352087089667544189, guid: 58e00a52122fad44f91238d6b6b7e2dd,
         type: 3}
       propertyPath: m_Name
@@ -14814,6 +14824,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c156be58fdc9dc0419b192406a39e148, type: 3}
   - {fileID: 8300000, guid: dd09609b67c17f4418f9d01939203c04, type: 3}
   - {fileID: 8300000, guid: 16311f80bebb9a44e8f92cbea1bcb02c, type: 3}
+  GlobalAmbiance: {fileID: 8300000, guid: 865ef6090504b4a48beee69421eb5eae, type: 3}
 --- !u!1001 &7354173736692978563
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -18,6 +18,9 @@ public class TribePlayerDialog
 
 public class Zone : BaseMonoBehaviour
 {
+    public AudioClip Music;
+    protected bool MusicPlayed = false;
+
     [Header("Ressources")]
     public RessourcesType[] Ressources;
     [Header("Player loose energy speed by second")]
@@ -42,13 +45,18 @@ public class Zone : BaseMonoBehaviour
         if (Layers == (Layers | (1 << other.gameObject.layer)))
         {
             other.gameObject.GetComponent<ZoneInteractable>().EnterZone(this);
-            if (Dialogs != null && other.gameObject.GetComponent<ZoneInteractable>() is Player)
+            if (!MusicPlayed && other.gameObject.GetComponent<ZoneInteractable>() is Player)
             {
-				foreach (TribePlayerDialog dialog in Dialogs)
-				{
-					//UIManager.I.AlertMessage(dialog.Message, WhoTalks: dialog.Who);
-				}
-			}
+                SoundManager.I.PlayZoneAmbiance(Music);
+                MusicPlayed = true;
+            }
+   //         if (Dialogs != null && other.gameObject.GetComponent<ZoneInteractable>() is Player)
+   //         {
+			//	//foreach (TribePlayerDialog dialog in Dialogs)
+			//	//{
+			//	//	//UIManager.I.AlertMessage(dialog.Message, WhoTalks: dialog.Who);
+			//	//}
+			//}
         }
     }
 

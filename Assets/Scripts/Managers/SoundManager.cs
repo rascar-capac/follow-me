@@ -14,7 +14,8 @@ public class SoundManager : Singleton<SoundManager>
     public List<AudioClip> PlayerSteps;
     protected AudioSource PlayerSource;
 
-
+    protected AudioSource AmbiantSource;
+    public AudioClip GlobalAmbiance;
 
     protected override void Start()
     {
@@ -22,7 +23,26 @@ public class SoundManager : Singleton<SoundManager>
         CreatureSource = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<AudioSource>();
         PedestalsSource = ((GameObject)ObjectsManager.I["ZonePedestals"]).GetComponent<AudioSource>();
         PlayerSource = ((GameObject)ObjectsManager.I["Player"]).GetComponent<AudioSource>();
+        AmbiantSource = CameraManager.I._MainCamera.GetComponent<AudioSource>();
     }
+    public void PlayZoneAmbiance(AudioClip clip=null, bool loop = false)
+    {
+        if (clip == null)
+            clip = GlobalAmbiance;
+        AmbiantSource.Stop();
+        AmbiantSource.clip = clip;
+        AmbiantSource.loop = loop;
+        AmbiantSource.Play();
+        StartChrono(clip.length, PlayGlobalAmbiance);
+    }
+    void PlayGlobalAmbiance()
+    {
+        AmbiantSource.Stop();
+        AmbiantSource.clip = GlobalAmbiance;
+        AmbiantSource.loop = true;
+        AmbiantSource.Play();
+    }
+
     public void PlayCreature(string name)
     {
         if (!CreatureSource)
