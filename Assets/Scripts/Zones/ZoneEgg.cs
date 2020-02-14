@@ -8,6 +8,8 @@ public class ZoneEgg : Zone
     public GameObject Ray;
     public int PhaseIndex;
     public bool HasActivationAllowed = false;
+    public bool IsTileActivated = false;
+
     public bool IsActivate => Ray.activeSelf;
     Player player;
     Tribe tribe;
@@ -51,6 +53,6 @@ public class ZoneEgg : Zone
 
     public void AllowActivation(int currentPhaseIndex)
     {
-        HasActivationAllowed = currentPhaseIndex == PhaseIndex;
+        HasActivationAllowed = currentPhaseIndex == PhaseIndex && IsTileActivated;
     }
 }

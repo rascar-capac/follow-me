@@ -23,7 +23,7 @@ public class ZoneLink : Zone
         if (zone == this && !IsActivated)
         {
             tribe.StopAll();
-            LinkedZone.gameObject.SetActive(true);
+            LinkedZone.IsTileActivated = true;
             LinkedZone.Ray.gameObject.SetActive(false);
             tribe.SetMode(TribeEmotionMode.Happy);
             tribe.StartRotating(LinkedZone.Egg.transform);
