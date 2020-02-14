@@ -22,14 +22,12 @@ public class ZoneLink : Zone
     {
         if (zone == this && !IsActivated)
         {
-            //LinkedZone.gameObject.SetActive(true);
             tribe.StopAll();
             LinkedZone.gameObject.SetActive(true);
             LinkedZone.Ray.gameObject.SetActive(false);
-            LinkedZone.AllowActivate = true;
             tribe.SetMode(TribeEmotionMode.Happy);
             tribe.StartRotating(LinkedZone.Egg.transform);
-            AmbiantManager.I.SkipDayTimeToPhase(LinkedZone.ColorIndex);
+            AmbiantManager.I.SkipDayTimeToPhase(LinkedZone.PhaseIndex);
             IsActivated = true;
         }
     }

@@ -110,15 +110,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PedestalStoneMatches:
   - Pedestal: {fileID: 1115112378258270977}
-    Stone: {fileID: 0}
+    Stone: {fileID: 11400000, guid: 85f80c44c4e53ae42a51666a7ecb6819, type: 2}
   - Pedestal: {fileID: 5608028589353965300}
-    Stone: {fileID: 0}
+    Stone: {fileID: 11400000, guid: f45e86e05754a9842a188a296ad4f19c, type: 2}
   - Pedestal: {fileID: 1436632500705142027}
-    Stone: {fileID: 0}
+    Stone: {fileID: 11400000, guid: 41a445afc30e84949b4c226c1bd09aa8, type: 2}
   - Pedestal: {fileID: 8108195861090369198}
-    Stone: {fileID: 0}
+    Stone: {fileID: 11400000, guid: 27d69a89d0e4e714db910f1bbd890e63, type: 2}
   - Pedestal: {fileID: 1937467011328535618}
-    Stone: {fileID: 0}
+    Stone: {fileID: 11400000, guid: 134e2c73002e06d4c979d14a59879496, type: 2}
 --- !u!1001 &117337850
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -130,7 +130,15 @@ public class PlayerMovement : BaseMonoBehaviour
         else
             _move += forward;
 
-
+        if (_move == Vector3.zero)
+        {
+            SoundManager.I.StopPlayerSound();
+        }
+        else
+        {
+            //SoundManager.I.PlayPlayer("Walk");
+            SoundManager.I.PlayerWalk();
+        }
         //_move = transform.right * x + transform.forward * z;
 
         float runMultiply = 1;

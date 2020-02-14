@@ -429,11 +429,11 @@ public class Tribe : ZoneInteractable
                 break;
             yield return null;
         }
-        //while (Mathf.Abs(Quaternion.Angle(transform.rotation, InitialRotation)) > 1)
-        //{
-        //    transform.rotation = Quaternion.Slerp(transform.rotation, InitialRotation, Time.deltaTime * AngularSpeed);
-        //    yield return null;
-        //}
+        while (Mathf.Abs(Quaternion.Angle(transform.rotation, InitialRotation)) > 1)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, InitialRotation, Time.deltaTime * AngularSpeed);
+            yield return null;
+        }
     }
     public IEnumerable FollowingTransform(Transform target, float duration = 0.0f, float speedMove=0)
     {
@@ -532,6 +532,10 @@ public class Tribe : ZoneInteractable
     public void StartLive()
     {
         StartCoroutine(Live());
+    }
+    public void StartHappy()
+    {
+        StartCoroutine(Happy());
     }
     public void StartAggress()
     {
