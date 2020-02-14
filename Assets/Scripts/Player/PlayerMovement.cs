@@ -117,6 +117,9 @@ public class PlayerMovement : BaseMonoBehaviour
                 _move += right;
             //_isMoveAllowed = groundAngle <= _controller.slopeLimit;
         }
+        else
+            _move += right;
+
         if (Physics.Raycast(CameraManager.I._MainCamera.transform.position + forward * 0.5f, Vector3.down, out hit, 5, _groundMask))
         {
             float groundAngle = Vector3.Angle(Vector3.up, hit.normal);
@@ -124,6 +127,9 @@ public class PlayerMovement : BaseMonoBehaviour
                 _move += forward;
             //_isMoveAllowed = groundAngle <= _controller.slopeLimit;
         }
+        else
+            _move += forward;
+
 
         //_move = transform.right * x + transform.forward * z;
 
