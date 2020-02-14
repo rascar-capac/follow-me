@@ -422,6 +422,7 @@ public class Tribe : ZoneInteractable
     {
         speedMove = speedMove == 0 ? speed : speedMove;
         RotationDirection dir = (RotationDirection)Random.Range(0, 2);
+        yield return StartCoroutine(GoDownUp(1000, true, 300, false).GetEnumerator());
         yield return StartCoroutine(GoingToPosition(new Vector3(t.position.x + 100, t.position.y + 200, t.position.z + 100), speedMove: speedMove, dir: dir));
         float starttime = Time.time;
         while (true)
