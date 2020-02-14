@@ -13,7 +13,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: mat_Stone1
-    second: {fileID: 2100000, guid: c906154ce296066479cf4920e4743313, type: 2}
+    second: {fileID: 2100000, guid: 9d8c6fe05d7859e448ad773bac76213e, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -91,7 +91,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.0139999995
+    globalScale: 1.4
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
