@@ -42,6 +42,7 @@ public class Pedestals : BaseMonoBehaviour
             _StoneInHandPedestal = focusedPedestal.transform;
             Destroy(focusedStone.gameObject);
         }
+        SoundManager.I.PlayPedestals("Swap");
     }
 
     private void CheckMatching()

@@ -56,10 +56,10 @@ public class PlayerInventory : BaseMonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
 
 		InputManager.I.onInteractionKeyPressed.AddListener(PlayerInteract);
-        InputManager.I.onLeftHandShowHide.AddListener(() => { ShowHideHand(Hand.Left); });
-        InputManager.I.onRightHandShowHide.AddListener(() => { ShowHideHand(Hand.Right); });
-		InputManager.I.onBeaconPlaceButtonPressed.AddListener(PlaceBeacon);
-        InputManager.I.onBeaconActivateKeyPressed.AddListener(BeaconActivation);
+  //      InputManager.I.onLeftHandShowHide.AddListener(() => { ShowHideHand(Hand.Left); });
+  //      InputManager.I.onRightHandShowHide.AddListener(() => { ShowHideHand(Hand.Right); });
+		//InputManager.I.onBeaconPlaceButtonPressed.AddListener(PlaceBeacon);
+  //      InputManager.I.onBeaconActivateKeyPressed.AddListener(BeaconActivation);
 
         //UIManager.I.onToolsInventoryClosedEvent.AddListener((hand) => { isInteractionAllowed = true; });
         //UIManager.I.onToolsInventoryOpenedEvent.AddListener((hand) => { isInteractionAllowed = false; });
