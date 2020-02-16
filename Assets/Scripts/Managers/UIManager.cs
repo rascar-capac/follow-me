@@ -1,38 +1,39 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using Borodar.FarlandSkies.LowPoly;
 
 public class ToolsInventoryEvent : UnityEvent<Hand> { }
 public class UIManager : Singleton<UIManager>
 {
-	//public Camera CameraMain;
-	//public Camera CameraUI;
+	#region References UI Prefabs
+
+	[Header("HUD Panel")]
+	public GameObject HudPanel;
+	[Header("Main Menu Panel")]
+	public GameObject MainMenu;
+	[Header("Start Menu Panel")]
+	public GameObject StartMenu;
+
+	#endregion
 
     #region References Player
+
     Player _Player;
     PlayerMovement _PlayerMovement;
 	PlayerLook _PlayerLook;
 	PlayerInventory _PlayerInventory;
-    #endregion
-
-    #region References Tribe
-    Tribe _Tribe;
-    #endregion
-
-    #region References UI Prefabs
-    [Header("HUD Panel")]
-	public GameObject HudPanel;
-	[Header("Main Menu Panel")]
-	public GameObject MainMenu;
 
 	#endregion
 
 	#region Archives
 
+	//public Camera CameraMain;
+	//public Camera CameraUI;
+	#region References Tribe
+	//Tribe _Tribe;
+	#endregion
 	#region References UI Prefabs
 
 	//[Header("Tout les Panels du Menu (sauf MainMenu)")]
@@ -79,10 +80,10 @@ public class UIManager : Singleton<UIManager>
 	//   bool AllowOpenInventory = true;
 
 	#endregion
+	//Hand CurrentOpenedHand;
 
 	#endregion
 
-	Hand CurrentOpenedHand;
 
     protected override void Start()
 	{
@@ -92,14 +93,17 @@ public class UIManager : Singleton<UIManager>
 		_PlayerMovement = _Player.GetComponent<PlayerMovement>();
 		_PlayerInventory = _Player.GetComponent<PlayerInventory>();
 		_PlayerLook = _Player.transform.GetChild(0).GetComponent<PlayerLook>();
-		_Tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
 
 		InputManager.I.onPauseKeyPressed.AddListener(OpenCloseMainMenu);
 
-        CloseMenu();
+		OpenStartMenu();
 
 
 		#region Archives
+
+		//_Tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
+
+		//CloseMenu();
 
 		//_Tribe.onTribeEnergyEnterCritical.AddListener(AlertTribeEnergyCritical);
 
@@ -157,7 +161,6 @@ public class UIManager : Singleton<UIManager>
 			CloseMenu();
 		}
 	}
-
 	void OpenMenu()
 	{
 		MainMenu.SetActive(true);
@@ -169,11 +172,31 @@ public class UIManager : Singleton<UIManager>
 		Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
 	}
-
 	void CloseMenu()
 	{
 		MainMenu.SetActive(false);
 		HudPanel.SetActive(false);
+
+		_PlayerMovement.InGame = true;
+		_PlayerLook.AllowLook = true;
+
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
+	}
+
+	void OpenStartMenu()
+	{
+		StartMenu.SetActive(true);
+
+		_PlayerMovement.InGame = false;
+		_PlayerLook.AllowLook = false;
+
+		Cursor.visible = true;
+		Cursor.lockState = CursorLockMode.None;
+	}
+	public void CloseStartMenu()
+	{
+		StartMenu.SetActive(false);
 
 		_PlayerMovement.InGame = true;
 		_PlayerLook.AllowLook = true;
