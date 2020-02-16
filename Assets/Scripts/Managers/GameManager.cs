@@ -7,10 +7,14 @@ using Borodar.FarlandSkies.LowPoly;
 public class GameManager : Singleton<GameManager>
 {
     public GameData _data;
-    public float FinalCycleEffectSpeed = 30f;
     public float FinalCycleEffectDuration = 10f;
+    public AnimationCurve FinalCycleEffectSpeedCurve;
+    public float FinalCycleEffectMaxProgressPerSecond;
     private Pedestals zonePedestals;
     private Tribe tribe;
+
+
+
 
     protected override void Awake()
     {
@@ -36,10 +40,11 @@ public class GameManager : Singleton<GameManager>
     public IEnumerator LaunchFinalCycleEffect()
     {
         float timer = FinalCycleEffectDuration;
-        while(timer > 0)
+        float initialCycleProgress = SkyboxCycleManager.Instance.CycleProgress;
+        while(timer >= 0)
         {
             timer -= Time.deltaTime;
-            SkyboxCycleManager.Instance.CycleProgress += FinalCycleEffectSpeed * Time.deltaTime;
+            SkyboxCycleManager.Instance.CycleProgress += FinalCycleEffectSpeedCurve.Evaluate(timer / FinalCycleEffectDuration) * FinalCycleEffectMaxProgressPerSecond * Time.deltaTime;
             SkyboxCycleManager.Instance.CycleProgress %= 100f;
             yield return null;
         }

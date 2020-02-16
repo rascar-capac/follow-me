@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd87958864f503d478f5c177edbbd4c3, type: 3}
-  m_Name: StonePurple
+  m_Name: EggBlue
   m_EditorClassIdentifier: 
   Name: 
   Description: 
   Icon: {fileID: 0}
-  _itemBasePrefab: {fileID: 3856021470283854715, guid: 449cf135e49f71e459236416005eba34,
+  _itemBasePrefab: {fileID: 6792408480724433843, guid: ebd181a5d64d98f489d002c1f99f784c,
     type: 3}
-  _ItemActivatedMaterial: {fileID: 2100000, guid: 9685daa8dc815374797bb77ae57b2d58,
+  _ItemActivatedMaterial: {fileID: 2100000, guid: 5470c565ea3395f42845580b0d719dac,
     type: 2}
   _itemToDrop: {fileID: 0}
   _PositionToDrop: {fileID: 0}
   IsCatchable: 0
   IsSwapable: 0
   IsActivable: 1
-  IsActivated: 0
+  IsActivated: 1
   MeshBase: {fileID: 0}
   MaterialBase: {fileID: 0}
   MeshActivated: {fileID: 0}

@@ -80,7 +80,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _itemData
       value: 
-      objectReference: {fileID: 11400000, guid: 85f80c44c4e53ae42a51666a7ecb6819,
+      objectReference: {fileID: 11400000, guid: 1038e6e6ea54d694aab8750536d7851b,
         type: 2}
     - target: {fileID: 5653032936331489186, guid: 81f0907f0932c6b4397b24c3e4ad4972,
         type: 3}
@@ -140,7 +140,7 @@ PrefabInstance:
     - target: {fileID: 5653032936331489209, guid: 81f0907f0932c6b4397b24c3e4ad4972,
         type: 3}
       propertyPath: m_Name
-      value: StoneGreenDeactivated
+      value: StoneGreen
       objectReference: {fileID: 0}
     - target: {fileID: 5653032936331489209, guid: 81f0907f0932c6b4397b24c3e4ad4972,
         type: 3}
