@@ -417,6 +417,7 @@ public class Tribe : ZoneInteractable
         yield return StartCoroutine(GoingToPosition(position, WaitAndComeBackSeconds, true));
     }
 
+    public LayerMask LayermaskCollision;
     // Technical Methods
     public IEnumerable RotatingAround(Transform t, float duration = 0f, float speedMove = 0)
     {
@@ -480,7 +481,15 @@ public class Tribe : ZoneInteractable
         {
             if (ChangeRotation)
             {
+                RaycastHit ray;
+                Debug.DrawRay(transform.position, transform.forward * 200, Color.white);
                 RotateTowards(position, dir);
+                if (Physics.Raycast(transform.position, transform.forward, out ray, 200, LayermaskCollision))
+                {
+                    transform.position += Vector3.up * speedMove * Time.deltaTime;
+                }
+             
+
                 transform.position += transform.forward * speedMove * Time.deltaTime;//Vector3.MoveTowards(transform.position, position, speedMove * Time.deltaTime);
             }
             else
@@ -516,7 +525,7 @@ public class Tribe : ZoneInteractable
         Direction = (direction - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(Direction);
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * AngularSpeed);
+        transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * AngularSpeed);
         //float angle = GetSignedAngle(transform.rotation, lookRotation, Vector3.up);
         //if (Mathf.Abs(angle) <= 0.1f)
         //    return;
