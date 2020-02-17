@@ -2,49 +2,85 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Sirenix.OdinInspector;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : BaseMonoBehaviour
 {
+	[HideInInspector]
     public CharacterController _controller;
-    [Header("Current Speed in m/s of the player")]
+    [TabGroup("Properties")][Header("Current Speed in m/s of the player")]
     public float _speed = 12f;
-    [Header("The gravity force")]
+	[TabGroup("Properties")][Header("The gravity force")]
     public float _gravity = -9.81f;
-    [Header("The maximum height of jump")]
+	[TabGroup("Properties")][Header("The maximum height of jump")]
     public float _jumpHeight = 3f;
-    [Header("The game object bottom of the player to check he is grounded.")]
+	[TabGroup("Properties")]
+	public float PlayerRunStamina = 100f;
+	[TabGroup("Properties")]
+	public float TribeDistance = 0.1f;
+
+	[TabGroup("States")]
+	public bool InGame = true;
+	[TabGroup("States")]
+	public bool _isGrounded;
+	[TabGroup("States")]
+	public bool IsWaiting = true;
+	[TabGroup("States")][Header("Tribe is too far")]
+	public bool IsTooFar = false;
+	[TabGroup("States")][Header("Player is running")]
+    public bool IsRunning = false;
+	[TabGroup("States")][ShowInInspector][ReadOnly]
+	bool IsRunStaminaNull => PlayerRunStamina == 0;
+	[TabGroup("States")][ShowInInspector][ReadOnly]
+	bool PlayerMayRun = true;
+	[TabGroup("States")][ShowInInspector][ReadOnly]
+	bool _isMoveAllowed = true;
+
+    [TabGroup("Ground Detection")][Header("The game object bottom of the player to check he is grounded.")]
     public Transform _groundCheck;
-    public float _groundDistance = 0.0f;
-    [Header("The Layer of the ground or element on which we can walk.")]
+	[TabGroup("Ground Detection")]
+	public float _groundDistance = 0.0f;
+	[TabGroup("Ground Detection")][Header("The Layer of the ground or element on which we can walk.")]
     public LayerMask _groundMask;
 
-    [Header("Player is running")]
-    public bool IsRunning = false;
-    public bool IsWaiting = true;
-    public float PlayerRunStamina = 100f;
-    bool IsRunStaminaNull => PlayerRunStamina == 0;
-    bool PlayerMayRun = true;
-    bool _isMoveAllowed = true;
+	// For Slope Detection RENOCK, remove if useless.
+	[TabGroup("Slope Detection")]
+	public Vector3 HitAngle;
+	[TabGroup("Slope Detection")]
+	public Vector3 OffsetStartRaycast;
+	[TabGroup("Slope Detection")]
+	public float RayLenght;
+	RaycastHit HitForward;
+	[TabGroup("Slope Detection")][ReadOnly]
+	public float HitForwardSlopeAngle;
+	RaycastHit HitBackward;
+	[TabGroup("Slope Detection")][ReadOnly]
+	public float HitBackwardSlopeAngle;
+	RaycastHit HitRight;
+	[TabGroup("Slope Detection")][ReadOnly]
+	public float HitRightSlopeAngle;
+	RaycastHit HitLeft;
+	[TabGroup("Slope Detection")][ReadOnly]
+	public float HitLeftSlopeAngle;
+
+	[TabGroup("Events")]
+    public UnityEvent onPlayerRunStaminaNullEnter = new UnityEvent();
+	[TabGroup("Events")]
+	public UnityEvent onPlayerRunStaminaNullExit = new UnityEvent();
+	[TabGroup("Events")]
+	public UnityEvent onPlayerTooFarFromTribe = new UnityEvent();
+	[TabGroup("Events")]
+	public PlayerHasMovedEvent onPlayerHasMoved = new PlayerHasMovedEvent();
+
+    Player _player;
+    GameObject Tribe;
+	float _MinDistForTribeAcceleration;
     Vector3 _move;
     Vector3 _velocity;
-    public bool _isGrounded;
-    public bool IsTooFar = false;
-    public float TribeDistance = 0.1f;
-    GameObject Tribe;
-    Player _player;
-    public bool InGame = true;
 
-    public UnityEvent onPlayerRunStaminaNullEnter = new UnityEvent();
-    public UnityEvent onPlayerRunStaminaNullExit = new UnityEvent();
-    public UnityEvent onPlayerTooFarFromTribe = new UnityEvent();
 
-	// Event For Tribe
-	public PlayerHasMovedEvent onPlayerHasMoved = new PlayerHasMovedEvent();
-	float _MinDistForTribeAcceleration;
-
-    // Start is called before the first frame update
-    protected override void Start()
+	protected override void Start()
     {
         base.Start();
         _controller = GetComponent<CharacterController>();
@@ -63,14 +99,6 @@ public class PlayerMovement : BaseMonoBehaviour
         InputManager.I.onPlayerJumpPressed.AddListener(Jump);
         //UIManager.I.onToolsInventoryClosedEvent.AddListener((hand) => { InGame = true; });
         //UIManager.I.onToolsInventoryOpenedEvent.AddListener((hand) => { InGame = false; });
-    }
-
-    void SwitchRun()
-    {
-        if (!IsRunning && !IsWaiting && PlayerMayRun)
-            IsRunning = true;
-        else
-            IsRunning = false;
     }
 
     private void Update()
@@ -92,134 +120,276 @@ public class PlayerMovement : BaseMonoBehaviour
     //    }
     //}
 
-    public void Move(InputAxisUnityEventArg axis)
+    void SwitchRun()
     {
-        if (!InGame)
-            return;
+        if (!IsRunning && !IsWaiting && PlayerMayRun)
+            IsRunning = true;
+        else
+            IsRunning = false;
+    }
+
+	#region MOVE version Renock
+
+	public void Move(InputAxisUnityEventArg axis)
+	{
+		if (!InGame)
+			return;
 
 		#region Check Ground Position
 
 		_isGrounded = Physics.CheckSphere(_groundCheck.position, _groundDistance, _groundMask);
-        if (_isGrounded && _velocity.y < 0)
-        {
-            _velocity.y = -2f;
-        }
+		if (_isGrounded && _velocity.y < 0)
+		{
+			_velocity.y = -2f;
+		}
 
 		#endregion
 
 		#region Check Inputs
 
-		float x = axis.XValue;
-        float z = axis.YValue;
-        Vector3 right = transform.right * x;
-        Vector3 forward = transform.forward * z;
+		_move = new Vector3(axis.XValue, 0, axis.YValue);
 
 		#endregion
 
 		#region Check Slopes
 
-		Vector3 cameraPosition = CameraManager.I._MainCamera.transform.position;
-		Vector3 rayCastOrigin = cameraPosition + right * _speed * Time.deltaTime;
-		RaycastHit hit;
-		_move = Vector3.zero;
+		Vector3.Normalize(HitAngle);
 
-		if (Physics.Raycast(rayCastOrigin, Vector3.down, out hit, 5, _groundMask))
-		{
-			if (Mathf.Atan2(hit.distance - Vector3.Distance(cameraPosition, _groundCheck.position), x * _speed * Time.deltaTime) <= _controller.slopeLimit)
-				_move += right;
-			//_isMoveAllowed = groundAngle <= _controller.slopeLimit;
-		}
-		else
-			_move += right;
+		// Set par défaut des angles à la valeur de SlopeLimit.
+		HitForwardSlopeAngle = 45f;
+		HitBackwardSlopeAngle = 45f;
+		HitRightSlopeAngle = 45f;
+		HitLeftSlopeAngle = 45f;
 
+		// Debug des prochain rayons tirés.
+		Debug.DrawRay(transform.position + OffsetStartRaycast, (transform.forward + HitAngle) * RayLenght, Color.blue, 0.1f);
+		Debug.DrawRay(transform.position + OffsetStartRaycast, (-transform.forward + HitAngle) * RayLenght, Color.blue, 0.1f);
+		Debug.DrawRay(transform.position + OffsetStartRaycast, (transform.right + HitAngle) * RayLenght, Color.blue, 0.1f);
+		Debug.DrawRay(transform.position + OffsetStartRaycast, (-transform.right + HitAngle) * RayLenght, Color.blue, 0.1f);
 
-		rayCastOrigin = cameraPosition + forward * _speed * Time.deltaTime;
+		// Tir des 4 rayons + calcul de l'angle des pentes touchées
+		if (Physics.Raycast(transform.position + OffsetStartRaycast, transform.forward + HitAngle, out HitForward, RayLenght, _groundMask))
+			HitForwardSlopeAngle = Mathf.Abs(Vector3.Angle(HitForward.normal, transform.forward) - 90f);
+		if (Physics.Raycast(transform.position + OffsetStartRaycast, -transform.forward + HitAngle, out HitBackward, RayLenght, _groundMask))
+			HitBackwardSlopeAngle = Mathf.Abs(Vector3.Angle(HitBackward.normal, -transform.forward) - 90f);
+		if (Physics.Raycast(transform.position + OffsetStartRaycast, transform.right + HitAngle, out HitRight, RayLenght, _groundMask))
+			HitRightSlopeAngle = Mathf.Abs(Vector3.Angle(HitRight.normal, transform.right) - 90f);
+		if (Physics.Raycast(transform.position + OffsetStartRaycast, -transform.right + HitAngle, out HitLeft, RayLenght, _groundMask))
+			HitLeftSlopeAngle = Mathf.Abs(Vector3.Angle(HitLeft.normal, -transform.right) - 90f);
 
-		if (Physics.Raycast(rayCastOrigin, Vector3.down, out hit, 5, _groundMask))
-		{
-			if (Mathf.Atan2(hit.distance - Vector3.Distance(cameraPosition, _groundCheck.position), z * _speed * Time.deltaTime) <= _controller.slopeLimit)
-				_move += forward;
-			//_isMoveAllowed = groundAngle <= _controller.slopeLimit;
-		}
-		else
-			_move += forward;
-
-		//_move = Vector3.zero;
-		//      RaycastHit hit;
-		//      if (Physics.Raycast(CameraManager.I._MainCamera.transform.position + right * 0.5f, Vector3.down, out hit, 5, _groundMask))
-		//      {
-		//          float groundAngle = Vector3.Angle(Vector3.up, hit.normal);
-		//          if (groundAngle <= _controller.slopeLimit - 0.1f)
-		//              _move += right;
-		//          //_isMoveAllowed = groundAngle <= _controller.slopeLimit;
-		//      }
-		//      else
-		//          _move += right;
-
-		//      if (Physics.Raycast(CameraManager.I._MainCamera.transform.position + forward * 0.5f, Vector3.down, out hit, 5, _groundMask))
-		//      {
-		//          float groundAngle = Vector3.Angle(Vector3.up, hit.normal);
-		//          if (groundAngle <= _controller.slopeLimit)
-		//              _move += forward;
-		//          //_isMoveAllowed = groundAngle <= _controller.slopeLimit;
-		//      }
-		//      else
-		//          _move += forward;
+		// Si un des angles dépasse la valeur de SlopeLimit, annulation du mouvement dans la direction correspondante.
+		if (HitForwardSlopeAngle >= 45)
+			_move = new Vector3(_move.x, _move.y, Mathf.Clamp(_move.z, -1, 0));
+		if (HitBackwardSlopeAngle >= 45)
+			_move = new Vector3(_move.x, _move.y, Mathf.Clamp(_move.z, 0, 1));
+		if (HitRightSlopeAngle >= 45)
+			_move = new Vector3(Mathf.Clamp(_move.x, -1, 0), _move.y, _move.z);
+		if (HitLeftSlopeAngle >= 45)
+			_move = new Vector3(Mathf.Clamp(_move.x, 0, 1), _move.y, _move.z);
 
 		#endregion
 
 		#region Apply Sound
 
 		if (_move == Vector3.zero)
-        {
-            SoundManager.I.StopPlayerSound();
-        }
-        else
-        {
-            //SoundManager.I.PlayPlayer("Walk");
-            SoundManager.I.PlayerWalk();
-        }
-		//_move = transform.right * x + transform.forward * z;
+		{
+			SoundManager.I.StopPlayerSound();
+		}
+		else
+		{
+			//SoundManager.I.PlayPlayer("Walk");
+			SoundManager.I.PlayerWalk();
+		}
 
 		#endregion
 
 		#region Setup Run Multiplicator
 
 		float runMultiply = 1;
-        if (IsRunning && AmbiantManager.I.IsUsableNow(GameManager.I._data.PlayerRunUsable))
-            runMultiply = GameManager.I._data.SpeedMultiplicator;
+		if (IsRunning && AmbiantManager.I.IsUsableNow(GameManager.I._data.PlayerRunUsable))
+			runMultiply = GameManager.I._data.SpeedMultiplicator;
 
 		#endregion
 
 		#region Apply Movements
 
 		if (_isMoveAllowed)
-        {
-        _controller.Move(_move * _speed * runMultiply * Time.deltaTime);
-        }
+		{
+			// Application du mouvement après transformation de la direction global (_move) en direction local.
+			_controller.Move(transform.TransformDirection(_move) * _speed * runMultiply * Time.deltaTime);
+		}
 
 		#endregion
 
 		#region Jump
 
-		// if (Input.GetButtonDown("Jump") && _isGrounded)
-		// {
-		//    _velocity.y = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
-		// }
+		//if (Input.GetButtonDown("Jump") && _isGrounded)
+		//{
+		//	_velocity.y = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
+		//}
 
 		#endregion
 
 		#region Apply Gravity
 
-		_velocity.y += _gravity * Time.deltaTime;
-        _controller.Move(_velocity * Time.deltaTime);
+			_velocity.y += _gravity * Time.deltaTime;
+			_controller.Move(_velocity * Time.deltaTime);
 
 		#endregion
 
 		IsWaiting = false;
-    }
+	}
+	private void OnDrawGizmos()
+	{
+		// Debug des points touchés par les rayons.
+		Gizmos.DrawIcon(HitForward.point, "HitForward");
+		Gizmos.DrawIcon(HitBackward.point, "HitBackward");
+		Gizmos.DrawIcon(HitRight.point, "HitRight");
+		Gizmos.DrawIcon(HitLeft.point, "HitLeft");
+	}
 
-    public void Wait()
+	#endregion
+
+	#region MOVE Previous version
+
+	//public void Move(InputAxisUnityEventArg axis)
+	//{
+	//	if (!InGame)
+	//		return;
+
+	//	#region Check Ground Position
+
+	//	_isGrounded = Physics.CheckSphere(_groundCheck.position, _groundDistance, _groundMask);
+	//	if (_isGrounded && _velocity.y < 0)
+	//	{
+	//		_velocity.y = -2f;
+	//	}
+
+	//	#endregion
+
+	//	#region Check Inputs
+
+	//	float x = axis.XValue;
+	//	float z = axis.YValue;
+	//	Vector3 right = transform.right * x;
+	//	Vector3 forward = transform.forward * z;
+
+	//	#endregion
+
+	//	#region Check Slopes
+
+	//	//// WITH MATHF.ATAN2 (voir Théo)
+
+	//	//Vector3 cameraPosition = CameraManager.I._MainCamera.transform.position;
+	//	//Vector3 rayCastOrigin = cameraPosition + right * _speed * Time.deltaTime;
+	//	//RaycastHit hit;
+	//	//_move = Vector3.zero;
+	//	//if (Physics.Raycast(rayCastOrigin, Vector3.down, out hit, 5, _groundMask))
+	//	//{
+	//	//	Debug.Log("Right = " + Mathf.Atan2(hit.distance - Vector3.Distance(cameraPosition, _groundCheck.position), x * _speed * Time.deltaTime));
+
+	//	//	if (Mathf.Atan2(hit.distance - Vector3.Distance(cameraPosition, _groundCheck.position), x * _speed * Time.deltaTime) <= _controller.slopeLimit)
+	//	//		_move += right;
+	//	//	//_isMoveAllowed = groundAngle <= _controller.slopeLimit;
+	//	//}
+	//	//else
+	//	//	_move += right;
+
+	//	//rayCastOrigin = cameraPosition + forward * _speed * Time.deltaTime;
+
+	//	//if (Physics.Raycast(rayCastOrigin, Vector3.down, out hit, 5, _groundMask))
+	//	//{
+	//	//	Debug.Log("Forward = " + Mathf.Atan2(hit.distance - Vector3.Distance(cameraPosition, _groundCheck.position), z * _speed * Time.deltaTime));
+
+	//	//	if (Mathf.Atan2(hit.distance - Vector3.Distance(cameraPosition, _groundCheck.position), z * _speed * Time.deltaTime) <= _controller.slopeLimit)
+	//	//		_move += forward;
+	//	//	//_isMoveAllowed = groundAngle <= _controller.slopeLimit;
+	//	//}
+	//	//else
+	//	//	_move += forward;
+
+
+
+	//	//// WITH VECTOR3.ANGLE
+
+	//	//_move = Vector3.zero;
+	//	//RaycastHit hit;
+	//	//if (Physics.Raycast(CameraManager.I._MainCamera.transform.position + right * 0.5f, Vector3.down, out hit, 5, _groundMask))
+	//	//{
+	//	//	float groundAngle = Vector3.Angle(Vector3.up, hit.normal);
+	//	//	if (groundAngle <= _controller.slopeLimit - 0.1f)
+	//	//		_move += right;
+	//	//	//_isMoveAllowed = groundAngle <= _controller.slopeLimit;
+	//	//}
+	//	//else
+	//	//	_move += right;
+
+	//	//if (Physics.Raycast(CameraManager.I._MainCamera.transform.position + forward * 0.5f, Vector3.down, out hit, 5, _groundMask))
+	//	//{
+	//	//	float groundAngle = Vector3.Angle(Vector3.up, hit.normal);
+	//	//	if (groundAngle <= _controller.slopeLimit)
+	//	//		_move += forward;
+	//	//	//_isMoveAllowed = groundAngle <= _controller.slopeLimit;
+	//	//}
+	//	//else
+	//	//	_move += forward;
+
+	//	#endregion
+
+	//	#region Apply Sound
+
+	//	if (_move == Vector3.zero)
+	//	{
+	//		SoundManager.I.StopPlayerSound();
+	//	}
+	//	else
+	//	{
+	//		//SoundManager.I.PlayPlayer("Walk");
+	//		SoundManager.I.PlayerWalk();
+	//	}
+	//	//_move = transform.right * x + transform.forward * z;
+
+	//	#endregion
+
+	//	#region Setup Run Multiplicator
+
+	//	float runMultiply = 1;
+	//	if (IsRunning && AmbiantManager.I.IsUsableNow(GameManager.I._data.PlayerRunUsable))
+	//		runMultiply = GameManager.I._data.SpeedMultiplicator;
+
+	//	#endregion
+
+	//	#region Apply Movements
+
+	//	if (_isMoveAllowed)
+	//	{
+	//		_controller.Move(_move * _speed * runMultiply * Time.deltaTime);
+	//	}
+
+	//	#endregion
+
+	//	#region Jump
+
+	//	// if (Input.GetButtonDown("Jump") && _isGrounded)
+	//	// {
+	//	//    _velocity.y = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
+	//	// }
+
+	//	#endregion
+
+	//	#region Apply Gravity
+
+	//	_velocity.y += _gravity * Time.deltaTime;
+	//	_controller.Move(_velocity * Time.deltaTime);
+
+	//	#endregion
+
+	//	IsWaiting = false;
+	//}
+
+	#endregion
+
+	public void Wait()
     {
         IsWaiting = true;
         IsRunning = false;
