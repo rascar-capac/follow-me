@@ -71,13 +71,17 @@ public class AmbiantManager : Singleton<AmbiantManager>
             onDayStateHasChanged.Invoke(currentStateOfDay);
         }
         SkyboxController.Instance.CloudsRotation = 360 * SkyboxDayNightCycle.Instance.TimeOfDay / 100;
-        if (MaterialReferences != null  && MaterialReferences.Count > 0)
+        if (SkyboxDayNightCycle.Instance.TimeOfDay >= 70 && SkyboxDayNightCycle.Instance.TimeOfDay <= 93)
         {
-            for (int i = 0; i < MaterialReferences.Count ; i++)
+            if (MaterialReferences != null && MaterialReferences.Count > 0)
             {
-                MaterialReferences[i].SetFloat("_DayNightEmissive", 1- SkyboxDayNightCycle.Instance.TimeOfDay / 100);
-                MaterialReferences[i].SetFloat("_DayNightFresnel", 1- SkyboxDayNightCycle.Instance.TimeOfDay / 100);
-                MaterialReferences[i].SetFloat("_DayNightAlbedo", 1- SkyboxDayNightCycle.Instance.TimeOfDay / 100);
+                float invlerp = Mathf.InverseLerp(70, 93, SkyboxDayNightCycle.Instance.TimeOfDay);
+                for (int i = 0; i < MaterialReferences.Count; i++)
+                {
+                    MaterialReferences[i].SetFloat("_DayNightEmissive", 1 - invlerp);
+                    MaterialReferences[i].SetFloat("_DayNightFresnel", 1 - invlerp);
+                    MaterialReferences[i].SetFloat("_DayNightAlbedo", 1 - invlerp);
+                }
             }
         }
     }
