@@ -243,8 +243,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5441789063122491693}
-  - component: {fileID: 3953624929681449755}
-  - component: {fileID: 2197944827342764392}
   m_Layer: 0
   m_Name: p_FernA2_Pending
   m_TagString: Untagged
@@ -269,38 +267,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3953624929681449755
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9069765361319242558}
-  m_Mesh: {fileID: 4505519294947611527, guid: a6261f957f6eb604a95519b6e189350f, type: 3}
---- !u!205 &2197944827342764392
-LODGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9069765361319242558}
-  serializedVersion: 2
-  m_LocalReferencePoint: {x: 0.16933548, y: -1.6859694, z: -0.86718965}
-  m_Size: 10.034679
-  m_FadeMode: 1
-  m_AnimateCrossFading: 1
-  m_LastLODIsBillboard: 0
-  m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1926653148786836}
-  - screenRelativeHeight: 0.3
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 2430589343454431485}
-  - screenRelativeHeight: 0.1
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1724503848797825859}
-  m_Enabled: 1

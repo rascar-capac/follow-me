@@ -243,8 +243,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6305706944653019017}
-  - component: {fileID: 3087597638616284607}
-  - component: {fileID: 8783656286329045318}
   - component: {fileID: 1367101697248750737}
   m_Layer: 0
   m_Name: p_RockTiny_Pack2
@@ -270,52 +268,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3087597638616284607
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7050674209736308122}
-  m_Mesh: {fileID: 5556462046183447658, guid: 796d1b9fb9289bd44aaef798a129a2f4, type: 3}
---- !u!23 &8783656286329045318
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7050674209736308122}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a526436ec0d01ff46b76abd57c58c9c3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!205 &1367101697248750737
 LODGroup:
   m_ObjectHideFlags: 0
@@ -324,8 +276,8 @@ LODGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7050674209736308122}
   serializedVersion: 2
-  m_LocalReferencePoint: {x: 0.42611897, y: -0.0027502775, z: 0.19665009}
-  m_Size: 2.6310337
+  m_LocalReferencePoint: {x: 0.5326487, y: -0.003437817, z: 0.24581254}
+  m_Size: 3.288792
   m_FadeMode: 1
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
