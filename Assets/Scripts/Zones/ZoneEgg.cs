@@ -9,7 +9,7 @@ public class ZoneEgg : Zone
     public int PhaseIndex;
     public bool HasActivationAllowed = false;
     public bool IsTileActivated = false;
-
+    public AudioClip ActivatedSound;
     public bool IsActivate => Ray.activeSelf;
     Player player;
     Tribe tribe;
@@ -33,6 +33,8 @@ public class ZoneEgg : Zone
         {
             tribe.StopAll();
             Ray.gameObject.SetActive(true);
+            if (ActivatedSound != null)
+                GetComponent<AudioSource>().PlayOneShot(ActivatedSound);
             tribe.StartLive();
             Egg.ActivateItem();
         }
