@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6687833037553534257}
   - component: {fileID: 3635165165349436412}
   - component: {fileID: 2292282315020105179}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: m_TreeHigh1_LOD0(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 4061707507957242506}
   - component: {fileID: 5163929434006618445}
   - component: {fileID: 3430429417998027346}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: m_TreeHigh1_LOD2(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,9 +199,9 @@ GameObject:
   - component: {fileID: 6644287829938416179}
   - component: {fileID: 2408940001290162181}
   - component: {fileID: 8237874543455825148}
-  - component: {fileID: 4145211664203142711}
+  - component: {fileID: 2570594361330301001}
   - component: {fileID: 5814748330883975439}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: p_TreeHigh1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -272,8 +272,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &4145211664203142711
-MeshCollider:
+--- !u!136 &2570594361330301001
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -282,10 +282,10 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: -6468902088129859805, guid: a024fdc50c0c19348a6131f7898ecff6, type: 3}
+  m_Radius: 1.24018
+  m_Height: 27.694838
+  m_Direction: 1
+  m_Center: {x: -0.21625996, y: 12.16, z: -0.24265766}
 --- !u!205 &5814748330883975439
 LODGroup:
   m_ObjectHideFlags: 0
@@ -325,7 +325,7 @@ GameObject:
   - component: {fileID: 5355353687860750006}
   - component: {fileID: 8677519594521390714}
   - component: {fileID: 6392327042997790501}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: m_TreeHigh1_LOD1(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
