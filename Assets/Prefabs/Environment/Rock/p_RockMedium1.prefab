@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5646739643658925736}
   - component: {fileID: 4444416728136449212}
   - component: {fileID: 6729687697273575676}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: m_RockMedium1_LOD1(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 6242444960726734296}
   - component: {fileID: 1294909719421587444}
   - component: {fileID: 2944292366767169304}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: m_RockMedium1_LOD0(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 1641770551519327747}
   - component: {fileID: 6549006173715531092}
   - component: {fileID: 7732957103892134212}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: m_RockMedium1_LOD2(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -288,7 +288,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4887059896833060279}
-  - component: {fileID: 2765724238282674611}
+  - component: {fileID: 1890637704185705158}
   - component: {fileID: 1429860763794441490}
   m_Layer: 8
   m_Name: p_RockMedium1
@@ -314,8 +314,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &2765724238282674611
-MeshCollider:
+--- !u!136 &1890637704185705158
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -324,10 +324,10 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 2722350273312048907, guid: 8238be3128c0c0b4b9cad68cc96a8930, type: 3}
+  m_Radius: 2.4404411
+  m_Height: 8.840352
+  m_Direction: 1
+  m_Center: {x: 0.05785656, y: 1.6252255, z: 0.0811882}
 --- !u!205 &1429860763794441490
 LODGroup:
   m_ObjectHideFlags: 0
