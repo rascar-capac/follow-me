@@ -402,14 +402,6 @@ public class Tribe : ZoneInteractable
 
         Vector3 pos = new Vector3(randomDestination.x, transform.position.y, randomDestination.y);
 
-        if (lastpos)
-            DestroyImmediate(lastpos);
-
-        lastpos = new GameObject();//Instantiate(new GameObject(), pos, Quaternion.identity);
-        lastpos.transform.position = pos;
-        lastpos.AddComponent<MeshRenderer>();
-        lastpos.AddComponent<MeshFilter>().mesh = new Mesh();
-        
         yield return StartCoroutine(GoingToPosition(pos, speedMove: speedMove, dir: (RotationDirection)Random.Range(0, 2)));
     }
     public IEnumerator GoToPosition(Vector3 position, bool Force = false, float WaitAndComeBackSeconds=0f, bool ChangeRotation = true)
