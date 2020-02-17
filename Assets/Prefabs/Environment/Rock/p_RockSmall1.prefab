@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 241790027124006873}
   - component: {fileID: 5945005688984008757}
   - component: {fileID: 5477730107785300812}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: m_RockSmall1_LOD2(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,8 +87,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7165546548359483539}
+  - component: {fileID: -3777611890429158261}
   - component: {fileID: 2741450070638984075}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: p_RockSmall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,6 +113,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &-3777611890429158261
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6136852983157662336}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.1506081
+  m_Height: 3.4394264
+  m_Direction: 1
+  m_Center: {x: -0.0076277256, y: 0.22476292, z: 0.08929825}
 --- !u!205 &2741450070638984075
 LODGroup:
   m_ObjectHideFlags: 0
@@ -150,7 +165,7 @@ GameObject:
   - component: {fileID: 3106226328957037408}
   - component: {fileID: 4735459687061301117}
   - component: {fileID: 1790025137855623728}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: m_RockSmall1_LOD0(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +243,7 @@ GameObject:
   - component: {fileID: 8464905267089569808}
   - component: {fileID: 625194761256630028}
   - component: {fileID: 1330253488645184601}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: m_RockSmall1_LOD1(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -97,40 +97,80 @@ public class PlayerMovement : BaseMonoBehaviour
         if (!InGame)
             return;
 
-        _isGrounded = Physics.CheckSphere(_groundCheck.position, _groundDistance, _groundMask);
+		#region Check Ground Position
+
+		_isGrounded = Physics.CheckSphere(_groundCheck.position, _groundDistance, _groundMask);
         if (_isGrounded && _velocity.y < 0)
         {
             _velocity.y = -2f;
         }
 
-        float x = axis.XValue;
-        float z = axis.YValue;
+		#endregion
 
+		#region Check Inputs
+
+		float x = axis.XValue;
+        float z = axis.YValue;
         Vector3 right = transform.right * x;
         Vector3 forward = transform.forward * z;
-        RaycastHit hit;
-        _move = Vector3.zero;
-        if (Physics.Raycast(CameraManager.I._MainCamera.transform.position + right * 0.5f, Vector3.down, out hit, 5, _groundMask))
-        {
-            float groundAngle = Vector3.Angle(Vector3.up, hit.normal);
-            if (groundAngle <= _controller.slopeLimit - 0.1f)
-                _move += right;
-            //_isMoveAllowed = groundAngle <= _controller.slopeLimit;
-        }
-        else
-            _move += right;
 
-        if (Physics.Raycast(CameraManager.I._MainCamera.transform.position + forward * 0.5f, Vector3.down, out hit, 5, _groundMask))
-        {
-            float groundAngle = Vector3.Angle(Vector3.up, hit.normal);
-            if (groundAngle <= _controller.slopeLimit)
-                _move += forward;
-            //_isMoveAllowed = groundAngle <= _controller.slopeLimit;
-        }
-        else
-            _move += forward;
+		#endregion
 
-        if (_move == Vector3.zero)
+		#region Check Slopes
+
+		Vector3 cameraPosition = CameraManager.I._MainCamera.transform.position;
+		Vector3 rayCastOrigin = cameraPosition + right * _speed * Time.deltaTime;
+		RaycastHit hit;
+		_move = Vector3.zero;
+
+		if (Physics.Raycast(rayCastOrigin, Vector3.down, out hit, 5, _groundMask))
+		{
+			if (Mathf.Atan2(hit.distance - Vector3.Distance(cameraPosition, _groundCheck.position), x * _speed * Time.deltaTime) <= _controller.slopeLimit)
+				_move += right;
+			//_isMoveAllowed = groundAngle <= _controller.slopeLimit;
+		}
+		else
+			_move += right;
+
+
+		rayCastOrigin = cameraPosition + forward * _speed * Time.deltaTime;
+
+		if (Physics.Raycast(rayCastOrigin, Vector3.down, out hit, 5, _groundMask))
+		{
+			if (Mathf.Atan2(hit.distance - Vector3.Distance(cameraPosition, _groundCheck.position), z * _speed * Time.deltaTime) <= _controller.slopeLimit)
+				_move += forward;
+			//_isMoveAllowed = groundAngle <= _controller.slopeLimit;
+		}
+		else
+			_move += forward;
+
+		//_move = Vector3.zero;
+		//      RaycastHit hit;
+		//      if (Physics.Raycast(CameraManager.I._MainCamera.transform.position + right * 0.5f, Vector3.down, out hit, 5, _groundMask))
+		//      {
+		//          float groundAngle = Vector3.Angle(Vector3.up, hit.normal);
+		//          if (groundAngle <= _controller.slopeLimit - 0.1f)
+		//              _move += right;
+		//          //_isMoveAllowed = groundAngle <= _controller.slopeLimit;
+		//      }
+		//      else
+		//          _move += right;
+
+		//      if (Physics.Raycast(CameraManager.I._MainCamera.transform.position + forward * 0.5f, Vector3.down, out hit, 5, _groundMask))
+		//      {
+		//          float groundAngle = Vector3.Angle(Vector3.up, hit.normal);
+		//          if (groundAngle <= _controller.slopeLimit)
+		//              _move += forward;
+		//          //_isMoveAllowed = groundAngle <= _controller.slopeLimit;
+		//      }
+		//      else
+		//          _move += forward;
+
+		#endregion
+
+		#region Apply Sound
+
+		if (_move == Vector3.zero)
         {
             SoundManager.I.StopPlayerSound();
         }
@@ -139,27 +179,44 @@ public class PlayerMovement : BaseMonoBehaviour
             //SoundManager.I.PlayPlayer("Walk");
             SoundManager.I.PlayerWalk();
         }
-        //_move = transform.right * x + transform.forward * z;
+		//_move = transform.right * x + transform.forward * z;
 
-        float runMultiply = 1;
+		#endregion
+
+		#region Setup Run Multiplicator
+
+		float runMultiply = 1;
         if (IsRunning && AmbiantManager.I.IsUsableNow(GameManager.I._data.PlayerRunUsable))
             runMultiply = GameManager.I._data.SpeedMultiplicator;
 
-        if(_isMoveAllowed)
+		#endregion
+
+		#region Apply Movements
+
+		if (_isMoveAllowed)
         {
         _controller.Move(_move * _speed * runMultiply * Time.deltaTime);
         }
 
-        // if (Input.GetButtonDown("Jump") && _isGrounded)
-        // {
-        //    _velocity.y = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
-        // }
+		#endregion
 
-        _velocity.y += _gravity * Time.deltaTime;
+		#region Jump
 
+		// if (Input.GetButtonDown("Jump") && _isGrounded)
+		// {
+		//    _velocity.y = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
+		// }
+
+		#endregion
+
+		#region Apply Gravity
+
+		_velocity.y += _gravity * Time.deltaTime;
         _controller.Move(_velocity * Time.deltaTime);
 
-        IsWaiting = false;
+		#endregion
+
+		IsWaiting = false;
     }
 
     public void Wait()
