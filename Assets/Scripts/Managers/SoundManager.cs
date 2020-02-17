@@ -28,7 +28,7 @@ public class SoundManager : Singleton<SoundManager>
     public void PlayZoneAmbiance(AudioClip clip=null, bool loop = false)
     {
         if (clip == null)
-            clip = GlobalAmbiance;
+            return;
         AmbiantSource.Stop();
         AmbiantSource.clip = clip;
         AmbiantSource.loop = loop;
@@ -97,7 +97,6 @@ public class SoundManager : Singleton<SoundManager>
         PlayerSource.clip = found;
         PlayerSource.loop = false;
         PlayerSource.Play();
-
     }
 
     public void StopPlayerSound()

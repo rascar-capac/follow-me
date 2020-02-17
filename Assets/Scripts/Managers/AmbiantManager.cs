@@ -78,26 +78,29 @@ public class AmbiantManager : Singleton<AmbiantManager>
                 float invlerp = Mathf.InverseLerp(70, 93, SkyboxDayNightCycle.Instance.TimeOfDay);
                 for (int i = 0; i < MaterialReferences.Count; i++)
                 {
-                    MaterialReferences[i].SetFloat("_DayNightEmissive", 1 - invlerp);
-                    MaterialReferences[i].SetFloat("_DayNightFresnel", 1 - invlerp);
-                    MaterialReferences[i].SetFloat("_DayNightAlbedo", 1 - invlerp);
+                    if (MaterialReferences[i])
+                    {
+                        MaterialReferences[i].SetFloat("_DayNightEmissive", 1 - invlerp);
+                        MaterialReferences[i].SetFloat("_DayNightFresnel", 1 - invlerp);
+                        MaterialReferences[i].SetFloat("_DayNightAlbedo", 1 - invlerp);
+                    }
                 }
             }
         }
     }
 
-    private void OnDestroy()
-    {
-        if (MaterialReferences != null  && MaterialReferences.Count > 0)
-        {
-            for (int i = 0; i < MaterialReferences.Count ; i++)
-            {
-                MaterialReferences[i].SetFloat("_DayNightEmissive", 0);
-                MaterialReferences[i].SetFloat("_DayNightFresnel", 0);
-                MaterialReferences[i].SetFloat("_DayNightAlbedo", 0);
-            }
-        }
-    }
+    //private void OnDestroy()
+    //{
+    //    if (MaterialReferences != null  && MaterialReferences.Count > 0)
+    //    {
+    //        for (int i = 0; i < MaterialReferences.Count ; i++)
+    //        {
+    //            MaterialReferences[i].SetFloat("_DayNightEmissive", 0);
+    //            MaterialReferences[i].SetFloat("_DayNightFresnel", 0);
+    //            MaterialReferences[i].SetFloat("_DayNightAlbedo", 0);
+    //        }
+    //    }
+    //}
 
     void ChangeMaterial(DayState state)
     {
