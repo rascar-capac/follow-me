@@ -17,6 +17,7 @@ public class SoundManager : Singleton<SoundManager>
     protected AudioSource AmbiantSource;
     public AudioClip GlobalAmbiance;
 
+
     protected override void Start()
     {
         base.Start();
@@ -25,6 +26,8 @@ public class SoundManager : Singleton<SoundManager>
         PlayerSource = ((GameObject)ObjectsManager.I["Player"]).GetComponent<AudioSource>();
         AmbiantSource = CameraManager.I._MainCamera.GetComponent<AudioSource>();
     }
+
+
     public void PlayZoneAmbiance(AudioClip clip=null, bool loop = false)
     {
         if (clip == null)
