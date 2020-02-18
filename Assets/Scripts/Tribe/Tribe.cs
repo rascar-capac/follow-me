@@ -121,6 +121,7 @@ public class Tribe : ZoneInteractable
         Random.InitState(System.DateTime.Now.Millisecond);
         StartChrono(Random.Range(5, 10), PlayFlip);
         StartChrono(Random.Range(1, 4), PlaySound);
+        StartChrono(Random.Range(2, 5), PlayScream);
 
         _DefaultEmissionColor = transform.GetChild(0).GetChild(0).GetComponent<SkinnedMeshRenderer>().material.GetColor("_EmissionColor");
 
@@ -135,7 +136,7 @@ public class Tribe : ZoneInteractable
 	{
 		base.Update();
 
-        //Source.volume = Mathf.Clamp(1 - Mathf.Lerp(0, 1, Vector3.Distance(Vector3.ProjectOnPlane(_Player.transform.position, Vector3.up), Vector3.ProjectOnPlane(transform.position, Vector3.up)) / Source.maxDistance), 0.2f, 1);
+        //Source.volume = Mathf.Clamp(1 - Mathf.Lerp(0, 1, Vector3.Distance(Vector3.ProjectOnPlane(_Player.transform.position, Vector3.up), Vector3.ProjectOnPlane(transform.position, Vector3.up)) / Source.maxDistance), 0.2f, 0.5f);
 
         //UpdateEnergy();
         //EnergyCritical();
@@ -380,6 +381,9 @@ public class Tribe : ZoneInteractable
     public void StopAll()
     {
         StopAllCoroutines();
+        StartChrono(Random.Range(5, 10), PlayFlip);
+        StartChrono(Random.Range(1, 4), PlaySound);
+        StartChrono(Random.Range(2, 5), PlayScream);
     }
     // Primitive actions
     public IEnumerator ResetCreature()
@@ -660,7 +664,11 @@ public class Tribe : ZoneInteractable
         Source.PlayOneShot(SoundManager.I.CreatureFlapping[Random.Range(0, SoundManager.I.CreatureFlapping.Count)]);
         StartChrono(Random.Range(1, 4), PlaySound);
     }
-
+    void PlayScream()
+    {
+        Source.PlayOneShot(SoundManager.I.CreatureScreaming[Random.Range(0, SoundManager.I.CreatureScreaming.Count)]);
+        StartChrono(Random.Range(5, 10), PlayScream);
+    }
     public void SwitchModeFollowAndWait()
 	{
         if(!IsIgnoring())

@@ -46,15 +46,13 @@ public class ZoneEgg : Zone
             AudioSource zonesource = GetComponent<AudioSource>();
             tribe.StopAll();
             Ray.gameObject.SetActive(true);
+            zonesource.clip = SoundManager.I.RaysClips[Random.Range(0, SoundManager.I.RaysClips.Count)];
+            zonesource.loop = true;
+            zonesource.Play();
             if (ActivatedSound != null)
                 zonesource.PlayOneShot(SoundManager.I.StonesClips[Random.Range(0, SoundManager.I.StonesClips.Count)]);
             tribe.StartLive();
             Egg.ActivateItem();
-            StartChrono(2, () => {
-                zonesource.clip = SoundManager.I.RaysClips[Random.Range(0, SoundManager.I.RaysClips.Count)];
-                zonesource.loop = true;
-                zonesource.Play();
-            });
         }
         else if (zone == this && !IsActivate)
         {
