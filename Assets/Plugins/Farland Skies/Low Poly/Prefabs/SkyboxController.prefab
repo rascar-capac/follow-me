@@ -47,43 +47,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkyboxMaterial: {fileID: 2100000, guid: 4d0e0ffc7a6c1bf44b435e0b23260f8c, type: 2}
-  _topColor: {r: 0.015686275, g: 0.41960788, b: 0.59607846, a: 1}
-  _middleColor: {r: 0.7896477, g: 0.49356842, b: 0.5523132, a: 1}
-  _bottomColor: {r: 0.011764707, g: 0.28235295, b: 0.40000004, a: 1}
+  _topColor: {r: 0.03137255, g: 0.04705883, b: 0.20392159, a: 1}
+  _middleColor: {r: 0.33962262, g: 0.16180134, b: 0.30555072, a: 1}
+  _bottomColor: {r: 0, g: 0, b: 0, a: 1}
   _topExponent: 1
   _bottomExponent: 1
   _starsEnabled: 1
   _starsCubemap: {fileID: 8900000, guid: 0b891b1d885eb654ab18d7a3a5fc87e1, type: 3}
-  _starsTint: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 0.8100006}
+  _starsTint: {r: 1, g: 1, b: 1, a: 1}
   _starsExtinction: 2
   _starsTwinklingSpeed: 10
   _sunEnabled: 1
   _sunTexture: {fileID: 2800000, guid: bec1a30e00a480146aef8d1d037a846c, type: 3}
   _sunLight: {fileID: 10897626}
-  _sunTint: {r: 0.7359216, g: 0.56705874, b: 0.43564695, a: 1}
+  _sunTint: {r: 0.69803923, g: 0.45882356, b: 0.27058825, a: 0}
   _sunSize: 0.75
   _sunHalo: 1
   _sunFlare: 1
   _sunFlareBrightness: 0.3
   _moon1Enabled: 1
-  _moon1Texture: {fileID: 2800000, guid: 9f42eda02e710ff49b1ba615b31ee896, type: 3}
+  _moon1Texture: {fileID: 2800000, guid: 243c02b8d5443a945a91d3667be45210, type: 3}
   _moon1Light: {fileID: 10846822}
   _moon1Tint: {r: 0.4039216, g: 0.47058827, b: 0.5294118, a: 0}
-  _moon1Size: 1
-  _moon1Halo: 1
-  _moon1Flare: 1
+  _moon1Size: 2.755
+  _moon1Halo: 0.133
+  _moon1Flare: 0
   _moon1FlareBrightness: 0.3
   _moon2Enabled: 1
-  _moon2Texture: {fileID: 2800000, guid: 9f42eda02e710ff49b1ba615b31ee896, type: 3}
+  _moon2Texture: {fileID: 2800000, guid: 9e1c8edab15aa844082fcd05ad8b5d9f, type: 3}
   _moon2Light: {fileID: 1655324870835517471}
-  _moon2Tint: {r: 0.20392159, g: 0.39607847, b: 0.2392157, a: 0}
-  _moon2Size: 0.6
-  _moon2Halo: 1
+  _moon2Tint: {r: 0, g: 0.27088982, b: 0.32954127, a: 0}
+  _moon2Size: 1.051
+  _moon2Halo: 0.437
   _moon2Flare: 1
-  _moon2FlareBrightness: 0.3
+  _moon2FlareBrightness: 0.189
   _cloudsEnabled: 1
   _cloudsCubemap: {fileID: 8900000, guid: d5d9dd79ad3016943b7f1ff5b201391e, type: 3}
-  _cloudsTint: {r: 0.4616993, g: 0.4825098, b: 0.55424845, a: 1}
+  _cloudsTint: {r: 0.3882353, g: 0.43529415, b: 0.6614379, a: 1}
   _cloudsHeight: 0.07
   _cloudsRotation: 0
   _exposure: 1.5
@@ -187,7 +187,7 @@ LensFlare:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 194654}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Flare: {fileID: 12100000, guid: 51e9e94bd0b2a4b96a5d00f9441133a7, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Brightness: 0

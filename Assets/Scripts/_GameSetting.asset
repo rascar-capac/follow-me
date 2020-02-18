@@ -92,8 +92,8 @@ MonoBehaviour:
   - startingPercentage: 70
     color: {r: 0, g: 0.27450982, b: 0.54901963, a: 1}
   SpecialPhase:
-    startingPercentage: 77.5
-    endingPercentage: 82.5
+    startingPercentage: 75
+    endingPercentage: 85
     color: {r: 0.10980393, g: 0.4039216, b: 0.14901961, a: 1}
   States:
   - State: 0
