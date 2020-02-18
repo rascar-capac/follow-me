@@ -9,6 +9,7 @@ public class ZoneLink : Zone
     Player player;
     Tribe tribe;
     bool IsActivated = false;
+    AudioSource source;
 
     protected override void Start()
     {
@@ -16,6 +17,7 @@ public class ZoneLink : Zone
         player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
         player.onZoneEnter.AddListener(EnteredZone);
         tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
+        source = GetComponent<AudioSource>();
     }
 
     public void EnteredZone(ZoneInteractable who, Zone zone)
@@ -29,6 +31,9 @@ public class ZoneLink : Zone
             tribe.StartRotating(LinkedZone.Egg.transform, speedMove: 200f);
             AmbiantManager.I.SkipDayTimeToPhase(LinkedZone.PhaseIndex);
             IsActivated = true;
+            source.clip = SoundManager.I.TileactivationClips[Random.Range(0, SoundManager.I.TileactivationClips.Count)];
+            source.loop = false;
+            source.Play();
         }
     }
 }

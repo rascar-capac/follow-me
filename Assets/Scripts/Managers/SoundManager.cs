@@ -6,6 +6,7 @@ public class SoundManager : Singleton<SoundManager>
 {
     public List<AudioClip> CreatureClips;
     protected AudioSource CreatureSource;
+    public List<AudioClip> CreatureFlapping;
 
     public List<AudioClip> PedestalsClips;
     protected AudioSource PedestalsSource;
@@ -17,6 +18,9 @@ public class SoundManager : Singleton<SoundManager>
     protected AudioSource AmbiantSource;
     public AudioClip GlobalAmbiance;
 
+    public List<AudioClip> StonesClips;
+    public List<AudioClip> RaysClips;
+    public List<AudioClip> TileactivationClips;
 
     protected override void Start()
     {
@@ -57,7 +61,9 @@ public class SoundManager : Singleton<SoundManager>
         if (found)
         {
             CreatureSource.Stop();
-            CreatureSource.PlayOneShot(found);
+            CreatureSource.clip = found;
+            CreatureSource.loop = true;
+            CreatureSource.Play();
         }
     }
     public void PlayPedestals(string name)
@@ -111,10 +117,10 @@ public class SoundManager : Singleton<SoundManager>
             }
             PlayerSource.clip = found;
             PlayerSource.loop = false;
-            PlayerSource.pitch = Random.Range((float)-1, (float)1);
+            //PlayerSource.pitch = Random.Range((float)-1, (float)1);
             PlayerSource.Play();
 
-            yield return new WaitForSeconds(found.length * PlayerSource.pitch);
+            yield return new WaitForSeconds(found.length);
         }
     }
 

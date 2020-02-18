@@ -14,6 +14,7 @@ public class ZoneEgg : Zone
     Player player;
     Tribe tribe;
     Renderer renderer;
+    AudioSource zonesource;
 
     protected override void Start()
     {
@@ -27,25 +28,33 @@ public class ZoneEgg : Zone
         Color rayColor = PhaseIndex == gd.Phases.Count ? gd.SpecialPhase.color : gd.Phases[PhaseIndex].color;
         Ray.transform.GetComponentInChildren<SkinnedMeshRenderer>().material.SetColor("_Color", rayColor);
         renderer = Egg.GetComponentInChildren<Renderer>();
-
+        zonesource = GetComponent<AudioSource>();
     }
 
     protected void Update()
     {
         if (IsTileActivated && !IsActivate)
             renderer.material.SetFloat("_PulseState", Mathf.Sin(Time.time * 1.5f));
+
+        zonesource.volume = Mathf.Clamp(1- Mathf.Lerp(0, 1, Vector3.Distance(Vector3.ProjectOnPlane(player.transform.position, Vector3.up), Vector3.ProjectOnPlane(transform.position, Vector3.up))/ zonesource.maxDistance), 0, 1);
     }
 
     public void EnteredZone(ZoneInteractable who, Zone zone)
     {
         if (zone == this && HasActivationAllowed && !IsActivate)
         {
+            AudioSource zonesource = GetComponent<AudioSource>();
             tribe.StopAll();
             Ray.gameObject.SetActive(true);
             if (ActivatedSound != null)
-                GetComponent<AudioSource>().PlayOneShot(ActivatedSound);
+                zonesource.PlayOneShot(SoundManager.I.StonesClips[Random.Range(0, SoundManager.I.StonesClips.Count)]);
             tribe.StartLive();
             Egg.ActivateItem();
+            StartChrono(2, () => {
+                zonesource.clip = SoundManager.I.RaysClips[Random.Range(0, SoundManager.I.RaysClips.Count)];
+                zonesource.loop = true;
+                zonesource.Play();
+            });
         }
         else if (zone == this && !IsActivate)
         {
