@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
@@ -14,6 +15,7 @@ public class UIManager : Singleton<UIManager>
 	public GameObject HudPanel;
 	[Header("Main Menu Panel")]
 	public GameObject MainMenu;
+	public Slider _VolumeSlider;
 	[Header("Start Menu Panel")]
 	public GameObject StartMenu;
 
@@ -99,7 +101,6 @@ public class UIManager : Singleton<UIManager>
 
 		OpenStartMenu();
 
-
 		#region Archives
 
 		//_Tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
@@ -171,6 +172,11 @@ public class UIManager : Singleton<UIManager>
 		_PlayerLook.AllowLook = false;
         SkyboxCycleManager.Instance.Paused = true;
 
+		if (SoundManager.I)
+		{
+			_VolumeSlider.value = SoundManager.I.AmbiantSource.volume;
+			_VolumeSlider.onValueChanged.AddListener(delegate { SoundManager.I.SetVolume(_VolumeSlider.value); });
+		}
 
         Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
@@ -180,6 +186,8 @@ public class UIManager : Singleton<UIManager>
 		MainMenu.SetActive(false);
 		HudPanel.SetActive(false);
         SkyboxCycleManager.Instance.Paused = false;
+
+		_VolumeSlider.onValueChanged.RemoveAllListeners();
 
         _PlayerMovement.InGame = true;
 		_PlayerLook.AllowLook = true;

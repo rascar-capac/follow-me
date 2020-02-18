@@ -16,7 +16,8 @@ public class SoundManager : Singleton<SoundManager>
     public List<AudioClip> PlayerSteps;
     protected AudioSource PlayerSource;
 
-    protected AudioSource AmbiantSource;
+	[HideInInspector]
+    public AudioSource AmbiantSource;
     public AudioClip GlobalAmbiance;
 
     public List<AudioClip> StonesClips;
@@ -33,6 +34,11 @@ public class SoundManager : Singleton<SoundManager>
         StartCoroutine(PlayWalkSound());
 
     }
+
+	public void SetVolume(float value)
+	{
+		AmbiantSource.volume = value;
+	}
 
 
     public void PlayZoneAmbiance(AudioClip clip=null, bool loop = false)
