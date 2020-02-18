@@ -13,6 +13,7 @@ public class ZoneEgg : Zone
     public bool IsActivate => Ray.activeSelf;
     Player player;
     Tribe tribe;
+    Renderer renderer;
 
     protected override void Start()
     {
@@ -25,11 +26,19 @@ public class ZoneEgg : Zone
         GameData gd = GameManager.I._data;
         Color rayColor = PhaseIndex == gd.Phases.Count ? gd.SpecialPhase.color : gd.Phases[PhaseIndex].color;
         Ray.transform.GetComponentInChildren<SkinnedMeshRenderer>().material.SetColor("_Color", rayColor);
+        renderer = Egg.GetComponentInChildren<Renderer>();
+
+    }
+
+    protected void Update()
+    {
+        if (IsTileActivated && !IsActivate)
+            renderer.material.SetFloat("_PulseState", Mathf.Sin(Time.time * 1.5f));
     }
 
     public void EnteredZone(ZoneInteractable who, Zone zone)
     {
-        if (zone == this && HasActivationAllowed)
+        if (zone == this && HasActivationAllowed && !IsActivate)
         {
             tribe.StopAll();
             Ray.gameObject.SetActive(true);
@@ -38,7 +47,7 @@ public class ZoneEgg : Zone
             tribe.StartLive();
             Egg.ActivateItem();
         }
-        else if (zone == this)
+        else if (zone == this && !IsActivate)
         {
             tribe.StopAll();
             tribe.StartAggress();

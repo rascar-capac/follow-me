@@ -287,7 +287,6 @@ public class PlayerMovement : BaseMonoBehaviour
         _move = Vector3.zero;
         if (Physics.Raycast(rayCastOrigin, Vector3.down, out hit, 5, _groundMask))
         {
-            Debug.Log("Right = " + Mathf.Atan2(hit.distance - Vector3.Distance(cameraPosition, _groundCheck.position), x * _speed * Time.deltaTime));
 
             if (Mathf.Atan2(hit.distance - Vector3.Distance(cameraPosition, _groundCheck.position), x * _speed * Time.deltaTime) <= _controller.slopeLimit)
                 _move += right;
@@ -309,7 +308,6 @@ public class PlayerMovement : BaseMonoBehaviour
 
         if (Physics.Raycast(rayCastOrigin, Vector3.down, out hit, 5, _groundMask))
         {
-            Debug.Log("Forward = " + Mathf.Atan2(hit.distance - Vector3.Distance(cameraPosition, _groundCheck.position), z * _speed * Time.deltaTime));
 
             if (Mathf.Atan2(hit.distance - Vector3.Distance(cameraPosition, _groundCheck.position), z * _speed * Time.deltaTime) <= _controller.slopeLimit)
                 _move += forward;
@@ -388,12 +386,12 @@ public class PlayerMovement : BaseMonoBehaviour
 
         if (_move == Vector3.zero)
         {
-            SoundManager.I.StopPlayerSound();
+            SoundManager.I.IsWalking = false;
         }
         else
         {
             //SoundManager.I.PlayPlayer("Walk");
-            SoundManager.I.PlayerWalk();
+            SoundManager.I.IsWalking = true;
         }
         //_move = transform.right * x + transform.forward * z;
 
