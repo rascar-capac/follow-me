@@ -7,6 +7,7 @@ public class SoundManager : Singleton<SoundManager>
     public List<AudioClip> CreatureClips;
     protected AudioSource CreatureSource;
     public List<AudioClip> CreatureFlapping;
+    public List<AudioClip> CreatureScreaming;
 
     public List<AudioClip> PedestalsClips;
     protected AudioSource PedestalsSource;

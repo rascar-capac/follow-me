@@ -245,7 +245,7 @@ public class Tribe : ZoneInteractable
     // Triggers of complex actions
     void PlayerEnterDangerousZone(ZoneInteractable who, Zone zone)
     {
-        Debug.Log("Enter zone");
+
         if (DangerousZones == null)
             return;
 
@@ -257,7 +257,7 @@ public class Tribe : ZoneInteractable
     }
     void PlayerExitDangerousZone(ZoneInteractable who, Zone zone)
     {
-        Debug.Log("Exit zone");
+
 
         if (DangerousZones == null)
             return;
@@ -342,28 +342,25 @@ public class Tribe : ZoneInteractable
         switch (mode)
         {
             case TribeEmotionMode.Normal:
-                Debug.Log("live");
+
 
                 SoundManager.I.PlayCreature("Normal");
 
                 //RedLight.gameObject.SetActive(false);
                 break;
             case TribeEmotionMode.Aggress:
-                Debug.Log("aggress");
                 //RedLight.gameObject.SetActive(true);
                 //RedLight.color = Color.red;
                 SoundManager.I.PlayCreature("Angry2");
 
                 break;
             case TribeEmotionMode.Fear:
-                Debug.Log("Fear");
                 SoundManager.I.PlayCreature("Angry");
 
                 //RedLight.gameObject.SetActive(true);
                 //RedLight.color = Color.blue;
                 break;
             case TribeEmotionMode.Happy:
-                Debug.Log("Happy");
                 SoundManager.I.PlayCreature("Happy");
                 //RedLight.gameObject.SetActive(true);
                 //RedLight.color = Color.yellow;
