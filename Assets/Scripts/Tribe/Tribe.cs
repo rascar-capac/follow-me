@@ -135,7 +135,7 @@ public class Tribe : ZoneInteractable
 	{
 		base.Update();
 
-        Source.volume = Mathf.Clamp(1 - Mathf.Lerp(0, 1, Vector3.Distance(Vector3.ProjectOnPlane(_Player.transform.position, Vector3.up), Vector3.ProjectOnPlane(transform.position, Vector3.up)) / Source.maxDistance), 0.2f, 1);
+        //Source.volume = Mathf.Clamp(1 - Mathf.Lerp(0, 1, Vector3.Distance(Vector3.ProjectOnPlane(_Player.transform.position, Vector3.up), Vector3.ProjectOnPlane(transform.position, Vector3.up)) / Source.maxDistance), 0.2f, 1);
 
         //UpdateEnergy();
         //EnergyCritical();
@@ -653,7 +653,7 @@ public class Tribe : ZoneInteractable
         else
             animator.Play("@rear");
 
-        StartChrono(Random.Range(30, 100), PlayFlip);
+        StartChrono(Random.Range(15, 50), PlayFlip);
     }
     void PlaySound()
     {
