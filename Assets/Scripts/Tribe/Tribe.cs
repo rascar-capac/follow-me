@@ -517,7 +517,19 @@ public class Tribe : ZoneInteractable
         Direction = (direction - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(Direction);
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * AngularSpeed);
+        Quaternion lerp = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * AngularSpeed);
+        transform.rotation = lerp;
+
+        //Trying to roll
+        //float dotr = Quaternion.Dot(transform.rotation, lerp);
+        //Debug.Log(dotr);
+        //if (dotr > 0 && dotr < 1 && Vector3.Angle(transform.up, Vector3.up) < 30)
+        //    transform.Rotate(transform.forward, -1 * 20 * Time.deltaTime);
+        //else if (dotr < 0 && dotr > -1 && Vector3.Angle(transform.up, Vector3.up) < 30)
+        //    transform.Rotate(transform.forward, 20 * Time.deltaTime);
+        //else if (Vector3.Angle(transform.up, Vector3.up) > 0)
+        //    transform.Rotate(transform.forward, 20 * Time.deltaTime);
+
         //float angle = GetSignedAngle(transform.rotation, lookRotation, Vector3.up);
         //if (Mathf.Abs(angle) <= 0.1f)
         //    return;

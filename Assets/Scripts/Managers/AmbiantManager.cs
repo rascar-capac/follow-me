@@ -26,6 +26,8 @@ public class AmbiantManager : Singleton<AmbiantManager>
     private void Update()
     {
         //UIManager.I.SetTimeOfDay();
+        if (GamePaused)
+            return;
 
         float dayTime = SkyboxDayNightCycle.Instance.TimeOfDay;
         List<DayTimePhase> phases = GameManager.I._data.Phases;

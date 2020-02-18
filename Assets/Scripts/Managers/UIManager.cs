@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Borodar.FarlandSkies.LowPoly;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -152,11 +153,11 @@ public class UIManager : Singleton<UIManager>
 
 	public void OpenCloseMainMenu()
 	{
-		if (MainMenu.activeSelf == false)
+		if (!MainMenu.activeSelf && !StartMenu.activeSelf)
 		{
 			OpenMenu();
 		}
-		else
+		else if (MainMenu.activeSelf)
 		{
 			CloseMenu();
 		}
@@ -168,16 +169,19 @@ public class UIManager : Singleton<UIManager>
 
 		_PlayerMovement.InGame = false;
 		_PlayerLook.AllowLook = false;
+        SkyboxCycleManager.Instance.Paused = true;
 
-		Cursor.visible = true;
+
+        Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
 	}
 	void CloseMenu()
 	{
 		MainMenu.SetActive(false);
 		HudPanel.SetActive(false);
+        SkyboxCycleManager.Instance.Paused = false;
 
-		_PlayerMovement.InGame = true;
+        _PlayerMovement.InGame = true;
 		_PlayerLook.AllowLook = true;
 
 		Cursor.visible = false;
@@ -190,8 +194,9 @@ public class UIManager : Singleton<UIManager>
 
 		_PlayerMovement.InGame = false;
 		_PlayerLook.AllowLook = false;
+        SkyboxCycleManager.Instance.Paused = true;
 
-		Cursor.visible = true;
+        Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
 	}
 	public void CloseStartMenu()
@@ -200,8 +205,9 @@ public class UIManager : Singleton<UIManager>
 
 		_PlayerMovement.InGame = true;
 		_PlayerLook.AllowLook = true;
+        SkyboxCycleManager.Instance.Paused = false;
 
-		Cursor.visible = false;
+        Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
 	}
 
