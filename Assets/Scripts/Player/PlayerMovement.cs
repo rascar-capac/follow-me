@@ -254,7 +254,7 @@ public class PlayerMovement : BaseMonoBehaviour
 
     public void Move(InputAxisUnityEventArg axis)
     {
-        Debug.Log(InGame);
+
         if (!InGame)
             return;
 
@@ -281,59 +281,106 @@ public class PlayerMovement : BaseMonoBehaviour
 
         //// WITH MATHF.ATAN2 (voir Théo)
 
-        //Vector3 cameraPosition = CameraManager.I._MainCamera.transform.position;
-        //Vector3 rayCastOrigin = cameraPosition + right * _speed * Time.deltaTime;
-        //RaycastHit hit;
-        //_move = Vector3.zero;
-        //if (Physics.Raycast(rayCastOrigin, Vector3.down, out hit, 5, _groundMask))
-        //{
-        //	Debug.Log("Right = " + Mathf.Atan2(hit.distance - Vector3.Distance(cameraPosition, _groundCheck.position), x * _speed * Time.deltaTime));
+        Vector3 cameraPosition = CameraManager.I._MainCamera.transform.position;
+        Vector3 rayCastOrigin = cameraPosition + right * _speed * Time.deltaTime;
+        RaycastHit hit;
+        _move = Vector3.zero;
+        if (Physics.Raycast(rayCastOrigin, Vector3.down, out hit, 5, _groundMask))
+        {
+            Debug.Log("Right = " + Mathf.Atan2(hit.distance - Vector3.Distance(cameraPosition, _groundCheck.position), x * _speed * Time.deltaTime));
 
-        //	if (Mathf.Atan2(hit.distance - Vector3.Distance(cameraPosition, _groundCheck.position), x * _speed * Time.deltaTime) <= _controller.slopeLimit)
-        //		_move += right;
-        //	//_isMoveAllowed = groundAngle <= _controller.slopeLimit;
-        //}
+            if (Mathf.Atan2(hit.distance - Vector3.Distance(cameraPosition, _groundCheck.position), x * _speed * Time.deltaTime) <= _controller.slopeLimit)
+                _move += right;
+            else
+            {
+                Vector3 shiftVector = Vector3.Cross(Vector3.up, right);
+                if (Vector3.Dot(hit.transform.position - transform.position, transform.forward) > 0)
+                {
+                    _move += shiftVector;
+                }
+                else
+                    _move += shiftVector * -1;
+            }
+        }
         //else
-        //	_move += right;
+        //    _move += right;
 
-        //rayCastOrigin = cameraPosition + forward * _speed * Time.deltaTime;
+        rayCastOrigin = cameraPosition + forward * _speed * Time.deltaTime;
 
-        //if (Physics.Raycast(rayCastOrigin, Vector3.down, out hit, 5, _groundMask))
-        //{
-        //	Debug.Log("Forward = " + Mathf.Atan2(hit.distance - Vector3.Distance(cameraPosition, _groundCheck.position), z * _speed * Time.deltaTime));
+        if (Physics.Raycast(rayCastOrigin, Vector3.down, out hit, 5, _groundMask))
+        {
+            Debug.Log("Forward = " + Mathf.Atan2(hit.distance - Vector3.Distance(cameraPosition, _groundCheck.position), z * _speed * Time.deltaTime));
 
-        //	if (Mathf.Atan2(hit.distance - Vector3.Distance(cameraPosition, _groundCheck.position), z * _speed * Time.deltaTime) <= _controller.slopeLimit)
-        //		_move += forward;
-        //	//_isMoveAllowed = groundAngle <= _controller.slopeLimit;
-        //}
+            if (Mathf.Atan2(hit.distance - Vector3.Distance(cameraPosition, _groundCheck.position), z * _speed * Time.deltaTime) <= _controller.slopeLimit)
+                _move += forward;
+            else
+            {
+                Vector3 shiftVector = Vector3.Cross(Vector3.up, forward);
+                if (Vector3.Dot(hit.transform.position - transform.position, transform.right) > 0)
+                {
+                    _move += shiftVector;
+                }
+                else
+                    _move += shiftVector * -1;
+            }
+        }
         //else
-        //	_move += forward;
+        //    _move += forward;
 
 
 
         // WITH VECTOR3.ANGLE
 
-        _move = Vector3.zero;
-        RaycastHit hit;
-        if (Physics.Raycast(CameraManager.I._MainCamera.transform.position + right * 0.5f, Vector3.down, out hit, 5, _groundMask))
-        {
-            float groundAngle = Vector3.Angle(Vector3.up, hit.normal);
-            if (groundAngle <= _controller.slopeLimit - 0.1f)
-                _move += right;
-            //_isMoveAllowed = groundAngle <= _controller.slopeLimit;
-        }
-        else
-            _move += right;
+        //_move = Vector3.zero;
+        ////RaycastHit hit;
+        //if (Physics.Raycast(CameraManager.I._MainCamera.transform.position + right * 0.5f, Vector3.down, out hit, 5, _groundMask))
+        //{
+        //    float groundAngle = Vector3.Angle(Vector3.up, hit.normal);
+        //    if (groundAngle <= _controller.slopeLimit - 0.1f)
+        //        _move += right;
+        //    else
+        //    {
+        //        if (x > 0)
+        //            _move += Vector3.Cross(right, Vector3.up) ;
+        //        else
+        //            _move += Vector3.Cross(Vector3.up, right);
+        //    }
+        //    //_isMoveAllowed = groundAngle <= _controller.slopeLimit;
+        //}
+        //else
+        //    _move += right;
 
-        if (Physics.Raycast(CameraManager.I._MainCamera.transform.position + forward * 0.5f, Vector3.down, out hit, 5, _groundMask))
-        {
-            float groundAngle = Vector3.Angle(Vector3.up, hit.normal);
-            if (groundAngle <= _controller.slopeLimit)
-                _move += forward;
-            //_isMoveAllowed = groundAngle <= _controller.slopeLimit;
-        }
-        else
-            _move += forward;
+        //if (Physics.Raycast(CameraManager.I._MainCamera.transform.position + forward * 0.5f, Vector3.down, out hit, 5, _groundMask))
+        //{
+        //    float groundAngle = Vector3.Angle(Vector3.up, hit.normal);
+        //    if (groundAngle <= _controller.slopeLimit)
+        //        _move += forward;
+        //    else
+        //    {
+        //        float hitdist = 3f;
+        //        Vector3 shiftVector = Vector3.Cross(Vector3.up, forward);
+        //        if (Vector3.Dot(hit.transform.position - transform.position, transform.right) > 0)
+        //        {
+        //            _move += shiftVector;
+        //        }
+        //        else
+        //            _move += shiftVector * -1;
+
+        //        //if (Physics.Raycast(CameraManager.I._MainCamera.transform.position, shiftVector, out hit, hitdist, _groundMask))
+        //        //{
+        //        //    Debug.DrawRay(CameraManager.I._MainCamera.transform.position, shiftVector * hitdist * -1, Color.black);
+        //        //    Debug.Log("hit");
+        //        //}
+        //        //else
+        //        //{
+        //        //    Debug.DrawRay(CameraManager.I._MainCamera.transform.position, shiftVector * hitdist, Color.white);
+        //       // _move += shiftVector;
+        //        //}
+        //    }
+        //    //_isMoveAllowed = groundAngle <= _controller.slopeLimit;
+        //}
+        //else
+        //    _move += forward;
 
         #endregion
 
