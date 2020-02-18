@@ -393,7 +393,7 @@ public class Tribe : ZoneInteractable
     GameObject lastpos;
     public IEnumerable GoToRandomPosition(float speedMove = 0)
     {
-        Debug.Log("Random position");
+
         speedMove = speedMove == 0 ? speed : speedMove;
 
         Bounds terrainDimensions = _Terrain.terrainData.bounds;

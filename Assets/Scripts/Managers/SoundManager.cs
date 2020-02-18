@@ -25,6 +25,8 @@ public class SoundManager : Singleton<SoundManager>
         PedestalsSource = ((GameObject)ObjectsManager.I["ZonePedestals"]).GetComponent<AudioSource>();
         PlayerSource = ((GameObject)ObjectsManager.I["Player"]).GetComponent<AudioSource>();
         AmbiantSource = CameraManager.I._MainCamera.GetComponent<AudioSource>();
+        StartCoroutine(PlayWalkSound());
+
     }
 
 
@@ -85,21 +87,35 @@ public class SoundManager : Singleton<SoundManager>
         }
     }
 
-    public void PlayerWalk()
+    public bool IsWalking = false;
+    IEnumerator PlayWalkSound()
     {
         if (!PlayerSource)
             PlayerSource = ((GameObject)ObjectsManager.I["Player"]).GetComponent<AudioSource>();
-        if (PlayerSource.isPlaying)
-            return;
-
-        AudioClip found = PlayerSteps[Random.Range(0, PlayerSteps.Count)];
-        while (PlayerSource.clip == found)
+        while (true)
         {
-            found = PlayerSteps[Random.Range(0, PlayerSteps.Count)];
+            if (!IsWalking)
+            {
+                StopPlayerSound();
+
+                while (!IsWalking)
+                {
+                    yield return null;
+                }
+            }
+
+            AudioClip found = PlayerSteps[Random.Range(0, PlayerSteps.Count)];
+            while (PlayerSource.clip == found)
+            {
+                found = PlayerSteps[Random.Range(0, PlayerSteps.Count)];
+            }
+            PlayerSource.clip = found;
+            PlayerSource.loop = false;
+            PlayerSource.pitch = Random.Range((float)-1, (float)1);
+            PlayerSource.Play();
+
+            yield return new WaitForSeconds(found.length * PlayerSource.pitch);
         }
-        PlayerSource.clip = found;
-        PlayerSource.loop = false;
-        PlayerSource.Play();
     }
 
     public void StopPlayerSound()
