@@ -156,10 +156,10 @@ public class PlayerMovement : BaseMonoBehaviour
 		Vector3.Normalize(HitAngle);
 
 		// Set par défaut des angles à la valeur de SlopeLimit.
-		HitForwardSlopeAngle = 45f;
-		HitBackwardSlopeAngle = 45f;
-		HitRightSlopeAngle = 45f;
-		HitLeftSlopeAngle = 45f;
+		HitForwardSlopeAngle = _controller.slopeLimit;
+		HitBackwardSlopeAngle = _controller.slopeLimit;
+		HitRightSlopeAngle = _controller.slopeLimit;
+		HitLeftSlopeAngle = _controller.slopeLimit;
 
 		// Debug des prochain rayons tirés.
 		Debug.DrawRay(transform.position + OffsetStartRaycast, (transform.forward + HitAngle) * RayLenght, Color.blue, 0.1f);
@@ -178,13 +178,13 @@ public class PlayerMovement : BaseMonoBehaviour
 			HitLeftSlopeAngle = Mathf.Abs(Vector3.Angle(HitLeft.normal, -transform.right) - 90f);
 
 		// Si un des angles dépasse la valeur de SlopeLimit, annulation du mouvement dans la direction correspondante.
-		if (HitForwardSlopeAngle >= 45)
+		if (HitForwardSlopeAngle >= _controller.slopeLimit)
 			_move = new Vector3(_move.x, _move.y, Mathf.Clamp(_move.z, -1, 0));
-		if (HitBackwardSlopeAngle >= 45)
+		if (HitBackwardSlopeAngle >= _controller.slopeLimit)
 			_move = new Vector3(_move.x, _move.y, Mathf.Clamp(_move.z, 0, 1));
-		if (HitRightSlopeAngle >= 45)
+		if (HitRightSlopeAngle >= _controller.slopeLimit)
 			_move = new Vector3(Mathf.Clamp(_move.x, -1, 0), _move.y, _move.z);
-		if (HitLeftSlopeAngle >= 45)
+		if (HitLeftSlopeAngle >= _controller.slopeLimit)
 			_move = new Vector3(Mathf.Clamp(_move.x, 0, 1), _move.y, _move.z);
 
 		#endregion
