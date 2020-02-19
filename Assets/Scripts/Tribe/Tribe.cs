@@ -494,10 +494,10 @@ public class Tribe : ZoneInteractable
             {
                 Vector3.MoveTowards(transform.position, position, speedMove * Time.deltaTime);
             }
-            if (transform.position.y <= NormalHeight)
-            {
-                transform.Translate(Vector3.up * speedMove * Time.deltaTime);
-            }
+            //if (transform.position.y <= NormalHeight)
+            //{
+            //    transform.Translate(Vector3.up * speedMove * Time.deltaTime);
+            //}
             yield return null;
         }
         if (Vector3.Distance(Vector3.ProjectOnPlane(transform.position, Vector3.up), Vector3.ProjectOnPlane(position, Vector3.up)) > 50f)
@@ -668,12 +668,12 @@ public class Tribe : ZoneInteractable
     void PlaySound()
     {
         FlappingSource.PlayOneShot(SoundManager.I.CreatureFlapping[Random.Range(0, SoundManager.I.CreatureFlapping.Count)]);
-        StartChrono(Random.Range(10, 20), PlaySound);
+        StartChrono(Random.Range(5, 10), PlaySound);
     }
     void PlayScream()
     {
         ScreamingSource.PlayOneShot(SoundManager.I.CreatureScreaming[Random.Range(0, SoundManager.I.CreatureScreaming.Count)]);
-        StartChrono(Random.Range(5, 10), PlayScream);
+        StartChrono(Random.Range(15, 30), PlayScream);
     }
     public void SwitchModeFollowAndWait()
 	{
