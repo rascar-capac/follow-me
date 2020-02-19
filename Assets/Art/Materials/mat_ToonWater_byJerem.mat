@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _FoamMap:
-        m_Texture: {fileID: 2800000, guid: 791ebe8a3d329b34ca7dc4616ec3cd34, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HeightMap:
@@ -28,7 +28,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: 791ebe8a3d329b34ca7dc4616ec3cd34, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texcoord:
@@ -36,20 +36,20 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _FoamDepth: -4.32
-    - _FoamFalloff: -31.91
+    - _FoamDepth: 1.35
+    - _FoamFalloff: -30
     - _FoamSharpness: 0
-    - _FoamThickness: -0.106
-    - _FoamTiling: -5.21
+    - _FoamThickness: 0
+    - _FoamTiling: 1
     - _HeightTiling: 1
     - _HeightsIntensity: 1
     - _NormalScale: 1
-    - _NormalTiling: 50
-    - _WaterDepth: 0.08
-    - _WaterFalloff: -3
+    - _NormalTiling: 1
+    - _WaterDepth: -8.13
+    - _WaterFalloff: -3.5
     - __dirty: 1
     m_Colors:
-    - _DeepColor: {r: 0.5608757, g: 0.80593216, b: 0.8679245, a: 0}
+    - _DeepColor: {r: 1, g: 0, b: 0, a: 0}
     - _HeightsSpeed: {r: -0.03, g: 0, b: 0.04, a: 0.04}
     - _NormalsSpeed: {r: -0.03, g: 0, b: 0.04, a: 0.04}
-    - _ShalowColor: {r: 0.32048354, g: 0.30860624, b: 0.6886792, a: 0}
+    - _ShalowColor: {r: 0, g: 0.08760619, b: 1, a: 0}
