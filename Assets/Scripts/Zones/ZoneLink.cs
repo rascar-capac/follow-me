@@ -24,7 +24,7 @@ public class ZoneLink : Zone
 
     public void EnteredZone(ZoneInteractable who, Zone zone)
     {
-        if (zone == this && !IsActivated)
+        if (zone == this && !LinkedZone.IsActivate)
         {
             tribe.StopAll();
             LinkedZone.IsTileActivated = true;
