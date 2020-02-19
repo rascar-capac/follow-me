@@ -10,7 +10,6 @@ public class ZoneLink : Zone
     public int DaysToSkipCount;
     Player player;
     Tribe tribe;
-    bool IsActivated = false;
     AudioSource source;
 
     protected override void Start()
@@ -24,15 +23,13 @@ public class ZoneLink : Zone
 
     public void EnteredZone(ZoneInteractable who, Zone zone)
     {
-        if (zone == this && !LinkedZone.IsActivate)
+        if (zone == this)
         {
             tribe.StopAll();
-            LinkedZone.IsTileActivated = true;
             LinkedZone.Ray.gameObject.SetActive(false);
             tribe.SetMode(TribeEmotionMode.Happy);
             tribe.StartRotating(LinkedZone.Egg.transform, speedMove: 200f);
             AmbiantManager.I.SkipDayTimeToPhase(LinkedZone.PhaseIndex, DayTimeTransitionDuration, DaysToSkipCount);
-            IsActivated = true;
             source.PlayOneShot(SoundManager.I.TileactivationClips[Random.Range(0, SoundManager.I.TileactivationClips.Count)]);
             //source.clip = SoundManager.I.TileactivationClips[Random.Range(0, SoundManager.I.TileactivationClips.Count)];
             //source.loop = false;

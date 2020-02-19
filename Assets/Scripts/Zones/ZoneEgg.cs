@@ -7,13 +7,14 @@ public class ZoneEgg : Zone
     public Item Egg;
     public GameObject Ray;
     public int PhaseIndex;
-    public bool HasActivationAllowed = false;
-    public bool IsTileActivated = false;
+    public bool IsActivable = false;
+    public bool IsActivated => Ray.activeSelf;
     public AudioClip ActivatedSound;
-    public bool IsActivate => Ray.activeSelf;
+    public float PulsationSpeedThreshold1 = 150;
+    public float PulsationSpeedThreshold2 = 70;
     Player player;
     Tribe tribe;
-    Renderer renderer;
+    Renderer eggRenderer;
     AudioSource zonesource;
 
     protected override void Start()
@@ -22,26 +23,45 @@ public class ZoneEgg : Zone
         player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
         player.onZoneEnter.AddListener(EnteredZone);
         player.onZoneExit.AddListener(ExitedZone);
-        AmbiantManager.I.onTimePhaseChanged.AddListener(AllowActivation);
+        AmbiantManager.I.onTimePhaseChanged.AddListener(CheckPhase);
         tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
         GameData gd = GameManager.I._data;
         Color rayColor = PhaseIndex == gd.Phases.Count ? gd.SpecialPhase.color : gd.Phases[PhaseIndex].color;
         Ray.transform.GetComponentInChildren<SkinnedMeshRenderer>().material.SetColor("_Color", rayColor);
-        renderer = Egg.GetComponentInChildren<Renderer>();
+        eggRenderer = Egg.GetComponentInChildren<Renderer>();
         zonesource = GetComponent<AudioSource>();
     }
 
     protected void Update()
     {
-        if (IsTileActivated && !IsActivate)
-            renderer.material.SetFloat("_PulseState", Mathf.Sin(Time.time * 1.5f));
+        if (!IsActivated)
+        {
+            if(IsActivable)
+            {
+                float playerDistance = Vector3.Distance(Vector3.ProjectOnPlane(player.transform.position, Vector3.up), Vector3.ProjectOnPlane(transform.position, Vector3.up));
+                float speed;
+                if(playerDistance > PulsationSpeedThreshold1)
+                {
+                    speed = 1;
+                }
+                else if(playerDistance > PulsationSpeedThreshold2)
+                {
+                    speed = 2;
+                }
+                else
+                {
+                    speed = 4;
+                }
+                ChangePulseState(Mathf.Sin(Time.time * speed));
+            }
+        }
 
         // zonesource.volume = Mathf.Clamp(1- Mathf.Lerp(0, 1, Vector3.Distance(Vector3.ProjectOnPlane(player.transform.position, Vector3.up), Vector3.ProjectOnPlane(transform.position, Vector3.up))/ zonesource.maxDistance), 0, 1);
     }
 
     public void EnteredZone(ZoneInteractable who, Zone zone)
     {
-        if (zone == this && HasActivationAllowed && !IsActivate)
+        if (zone == this && IsActivable && !IsActivated)
         {
             AudioSource zonesource = GetComponent<AudioSource>();
             tribe.StopAll();
@@ -52,9 +72,10 @@ public class ZoneEgg : Zone
             if (ActivatedSound != null)
                 zonesource.PlayOneShot(SoundManager.I.StonesClips[Random.Range(0, SoundManager.I.StonesClips.Count)]);
             tribe.StartLive();
-            Egg.ActivateItem();
+            //Egg.ActivateItem();
+            ChangePulseState(1);
         }
-        else if (zone == this && !IsActivate)
+        else if (zone == this && !IsActivated)
         {
             tribe.StopAll();
             tribe.StartAggress();
@@ -63,15 +84,31 @@ public class ZoneEgg : Zone
 
     public void ExitedZone(ZoneInteractable who, Zone zone)
     {
-        if (zone == this && !HasActivationAllowed)
+        if (zone == this && !IsActivable)
         {
             tribe.StopAll();
             tribe.StartLive();
         }
     }
 
-    public void AllowActivation(int currentPhaseIndex)
+    public void CheckPhase(int currentPhaseIndex)
     {
-        HasActivationAllowed = currentPhaseIndex == PhaseIndex && IsTileActivated;
+        if(currentPhaseIndex == PhaseIndex)
+        {
+            IsActivable = true;
+        }
+        else
+        {
+            if(IsActivable && !IsActivated)
+            {
+                ChangePulseState(0);
+                IsActivable = false;
+            }
+        }
+    }
+
+    public void ChangePulseState(float value)
+    {
+        eggRenderer.material.SetFloat("_PulseState", value);
     }
 }
