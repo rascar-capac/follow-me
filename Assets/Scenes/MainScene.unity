@@ -15,7 +15,7 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 0
-  m_FogColor: {r: 0.33962262, g: 0.16180134, b: 0.30555072, a: 1}
+  m_FogColor: {r: 0.93369645, g: 0.46219277, b: 0.25945857, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.002
   m_LinearFogStart: 0
@@ -4479,6 +4479,398 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.size
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[1].Time
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[2].Time
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[2].TopColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[2].TopColor.g
+      value: 0.79215693
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[2].TopColor.b
+      value: 0.98823535
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[2].MiddleColor.r
+      value: 0.7216981
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[2].MiddleColor.g
+      value: 0.8215237
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[2].MiddleColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[3].Time
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[3].MiddleColor.r
+      value: 0.4784314
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[3].MiddleColor.g
+      value: 0.60784316
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[3].MiddleColor.b
+      value: 0.83921576
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[4].Time
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[4].MiddleColor.r
+      value: 0.4784314
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[4].MiddleColor.g
+      value: 0.60784316
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[4].MiddleColor.b
+      value: 0.83921576
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[5].Time
+      value: 52.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[6].Time
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[6].TopColor.g
+      value: 0.32156864
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[6].TopColor.b
+      value: 0.46274513
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[6].MiddleColor.r
+      value: 0.79215693
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[6].MiddleColor.g
+      value: 0.36078432
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[6].MiddleColor.b
+      value: 0.46274513
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[6].BottomColor.g
+      value: 0.28235295
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[6].BottomColor.b
+      value: 0.40000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[7].Time
+      value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[7].MiddleColor.r
+      value: 0.44492787
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[7].MiddleColor.g
+      value: 0.27661088
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[7].MiddleColor.b
+      value: 0.5283019
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[7].BottomColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[7].BottomColor.b
+      value: 0.007843138
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[8].Time
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[8].TopColor.r
+      value: 0.03137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[8].TopColor.g
+      value: 0.04705883
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[8].TopColor.b
+      value: 0.20392159
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[8].MiddleColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[8].MiddleColor.g
+      value: 0.17176321
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[8].MiddleColor.b
+      value: 0.31132078
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[8].BottomColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[8].BottomColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[8].BottomColor.b
+      value: 0.007843138
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[9].Time
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[9].MiddleColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[9].MiddleColor.g
+      value: 0.1254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[9].MiddleColor.b
+      value: 0.22745098
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[10].Time
+      value: 77.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[10].MiddleColor.g
+      value: 0.5943396
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[10].MiddleColor.b
+      value: 0.32800817
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[11].Time
+      value: 82.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[11].TopColor.r
+      value: 0.027450982
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[11].TopColor.b
+      value: 0.20000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[11].MiddleColor.r
+      value: 0.34901962
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[11].MiddleColor.g
+      value: 0.59607846
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[11].MiddleColor.b
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[12].Time
+      value: 85
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[12].MiddleColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[12].MiddleColor.g
+      value: 0.088484086
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[12].MiddleColor.b
+      value: 0.16037738
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[13].Time
+      value: 95
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[13].MiddleColor.r
+      value: 0.33962262
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[13].MiddleColor.g
+      value: 0.16180134
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[13].MiddleColor.b
+      value: 0.30555072
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[2].BottomColor.r
+      value: 0.011764707
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[2].BottomColor.g
+      value: 0.28235295
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[2].BottomColor.b
+      value: 0.40000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[0].Time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[0].TopColor.r
+      value: 0.348779
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[0].TopColor.g
+      value: 0.24705881
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[0].TopColor.b
+      value: 0.56078434
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[0].MiddleColor.r
+      value: 0.9339623
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[0].MiddleColor.g
+      value: 0.46178842
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[0].MiddleColor.b
+      value: 0.2599235
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[0].BottomColor.r
+      value: 0.16078432
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[0].BottomColor.g
+      value: 0.20784315
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[0].BottomColor.b
+      value: 0.3647059
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[1].TopColor.r
+      value: 0.34901962
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[1].TopColor.g
+      value: 0.24705884
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[1].MiddleColor.r
+      value: 0.9333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[1].MiddleColor.g
+      value: 0.46274513
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[1].MiddleColor.b
+      value: 0.25882354
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[5].TopColor.g
+      value: 0.32156864
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[5].TopColor.b
+      value: 0.46274513
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[5].MiddleColor.r
+      value: 0.7686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[5].MiddleColor.g
+      value: 0.46274513
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[5].MiddleColor.b
+      value: 0.454902
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[5].BottomColor.g
+      value: 0.24705884
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[5].BottomColor.b
+      value: 0.34901962
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[7].TopColor.r
+      value: 0.03137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[7].TopColor.g
+      value: 0.04705883
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[7].TopColor.b
+      value: 0.20392159
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[7].BottomColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[10].TopColor.r
+      value: 0.027450982
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[10].TopColor.b
+      value: 0.20000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[10].MiddleColor.r
+      value: 0.34755546
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[13].TopColor.r
+      value: 0.03137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[13].TopColor.b
+      value: 0.20392159
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474124, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
+      propertyPath: _skyParamsList.Params.Array.data[13].BottomColor.b
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1cf26b3fafe14234b9f3fe13fcd7b8ab, type: 3}
 --- !u!1001 &500767174
@@ -6854,6 +7246,11 @@ PrefabInstance:
     - target: {fileID: 0}
       propertyPath: m_SizeDelta.y
       value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 1045944961167622874, guid: 41b016115e9d7464e96dc233994afa42,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -40
       objectReference: {fileID: 0}
     - target: {fileID: 3517119037870197031, guid: 41b016115e9d7464e96dc233994afa42,
         type: 3}
@@ -15730,19 +16127,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 417154, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.11015835
+      value: -0.019671453
       objectReference: {fileID: 0}
     - target: {fileID: 417154, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.66996384
+      value: 0.597273
       objectReference: {fileID: 0}
     - target: {fileID: 417154, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.10149842
+      value: -0.014656073
       objectReference: {fileID: 0}
     - target: {fileID: 417154, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.72712564
+      value: -0.80166274
       objectReference: {fileID: 0}
     - target: {fileID: 433102, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15810,11 +16207,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 10846822, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_Color.g
-      value: 0.1764706
+      value: 0.17637815
       objectReference: {fileID: 0}
     - target: {fileID: 10846822, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_Color.b
-      value: 0.32156864
+      value: 0.32148263
       objectReference: {fileID: 0}
     - target: {fileID: 10846822, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_Intensity
@@ -15850,7 +16247,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 10897626, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_Intensity
-      value: 0
+      value: 0.634
       objectReference: {fileID: 0}
     - target: {fileID: 10897626, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_BoundingSphereOverride.x
@@ -15878,7 +16275,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 12392962, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_Brightness
-      value: 0
+      value: 0.19020002
       objectReference: {fileID: 0}
     - target: {fileID: 803426592196044186, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf,
         type: 3}
@@ -16043,8 +16440,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114000012700079142, guid: 2e81469bd87b0e5408ce4fe381ea958f,
         type: 3}
-      propertyPath: CycleDuration
-      value: 600
+      propertyPath: CycleProgress
+      value: 6.34
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e81469bd87b0e5408ce4fe381ea958f, type: 3}
@@ -18028,6 +18425,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zone
       objectReference: {fileID: 0}
+    - target: {fileID: 8640311679168677487, guid: ec7384ee67dab194196a9aca6817867c,
+        type: 3}
+      propertyPath: Music
+      value: 
+      objectReference: {fileID: 8300000, guid: 0246a8855af478c40bf951a46d462dba, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec7384ee67dab194196a9aca6817867c, type: 3}
 --- !u!4 &2057908914 stripped

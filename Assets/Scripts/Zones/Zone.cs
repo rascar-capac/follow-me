@@ -13,7 +13,7 @@ public class TribePlayerDialog
 {
     [Multiline()]
     public string Message = "";
-    public MessageOrigin Who = MessageOrigin.System; 
+    public MessageOrigin Who = MessageOrigin.System;
 }
 
 public class Zone : BaseMonoBehaviour

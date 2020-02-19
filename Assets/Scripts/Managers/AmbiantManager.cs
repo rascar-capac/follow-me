@@ -203,7 +203,7 @@ public class AmbiantManager : Singleton<AmbiantManager>
         SkyboxCycleManager.Instance.Paused = true;
         float timer = 0;
         float skippedDuration = 0;
-        while(skippedDuration <= durationToSkip)
+        while(skippedDuration < durationToSkip)
         {
             if(Application.isPlaying)
             {
