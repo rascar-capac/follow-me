@@ -13,7 +13,7 @@ public class AmbiantManager : Singleton<AmbiantManager>
     public TimePhaseChangedEvent onTimePhaseChanged = new TimePhaseChangedEvent();
     public float _LastHour;
     GameObject Terrain;
-    private int PhaseIndex = -1;
+    public int PhaseIndex = -1;
 
     protected override void Start()
     {
