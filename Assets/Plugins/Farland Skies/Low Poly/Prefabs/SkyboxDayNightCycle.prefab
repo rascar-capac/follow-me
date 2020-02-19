@@ -94,12 +94,12 @@ MonoBehaviour:
       CloudsTint: {r: 0, g: 0, b: 0, a: 0}
     - Time: 65
       TopColor: {r: 0.027450982, g: 0.04705883, b: 0.20000002, a: 1}
-      MiddleColor: {r: 0.34755546, g: 0.5943396, b: 0.32800817, a: 1}
+      MiddleColor: {r: 0.080784306, g: 0.23584908, b: 0.06786223, a: 1}
       BottomColor: {r: 0, g: 0, b: 0.007843138, a: 1}
       CloudsTint: {r: 0, g: 0, b: 0, a: 0}
     - Time: 85
       TopColor: {r: 0.027450982, g: 0.04705883, b: 0.20000002, a: 1}
-      MiddleColor: {r: 0.34901962, g: 0.59607846, b: 0.32941177, a: 1}
+      MiddleColor: {r: 0.08235294, g: 0.23529413, b: 0.06666667, a: 1}
       BottomColor: {r: 0, g: 0, b: 0.007843138, a: 1}
       CloudsTint: {r: 0, g: 0, b: 0, a: 0}
     - Time: 85.5
@@ -196,7 +196,7 @@ MonoBehaviour:
       LightIntencity: 1
     - Time: 75
       TintColor: {r: 0.32991734, g: 0.6886792, b: 0.27612138, a: 1}
-      LightColor: {r: 0, g: 0.85882354, b: 0.6146298, a: 1}
+      LightColor: {r: 0, g: 0.5283019, b: 0.37873703, a: 1}
       LightIntencity: 1
     - Time: 80
       TintColor: {r: 0.20392159, g: 0.39607847, b: 0.3764706, a: 1}
