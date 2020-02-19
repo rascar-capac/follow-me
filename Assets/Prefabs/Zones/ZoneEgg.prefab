@@ -20,7 +20,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 0
-  MinDistance: 35
+  MinDistance: 10
   MaxDistance: 200
   Pan2D: 0
   rolloffMode: 0
@@ -122,9 +122,10 @@ MonoBehaviour:
   Egg: {fileID: 0}
   Ray: {fileID: 0}
   PhaseIndex: 0
-  HasActivationAllowed: 0
-  IsTileActivated: 0
+  IsActivable: 0
   ActivatedSound: {fileID: 8300000, guid: 9f5e97a5b70ba5c40892cdda14a7ee62, type: 3}
+  PulsationSpeedThreshold1: 150
+  PulsationSpeedThreshold2: 70
 --- !u!1001 &1900075645417006773
 PrefabInstance:
   m_ObjectHideFlags: 0

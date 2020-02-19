@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3640099629481185586}
   - component: {fileID: 5983080207339931557}
   - component: {fileID: 2803258704958562655}
-  - component: {fileID: 600162245516774689}
   m_Layer: 8
   m_Name: m_TreeHigh2_LOD1(Clone)
   m_TagString: Untagged
@@ -80,20 +79,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &600162245516774689
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2830736674522331849}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: -7590102072185620563, guid: 26082e2a835359941bf4d07bc0ea8a2f, type: 3}
 --- !u!1 &3454374042237627183
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,7 +215,6 @@ GameObject:
   - component: {fileID: 8728180015425230131}
   - component: {fileID: 5297303603127577264}
   - component: {fileID: 8631001184602998303}
-  - component: {fileID: 7459256355447994632}
   m_Layer: 8
   m_Name: m_TreeHigh2_LOD0(Clone)
   m_TagString: Untagged
@@ -299,20 +283,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &7459256355447994632
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7672174090168057776}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: -4480690532714015412, guid: b1721e17a167fc1499a46c9f963fd10d, type: 3}
 --- !u!1 &8376690951604740744
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,7 +294,6 @@ GameObject:
   - component: {fileID: 6557231856421171226}
   - component: {fileID: 4327833194381462839}
   - component: {fileID: 7180981503580741615}
-  - component: {fileID: 5418259900253623048}
   m_Layer: 8
   m_Name: m_TreeHigh2_LOD2(Clone)
   m_TagString: Untagged
@@ -393,17 +362,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &5418259900253623048
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8376690951604740744}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 5147763233489818206, guid: 9cb5049d5e67b3f40a5451a9e1a88377, type: 3}
