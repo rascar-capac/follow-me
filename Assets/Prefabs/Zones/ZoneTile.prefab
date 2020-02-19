@@ -189,7 +189,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: ZoneTile
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8640311679168677487, guid: ec7384ee67dab194196a9aca6817867c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ec7384ee67dab194196a9aca6817867c, type: 3}
 --- !u!1 &2929058992410578104 stripped
 GameObject:
