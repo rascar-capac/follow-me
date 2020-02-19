@@ -120,6 +120,8 @@ MonoBehaviour:
   _itemOnCoaster: 0
   Dialogs: []
   LinkedZone: {fileID: 0}
+  DayTimeTransitionDuration: 5
+  DaysToSkipCount: 1
 --- !u!1001 &7951439269237617172
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -187,8 +189,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: ZoneTile
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8640311679168677487, guid: ec7384ee67dab194196a9aca6817867c, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec7384ee67dab194196a9aca6817867c, type: 3}
 --- !u!1 &2929058992410578104 stripped
 GameObject:
