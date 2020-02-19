@@ -43,6 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 915ff6d12963e5a478979e419d3df2fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CycleDuration: 1500
-  CycleProgress: 0
+  CycleDuration: 2000
+  CycleProgress: 5
   Paused: 0
