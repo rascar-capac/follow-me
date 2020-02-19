@@ -603,8 +603,13 @@ PrefabInstance:
     - target: {fileID: 8640311679168677487, guid: ec7384ee67dab194196a9aca6817867c,
         type: 3}
       propertyPath: Layers.m_Bits
-      value: 4096
+      value: 512
       objectReference: {fileID: 0}
+    - target: {fileID: 8640311679168677487, guid: ec7384ee67dab194196a9aca6817867c,
+        type: 3}
+      propertyPath: Music
+      value: 
+      objectReference: {fileID: 8300000, guid: 39c6eb0bfea285543a655d1bee0b4c9b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec7384ee67dab194196a9aca6817867c, type: 3}
 --- !u!1 &4352087089667544189 stripped
