@@ -86,6 +86,7 @@ public class Tribe : ZoneInteractable
     float _SpontaneityCheckTimer;
     Color _DefaultEmissionColor;
 
+
     protected override void Start()
     {
         base.Start();
@@ -98,16 +99,16 @@ public class Tribe : ZoneInteractable
 		_PlayerMovement = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerMovement>();
         _PlayerInventory = ((GameObject)ObjectsManager.I["Player"]).GetComponent<PlayerInventory>();
         _Terrain = ((GameObject)ObjectsManager.I["Terrain"]).GetComponent<Terrain>();
+        NormalHeight = _Terrain.terrainData.bounds.max.y + 20;
+        //Energy = GameManager.I._data.InitialTribeEnergy;
+        //CriticalEnergy = (Energy / 100) * GameManager.I._data.PercentEnergyTribeForCritical;
 
-		//Energy = GameManager.I._data.InitialTribeEnergy;
-		//CriticalEnergy = (Energy / 100) * GameManager.I._data.PercentEnergyTribeForCritical;
+        //TribeInDefaultSpeed();
+        //SetNavMeshAgent();
 
-		//TribeInDefaultSpeed();
-		//SetNavMeshAgent();
-
-		//onTribeEnergyEnterCritical.AddListener(TribeInCriticalSpeed);
-		//onTribeEnergyExitCritical.AddListener(TribeInDefaultSpeed);
-		//InputManager.I.onTribeOrderKeyPressed.AddListener(SwitchModeFollowAndWait);
+        //onTribeEnergyEnterCritical.AddListener(TribeInCriticalSpeed);
+        //onTribeEnergyExitCritical.AddListener(TribeInDefaultSpeed);
+        //InputManager.I.onTribeOrderKeyPressed.AddListener(SwitchModeFollowAndWait);
         //_PlayerInventory.onItemActivated.AddListener(AddItemActivationBonus);
         //AmbiantManager.I.onDayStateChanged.AddListener(AddNewDayBonus);
         //_PlayerMovement.onPlayerTooFarFromTribe.AddListener(AddTooFarMalus);
@@ -231,7 +232,7 @@ public class Tribe : ZoneInteractable
     Coroutine CurrentAction = null;
     bool StopCurrentAction = false;
     float speed = 100.0f;
-    float AngularSpeed = 0.5f;
+    float AngularSpeed = 1f;
     public GameObject AroundIslandPath;
     public float NormalHeight = 400f;
     //[Range(0, 1)]
@@ -390,7 +391,7 @@ public class Tribe : ZoneInteractable
     }
     public IEnumerable GoDownUp(float delta, bool LookAt = true, float speedMove = 0, bool ComeBack = true)
     {
-        yield return StartCoroutine(GoingToPosition(new Vector3(transform.position.x, transform.position.y + delta, transform.position.z), speedMove: speedMove, ChangeRotation: LookAt));
+        yield return StartCoroutine(GoingToPosition(new Vector3(transform.position.x, NormalHeight + delta, transform.position.z), speedMove: speedMove, ChangeRotation: LookAt));
         if (ComeBack)
             yield return StartCoroutine(GoingToPosition(new Vector3(transform.position.x, transform.position.y - delta, transform.position.z), speedMove: speedMove, ChangeRotation: LookAt));
     }
@@ -405,7 +406,7 @@ public class Tribe : ZoneInteractable
         Vector2 randomDestination = new Vector2(terrainDimensions.center.x, terrainDimensions.center.z)
                                     + Random.insideUnitCircle * (terrainDimensions.size / 2);
 
-        Vector3 pos = new Vector3(randomDestination.x, transform.position.y, randomDestination.y);
+        Vector3 pos = new Vector3(randomDestination.x, NormalHeight, randomDestination.y);
 
         yield return StartCoroutine(GoingToPosition(pos, speedMove: speedMove, dir: (RotationDirection)Random.Range(0, 2)));
     }
@@ -421,7 +422,7 @@ public class Tribe : ZoneInteractable
         speedMove = speedMove == 0 ? speed : speedMove;
         RotationDirection dir = (RotationDirection)Random.Range(0, 2);
         yield return StartCoroutine(GoDownUp(1000, true, 300, false).GetEnumerator());
-        yield return StartCoroutine(GoingToPosition(new Vector3(t.position.x + 100, t.position.y + 100, t.position.z + 100), speedMove: speedMove, dir: dir));
+        yield return StartCoroutine(GoingToPosition(new Vector3(t.position.x + 100, NormalHeight, t.position.z + 100), speedMove: speedMove, dir: dir));
         float starttime = Time.time;
         while (true)
         {
@@ -456,7 +457,7 @@ public class Tribe : ZoneInteractable
         float StartedTime = Time.time;
         while (true)
         {
-            yield return GoingToPosition(new Vector3(target.position.x, transform.position.y, target.position.z), speedMove: speedMove);
+            yield return GoingToPosition(new Vector3(target.position.x, NormalHeight, target.position.z), speedMove: speedMove);
             if (duration > 0 && Time.time - StartedTime > duration)
                 break;
             yield return null;
@@ -481,13 +482,16 @@ public class Tribe : ZoneInteractable
                 RaycastHit ray;
                 Debug.DrawRay(transform.position, transform.forward * 200, Color.white);
                 RotateTowards(position, dir);
-                if (Physics.Raycast(transform.position, transform.forward, out ray, 200, LayermaskCollision))
+                //if (Physics.Raycast(transform.position, transform.forward, out ray, 200, LayermaskCollision))
+                //{
+                //    transform.position += Vector3.up * speedMove * Time.deltaTime;
+                //}
+                
+                transform.position += transform.forward * speedMove * Time.deltaTime; //Vector3.MoveTowards(transform.position, position, speedMove * Time.deltaTime);
+                if (transform.position.y <= NormalHeight)
                 {
-                    transform.position += Vector3.up * speedMove * Time.deltaTime;
+                    transform.Translate(Vector3.up * speedMove * Time.deltaTime);
                 }
-
-
-                transform.position += transform.forward * speedMove * Time.deltaTime;//Vector3.MoveTowards(transform.position, position, speedMove * Time.deltaTime);
             }
             else
             {
@@ -623,6 +627,8 @@ public class Tribe : ZoneInteractable
         GameData gd = GameManager.I._data;
         Color emissionColor = phaseIndex == gd.Phases.Count ? gd.SpecialPhase.color : gd.Phases[phaseIndex].color;
         ChangeEmissive(emissionColor);
+        StopAll();
+        //StartRotating(AmbiantManager.I.phaseIndex = ZoneEgg.PhaseIndex)
     }
 
     #region Tribe Movements
@@ -658,7 +664,7 @@ public class Tribe : ZoneInteractable
     void PlaySound()
     {
         FlappingSource.PlayOneShot(SoundManager.I.CreatureFlapping[Random.Range(0, SoundManager.I.CreatureFlapping.Count)]);
-        StartChrono(Random.Range(1, 4), PlaySound);
+        StartChrono(Random.Range(10, 20), PlaySound);
     }
     void PlayScream()
     {
