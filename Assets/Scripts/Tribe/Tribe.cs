@@ -45,6 +45,7 @@ public class Tribe : ZoneInteractable
 	public TribeProperties TribeProperties;
     public UnityEvent onEnergyFull = new UnityEvent();
     public Color IgnoringEmissionColor;
+    public List<ZoneEgg> Eggs = null;
 
 	[ShowInInspector][ReadOnly]
 	TribeMovementsMode _TribeMovementsMode;
@@ -486,7 +487,7 @@ public class Tribe : ZoneInteractable
                 //{
                 //    transform.position += Vector3.up * speedMove * Time.deltaTime;
                 //}
-                
+
                 transform.position += transform.forward * speedMove * Time.deltaTime; //Vector3.MoveTowards(transform.position, position, speedMove * Time.deltaTime);
                 if (transform.position.y <= NormalHeight)
                 {
