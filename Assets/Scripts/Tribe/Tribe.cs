@@ -377,6 +377,7 @@ public class Tribe : ZoneInteractable
     }
     public void StopAll()
     {
+        Debug.Log("StopAll");
         StopAllCoroutines();
         StartChrono(Random.Range(5, 10), PlayFlip);
         StartChrono(Random.Range(1, 4), PlaySound);
@@ -386,11 +387,12 @@ public class Tribe : ZoneInteractable
     public IEnumerator ResetCreature()
     {
         yield return StartCoroutine(Rotating(Quaternion.LookRotation(transform.forward, Vector3.up)));
-        yield return StartCoroutine(GoDownUp(400 - transform.position.y, ComeBack: false).GetEnumerator());
+        yield return StartCoroutine(GoDownUp(NormalHeight - transform.position.y, ComeBack: false).GetEnumerator());
         speed = 100f;
     }
     public IEnumerable GoDownUp(float delta, bool LookAt = true, float speedMove = 0, bool ComeBack = true)
     {
+        Debug.Log("GoDownUp");
         yield return StartCoroutine(GoingToPosition(new Vector3(transform.position.x, NormalHeight + delta, transform.position.z), speedMove: speedMove, ChangeRotation: LookAt));
         if (ComeBack)
             yield return StartCoroutine(GoingToPosition(new Vector3(transform.position.x, transform.position.y - delta, transform.position.z), speedMove: speedMove, ChangeRotation: LookAt));
@@ -419,6 +421,7 @@ public class Tribe : ZoneInteractable
     // Technical Methods
     public IEnumerable RotatingAround(Transform t, float duration = 0f, float speedMove = 0)
     {
+        Debug.Log("Rotating");
         speedMove = speedMove == 0 ? speed : speedMove;
         RotationDirection dir = (RotationDirection)Random.Range(0, 2);
         yield return StartCoroutine(GoDownUp(1000, true, 300, false).GetEnumerator());
@@ -473,33 +476,31 @@ public class Tribe : ZoneInteractable
     }
     public IEnumerator GoingToPosition(Vector3 position, float WaitAndComeBackSeconds = 0f, bool ChangeRotation = true, float speedMove = 0f, RotationDirection dir = RotationDirection.None)
     {
+                Debug.Log("changeposition");
+
         speedMove = speedMove == 0 ? speed : speedMove;
         Vector3 initialPosition = transform.position;
-        while (Vector3.Distance(transform.position, position) > 250f)
+        while (Vector3.Distance(Vector3.ProjectOnPlane(transform.position, Vector3.up), Vector3.ProjectOnPlane(position, Vector3.up)) > 50f)
         {
             if (ChangeRotation)
             {
                 RaycastHit ray;
                 Debug.DrawRay(transform.position, transform.forward * 200, Color.white);
                 RotateTowards(position, dir);
-                //if (Physics.Raycast(transform.position, transform.forward, out ray, 200, LayermaskCollision))
-                //{
-                //    transform.position += Vector3.up * speedMove * Time.deltaTime;
-                //}
 
                 transform.position += transform.forward * speedMove * Time.deltaTime; //Vector3.MoveTowards(transform.position, position, speedMove * Time.deltaTime);
-                if (transform.position.y <= NormalHeight)
-                {
-                    transform.Translate(Vector3.up * speedMove * Time.deltaTime);
-                }
             }
             else
             {
                 Vector3.MoveTowards(transform.position, position, speedMove * Time.deltaTime);
             }
+            if (transform.position.y <= NormalHeight)
+            {
+                transform.Translate(Vector3.up * speedMove * Time.deltaTime);
+            }
             yield return null;
         }
-        if (Vector3.Distance(transform.position, position) > 250f)
+        if (Vector3.Distance(Vector3.ProjectOnPlane(transform.position, Vector3.up), Vector3.ProjectOnPlane(position, Vector3.up)) > 50f)
         {
             while (Vector3.Distance(transform.position, position) > 10f)
             {
@@ -627,7 +628,7 @@ public class Tribe : ZoneInteractable
         GameData gd = GameManager.I._data;
         Color emissionColor = phaseIndex == gd.Phases.Count ? gd.SpecialPhase.color : gd.Phases[phaseIndex].color;
         ChangeEmissive(emissionColor);
-        StopAll();
+        //StopAll();
         //ZoneEgg found = Eggs.Find(e => e.PhaseIndex == AmbiantManager.I.PhaseIndex);
         //if (found)
         //    StartRotating(found.Egg.transform, 10);
