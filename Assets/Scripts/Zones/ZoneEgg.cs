@@ -36,7 +36,7 @@ public class ZoneEgg : Zone
         if (IsTileActivated && !IsActivate)
             renderer.material.SetFloat("_PulseState", Mathf.Sin(Time.time * 1.5f));
 
-        zonesource.volume = Mathf.Clamp(1- Mathf.Lerp(0, 1, Vector3.Distance(Vector3.ProjectOnPlane(player.transform.position, Vector3.up), Vector3.ProjectOnPlane(transform.position, Vector3.up))/ zonesource.maxDistance), 0, 1);
+        // zonesource.volume = Mathf.Clamp(1- Mathf.Lerp(0, 1, Vector3.Distance(Vector3.ProjectOnPlane(player.transform.position, Vector3.up), Vector3.ProjectOnPlane(transform.position, Vector3.up))/ zonesource.maxDistance), 0, 1);
     }
 
     public void EnteredZone(ZoneInteractable who, Zone zone)

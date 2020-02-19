@@ -344,7 +344,7 @@ public class Tribe : ZoneInteractable
             case TribeEmotionMode.Normal:
 
 
-                SoundManager.I.PlayCreature("Normal");
+                // SoundManager.I.PlayCreature("Normal");
 
                 //RedLight.gameObject.SetActive(false);
                 break;
