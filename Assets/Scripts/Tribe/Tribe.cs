@@ -277,8 +277,8 @@ public class Tribe : ZoneInteractable
 
         List<IEnumerable> cos = new List<IEnumerable>();
         yield return GoToPosition(new Vector3(_Player.transform.position.x-300, transform.position.y, _Player.transform.position.z-300));
-        //cos.Add(Diving(_Player.transform.position, 300f));
-        //cos.Add(LookingTransform(_Player.transform, 3f));
+        cos.Add(Diving(_Player.transform.position, 300f));
+        cos.Add(LookingTransform(_Player.transform, 5f));
         cos.Add(RotatingAround(_Player.transform, 10f, 300f));
         while (true)
         {
@@ -308,10 +308,9 @@ public class Tribe : ZoneInteractable
     }
     public IEnumerator Happy()
     {
-
         SetMode(TribeEmotionMode.Happy);
-
-
+        ScreamingSource.PlayOneShot(SoundManager.I.CreatureScreaming.Find(c => c.name.ToLower() == "creature_moaning_1"));
+        animator.Play("@loopingSide");
         List<IEnumerable> cos = new List<IEnumerable>();
         cos.Add(GoDownUp(1000, speedMove: 300));
         cos.Add(GoToRandomPosition(speedMove: 500));
@@ -629,7 +628,10 @@ public class Tribe : ZoneInteractable
         Color emissionColor = phaseIndex == gd.Phases.Count ? gd.SpecialPhase.color : gd.Phases[phaseIndex].color;
         ChangeEmissive(emissionColor);
         StopAll();
-        //StartRotating(AmbiantManager.I.phaseIndex = ZoneEgg.PhaseIndex)
+        //ZoneEgg found = Eggs.Find(e => e.PhaseIndex == AmbiantManager.I.PhaseIndex);
+        //if (found)
+        //    StartRotating(found.Egg.transform, 10);
+        //StartChrono(10, StartLive);
     }
 
     #region Tribe Movements
