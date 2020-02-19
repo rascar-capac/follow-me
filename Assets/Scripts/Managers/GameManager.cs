@@ -7,9 +7,9 @@ using Borodar.FarlandSkies.LowPoly;
 public class GameManager : Singleton<GameManager>
 {
     public GameData _data;
-    public float FinalCycleEffectDuration = 10f;
-    public AnimationCurve FinalCycleEffectSpeedCurve;
-    public float FinalCycleEffectMaxProgressPerSecond;
+    public int FinalPhaseIndex;
+    public float DayTimeTransitionDuration = 10f;
+    public int DaysToSkipCount = 5;
     private Pedestals zonePedestals;
     private Tribe tribe;
 
@@ -34,20 +34,7 @@ public class GameManager : Singleton<GameManager>
     public void FinishGame()
     {
         tribe.StartHappy();
-        StartCoroutine(LaunchFinalCycleEffect());
-    }
-
-    public IEnumerator LaunchFinalCycleEffect()
-    {
-        float timer = FinalCycleEffectDuration;
-        float initialCycleProgress = SkyboxCycleManager.Instance.CycleProgress;
-        while(timer >= 0)
-        {
-            timer -= Time.deltaTime;
-            SkyboxCycleManager.Instance.CycleProgress += FinalCycleEffectSpeedCurve.Evaluate(timer / FinalCycleEffectDuration) * FinalCycleEffectMaxProgressPerSecond * Time.deltaTime;
-            SkyboxCycleManager.Instance.CycleProgress %= 100f;
-            yield return null;
-        }
+        StartCoroutine(GetComponent<AmbiantManager>().ModifyCycleProgress(FinalPhaseIndex, DayTimeTransitionDuration, DaysToSkipCount));
     }
 }
 

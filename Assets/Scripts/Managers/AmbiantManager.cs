@@ -7,7 +7,7 @@ using Borodar.FarlandSkies.LowPoly;
 public class AmbiantManager : Singleton<AmbiantManager>
 {
     public List<Material> MaterialReferences;
-    public float DayTimeTransitionDuration = 3f;
+    public AnimationCurve DayTimeTransitionSpeedCurve;
 	public HourChangedEvent onHourChanged = new HourChangedEvent();
     public DayStateHasChanged onDayStateHasChanged = new DayStateHasChanged();
     public TimePhaseChangedEvent onTimePhaseChanged = new TimePhaseChangedEvent();
@@ -185,32 +185,31 @@ public class AmbiantManager : Singleton<AmbiantManager>
         return true;
     }
 
-    public void SkipDayTimeToPhase(int targetPhaseIndex)
+    public void SkipDayTimeToPhase(int targetPhaseIndex, float transitionDuration, int daysToSkipCount)
     {
-        StartCoroutine(ModifyCycleProgress(targetPhaseIndex));
+        StartCoroutine(ModifyCycleProgress(targetPhaseIndex, transitionDuration, daysToSkipCount));
     }
 
-    public IEnumerator ModifyCycleProgress(int targetPhaseIndex)
+    public IEnumerator ModifyCycleProgress(int targetPhaseIndex, float transitionDuration, int daysToSkipCount)
     {
-        bool IsAlreadyInTargetPhase = targetPhaseIndex == PhaseIndex;
-
-        float dayTime = SkyboxDayNightCycle.Instance.TimeOfDay;
         GameData gd = GameManager.I._data;
-        float targetDayTime = targetPhaseIndex == gd.Phases.Count ? gd.SpecialPhase.startingPercentage : gd.Phases[targetPhaseIndex].startingPercentage;
-        float durationToSkip = targetDayTime > dayTime ?
+        float dayTime = SkyboxDayNightCycle.Instance.TimeOfDay;
+        float targetDayTime = targetPhaseIndex == gd.Phases.Count ?
+                gd.SpecialPhase.startingPercentage :
+                gd.Phases[targetPhaseIndex].startingPercentage;
+        float durationToSkip = daysToSkipCount * 100 + (targetDayTime > dayTime ?
                 targetDayTime - dayTime :
-                100 - dayTime + targetDayTime;
+                100 - dayTime + targetDayTime);
         SkyboxCycleManager.Instance.Paused = true;
-        while(PhaseIndex != targetPhaseIndex || IsAlreadyInTargetPhase)
+        float timer = 0;
+        float skippedDuration = 0;
+        while(skippedDuration <= durationToSkip)
         {
             if(Application.isPlaying)
             {
-                if(IsAlreadyInTargetPhase)
-                {
-                    IsAlreadyInTargetPhase = targetPhaseIndex == PhaseIndex;
-                }
-                SkyboxCycleManager.Instance.CycleProgress += durationToSkip * Time.deltaTime / DayTimeTransitionDuration;
-                SkyboxCycleManager.Instance.CycleProgress %= 100f;
+                timer += Time.deltaTime;
+                skippedDuration = DayTimeTransitionSpeedCurve.Evaluate(timer/transitionDuration) * durationToSkip;
+                SkyboxCycleManager.Instance.CycleProgress = (dayTime + skippedDuration) % 100;
             }
             SkyboxCycleManager.Instance.UpdateTimeOfDay();
             yield return null;

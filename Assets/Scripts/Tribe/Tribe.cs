@@ -65,6 +65,8 @@ public class Tribe : ZoneInteractable
 	public UnityEvent onTribeEnergyExitCritical = new UnityEvent();
 
 	#endregion
+    public AudioSource ScreamingSource;
+    public AudioSource FlappingSource;
 
 	//NavMeshAgent _TribeNavAgent;
 	Player _Player;
@@ -83,8 +85,6 @@ public class Tribe : ZoneInteractable
     float _SpontaneityProbability;
     float _SpontaneityCheckTimer;
     Color _DefaultEmissionColor;
-    AudioSource Source;
-
 
     protected override void Start()
     {
@@ -129,7 +129,6 @@ public class Tribe : ZoneInteractable
         _Player.onZoneExit.AddListener(PlayerExitDangerousZone);
 
         CurrentAction = StartCoroutine(Live());
-        Source = GetComponent<AudioSource>();
 	}
 
 	protected override void Update()
@@ -486,7 +485,7 @@ public class Tribe : ZoneInteractable
                 {
                     transform.position += Vector3.up * speedMove * Time.deltaTime;
                 }
-             
+
 
                 transform.position += transform.forward * speedMove * Time.deltaTime;//Vector3.MoveTowards(transform.position, position, speedMove * Time.deltaTime);
             }
@@ -649,7 +648,7 @@ public class Tribe : ZoneInteractable
         if (Random.Range(0, 2) == 0)
         {
             animator.Play("@loopingSide");
-            Source.PlayOneShot(SoundManager.I.CreatureFlapping[Random.Range(0, SoundManager.I.CreatureFlapping.Count)]);
+            //FlappingSource.PlayOneShot(SoundManager.I.CreatureFlapping[Random.Range(0, SoundManager.I.CreatureFlapping.Count)]);
         }
         else
             animator.Play("@rear");
@@ -658,12 +657,12 @@ public class Tribe : ZoneInteractable
     }
     void PlaySound()
     {
-        Source.PlayOneShot(SoundManager.I.CreatureFlapping[Random.Range(0, SoundManager.I.CreatureFlapping.Count)]);
+        FlappingSource.PlayOneShot(SoundManager.I.CreatureFlapping[Random.Range(0, SoundManager.I.CreatureFlapping.Count)]);
         StartChrono(Random.Range(1, 4), PlaySound);
     }
     void PlayScream()
     {
-        Source.PlayOneShot(SoundManager.I.CreatureScreaming[Random.Range(0, SoundManager.I.CreatureScreaming.Count)]);
+        ScreamingSource.PlayOneShot(SoundManager.I.CreatureScreaming[Random.Range(0, SoundManager.I.CreatureScreaming.Count)]);
         StartChrono(Random.Range(5, 10), PlayScream);
     }
     public void SwitchModeFollowAndWait()
