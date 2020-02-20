@@ -109,8 +109,8 @@ MonoBehaviour:
     XBox: 10
     Keyboard: 27
   Input_PlayerJump:
-    XBox: 0
-    Keyboard: 0
+    XBox: 1
+    Keyboard: 32
   Input_PlayerRun:
     XBox: 11
     Keyboard: 308
@@ -142,9 +142,9 @@ MonoBehaviour:
     XBox: 0
     Keyboard: 0
   Input_InventorySelect:
-    XBox: 1
-    Keyboard: 13
+    XBox: 0
+    Keyboard: 0
   Input_InventoryBack:
-    XBox: 2
-    Keyboard: 27
+    XBox: 0
+    Keyboard: 0
   MessageDuration: 5

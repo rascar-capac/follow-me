@@ -285,45 +285,45 @@ public class PlayerMovement : BaseMonoBehaviour
         Vector3 rayCastOrigin = cameraPosition + right * _speed * Time.deltaTime;
         RaycastHit hit;
         _move = Vector3.zero;
-        if (Physics.Raycast(rayCastOrigin, Vector3.down, out hit, 5, _groundMask))
-        {
+        //if (Physics.Raycast(rayCastOrigin, Vector3.down, out hit, 5, _groundMask))
+        //{
 
-            if (Mathf.Atan2(hit.distance - Vector3.Distance(cameraPosition, _groundCheck.position), x * _speed * Time.deltaTime) <= _controller.slopeLimit)
-                _move += right;
-            else
-            {
-                Vector3 shiftVector = Vector3.Cross(Vector3.up, right);
-                if (Vector3.Dot(hit.transform.position - transform.position, transform.forward) > 0)
-                {
-                    _move += shiftVector;
-                }
-                else
-                    _move += shiftVector * -1;
-            }
-        }
+        //    if (Mathf.Atan2(hit.distance - Vector3.Distance(cameraPosition, _groundCheck.position), x * _speed * Time.deltaTime) <= _controller.slopeLimit)
+        //        _move += right;
+        //    else
+        //    {
+        //        Vector3 shiftVector = Vector3.Cross(Vector3.up, right);
+        //        if (Vector3.Dot(hit.transform.position - transform.position, transform.forward) > 0)
+        //        {
+        //            _move += shiftVector;
+        //        }
+        //        else
+        //            _move += shiftVector * -1;
+        //    }
+        //}
         //else
-        //    _move += right;
+        _move += right;
 
-        rayCastOrigin = cameraPosition + forward * _speed * Time.deltaTime;
+        //rayCastOrigin = cameraPosition + forward * _speed * Time.deltaTime;
 
-        if (Physics.Raycast(rayCastOrigin, Vector3.down, out hit, 5, _groundMask))
-        {
+        //if (Physics.Raycast(rayCastOrigin, Vector3.down, out hit, 5, _groundMask))
+        //{
 
-            if (Mathf.Atan2(hit.distance - Vector3.Distance(cameraPosition, _groundCheck.position), z * _speed * Time.deltaTime) <= _controller.slopeLimit)
-                _move += forward;
-            else
-            {
-                Vector3 shiftVector = Vector3.Cross(Vector3.up, forward);
-                if (Vector3.Dot(hit.transform.position - transform.position, transform.right) > 0)
-                {
-                    _move += shiftVector;
-                }
-                else
-                    _move += shiftVector * -1;
-            }
-        }
+        //    if (Mathf.Atan2(hit.distance - Vector3.Distance(cameraPosition, _groundCheck.position), z * _speed * Time.deltaTime) <= _controller.slopeLimit)
+        //        _move += forward;
+        //    else
+        //    {
+        //        Vector3 shiftVector = Vector3.Cross(Vector3.up, forward);
+        //        if (Vector3.Dot(hit.transform.position - transform.position, transform.right) > 0)
+        //        {
+        //            _move += shiftVector;
+        //        }
+        //        else
+        //            _move += shiftVector * -1;
+        //    }
+        //}
         //else
-        //    _move += forward;
+        _move += forward;
 
 
 
