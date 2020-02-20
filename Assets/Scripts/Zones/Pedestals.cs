@@ -51,7 +51,7 @@ public class Pedestals : BaseMonoBehaviour
         {
             _StoneInHand = focusedStone._itemData;
             _StoneInHandPedestal = focusedPedestal.transform;
-            _IsStoneInHandActivated = focusedStone.GetComponentInChildren<Renderer>().material.GetFloat("_PulseState") == 1;
+            _IsStoneInHandActivated = focusedStone.GetComponentInChildren<Renderer>().material.GetFloat("_PulseState") == 0.8f;
             Destroy(focusedStone.gameObject);
             SoundManager.I.PlayPedestals("PickUp1");
         }

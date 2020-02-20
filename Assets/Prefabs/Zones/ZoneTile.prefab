@@ -119,9 +119,10 @@ MonoBehaviour:
   _spawnPositionItem: {fileID: 0}
   _itemOnCoaster: 0
   Dialogs: []
-  LinkedZone: {fileID: 0}
-  DayTimeTransitionDuration: 5
+  PhaseIndex: 0
+  DayTimeTransitionDuration: 10
   DaysToSkipCount: 1
+  Tile: {fileID: 0}
 --- !u!1001 &7951439269237617172
 PrefabInstance:
   m_ObjectHideFlags: 0
