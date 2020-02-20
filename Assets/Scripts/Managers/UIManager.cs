@@ -29,66 +29,66 @@ public class UIManager : Singleton<UIManager>
 	PlayerLook _PlayerLook;
 	PlayerInventory _PlayerInventory;
 
-	#endregion
+    #endregion
 
-	#region Archives
+    #region Archives
 
-	//public Camera CameraMain;
-	//public Camera CameraUI;
-	#region References Tribe
-	//Tribe _Tribe;
-	#endregion
-	#region References UI Prefabs
+    //public Camera CameraMain;
+    //public Camera CameraUI;
+    #region References Tribe
+    //Tribe _Tribe;
+    #endregion
+    #region References UI Prefabs
 
-	//[Header("Tout les Panels du Menu (sauf MainMenu)")]
-	//public List<GameObject> MenuPanels;
+    //[Header("Tout les Panels du Menu (sauf MainMenu)")]
+    //public List<GameObject> MenuPanels;
 
-	//[Header("HUD Components")]
-	//   public Text _HudTribeDistanceText;
-	//   public Text _HudTribeEnergyText;
-	//   public Text _HudCurrentTimeText;
-	//   public Text _HudPlayerEnergyText;
-	//   public Text _HudPlayerRunStaminaText;
-	//   public Text _HudTribeDocilityText;
+    //[Header("HUD Components")]
+    //   public Text _HudTribeDistanceText;
+    //   public Text _HudTribeEnergyText;
+    //   public Text _HudCurrentTimeText;
+    //   public Text _HudPlayerEnergyText;
+    //   public Text _HudPlayerRunStaminaText;
+    //   public Text _HudTribeDocilityText;
 
-	//public Text _HudAlertMessageText;
-	//public Text _HudTribeSaysText;
-	//public Text _HudPlayerSaysText;
+    //public Text _HudAlertMessageText;
+    //public Text _HudTribeSaysText;
+    //public Text _HudPlayerSaysText;
 
-	//[Header("Inventory Prefabs")]
-	//public Transform _inventoryContent;
-	//public GameObject _inventoryCellAsset;
-	//public GameObject PanelViewInventory;
-	//public GameObject ItemViewer;
+    //[Header("Inventory Prefabs")]
+    //public Transform _inventoryContent;
+    //public GameObject _inventoryCellAsset;
+    //public GameObject PanelViewInventory;
+    //public GameObject ItemViewer;
 
-	//[Header("Quest Prefabs")]
-	//public Transform _questContent;
-	//public GameObject _questCellAsset;
-	//public GameObject PanelViewQuest;
+    //[Header("Quest Prefabs")]
+    //public Transform _questContent;
+    //public GameObject _questCellAsset;
+    //public GameObject PanelViewQuest;
 
-	//[Header("Tools Inventory gameobject")]
-	//public GameObject ToolsInventory;
+    //[Header("Tools Inventory gameobject")]
+    //public GameObject ToolsInventory;
 
-	#endregion
-	#region Quest Variables
+    #endregion
+    #region Quest Variables
 
-	//List<GameObject> _QuestCellList = new List<GameObject>();
+    //List<GameObject> _QuestCellList = new List<GameObject>();
 
-	#endregion
-	#region Inventory Variables
+    #endregion
+    #region Inventory Variables
 
-	//List<GameObject> _InventoryCellList = new List<GameObject>();
-	//   public ToolsInventoryEvent onToolsInventoryOpenedEvent = new ToolsInventoryEvent();
-	//   public ToolsInventoryEvent onToolsInventoryClosedEvent = new ToolsInventoryEvent();
-	//   public bool ToolsInvetoryOpened = false;
-	//   bool AllowOpenInventory = true;
+    //List<GameObject> _InventoryCellList = new List<GameObject>();
+    //   public ToolsInventoryEvent onToolsInventoryOpenedEvent = new ToolsInventoryEvent();
+    //   public ToolsInventoryEvent onToolsInventoryClosedEvent = new ToolsInventoryEvent();
+    //   public bool ToolsInvetoryOpened = false;
+    //   bool AllowOpenInventory = true;
 
-	#endregion
-	//Hand CurrentOpenedHand;
+    #endregion
+    //Hand CurrentOpenedHand;
 
-	#endregion
+    #endregion
 
-
+    public GameObject CreditPanel;
     protected override void Start()
 	{
 		base.Start();
@@ -204,7 +204,10 @@ public class UIManager : Singleton<UIManager>
 
     public void OpenCloseMainMenu()
 	{
-		if (!MainMenu.activeSelf && !StartMenu.activeSelf)
+        if (CreditPanel.activeSelf)
+            CreditPanel.SetActive(false);
+
+        if (!MainMenu.activeSelf && !StartMenu.activeSelf)
 		{
 			OpenMenu();
 		}
