@@ -7532,8 +7532,8 @@ Transform:
   - {fileID: 1202426861}
   - {fileID: 807353627}
   - {fileID: 230928217}
-  - {fileID: 1597392384}
   - {fileID: 2041780503}
+  - {fileID: 1597392384}
   m_Father: {fileID: 490120728}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -29552,6 +29552,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 5206ef73c03784845ba2655accc3269a,
         type: 2}
+    - target: {fileID: 788637823462129175, guid: c89c6c41d0570e94e8efdca14a586de4,
+        type: 3}
+      propertyPath: m_Radius
+      value: 36.6
+      objectReference: {fileID: 0}
     - target: {fileID: 1210575905902104904, guid: c89c6c41d0570e94e8efdca14a586de4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -38415,6 +38420,11 @@ PrefabInstance:
       propertyPath: Tile
       value: 
       objectReference: {fileID: 1394577133}
+    - target: {fileID: 5435838734960885838, guid: 6d6afb86e50ac734482495d359845388,
+        type: 3}
+      propertyPath: PhaseIndex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7263064884017710569, guid: 6d6afb86e50ac734482495d359845388,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -38453,7 +38463,7 @@ PrefabInstance:
     - target: {fileID: 7263064884017710569, guid: 6d6afb86e50ac734482495d359845388,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7263064884017710569, guid: 6d6afb86e50ac734482495d359845388,
         type: 3}
