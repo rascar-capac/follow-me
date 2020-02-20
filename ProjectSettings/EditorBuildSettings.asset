@@ -6,30 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/GameStart_scene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
-    path: Assets/Scenes/PlayGround_scene.unity
-    guid: 7b1f25d554dbd9e41b89fa3a24864aef
-  - enabled: 1
-    path: Assets/Scenes/Tribe_scene.unity
-    guid: 6bab36c7225d6924e9fb8112a1facc23
-  - enabled: 1
-    path: Assets/Scenes/Player_scene.unity
-    guid: 07ed96fab589d704e9e5f1926c65d902
-  - enabled: 1
-    path: Assets/Scenes/Target_scene.unity
-    guid: 6c29d3c5e9088774189345b17642be4c
-  - enabled: 1
-    path: Assets/Scenes/Camera_scene.unity
-    guid: e0e13d338a752c241af1e528db389a4d
-  - enabled: 1
-    path: Assets/Scenes/Lights_scene.unity
-    guid: 19053b8512c1f3b4886eb9a9032f001b
-  - enabled: 1
-    path: Assets/Scenes/Items_Scene.unity
-    guid: f00862101e733ea43a803703a95ed882
-  - enabled: 1
-    path: Assets/Scenes/UI_scene.unity
-    guid: 661cbe3a76347064199061e57eb4ec22
+    path: Assets/Scenes/MainScene.unity
+    guid: ee50edbd5f4611849a06bd0486db901c
   m_configObjects: {}
