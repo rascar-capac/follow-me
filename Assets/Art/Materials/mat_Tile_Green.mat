@@ -163,7 +163,7 @@ Material:
     m_Colors:
     - _Color: {r: 0.9710378, g: 0.9811321, b: 0.83766466, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _EmissiveColor: {r: 0.118147045, g: 0.5566038, b: 0.25341567, a: 0}
+    - _EmissiveColor: {r: 0.19339621, g: 1, b: 0.4454599, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _Tilling: {r: 0.15, g: 0.15, b: 0, a: 0}
     - _Tilling1: {r: 0, g: 0, b: 0, a: 0}

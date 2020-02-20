@@ -24,7 +24,7 @@ public class ZoneLink : Zone
         GameData gd = GameManager.I._data;
         Color tileColor = PhaseIndex == gd.Phases.Count ? gd.SpecialPhase.color : gd.Phases[PhaseIndex].color;
         Tile.GetComponent<Renderer>().material.SetColor("_Color", tileColor);
-        Tile.GetComponent<Renderer>().material.SetFloat("_TileState", 0.2f);
+        Tile.GetComponent<Renderer>().material.SetFloat("_TileState", 0.1f);
     }
 
     public void EnteredZone(ZoneInteractable who, Zone zone)
@@ -35,6 +35,7 @@ public class ZoneLink : Zone
             //tribe.SetMode(TribeEmotionMode.Happy);
             //tribe.StartRotating(LinkedZone.Egg.transform, speedMove: 200f);
             AmbiantManager.I.SkipDayTimeToPhase(PhaseIndex, DayTimeTransitionDuration, DaysToSkipCount);
+            Tile.GetComponent<Renderer>().material.SetFloat("_TileState", 1f);
             source.PlayOneShot(SoundManager.I.TileactivationClips[Random.Range(0, SoundManager.I.TileactivationClips.Count)]);
             //source.clip = SoundManager.I.TileactivationClips[Random.Range(0, SoundManager.I.TileactivationClips.Count)];
             //source.loop = false;
@@ -44,13 +45,9 @@ public class ZoneLink : Zone
 
     public void CheckPhase(int currentPhaseIndex)
     {
-        if(currentPhaseIndex == PhaseIndex)
+        if(currentPhaseIndex != PhaseIndex)
         {
-            Tile.GetComponent<Renderer>().material.SetFloat("_TileState", 1f);
-        }
-        else
-        {
-            Tile.GetComponent<Renderer>().material.SetFloat("_TileState", 0.2f);
+            Tile.GetComponent<Renderer>().material.SetFloat("_TileState", 0.1f);
         }
     }
 }
