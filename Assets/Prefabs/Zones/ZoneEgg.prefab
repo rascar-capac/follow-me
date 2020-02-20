@@ -120,6 +120,7 @@ MonoBehaviour:
   _itemOnCoaster: 0
   Dialogs: []
   Egg: {fileID: 0}
+  PedestalStone: {fileID: 0}
   Ray: {fileID: 0}
   PhaseIndex: 0
   IsActivable: 0
@@ -191,7 +192,7 @@ PrefabInstance:
     - target: {fileID: 1202357022856976546, guid: ec7384ee67dab194196a9aca6817867c,
         type: 3}
       propertyPath: m_Radius
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5115865157762039468, guid: ec7384ee67dab194196a9aca6817867c,
         type: 3}

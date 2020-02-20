@@ -5,6 +5,7 @@ using UnityEngine;
 public class ZoneEgg : Zone
 {
     public Item Egg;
+    public ItemData PedestalStone;
     public GameObject Ray;
     public int PhaseIndex;
     public bool IsActivable = false;
@@ -14,6 +15,7 @@ public class ZoneEgg : Zone
     public float PulsationSpeedThreshold2 = 100;
     Player player;
     Tribe tribe;
+    Pedestals pedestals;
     Renderer eggRenderer;
     AudioSource zonesource;
 
@@ -25,6 +27,7 @@ public class ZoneEgg : Zone
         player.onZoneExit.AddListener(ExitedZone);
         AmbiantManager.I.onTimePhaseChanged.AddListener(CheckPhase);
         tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
+        pedestals = ((GameObject)ObjectsManager.I["ZonePedestals"]).GetComponent<Pedestals>();
         GameData gd = GameManager.I._data;
         Color rayColor = PhaseIndex == gd.Phases.Count ? gd.SpecialPhase.color : gd.Phases[PhaseIndex].color;
         Ray.transform.GetComponentInChildren<SkinnedMeshRenderer>().material.SetColor("_Color", rayColor);
@@ -74,6 +77,14 @@ public class ZoneEgg : Zone
             tribe.StartLive();
             //Egg.ActivateItem();
             ChangePulseState(1);
+            foreach(PedestalStoneMatch match in pedestals.PedestalStoneMatches)
+            {
+                Transform currentStone = match.Pedestal.transform.GetChild(0);
+                if(PedestalStone == currentStone.GetComponent<Item>()._itemData)
+                {
+                    pedestals.ChangePulseState(1, currentStone.GetComponentInChildren<Renderer>());
+                }
+            }
         }
         else if (zone == this && !IsActivated)
         {

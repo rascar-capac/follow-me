@@ -10,6 +10,7 @@ public class Pedestals : BaseMonoBehaviour
     private bool _IsMatching;
     private ItemData _StoneInHand;
     private Transform _StoneInHandPedestal;
+    private bool _IsStoneInHandActivated = false;
     public UnityEvent onGameFinished = new UnityEvent();
 
     protected override void Start()
@@ -38,7 +39,11 @@ public class Pedestals : BaseMonoBehaviour
             {
                 SoundManager.I.PlayPedestals("Drop");
             }
-            Instantiate(_StoneInHand._itemBasePrefab, focusedPedestal.transform);
+            GameObject newStone = Instantiate(_StoneInHand._itemBasePrefab, focusedPedestal.transform);
+            if(_IsStoneInHandActivated)
+            {
+                ChangePulseState(1, newStone.GetComponentInChildren<Renderer>());
+            }
             _StoneInHand = null;
             CheckMatching();
         }
@@ -46,6 +51,7 @@ public class Pedestals : BaseMonoBehaviour
         {
             _StoneInHand = focusedStone._itemData;
             _StoneInHandPedestal = focusedPedestal.transform;
+            _IsStoneInHandActivated = focusedStone.GetComponentInChildren<Renderer>().material.GetFloat("_PulseState") == 1;
             Destroy(focusedStone.gameObject);
             SoundManager.I.PlayPedestals("PickUp1");
         }
@@ -66,12 +72,17 @@ public class Pedestals : BaseMonoBehaviour
         }
         if (_IsMatching)
         {
-            foreach(PedestalStoneMatch match in PedestalStoneMatches)
-            {
-                match.Pedestal.transform.GetChild(0).GetComponent<Item>().ActivateItem();
-            }
+            // foreach(PedestalStoneMatch match in PedestalStoneMatches)
+            // {
+            //     match.Pedestal.transform.GetChild(0).GetComponent<Item>().ActivateItem();
+            // }
             onGameFinished.Invoke();
         }
+    }
+
+    public void ChangePulseState(float value, Renderer stoneRenderer)
+    {
+        stoneRenderer.material.SetFloat("_PulseState", value);
     }
 }
 
