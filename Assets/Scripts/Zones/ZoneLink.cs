@@ -37,6 +37,7 @@ public class ZoneLink : Zone
             AmbiantManager.I.SkipDayTimeToPhase(PhaseIndex, DayTimeTransitionDuration, DaysToSkipCount);
             Tile.GetComponent<Renderer>().material.SetFloat("_TileState", 1f);
             source.PlayOneShot(SoundManager.I.TileactivationClips[Random.Range(0, SoundManager.I.TileactivationClips.Count)]);
+            SoundManager.I.PlayTransitionWind();
             //source.clip = SoundManager.I.TileactivationClips[Random.Range(0, SoundManager.I.TileactivationClips.Count)];
             //source.loop = false;
             //source.Play();

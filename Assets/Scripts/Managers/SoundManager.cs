@@ -19,6 +19,7 @@ public class SoundManager : Singleton<SoundManager>
 	[HideInInspector]
     public AudioSource AmbiantSource;
     public AudioClip GlobalAmbiance;
+    public AudioClip TransitionWind;
 
     public List<AudioClip> StonesClips;
     public List<AudioClip> RaysClips;
@@ -134,5 +135,10 @@ public class SoundManager : Singleton<SoundManager>
     public void StopPlayerSound()
     {
         PlayerSource.Stop();
+    }
+
+    public void PlayTransitionWind()
+    {
+        AmbiantSource.PlayOneShot(TransitionWind);
     }
 }
