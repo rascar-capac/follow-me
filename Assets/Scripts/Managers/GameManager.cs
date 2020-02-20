@@ -35,6 +35,8 @@ public class GameManager : Singleton<GameManager>
     {
         tribe.StartHappy();
         StartCoroutine(GetComponent<AmbiantManager>().ModifyCycleProgress(FinalPhaseIndex, DayTimeTransitionDuration, DaysToSkipCount));
+
+        UIManager.I.CreditPanel.SetActive(true);
     }
 }
 
