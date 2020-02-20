@@ -111,8 +111,8 @@ Material:
     - _CameraNearFadeDistance: 1
     - _Cull: 0
     - _Cutoff: 0.5
-    - _DayNightAlbedo: 0
-    - _DayNightEmissive: 0
+    - _DayNightAlbedo: 1
+    - _DayNightEmissive: 1
     - _DayNightFresnel: 0
     - _DetailNormalMapScale: 1
     - _DistortionBlend: 0.5
@@ -138,7 +138,7 @@ Material:
     - _NoiseScale: 0.5
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Smoothness: 0.2
+    - _Smoothness: 1
     - _Smoothness1: 0.2
     - _SmoothnessTextureChannel: 0
     - _SoftParticlesEnabled: 0
