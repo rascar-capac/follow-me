@@ -49,13 +49,13 @@ public class ZoneEgg : Zone
                 }
                 else if(playerDistance > PulsationSpeedThreshold2)
                 {
-                    speed = 2;
+                    speed = 4;
                 }
                 else
                 {
-                    speed = 4;
+                    speed = 8;
                 }
-                ChangePulseState(Mathf.Sin(Time.time * speed));
+                ChangePulseState(0.40f + Mathf.Sin(Time.time * speed) * 0.40f);
             }
         }
 
@@ -76,13 +76,13 @@ public class ZoneEgg : Zone
                 zonesource.PlayOneShot(SoundManager.I.StonesClips[Random.Range(0, SoundManager.I.StonesClips.Count)]);
             tribe.StartLive();
             //Egg.ActivateItem();
-            ChangePulseState(1);
+            ChangePulseState(0.8f);
             foreach(PedestalStoneMatch match in pedestals.PedestalStoneMatches)
             {
                 Transform currentStone = match.Pedestal.transform.GetChild(0);
                 if(PedestalStone == currentStone.GetComponent<Item>()._itemData)
                 {
-                    pedestals.ChangePulseState(1, currentStone.GetComponentInChildren<Renderer>());
+                    pedestals.ChangePulseState(0.8f, currentStone.GetComponentInChildren<Renderer>());
                 }
             }
         }
@@ -112,7 +112,7 @@ public class ZoneEgg : Zone
         {
             if(IsActivable && !IsActivated)
             {
-                ChangePulseState(0);
+                ChangePulseState(0.1f);
                 IsActivable = false;
             }
         }
