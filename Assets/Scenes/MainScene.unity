@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1676529212}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.46727943, g: 0.34817278, b: 0.5439179, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -41493,6 +41493,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7d51f72c95ff7164ebdcce7be7ed7997, type: 3}
   AmbiantSource: {fileID: 0}
   GlobalAmbiance: {fileID: 8300000, guid: c3a1c8dec52da6c4aba6af0e3887e66b, type: 3}
+  TransitionWind: {fileID: 8300000, guid: b6eeecb16288e0649acd592d880f0f82, type: 3}
   StonesClips:
   - {fileID: 8300000, guid: 857b654c09db53e49a92d72ecccaa865, type: 3}
   RaysClips:
