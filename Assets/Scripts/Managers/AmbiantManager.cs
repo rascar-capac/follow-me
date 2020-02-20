@@ -14,6 +14,7 @@ public class AmbiantManager : Singleton<AmbiantManager>
     public float _LastHour;
     GameObject Terrain;
     public int PhaseIndex = -1;
+    private bool IsSkippingDayTime = false;
 
     protected override void Start()
     {
@@ -38,7 +39,10 @@ public class AmbiantManager : Singleton<AmbiantManager>
             if(PhaseIndex != phases.Count)
             {
                 PhaseIndex = phases.Count;
-                onTimePhaseChanged.Invoke(PhaseIndex);
+                if(!IsSkippingDayTime)
+                {
+                    onTimePhaseChanged.Invoke(PhaseIndex);
+                }
             }
         }
         else
@@ -52,7 +56,10 @@ public class AmbiantManager : Singleton<AmbiantManager>
                     if(PhaseIndex != i)
                     {
                         PhaseIndex = i;
-                        onTimePhaseChanged.Invoke(PhaseIndex);
+                        if(!IsSkippingDayTime)
+                        {
+                            onTimePhaseChanged.Invoke(PhaseIndex);
+                        }
                     }
                     break;
                 }
@@ -214,6 +221,7 @@ public class AmbiantManager : Singleton<AmbiantManager>
                 targetDayTime - dayTime :
                 100 - dayTime + targetDayTime);
         SkyboxCycleManager.Instance.Paused = true;
+        IsSkippingDayTime = true;
         float timer = 0;
         float skippedDuration = 0;
         while(skippedDuration < durationToSkip)
@@ -223,6 +231,10 @@ public class AmbiantManager : Singleton<AmbiantManager>
                 timer += Time.deltaTime;
                 skippedDuration = DayTimeTransitionSpeedCurve.Evaluate(timer/transitionDuration) * durationToSkip;
                 SkyboxCycleManager.Instance.CycleProgress = (dayTime + skippedDuration) % 100;
+                if(durationToSkip - skippedDuration <= 5)
+                {
+                    IsSkippingDayTime = false;
+                }
             }
             SkyboxCycleManager.Instance.UpdateTimeOfDay();
             yield return null;

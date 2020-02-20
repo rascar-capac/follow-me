@@ -111,7 +111,7 @@ public class Tribe : ZoneInteractable
         //_PlayerInventory.onItemActivated.AddListener(AddItemActivationBonus);
         //AmbiantManager.I.onDayStateChanged.AddListener(AddNewDayBonus);
         //_PlayerMovement.onPlayerTooFarFromTribe.AddListener(AddTooFarMalus);
-        AmbiantManager.I.onTimePhaseChanged.AddListener(ChangeColor);
+        AmbiantManager.I.onTimePhaseChanged.AddListener(AdaptToPhase);
 
   //      DocilityScore = GameManager.I._data.InitialDocilityScore;
   //      _DocilityLevel = 1;
@@ -340,7 +340,7 @@ public class Tribe : ZoneInteractable
             case TribeEmotionMode.Normal:
 
 
-                // SoundManager.I.PlayCreature("Normal");
+                SoundManager.I.PlayCreature("Normal");
 
                 //RedLight.gameObject.SetActive(false);
                 break;
@@ -619,17 +619,17 @@ public class Tribe : ZoneInteractable
     }
     #endregion
 
-    public void ChangeColor(int phaseIndex)
+    public void AdaptToPhase(int phaseIndex)
     {
+        //StartRotating(Eggs.Find(e => e.PhaseIndex == AmbiantManager.I.PhaseIndex);
         GameData gd = GameManager.I._data;
         Color emissionColor = phaseIndex == gd.Phases.Count ? gd.SpecialPhase.color : gd.Phases[phaseIndex].color;
         StartCoroutine(ChangeEmissive(emissionColor, 5));
-
-        //StopAll();
-        //ZoneEgg found = Eggs.Find(e => e.PhaseIndex == AmbiantManager.I.PhaseIndex);
-        //if (found)
-        //    StartRotating(found.Egg.transform, 10);
-        //StartChrono(10, StartLive);
+        StopAll();
+        ZoneEgg found = Eggs.Find(e => e.PhaseIndex == AmbiantManager.I.PhaseIndex);
+        if (found)
+           StartRotating(found.Egg.transform, 10);
+        StartChrono(10, StartLive);
     }
 
     #region Tribe Movements
