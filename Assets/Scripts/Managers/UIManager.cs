@@ -206,8 +206,10 @@ public class UIManager : Singleton<UIManager>
 	{
         if (CreditPanel.activeSelf)
             CreditPanel.SetActive(false);
+        if (StartMenu.activeSelf)
+            StartMenu.SetActive(false);
 
-        if (!MainMenu.activeSelf && !StartMenu.activeSelf)
+        if (!MainMenu.activeSelf )
 		{
 			OpenMenu();
 		}
