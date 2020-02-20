@@ -42,7 +42,7 @@ public class Pedestals : BaseMonoBehaviour
             GameObject newStone = Instantiate(_StoneInHand._itemBasePrefab, focusedPedestal.transform);
             if(_IsStoneInHandActivated)
             {
-                ChangePulseState(1, newStone.GetComponentInChildren<Renderer>());
+                ChangePulseState(0.8f, newStone.GetComponentInChildren<Renderer>());
             }
             _StoneInHand = null;
             CheckMatching();
