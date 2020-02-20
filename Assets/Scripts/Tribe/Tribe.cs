@@ -85,8 +85,6 @@ public class Tribe : ZoneInteractable
     float _IgnoranceTimer;
     float _SpontaneityProbability;
     float _SpontaneityCheckTimer;
-    Color _DefaultEmissionColor;
-
 
     protected override void Start()
     {
@@ -124,8 +122,6 @@ public class Tribe : ZoneInteractable
         StartChrono(Random.Range(5, 10), PlayFlip);
         StartChrono(Random.Range(1, 4), PlaySound);
         StartChrono(Random.Range(2, 5), PlayScream);
-
-        _DefaultEmissionColor = transform.GetChild(0).GetChild(0).GetComponent<SkinnedMeshRenderer>().material.GetColor("_EmissionColor");
 
         _Player.onZoneEnter.AddListener(PlayerEnterDangerousZone);
         _Player.onZoneExit.AddListener(PlayerExitDangerousZone);
@@ -627,7 +623,8 @@ public class Tribe : ZoneInteractable
     {
         GameData gd = GameManager.I._data;
         Color emissionColor = phaseIndex == gd.Phases.Count ? gd.SpecialPhase.color : gd.Phases[phaseIndex].color;
-        ChangeEmissive(emissionColor);
+        StartCoroutine(ChangeEmissive(emissionColor, 5));
+
         //StopAll();
         //ZoneEgg found = Eggs.Find(e => e.PhaseIndex == AmbiantManager.I.PhaseIndex);
         //if (found)
@@ -848,9 +845,36 @@ public class Tribe : ZoneInteractable
         return Random.Range(GameManager.I._data.SpontaneityCheckTimerMinDuration, GameManager.I._data.SpontaneityCheckTimerMaxDuration);
     }
 
-    public void ChangeEmissive(Color emissionColor)
+    public IEnumerator ChangeEmissive(Color emissionColor, float intensityFactor = 2, bool isFadingOut = false)
     {
-        transform.GetChild(0).GetChild(0).GetComponent<SkinnedMeshRenderer>().material.SetColor("_EmissionColor", emissionColor);
+        Material material = transform.GetComponentInChildren<SkinnedMeshRenderer>().material;
+        Color initialEmissionColor = new Color(emissionColor.r, emissionColor.g, emissionColor.b, emissionColor.a) * 2;
+        emissionColor *= intensityFactor;
+        float timer = 0;
+        while(true)
+        {
+            if(!GamePaused)
+            {
+                material.SetColor("_EmissionColor", Color.Lerp(initialEmissionColor, emissionColor, timer / .5f));
+                if(timer >= .5f)
+                {
+                    if(isFadingOut)
+                    {
+                        break;
+                    }
+                    yield return new WaitForSeconds(2);
+                    emissionColor = initialEmissionColor;
+                    initialEmissionColor = material.GetColor("_EmissionColor");
+                    timer = 0;
+                    isFadingOut = true;
+                }
+                else
+                {
+                    timer += Time.deltaTime;
+                }
+            }
+            yield return null;
+        }
     }
 
     #endregion

@@ -87,7 +87,6 @@ GameObject:
   - component: {fileID: 6742006347012159287}
   - component: {fileID: 4646121952351078557}
   - component: {fileID: 8615692520355047545}
-  - component: {fileID: 1950725194167762661}
   m_Layer: 8
   m_Name: m_RockMedium2_LOD1(Clone)
   m_TagString: Untagged
@@ -155,20 +154,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &1950725194167762661
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3915798611439319885}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 3950371411898805587, guid: 123d350b066348d429d76f0ce71a657a, type: 3}
 --- !u!1 &8330961399909087274
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +165,6 @@ GameObject:
   - component: {fileID: 8536584624794772288}
   - component: {fileID: 6078743474275084658}
   - component: {fileID: 1044342499675140948}
-  - component: {fileID: 5824619833909243889}
   m_Layer: 8
   m_Name: m_RockMedium2_LOD2(Clone)
   m_TagString: Untagged
@@ -248,20 +232,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &5824619833909243889
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8330961399909087274}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 6404263552055484684, guid: e30db3cedc65a81478d96677dd10706d, type: 3}
 --- !u!1 &8397801678388139798
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,7 +243,6 @@ GameObject:
   - component: {fileID: 2087834552099268505}
   - component: {fileID: 4098683728952228495}
   - component: {fileID: 7611943086308108906}
-  - component: {fileID: 1020547553578069855}
   m_Layer: 8
   m_Name: m_RockMedium2_LOD0(Clone)
   m_TagString: Untagged
@@ -341,17 +310,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &1020547553578069855
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8397801678388139798}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: -2618121273018331279, guid: 974d7f5c16bfc0544a589c310119c643, type: 3}
