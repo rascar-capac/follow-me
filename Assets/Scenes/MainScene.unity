@@ -3717,7 +3717,7 @@ PrefabInstance:
         type: 3}
       propertyPath: PedestalStoneMatches.Array.data[4].Stone
       value: 
-      objectReference: {fileID: 11400000, guid: f45e86e05754a9842a188a296ad4f19c,
+      objectReference: {fileID: 11400000, guid: 5206ef73c03784845ba2655accc3269a,
         type: 2}
     - target: {fileID: -6931380315922968387, guid: 58e00a52122fad44f91238d6b6b7e2dd,
         type: 3}
@@ -6205,6 +6205,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417108048797020483, guid: fc7400d8969650f4b94ab6baa4434732,
+        type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3856021470283854688, guid: fc7400d8969650f4b94ab6baa4434732,
         type: 3}
@@ -19356,6 +19361,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4633224904616385405, guid: e715f48f86f96fe4db96d938ff2093f6,
+        type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5567018428341922241, guid: e715f48f86f96fe4db96d938ff2093f6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -27769,6 +27779,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9033228882411689555, guid: 308564947960f5740becf00c178dfccf,
+        type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 308564947960f5740becf00c178dfccf, type: 3}
 --- !u!1 &1430184905
@@ -30016,6 +30031,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 56f6a5d22f94cbf4888f58406099d29c, type: 2}
+    - target: {fileID: 248816829893376705, guid: ebd181a5d64d98f489d002c1f99f784c,
+        type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1092079808195056241, guid: ebd181a5d64d98f489d002c1f99f784c,
         type: 3}
       propertyPath: m_IsActive
@@ -35831,6 +35851,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1100330798}
     m_Modifications:
+    - target: {fileID: 14531304655051514, guid: 403b730778fda7949b51d87672956ba8,
+        type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6347550121490034310, guid: 403b730778fda7949b51d87672956ba8,
         type: 3}
       propertyPath: m_LocalPosition.x
