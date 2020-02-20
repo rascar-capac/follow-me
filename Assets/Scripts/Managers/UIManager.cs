@@ -164,7 +164,6 @@ public class UIManager : Singleton<UIManager>
             ExecuteEvents.Execute(EventSystem.current.currentSelectedGameObject, new BaseEventData(EventSystem.current), ExecuteEvents.submitHandler);
         }
     }
-    public List<Button> MainMenuButtons;
     int CurrentButtonIndex = 0;
     float timer = 0;
     private float timeBetweenInputs = 0.10f; //in seconds
@@ -231,7 +230,6 @@ public class UIManager : Singleton<UIManager>
 
         Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
-        MainMenuButtons[CurrentButtonIndex].Select();
 	}
 	void CloseMenu()
 	{
