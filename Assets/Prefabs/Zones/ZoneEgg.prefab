@@ -123,9 +123,9 @@ MonoBehaviour:
   Ray: {fileID: 0}
   PhaseIndex: 0
   IsActivable: 0
-  ActivatedSound: {fileID: 8300000, guid: 9f5e97a5b70ba5c40892cdda14a7ee62, type: 3}
-  PulsationSpeedThreshold1: 150
-  PulsationSpeedThreshold2: 70
+  ActivatedSound: {fileID: 8300000, guid: 857b654c09db53e49a92d72ecccaa865, type: 3}
+  PulsationSpeedThreshold1: 180
+  PulsationSpeedThreshold2: 100
 --- !u!1001 &1900075645417006773
 PrefabInstance:
   m_ObjectHideFlags: 0

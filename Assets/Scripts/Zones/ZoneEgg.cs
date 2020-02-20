@@ -10,8 +10,8 @@ public class ZoneEgg : Zone
     public bool IsActivable = false;
     public bool IsActivated => Ray.activeSelf;
     public AudioClip ActivatedSound;
-    public float PulsationSpeedThreshold1 = 150;
-    public float PulsationSpeedThreshold2 = 70;
+    public float PulsationSpeedThreshold1 = 180;
+    public float PulsationSpeedThreshold2 = 100;
     Player player;
     Tribe tribe;
     Renderer eggRenderer;

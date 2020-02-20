@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class ZoneLink : Zone
 {
-    public ZoneEgg LinkedZone;
+    public int PhaseIndex;
     public int DayTimeTransitionDuration;
     public int DaysToSkipCount;
     Player player;
-    Tribe tribe;
+    //Tribe tribe;
     AudioSource source;
 
     protected override void Start()
@@ -17,7 +17,7 @@ public class ZoneLink : Zone
         base.Start();
         player = ((GameObject)ObjectsManager.I["Player"]).GetComponent<Player>();
         player.onZoneEnter.AddListener(EnteredZone);
-        tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
+        //tribe = ((GameObject)ObjectsManager.I["Tribe"]).GetComponent<Tribe>();
         source = GetComponent<AudioSource>();
     }
 
@@ -25,11 +25,10 @@ public class ZoneLink : Zone
     {
         if (zone == this)
         {
-            tribe.StopAll();
-            LinkedZone.Ray.gameObject.SetActive(false);
-            tribe.SetMode(TribeEmotionMode.Happy);
-            tribe.StartRotating(LinkedZone.Egg.transform, speedMove: 200f);
-            AmbiantManager.I.SkipDayTimeToPhase(LinkedZone.PhaseIndex, DayTimeTransitionDuration, DaysToSkipCount);
+            //tribe.StopAll();
+            //tribe.SetMode(TribeEmotionMode.Happy);
+            //tribe.StartRotating(LinkedZone.Egg.transform, speedMove: 200f);
+            AmbiantManager.I.SkipDayTimeToPhase(PhaseIndex, DayTimeTransitionDuration, DaysToSkipCount);
             source.PlayOneShot(SoundManager.I.TileactivationClips[Random.Range(0, SoundManager.I.TileactivationClips.Count)]);
             //source.clip = SoundManager.I.TileactivationClips[Random.Range(0, SoundManager.I.TileactivationClips.Count)];
             //source.loop = false;
