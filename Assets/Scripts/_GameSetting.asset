@@ -112,8 +112,8 @@ MonoBehaviour:
     XBox: 1
     Keyboard: 32
   Input_PlayerRun:
-    XBox: 11
-    Keyboard: 308
+    XBox: 0
+    Keyboard: 0
   Input_TribeOrder:
     XBox: 0
     Keyboard: 0
