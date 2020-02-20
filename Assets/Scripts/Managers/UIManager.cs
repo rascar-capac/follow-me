@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class ToolsInventoryEvent : UnityEvent<Hand> { }
 public class UIManager : Singleton<UIManager>
@@ -98,8 +99,9 @@ public class UIManager : Singleton<UIManager>
 		_PlayerLook = _Player.transform.GetChild(0).GetComponent<PlayerLook>();
 
 		InputManager.I.onPauseKeyPressed.AddListener(OpenCloseMainMenu);
-
-		OpenStartMenu();
+        InputManager.I.onBeaconPlaceButtonPressed.AddListener(XPressed);
+        InputManager.I.onMoveInputAxisEvent.AddListener(SelectButton);
+        OpenStartMenu();
 
 		#region Archives
 
@@ -150,9 +152,58 @@ public class UIManager : Singleton<UIManager>
 		#endregion
 	}
 
-	#region Menu Functions
+    #region Menu Functions
+    public void XPressed()
+    {
+        if (StartMenu.activeSelf)
+        {
+            CloseStartMenu();
+        }
+        else if (MainMenu.activeSelf)
+        {
+            ExecuteEvents.Execute(EventSystem.current.currentSelectedGameObject, new BaseEventData(EventSystem.current), ExecuteEvents.submitHandler);
+        }
+    }
+    public List<Button> MainMenuButtons;
+    int CurrentButtonIndex = 0;
+    float timer = 0;
+    private float timeBetweenInputs = 0.10f; //in seconds
 
-	public void OpenCloseMainMenu()
+    private void Update()
+    {
+        if (timer > 0) { timer -= Time.deltaTime; } else { timer = 0; }
+
+    }
+    public void SelectButton(InputAxisUnityEventArg axis)
+    {
+        if (!MainMenu.activeSelf)
+            return;
+        if (axis.YValue == 0)
+            return;
+        Debug.Log(timer);
+        if (timer == 0)
+        {
+
+            AxisEventData currentAxis = new AxisEventData(EventSystem.current);
+            GameObject currentButton = EventSystem.current.currentSelectedGameObject;
+
+            if (axis.YValue > 0) // move up
+            {
+                currentAxis.moveDir = MoveDirection.Up;
+                ExecuteEvents.Execute(currentButton, currentAxis, ExecuteEvents.moveHandler);
+                timer = timeBetweenInputs;
+            }
+            else if (axis.YValue < 0) // move down
+            {
+                currentAxis.moveDir = MoveDirection.Down;
+                ExecuteEvents.Execute(currentButton, currentAxis, ExecuteEvents.moveHandler);
+                timer = timeBetweenInputs;
+            }
+            //timer counting down
+        }
+    }
+
+    public void OpenCloseMainMenu()
 	{
 		if (!MainMenu.activeSelf && !StartMenu.activeSelf)
 		{
@@ -180,6 +231,7 @@ public class UIManager : Singleton<UIManager>
 
         Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
+        MainMenuButtons[CurrentButtonIndex].Select();
 	}
 	void CloseMenu()
 	{
