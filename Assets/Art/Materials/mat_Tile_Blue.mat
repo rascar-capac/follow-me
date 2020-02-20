@@ -86,7 +86,7 @@ Material:
     - _Mesh_EmissiveTexture:
         m_Texture: {fileID: 2800000, guid: 6639e821ad6e33d449cc99087e605455, type: 3}
         m_Scale: {x: 1.2, y: 1.2}
-        m_Offset: {x: -0.12, y: -0.16}
+        m_Offset: {x: -0.07, y: -0}
     - _Mesh_Normal:
         m_Texture: {fileID: 2800000, guid: edd9a3ca1a4be6d499b3bd96799ff65a, type: 3}
         m_Scale: {x: 3, y: 3}
