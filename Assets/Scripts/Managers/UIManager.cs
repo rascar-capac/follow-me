@@ -179,7 +179,6 @@ public class UIManager : Singleton<UIManager>
             return;
         if (axis.YValue == 0)
             return;
-        Debug.Log(timer);
         if (timer == 0)
         {
 
