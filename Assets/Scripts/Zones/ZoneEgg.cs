@@ -45,7 +45,7 @@ public class ZoneEgg : Zone
                 float speed;
                 if(playerDistance > PulsationSpeedThreshold1)
                 {
-                    speed = 1;
+                    speed = 2;
                 }
                 else if(playerDistance > PulsationSpeedThreshold2)
                 {

@@ -20,10 +20,12 @@ public class SoundManager : Singleton<SoundManager>
     public AudioSource AmbiantSource;
     public AudioClip GlobalAmbiance;
     public AudioClip TransitionWind;
+    public AudioClip NewPhase;
 
     public List<AudioClip> StonesClips;
     public List<AudioClip> RaysClips;
     public List<AudioClip> TileactivationClips;
+    public AudioClip PedestalsValidation;
 
     protected override void Start()
     {
@@ -32,6 +34,9 @@ public class SoundManager : Singleton<SoundManager>
         PedestalsSource = ((GameObject)ObjectsManager.I["ZonePedestals"]).GetComponent<AudioSource>();
         PlayerSource = ((GameObject)ObjectsManager.I["Player"]).GetComponent<AudioSource>();
         AmbiantSource = CameraManager.I._MainCamera.GetComponent<AudioSource>();
+        AmbiantManager.I.onTimePhaseChanged.AddListener(PlayNewPhase);
+        Pedestals zonePedestals = ((GameObject) ObjectsManager.I["ZonePedestals"]).GetComponent<Pedestals>();
+        zonePedestals.onGameFinished.AddListener(PlayValidation);
         StartCoroutine(PlayWalkSound());
 
     }
@@ -140,5 +145,15 @@ public class SoundManager : Singleton<SoundManager>
     public void PlayTransitionWind()
     {
         AmbiantSource.PlayOneShot(TransitionWind);
+    }
+
+    public void PlayNewPhase(int phaseIndex)
+    {
+        AmbiantSource.PlayOneShot(NewPhase);
+    }
+
+    public void PlayValidation()
+    {
+        AmbiantSource.PlayOneShot(PedestalsValidation);
     }
 }
