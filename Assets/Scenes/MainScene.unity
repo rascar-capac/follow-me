@@ -17,7 +17,7 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 0.3865206, g: 0.12737894, b: 0.30959108, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.002
+  m_FogDensity: 0.003
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1676529212}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18499555, g: 0.09939695, b: 0.256966, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -28620,7 +28620,7 @@ Light:
   serializedVersion: 9
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.1
+  m_Intensity: 0.25
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -33781,6 +33781,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 3329265523824288766, guid: ea6a8994ebf2805448e0799269a0b26b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.8
+      objectReference: {fileID: 0}
     - target: {fileID: 4602024912046048491, guid: ea6a8994ebf2805448e0799269a0b26b,
         type: 3}
       propertyPath: m_Layer
@@ -34593,19 +34598,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 10897626, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: NaN
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 10897626, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 1.3143695e+34
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 10897626, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 4.5904e-41
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 10897626, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 0
+      value: 4e-45
       objectReference: {fileID: 0}
     - target: {fileID: 12351590, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_Brightness
@@ -43263,13 +43268,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7d51f72c95ff7164ebdcce7be7ed7997, type: 3}
   AmbiantSource: {fileID: 0}
   GlobalAmbiance: {fileID: 8300000, guid: c3a1c8dec52da6c4aba6af0e3887e66b, type: 3}
-  TransitionWind: {fileID: 8300000, guid: b6eeecb16288e0649acd592d880f0f82, type: 3}
+  TransitionWind: {fileID: 8300000, guid: f30b6128fd7057345a787b829e8199f5, type: 3}
+  NewPhase: {fileID: 8300000, guid: bf21ab001d1cc434c9f96d2bfbce8038, type: 3}
   StonesClips:
   - {fileID: 8300000, guid: 857b654c09db53e49a92d72ecccaa865, type: 3}
   RaysClips:
   - {fileID: 8300000, guid: c887a1a32bda3fb49b68d7079dca04ad, type: 3}
   TileactivationClips:
-  - {fileID: 8300000, guid: 5ae8f2bf6d6e81440a49d485c271b501, type: 3}
+  - {fileID: 8300000, guid: 821be24a3e9352842af68b3fd74835e9, type: 3}
+  PedestalsValidation: {fileID: 8300000, guid: c65b117eabb217848a99d0a8be672abd, type: 3}
   IsWalking: 0
 --- !u!4 &5006512735454457983 stripped
 Transform:
