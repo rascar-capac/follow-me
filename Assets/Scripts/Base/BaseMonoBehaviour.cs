@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Data.SQLite;
 using UnityEngine.Events;
 
 public class BaseMonoBehaviour : MonoBehaviour
@@ -33,7 +32,7 @@ public class BaseMonoBehaviour : MonoBehaviour
 
             return null;
         }
-        set 
+        set
         {
             if (this[name] == null)
                 _properties.Add(name, value);
@@ -58,7 +57,7 @@ public class BaseMonoBehaviour : MonoBehaviour
     }
     IEnumerator Chronoing(float seconds, Action callback, Action<float, float> FrameCallback = null)
     {
-        float lasttime = 0.0f; 
+        float lasttime = 0.0f;
         while (true)
         {
             if (!GamePaused)
