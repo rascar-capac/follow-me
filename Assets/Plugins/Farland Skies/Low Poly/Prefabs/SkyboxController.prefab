@@ -128,8 +128,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 194654}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 1
+  m_Shape: 0
   m_Color: {r: 0.007843138, g: 0.3019608, b: 0.54509807, a: 1}
   m_Intensity: 0
   m_Range: 10
@@ -236,8 +237,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 195402}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 1
+  m_Shape: 0
   m_Color: {r: 0.7656865, g: 0.8057646, b: 0.752588, a: 1}
   m_Intensity: 1
   m_Range: 10
@@ -344,8 +346,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6416257482053267061}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 1
+  m_Shape: 0
   m_Color: {r: 0.007843138, g: 0.3019608, b: 0.54509807, a: 1}
   m_Intensity: 0
   m_Range: 10
