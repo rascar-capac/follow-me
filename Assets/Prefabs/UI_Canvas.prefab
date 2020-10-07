@@ -172,7 +172,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2103666910}
+      - m_Target: {fileID: 0}
         m_MethodName: RestartGame
         m_Mode: 1
         m_Arguments:
@@ -1880,7 +1880,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2103666910}
+      - m_Target: {fileID: 0}
         m_MethodName: QuitApplication
         m_Mode: 1
         m_Arguments:
@@ -2347,7 +2347,6 @@ GameObject:
   - component: {fileID: 4587518545162013133}
   - component: {fileID: 4587518545162013132}
   - component: {fileID: 4587518545162013135}
-  - component: {fileID: 2103666910}
   m_Layer: 5
   m_Name: UI_Canvas
   m_TagString: Untagged
@@ -2439,23 +2438,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 823
---- !u!114 &2103666910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4587518545162013134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ce5fb452f10c2043afe2fc82346e894, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HudPanel: {fileID: 6918344318344554311}
-  MainMenu: {fileID: 6766911476136173799}
-  _VolumeSlider: {fileID: 2938950520184426275}
-  StartMenu: {fileID: 6344758236161226030}
-  CreditPanel: {fileID: 8248353565415683777}
 --- !u!1 &4587518546079506915
 GameObject:
   m_ObjectHideFlags: 0
@@ -6017,7 +5999,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2103666910}
+      - m_Target: {fileID: 0}
         m_MethodName: CloseStartMenu
         m_Mode: 1
         m_Arguments:
@@ -6147,7 +6129,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2103666910}
+      - m_Target: {fileID: 0}
         m_MethodName: OpenCloseMainMenu
         m_Mode: 1
         m_Arguments:

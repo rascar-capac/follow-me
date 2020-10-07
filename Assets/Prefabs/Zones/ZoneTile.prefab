@@ -96,33 +96,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5435838734960885838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2929058992410578104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 625b7ba844cb8724b8b22c34db55cf4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Music: {fileID: 0}
-  Ressources: 
-  LooseEnergySpeed: 0
-  GainEnergySpeed: 0
-  Layers:
-    serializedVersion: 2
-    m_Bits: 512
-  _coaster: {fileID: 0}
-  _spawnPositionItem: {fileID: 0}
-  _itemOnCoaster: 0
-  Dialogs: []
-  PhaseIndex: 0
-  DayTimeTransitionDuration: 10
-  DaysToSkipCount: 1
-  Tile: {fileID: 0}
 --- !u!1001 &7951439269237617172
 PrefabInstance:
   m_ObjectHideFlags: 0

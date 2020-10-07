@@ -40,7 +40,6 @@ GameObject:
   m_Component:
   - component: {fileID: 761874580120975357}
   - component: {fileID: 1202357022856976546}
-  - component: {fileID: 8640311679168677487}
   m_Layer: 11
   m_Name: Zone
   m_TagString: Untagged
@@ -77,25 +76,3 @@ CapsuleCollider:
   m_Height: 1000
   m_Direction: 1
   m_Center: {x: 0, y: 300, z: 0}
---- !u!114 &8640311679168677487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5115865157762039468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10c9055d667c59045b0ffea434196609, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Ressources: 
-  LooseEnergySpeed: 0
-  GainEnergySpeed: 0
-  Layers:
-    serializedVersion: 2
-    m_Bits: 512
-  _coaster: {fileID: 0}
-  _spawnPositionItem: {fileID: 4012719181835637765}
-  _itemOnCoaster: 0
-  Dialogs: []

@@ -96,37 +96,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-8872264109839437841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6674713953576654873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fee769b3431856439a3e6a3ad90fd72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Music: {fileID: 0}
-  Ressources: 
-  LooseEnergySpeed: 0
-  GainEnergySpeed: 0
-  Layers:
-    serializedVersion: 2
-    m_Bits: 512
-  _coaster: {fileID: 0}
-  _spawnPositionItem: {fileID: 0}
-  _itemOnCoaster: 0
-  Dialogs: []
-  Egg: {fileID: 0}
-  PedestalStone: {fileID: 0}
-  Ray: {fileID: 0}
-  PhaseIndex: 0
-  IsActivable: 0
-  ActivatedSound: {fileID: 8300000, guid: 857b654c09db53e49a92d72ecccaa865, type: 3}
-  PulsationSpeedThreshold1: 180
-  PulsationSpeedThreshold2: 100
 --- !u!1001 &1900075645417006773
 PrefabInstance:
   m_ObjectHideFlags: 0
